@@ -8,9 +8,6 @@ const resolve = webpackUtils.resolve;
 const AppName = 'HarcMap';
 const AppVersion = webpackUtils.getAppVersionFromPackageJSON();
 
-webpackUtils.removeOldBundleFiles('public/*app.*.js');
-webpackUtils.removeOldBundleFiles('public/*app.js');
-
 module.exports = {
   mode: 'development',
   entry: 'src/index.js',
@@ -23,20 +20,7 @@ module.exports = {
     // filename in dev and prod configs
     path: resolve('public'),
     publicPath: '/',
-  },
-  devServer: {
-    historyApiFallback: {
-      rewrites: [
-        {
-          from: /.*/,
-          to: '/index.html',
-        },
-      ],
-    },
-    contentBase: resolve('public'),
-    compress: true,
-    port: 8000,
-    https: true,
+    clean: true,
   },
   module: {
     rules: webpackRules,
@@ -49,6 +33,7 @@ module.exports = {
       map: resolve('src/map'),
       store: resolve('src/store'),
       utils: resolve('src/utils'),
+      assets: resolve('src/assets'),
       vendors: resolve('vendors'),
 
       atoms: resolve('src/components/atoms'),
@@ -67,8 +52,9 @@ module.exports = {
       template: resolve('src/index.html'),
     }),
     new webpack.DefinePlugin({
-      APP_NAME: JSON.stringify(AppName),
-      VERSION: JSON.stringify(AppVersion),
+      'APP_NAME': JSON.stringify(AppName),
+      'VERSION': JSON.stringify(AppVersion),
+      'process.env.BASE_URL': JSON.stringify(process.env.BASE_URL),
     }),
   ],
 };
