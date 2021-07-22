@@ -1,0 +1,3 @@
+// Mobile browsers calculate viewport height in wrong way - this is correction for it.
+@function correctMobileVH($value)
+  @return calc(var(--vh, 1vh) * #{$value})
