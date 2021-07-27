@@ -2,6 +2,7 @@ import { makeRequest, request } from 'utils/request';
 import { AppEvent } from 'src/structures/app-event';
 import { API_ERRORS } from 'utils/macros/errors';
 import { MapPoint } from 'src/structures/map-point';
+import { httpService } from 'src/config/http-service';
 
 export const eventController = {
   getEventById ({ eventId }) {
@@ -34,11 +35,18 @@ export const eventController = {
     });
   },
   collectPoint ({ user, eventId, pointId }) {
-    return makeRequest({
-      method: request.put,
+    return httpService.put({
       url: '/event/point/collect',
-      data: { user, eventId, pointId },
-      ...API_ERRORS.collectPoint,
+      body: {
+        user,
+        eventId,
+        pointId,
+      },
+      responseConfig: {
+        errorConfig: {
+          ...API_ERRORS.collectPoint,
+        },
+      },
     });
   },
   removePoint ({ eventId, pointId }) {
@@ -61,14 +69,17 @@ export const eventController = {
     });
   },
   editPoint ({ point, eventId }) {
-    return makeRequest({
-      method: request.put,
+    return httpService.put({
       url: '/event/point',
-      data: {
+      body: {
         point,
         eventId,
       },
-      ...API_ERRORS.editPoint,
+      responseConfig: {
+        errorConfig: {
+          ...API_ERRORS.editPoint,
+        },
+      },
     });
   },
   updateEvent ({
