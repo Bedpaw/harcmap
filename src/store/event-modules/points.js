@@ -22,7 +22,6 @@ export default {
     },
     pointValueByPointCategory: (state, getters, rootState, rootGetters) => pointCategory => {
       const category = rootGetters['event/getCategoryById'](pointCategory);
-      console.log(category);
       return (category || {}).pointValue;
     },
     getPointByOlUid: state => pointOlUid => {
