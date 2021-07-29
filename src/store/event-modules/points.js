@@ -22,6 +22,7 @@ export default {
     },
     pointValueByPointCategory: (state, getters, rootState, rootGetters) => pointCategory => {
       const category = rootGetters['event/getCategoryById'](pointCategory);
+      console.log(category);
       return (category || {}).pointValue;
     },
     getPointByOlUid: state => pointOlUid => {
@@ -69,7 +70,7 @@ export default {
   actions: {
     removePoint (context, pointId) {
       return new Promise((resolve, reject) => {
-        api.removePoint({ pointId, eventId: context.getters['event/eventId'] })
+        api.removePoint({ pointId, eventId: context.getters.eventId })
           .then(() => map.updateMapFeatures())
           .then(() => resolve())
           .catch(reject);
