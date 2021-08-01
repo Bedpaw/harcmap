@@ -1,0 +1,40 @@
+{
+	"name": "harcmap_server",
+	"version": "2.0.0",
+	"author": {
+		"name": "HarcMap Team",
+		"email": "contact@harcmap.pl",
+		"url": "https://harcmap.pl"
+	},
+	"engines": {
+		"node": ">=14"
+	},
+	"scripts": {
+		"start": "node -r dotenv/config server.js",
+		"watch": "nodemon --exec npm start",
+		"unit-tests": "jest",
+		"unit-tests:watch": "jest --watch",
+		"mongo": "docker run --name boilerplate-expressjs-mongo --rm -p 27017:27017 -v `pwd`/.db:/data/db -v `pwd`/bin/mongodb:/docker-entrypoint-initdb.d mongo",
+		"mongo:clean": "rm -R ./.db",
+		"_mongo:dummy": "echo 'todo'"
+	},
+	"dependencies": {
+		"dotenv": "^8.2.0",
+		"express": "^5.0.0-alpha.8",
+		"express-session": "^1.17.2",
+		"joi": "^17.4.0",
+		"mongodb": "^3.6.6",
+		"passport": "^0.4.1",
+		"passport-local": "^1.0.0",
+		"sha3": "^2.1.4"
+	},
+	"devDependencies": {
+		"eslint": "^7.26.0",
+		"eslint-plugin-import": "^2.23.0",
+		"eslint-plugin-jest": "^24.4.0",
+		"eslint-plugin-vue": "^7.15.0",
+		"jest": "^27.0.6",
+		"nodemon": "^2.0.7",
+		"supertest": "^6.1.4"
+	}
+}
