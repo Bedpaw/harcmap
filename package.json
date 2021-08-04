@@ -8,11 +8,12 @@
     "build:dev:watch": "cd client && npm run build:dev:watch",
     "build:prod":  "cd client && npm run build:prod",
     "build:prod:watch":  "cd client && npm run build:prod:watch",
-    "server:start": "cd server && npm run start",
-    "server:watch": "cd server && npm run watch",
-    "server:unit-tests": "cd server && npm run unit-tests",
-    "mongo": "cd server && npm run mongo",
-    "mongo:clean": "cd server && npm run mongo:clean"
+    "run:dev": "NODE_ENV=development node app.js",
+    "run:prod": "NODE_ENV=production node app.js",
+    "run:pm2": "pm2 start app.js",
+    "run:mongodb": "docker run --name harcmap_mongo --rm -p 27017:27017 -v `pwd`/config/mongodb:/docker-entrypoint-initdb.d mongo",
+    "fill-database": "NODE_ENV=development node bin/prepareEvent.js",
+    "tests:restapi": "jest --config=jest-node.config.js --testPathPattern=restapi"
   },
   "repository": {
     "type": "git",
@@ -27,5 +28,25 @@
   "engines": {
     "node": ">=12.9.0",
     "npm": ">=6.0.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "child_process": "^1.0.2",
+    "connect-mongo": "^3.2.0",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "mongodb": "^3.5.3",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "pm2": "^4.5.1",
+    "sha3": "^2.1.1",
+    "swagger-jsdoc": "^4.0.0",
+    "swagger-ui-express": "^4.1.4"
+  },
+  "devDependencies": {
+    "jest": "^25.2.7",
+    "json2csv": "^5.0.6",
+    "nodemailer": "^6.4.6"
   }
 }
