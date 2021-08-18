@@ -89,6 +89,7 @@ export default {
         isUnlimited ? ROUTES.newPoint : undefined,
         ROUTES.map,
         isCommon ? ROUTES.about : undefined,
+        ROUTES.eventsList,
       ];
       return links.filter(route => uCheck.isUndefined(route) === false);
     },

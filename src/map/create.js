@@ -20,6 +20,7 @@ export function createMap (map, config) {
 
   if (!elementId) {
     const errorMessage = new ErrorMessage(ERRORS.elementIdIsRequiredForMap);
+    // TODO Translation
     errorMessage.showMessage('Mapa przestała działać. Proszę zgłosić usterkę do administratora.');
   }
 

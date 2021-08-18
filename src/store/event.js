@@ -135,6 +135,13 @@ export default {
           .catch(reject);
       });
     },
+    addEvent (context, event) {
+      return new Promise((resolve, reject) => {
+        api.addEvent(event)
+          .then(() => resolve())
+          .catch(reject);
+      });
+    },
     ...Modules.actions,
   },
 };

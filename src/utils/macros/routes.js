@@ -189,6 +189,18 @@ export const ROUTES = {
       adminOnly: true,
     },
   },
+  newEvent: {
+    path: '/new-event',
+    name: 'newEvent',
+    label: translator.t('title.newEvent'),
+    shortLabel: translator.t('title.short.newEvent'),
+    icon: ICONS.event,
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+      adminOnly: false,
+    },
+  },
   editEvent: {
     path: '/edit-event',
     name: 'editEvent',
@@ -250,6 +262,17 @@ export const ROUTES = {
       onlyBeforeLogin: false,
       requiredAuth: true,
       adminOnly: true,
+    },
+  },
+  eventsList: {
+    path: '/events-list',
+    name: 'eventsList',
+    label: translator.t('title.eventsList'),
+    shortLabel: translator.t('title.short.eventsList'),
+    icon: ICONS.list,
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
     },
   },
 };

@@ -126,4 +126,33 @@ export const eventController = {
       },
     });
   },
+  addEvent ({
+    eventId,
+    eventName,
+    mapLongitude,
+    mapLatitude,
+    mapZoom,
+    mapRefreshTime,
+    eventStartDate,
+    eventEndDate,
+  }) {
+    return httpService.post({
+      url: '/event',
+      body: {
+        eventId,
+        eventName,
+        eventStartDate,
+        eventEndDate,
+        mapLongitude,
+        mapLatitude,
+        mapZoom,
+        mapRefreshTime,
+      },
+      responseConfig: {
+        errorConfig: {
+          ...API_ERRORS.addEvent,
+        },
+      },
+    });
+  },
 };

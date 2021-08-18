@@ -64,6 +64,19 @@ const EVENT_API_ERRORS = {
       ],
     ],
   },
+  addEvent: {
+    defaultError: T.event('addEvent'),
+    errors: [
+      [
+        [validateCodes.EVENT_END_DATE_IS_EMPTY],
+        T.event('eventEndDateIsEmpty'),
+      ],
+      [
+        [validateCodes.EVENT_START_DATE_IS_EMPTY],
+        T.event('eventStartDateIsEmpty'),
+      ],
+    ],
+  },
 };
 const POINT_API_ERRORS = {
   collectPoint: {

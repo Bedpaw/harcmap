@@ -24,6 +24,8 @@ export const routes = [
   [ROUTES.editPoint, () => import('pages/admin/edit-point.vue')],
   [ROUTES.scoreboard, () => import('pages/admin/scoreboard.vue')],
   [ROUTES.searchPoint, () => import('pages/admin/search-point.vue')],
+  [ROUTES.newEvent, () => import('pages/add-event.vue')],
+  [ROUTES.eventsList, () => import('pages/events-list.vue')],
 ]
   .map(([route, component]) => ({
     ...getDataForRouter(route),
