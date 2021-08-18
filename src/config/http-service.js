@@ -26,16 +26,19 @@ export const httpService = HttpService.getInstance({
   },
   defaultSuccessCallback: (data) => data,
   defaultErrorCallback: (error, defaultOptions, customOptions) => {
-    const { defaultError, errors } = { ...defaultOptions, ...customOptions };
+    const { defaultError, errors } = customOptions;
     let errorMessage = defaultError;
-    for (const [codes, message] of errors) {
-      for (const singleCode of codes) {
-        if (error === singleCode) {
-          errorMessage = message;
-          break;
+    if (errors) {
+      for (const [codes, message] of errors) {
+        for (const singleCode of codes) {
+          if (error === singleCode) {
+            errorMessage = message;
+            break;
+          }
         }
       }
     }
+
     if (error === validateCodes.UNAUTHORIZED_ACCESS) {
       store.commit('user/signOut');
       router.push(ROUTES.welcome.path);
