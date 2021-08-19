@@ -1,5 +1,22 @@
 require('dotenv').config();
 
+// mock server package.json
+jest.mock('../../package.json', () => ({
+	version: '1.2.3',
+}), { virtual: true });
+
+// mock main app package.json
+jest.mock('../../../package.json', () => ({
+	version: '2.3.4',
+	author: 'harcmapTeam',
+	name: 'harcmap',
+}), { virtual: true });
+
+// mock client package.json
+jest.mock('../../../client/package.json', () => ({
+	version: '3.4.5',
+}), { virtual: true });
+
 const request = require('supertest');
 const app = require('../../app');
 
@@ -9,8 +26,11 @@ describe('/about', () => {
 		const expectedContentType = 'application/json; charset=utf-8';
 		const expectedHttpStatus = 200;
 		const expectedBody = {
-			name: 'boilerplate-expressjs',
-			author: 'Paweł Jurkiewicz (https://gitlab.com/henouser)',
+			appName: 'harcmap',
+			author: 'harcmapTeam',
+			version: '2.3.4',
+			appClientVersion: '3.4.5',
+			appServerVersion: '1.2.3',
 		};
 
 		// when

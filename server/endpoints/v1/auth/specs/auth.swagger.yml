@@ -1,0 +1,16 @@
+paths:
+  /auth/sign-up:
+    post:
+      summary: User registration endpoint
+      tags:
+        - Auth
+  /auth/sign-in:
+    post:
+      summary: Login endpoint
+      tags:
+        - Auth
+  /auth/sign-out:
+    post:
+      summary: Logout endpoint
+      tags:
+        - Auth

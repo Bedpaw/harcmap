@@ -1,3 +1,7 @@
+/**
+ *  Module responsible for handling errors from express 
+ *  router and return all necessary data about error.
+ */
 const AppError = require('./app-error');
 const errorCodes = require('./codes');
 const logger = require('../logger');

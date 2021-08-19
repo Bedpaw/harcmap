@@ -1,0 +1,37 @@
+paths:
+  /about:
+    get:
+      summary: Get general information about app, project
+      tags:
+        - About
+      responses:
+        200:
+          description: 'Return information'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  appName:
+                    type: string
+                    nullable: false
+                    description: 'App name'
+                  author:
+                    description: 'App author'
+                    type: string
+                    nullable: false
+                  version:
+                    description: 'App version'
+                    type: string
+                    nullable: false
+                    example: '1.2.3'
+                  appClientVersion:
+                    description: 'Frontend service version'
+                    type: string
+                    nullable: false
+                    example: '1.2.3'
+                  appServerVersion:
+                    description: 'Backend service version'
+                    type: string
+                    nullable: false
+                    example: '1.2.3'

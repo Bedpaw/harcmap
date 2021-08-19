@@ -1,9 +1,16 @@
+/**
+ * Module with constructor of app main override error class.
+ * Customized error help with pass additional information
+ * about error. 
+ * Help too in use error codes
+ */
 const codes = require('./codes');
 
 function getKeyByValue(object, value) {
 	return Object.keys(object).find((key) => object[key] === value);
 }
 
+// This function get name of error from error codes list
 function getCodeName(code) {
 	const codeKey = getKeyByValue(codes, code);
 	return codeKey.toLowerCase().replace(/_/g, ' ');

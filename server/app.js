@@ -1,6 +1,9 @@
 const express = require('express');
 const passport = require('passport');
 const expressSession = require('express-session');
+const swaggerUi = require('swagger-ui-express');
+const specs = require('./swagger.config');
+
 const { handleErrors } = require('./libs/errors');
 const { validateRequests } = require('./libs/validation');
 const { createSecuredEndpoints, endpointsAccessConfig } = require('./libs/permissions');
@@ -11,6 +14,7 @@ const {
 	COOKIE_MAX_AGE,
 	SESSION_COOKIE_NAME,
 	COOKIE_SECURE,
+	SWAGGER_DOC,
 } = process.env;
 const cookieMaxAge = parseInt(COOKIE_MAX_AGE, 10);
 const cookieSecure = COOKIE_SECURE !== 'false';
@@ -58,6 +62,10 @@ app.use('/api/v1', apiv1);
 
 // common endpoints
 app.use('/about', about);
+
+if (SWAGGER_DOC === 'true') {
+	app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+}
 
 // catch error
 app.use(handleErrors);
