@@ -4,7 +4,7 @@ const Joi = require('joi');
 const GET = Joi.object({});
 
 const schema = {
-	GET,
+  GET,
 };
 
 module.exports = schema;

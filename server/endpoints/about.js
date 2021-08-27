@@ -11,16 +11,16 @@ addEndpointValidation('/about', requestSchema);
 
 // Information about application
 router.route('/')
-	.get((req, res) => {
-		const informationAboutApp = {
-			appName: mainpj.name,
-			author: mainpj.author,
-			version: mainpj.version,
-			appClientVersion: clientpj.version,
-			appServerVersion: serverpj.version,
-		};
-		
-		res.send(informationAboutApp);
-	});
+  .get((req, res) => {
+    const informationAboutApp = {
+      appName: mainpj.name,
+      author: mainpj.author,
+      version: mainpj.version,
+      appClientVersion: clientpj.version,
+      appServerVersion: serverpj.version,
+    };
+
+    res.send(informationAboutApp);
+  });
 
 module.exports = router;

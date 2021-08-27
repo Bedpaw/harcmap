@@ -10,11 +10,11 @@ const { createSecuredEndpoints, endpointsAccessConfig } = require('./libs/permis
 const { setStrategy, serializeUser, deserializeUser } = require('./libs/passport-configs');
 
 const {
-	SESSION_SECRET,
-	COOKIE_MAX_AGE,
-	SESSION_COOKIE_NAME,
-	COOKIE_SECURE,
-	SWAGGER_DOC,
+  SESSION_SECRET,
+  COOKIE_MAX_AGE,
+  SESSION_COOKIE_NAME,
+  COOKIE_SECURE,
+  SWAGGER_DOC,
 } = process.env;
 const cookieMaxAge = parseInt(COOKIE_MAX_AGE, 10);
 const cookieSecure = COOKIE_SECURE !== 'false';
@@ -35,16 +35,16 @@ app.use(express.json());
 // Requests body, get validation
 validateRequests(app);
 app.use(expressSession({
-	name: SESSION_COOKIE_NAME,
-	secret: SESSION_SECRET,
-	cookie: {
-		maxAge: cookieMaxAge,
-		secure: cookieSecure,
-		httpOnly: true,
-		sameSite: true,
-	},
-	resave: false,
-	saveUninitialized: false,
+  name: SESSION_COOKIE_NAME,
+  secret: SESSION_SECRET,
+  cookie: {
+    maxAge: cookieMaxAge,
+    secure: cookieSecure,
+    httpOnly: true,
+    sameSite: true,
+  },
+  resave: false,
+  saveUninitialized: false,
 }));
 // Passport
 passport.serializeUser(serializeUser);
@@ -64,7 +64,7 @@ app.use('/api/v1', apiv1);
 app.use('/about', about);
 
 if (SWAGGER_DOC === 'true') {
-	app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 }
 
 // catch error

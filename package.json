@@ -11,6 +11,7 @@
     "server:start": "cd server && npm run start",
     "server:watch": "cd server && npm run watch",
     "server:unit-tests": "cd server && npm run unit-tests",
+    "server:unit-tests:watch": "cd server && npm run unit-tests:watch",
     "mongo": "cd server && npm run mongo",
     "mongo:clean": "cd server && npm run mongo:clean"
   },
@@ -27,5 +28,17 @@
   "engines": {
     "node": ">=12.9.0",
     "npm": ">=6.0.0"
+  },
+  "devDependencies" : {
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-loader": "^3.0.3",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-vue": "^6.2.2",
+    "eslint-plugin-jest": "^24.4.0"
   }
 }
