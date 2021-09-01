@@ -1,10 +1,11 @@
 const swaggerJsdoc = require('swagger-jsdoc');
-const { name, version, description, author } = require('../package.json');
+const { name, version, description, author } = require('./package.json');
 
 const options = {
   // List of files to be processed
   apis: [
     './endpoints/**/*.swagger.yml',
+    './specs/**/*.swagger.yml',
   ],
   definition: {
     openapi: '3.0.0',

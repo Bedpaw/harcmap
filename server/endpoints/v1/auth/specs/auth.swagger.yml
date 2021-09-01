@@ -1,7 +1,7 @@
 paths:
   /auth/sign-up:
     post:
-      summary: User registration endpoint
+      summary: 'User registration endpoint'
       tags:
         - Auth
       requestBody:
@@ -11,24 +11,15 @@ paths:
               type: object
               properties:
                 username:
-                  type: string
-                  minLength: 3
-                  maxLength: 24
-                  required: true
-                  description: User nick/name
+                  $ref: '#/components/props/username'
                 email:
-                  type: string
-                  format: email
-                  maxLength: 24                  
-                  required: true
-                  description: User email. Used also as login
+                  $ref: '#/components/props/email'
                 password:
-                  type: string
-                  format: password
-                  minLength: 8
-                  maxLength: 24
-                  required: true
-                  description: User password
+                  $ref: '#/components/props/password'
+              required:
+                - username
+                - email
+                - password
       responses:
         200:
           description: 'User data'
@@ -38,36 +29,24 @@ paths:
                 type: object
                 properties:
                   username:
-                    type: string
-                    nullable: false
+                    $ref: '#/components/props/username'
                   email:
-                    type: string
-                    format: email
-                    nullable: false
+                    $ref: '#/components/props/email'
                   role:
-                    description: "User permission lvl"
-                    type: string
-                    nullable: false  
+                    $ref: '#/components/props/role'
+                required:
+                  - username
+                  - email
+                  - role    
         400:
           description: 'Validation error'
           content:
             application/json:
-              schama:
-                type: object
-                properties:
-                  error:
-                    description: Error code name
-                    type: number
-                    length: 4
-                  message:
-                    description: Error text name
-                    type: string
-                  errorDetails:
-                    description: Validation details
-                    type: object
+              schema:
+                $ref: '#/components/responses/400'   
   /auth/sign-in:
     post:
-      summary: Login endpoint
+      summary: 'Login endpoint'
       tags:
         - Auth
       requestBody:
@@ -77,18 +56,12 @@ paths:
               type: object 
               properties:
                 username:
-                  type: string
-                  minLength: 3
-                  maxLength: 24
-                  required: true
-                  description: User nick/name
+                  $ref: '#/components/props/username'
                 password:
-                  type: string
-                  format: password
-                  minLength: 8
-                  maxLength: 24
-                  required: true
-                  description: User password
+                  $ref: '#/components/props/password'
+              required:
+                - username
+                - password    
       responses:
         200:
           description: 'User data'
@@ -98,33 +71,27 @@ paths:
                 type: object
                 properties:
                   username:
-                    type: string
-                    nullable: false
+                    $ref: '#/components/props/username'
                   email:
-                    type: string
-                    format: email
-                    nullable: false
+                    $ref: '#/components/props/email'
                   role:
-                    description: "User permission lvl"
-                    type: string
-                    nullable: false
+                    $ref: '#/components/props/role'
+                required:
+                  - username
+                  - email
+                  - role    
         400:
           description: 'Validation error'
           content:
             application/json:
-              schama:
-                type: object
-                properties:
-                  error:
-                    description: Error code name
-                    type: number
-                    length: 4
-                  message:
-                    description: Error text name
-                    type: string
-                  errorDetails:
-                    description: Validation details
-                    type: object    
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
   /auth/sign-out:
     post:
       summary: Logout endpoint
@@ -139,36 +106,18 @@ paths:
                 type: object
                 properties:
                   success:
-                    type: boolean
-                    nullable: false
+                    $ref: '#/components/props/success'
+                  required:
+                    - success
         400:
           description: 'Validation error'
           content:
             application/json:
-              schama:
-                type: object
-                properties:
-                  error:
-                    description: Error code name
-                    type: number
-                    length: 4
-                  message:
-                    description: Error text name
-                    type: string
-                  errorDetails:
-                    description: Validation details
-                    type: object  
+              schema:
+                $ref: '#/components/responses/400'
         401:
-          description: 'Cannot logout unauthorized user'
+          description: 'No permissions'
           content:
             application/json:
-              schama:
-                type: object
-                properties:
-                  error:
-                    description: Error code name
-                    type: number
-                    length: 4
-                  message:
-                    description: Error text name
-                    type: string         
+              schema:
+                $ref: '#/components/responses/401' 

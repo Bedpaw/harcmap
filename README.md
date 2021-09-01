@@ -34,6 +34,9 @@
 ## Development
 
 ### Devel environment
+1. Go to main dir with all dirs.
+2. Install common packages: `npm i`
+3. Go to one of projects:
 
 #### Client
 1. Go to client dir `cd client`
@@ -42,15 +45,12 @@
 4. Build client files destination is in `public/`
    
 #### Server
-1. Go to main project dir
-2. Run the local database ([read more](#local-database))
-3. Fill the database ([read more](#adding-rtl-gdynia-points-to-database))
-4. Install server packages: `npm i`
-5. Run the local server: `npm run run:dev`
-6. App is ready on https://localhost:3030/
-7. If you get into https://localhost:3030/sign-in, the application log you in automatically on 
-   the demo account (to edit demo user's data go to `config/mongodb/local.js`).
-
+1. Go to server dir `cd client`
+2. Install server packages: `npm i`
+3. Copy `server/.env.local` file to new file `server/.env`   
+4. Run database and server(watch mode): `npm run server:start-with-mongo`
+5. App is ready on http://localhost:3030/
+6. Api documentation on http://localhost:3030/api-docs
 
 ### Production environment
 
@@ -61,10 +61,8 @@
 4. Build client files destination is in `public/`
 
 #### Server
-1. Go to main project dir
-2. Install packages: `npm i`
-3. Run server: `npm run run:prod`
-4. Server is ready!
+Production environment have own configuration on production server.
+It only differs with env variables defined in `.env` file
 
 ### Development kit
 
@@ -101,14 +99,6 @@ All initialized data are setting from `/config/mongodb/local.js` script!
 3. That's all!
 
 `fill-database` script, add only example "RTL Gdynia" data to database!
-
-
-## Swagger documentation
-Swagger documentation is easy to see. You just have to:
-1. Run app in DEVELOPMENT env `npm run run:dev`.
-2. Go to url: https://localhost:3030/api-docs
-
-View of swagger documentation are group by main endpoint categories like: User, Point, Event(part of them are still todo).
 
 
 ## Version release

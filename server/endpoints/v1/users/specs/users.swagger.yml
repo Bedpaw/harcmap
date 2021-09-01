@@ -1,0 +1,201 @@
+paths:
+  /users:
+    get:
+      summary: 'Get list of users (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Users
+      responses:
+        200:
+          description: 'Return list of users'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    username:
+                      $ref: '#/components/props/username'
+                    email:
+                      $ref: '#/components/props/email'
+                    role:
+                      $ref: '#/components/props/role'
+                  required:
+                    - username
+                    - email
+                    - role
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'                  
+    post:
+      summary: 'Add user (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  $ref: '#/components/props/username'
+                email:
+                  $ref: '#/components/props/email'
+                password:
+                  $ref: '#/components/props/password'
+                role:
+                  $ref: '#/components/props/role'
+              required:
+                - username
+                - email
+                - password    
+                - role    
+      responses:
+        200:
+          description: 'User data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    $ref: '#/components/props/username'
+                  email:
+                    $ref: '#/components/props/email'
+                  role:
+                    $ref: '#/components/props/role'
+                required:
+                  - username
+                  - email
+                  - password    
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+  /users/:id:
+    get:
+      summary: 'Get user with :id (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Users
+      responses:
+        200:
+          description: 'User data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    $ref: '#/components/props/username'
+                  email:
+                    $ref: '#/components/props/email'
+                  role:
+                    $ref: '#/components/props/role'
+                required:
+                  - username
+                  - email
+                  - password
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+    put:
+      summary: 'Update user with :id (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  $ref: '#/components/props/username'
+                email:
+                  $ref: '#/components/props/email'
+                password:
+                  $ref: '#/components/props/password'
+                role:
+                  $ref: '#/components/props/role'
+      responses:
+        200:
+          description: 'Result of operation'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    $ref: '#/components/props/success'
+                required:
+                  - success
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+    delete: 
+      summary: 'Delete user with :id (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Users
+      responses:
+        200:
+          description: 'Result of operation'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    $ref: '#/components/props/success'
+                required:
+                  - success
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'   

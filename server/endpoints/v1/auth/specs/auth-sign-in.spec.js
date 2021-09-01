@@ -1,17 +1,16 @@
 require('dotenv').config();
 
 const request = require('supertest');
+const mongodb = require('../../../../libs/__mocks__/mongodb');
 const app = require('../../../../app');
-const resourcePath = '/api/v1/auth';
-const signUpPath = `${resourcePath}/sign-up`;
+const resourcePath = '/api/v1/auth/sign-in';
 
-describe(signUpPath, () => {
-  test('POST should create and return new user data', (done) => {
+describe(resourcePath, () => {
+  test('POST should sign in user and return user data', (done) => {
     // given
     const dataToSend = {
       username: 'user1',
       password: 'Password1',
-      email: 'example1@domain.com',
     };
 
     // when
@@ -22,10 +21,49 @@ describe(signUpPath, () => {
       email: 'example1@domain.com',
       role: 'common',
     };
+    mongodb.setDocument({
+      _id: '12345',
+      username: 'user1',
+      password: '61a73c554fd0a2024eb3bffb06a597ef5095764ab049d8440c683f0ccd4e77d5a737fa90358664006cfa13c3b839028e63fc82f77e652730524c111efac95073',
+      email: 'example1@domain.com',
+      role: 'common',
+    });
 
     // then
     request(app)
-      .post(signUpPath)
+      .post(resourcePath)
+      .send(dataToSend)
+      .expect('Content-Type', expectedContentType)
+      .expect(expectedHttpStatus, expectedBody, done);
+  });
+
+  test.each([
+    {
+      username: 'user11',
+      password: 'Password1',
+    }, {
+      username: 'user1',
+      password: 'Password11',
+    },
+  ])('POST should return 401 HTTP for incorrect login data: %p', (dataToSend, done) => {
+    // when
+    const expectedContentType = 'application/json; charset=utf-8';
+    const expectedHttpStatus = 401;
+    const expectedBody = {
+      error: 1100,
+      message: 'invalid credentials',
+    };
+    mongodb.setDocument({
+      _id: '12345',
+      username: 'user1',
+      password: '61a73c554fd0a2024eb3bffb06a597ef5095764ab049d8440c683f0ccd4e77d5a737fa90358664006cfa13c3b839028e63fc82f77e652730524c111efac95073',
+      email: 'example1@domain.com',
+      role: 'common',
+    });
+
+    // then
+    request(app)
+      .post(resourcePath)
       .send(dataToSend)
       .expect('Content-Type', expectedContentType)
       .expect(expectedHttpStatus, expectedBody, done);
@@ -37,7 +75,6 @@ describe(signUpPath, () => {
       value: {},
       errors: [
         '"username" is required',
-        '"email" is required',
         '"password" is required',
       ],
     }],
@@ -51,7 +88,6 @@ describe(signUpPath, () => {
       },
       errors: [
         '"username" length must be at least 3 characters long',
-        '"email" is required',
         '"password" is required',
       ],
     }],
@@ -64,7 +100,6 @@ describe(signUpPath, () => {
       },
       errors: [
         '"username" length must be less than or equal to 24 characters long',
-        '"email" is required',
         '"password" is required',
       ],
     }],
@@ -76,57 +111,6 @@ describe(signUpPath, () => {
         username: 'NameOfUser1',
       },
       errors: [
-        '"email" is required',
-        '"password" is required',
-      ],
-    }],
-    // email field tests
-    // to long
-    [{
-      email: 'NaNa@aNaNaNaNaNaNaNaNaNa.com',
-    }, {
-      value: {
-        email: 'NaNa@aNaNaNaNaNaNaNaNaNa.com',
-      },
-      errors: [
-        '"username" is required',
-        '"email" length must be less than or equal to 24 characters long',
-        '"password" is required',
-      ],
-    }],
-    // incorrect
-    [{
-      email: 'exampleMail.com',
-    }, {
-      value: {
-        email: 'exampleMail.com',
-      },
-      errors: [
-        '"username" is required',
-        '"email" must be a valid email',
-        '"password" is required',
-      ],
-    }],
-    // correct
-    [{
-      email: 'example@mail.com',
-    }, {
-      value: {
-        email: 'example@mail.com',
-      },
-      errors: [
-        '"username" is required',
-        '"password" is required',
-      ],
-    }],
-    [{
-      email: 'correct@email.com',
-    }, {
-      value: {
-        email: 'correct@email.com',
-      },
-      errors: [
-        '"username" is required',
         '"password" is required',
       ],
     }],
@@ -139,7 +123,6 @@ describe(signUpPath, () => {
       },
       errors: [
         '"username" is required',
-        '"email" is required',
       ],
     }],
   ])('POST should return 400 HTTP status for incorrect data: %p with correct response: %p', (dataToSend, errorDetails, done) => {
@@ -151,10 +134,17 @@ describe(signUpPath, () => {
       message: 'request validation error',
       errorDetails,
     };
+    mongodb.setDocument({
+      _id: '12345',
+      username: 'user1',
+      password: '61a73c554fd0a2024eb3bffb06a597ef5095764ab049d8440c683f0ccd4e77d5a737fa90358664006cfa13c3b839028e63fc82f77e652730524c111efac95073',
+      email: 'example1@domain.com',
+      role: 'common',
+    });
 
     // then
     request(app)
-      .post(signUpPath)
+      .post(resourcePath)
       .send(dataToSend)
       .expect('Content-Type', expectedContentType)
       .expect(expectedHttpStatus, expectedBody, done);
@@ -173,7 +163,7 @@ describe(signUpPath, () => {
     const expectedBody = { error: 1000, message: 'no schema' };
 
     // then
-    request(app)[method](signUpPath)
+    request(app)[method](resourcePath)
       .expect('Content-Type', expectedContentType)
       .expect(expectedHttpStatus, expectedBody, done);
   });

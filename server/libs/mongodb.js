@@ -1,11 +1,11 @@
 const mongodb = require('mongodb');
 
 const {
-	MONGO_HOST,
-	MONGO_USER,
-	MONGO_PASSWORD,
-	MONGO_DATABASE,
-	MONGO_PORT,
+  MONGO_HOST,
+  MONGO_USER,
+  MONGO_PASSWORD,
+  MONGO_DATABASE,
+  MONGO_PORT,
 } = process.env;
 
 const { MongoClient } = mongodb;
@@ -19,13 +19,13 @@ let connectionHandler;
  * @description Function connecting to database and creating handler
  * @return {Promise<*>} - reference to database connection
  */
-async function connectToDatabase() {
-	// Create connection handler
-	if (!connectionHandler) {
-		connectionHandler = await MongoClient.connect(connectionString, { useUnifiedTopology: true });
-	}
+async function connectToDatabase () {
+  // Create connection handler
+  if (!connectionHandler) {
+    connectionHandler = await MongoClient.connect(connectionString, { useUnifiedTopology: true });
+  }
 
-	return connectionHandler;
+  return connectionHandler;
 }
 
 /**
@@ -34,14 +34,14 @@ async function connectToDatabase() {
  * @param collectionName {string}
  * @return {Promise<*>} - return mongodb collection object
  */
-async function getCollection(collectionName) {
-	const connection = await connectToDatabase();
-	const db = connection.db(MONGO_DATABASE);
+async function getCollection (collectionName) {
+  const connection = await connectToDatabase();
+  const db = connection.db(MONGO_DATABASE);
 
-	return db.collection(collectionName);
+  return db.collection(collectionName);
 }
 
 module.exports = {
-	ObjectId: mongodb.ObjectId,
-	getCollection,
+  ObjectId: mongodb.ObjectId,
+  getCollection,
 };

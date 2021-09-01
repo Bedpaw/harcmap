@@ -1,0 +1,37 @@
+components:
+  props:
+      username:
+        description: 'User nick/name'
+        type: string
+        minLength: 3
+        maxLength: 24
+      email:
+        description: 'User email. Used also as login'
+        type: string
+        format: email
+        maxLength: 24
+      password:
+        description: 'User password'    
+        type: string
+        format: password
+        minLength: 8
+        maxLength: 24
+      role:
+        description: "User permission lvl"
+        type: string
+        nullable: false
+      error:
+        description: 'Error code name'
+        type: number
+        length: 4
+      message:
+        description: 'Error text name'
+        type: string
+      errorDetails:
+        description: 'Validation details'
+        type: object
+      success:
+        description: 'Field describe status of operation'
+        type: boolean
+        nullable: false
+      

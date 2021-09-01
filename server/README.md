@@ -8,9 +8,11 @@ To run app on server use: nodemon
     - /auth - adapt to harcmap 1.0,
         - `email` field as user identification,
         - `password` politic
+    - /events
 - Unit Tests
     - add HEAD, ~~TRACE~~ http methods tests,
     - security of main sources paths like: `/`, `/api`, `/api/auth`, etc. ,
+    - database mock,
 - Performance Tests
     - Artillery,
     - Google Lighthouse,
@@ -18,13 +20,14 @@ To run app on server use: nodemon
     - Cypress/Puppeteer,
 - Documentation
     - Swagger
+        - **!! extract responses schema to other files !!**
         - /auth
-            - adapt to changes on fields,
+            - ~~adapt to changes on fields,~~
             - ~~length of fields~~
             - password politic
         - /auth/activation    
-        - /users
-        - /users/:id  
+        - ~~/users~~
+        - ~~/users/:id~~  
         - /users/reset-password  
         - /events
         - /events/:id

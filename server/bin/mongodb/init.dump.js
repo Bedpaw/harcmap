@@ -5,6 +5,6 @@ db.createUser({
   pwd: 'password',
   roles: [{
     role: 'readWrite',
-    db: 'boilerplate-expressjs',
+    db: 'harcmap',
   }],
 });
