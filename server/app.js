@@ -2,8 +2,10 @@ const express = require('express');
 const passport = require('passport');
 const expressSession = require('express-session');
 const swaggerUi = require('swagger-ui-express');
+const MongoStore = require('connect-mongo')(expressSession);
 const specs = require('./swagger.config');
 
+const { connectionString } = require('./libs/mongodb');
 const { handleErrors } = require('./libs/errors');
 const { validateRequests } = require('./libs/validation');
 const { createSecuredEndpoints, endpointsAccessConfig } = require('./libs/permissions');
@@ -15,6 +17,7 @@ const {
   SESSION_COOKIE_NAME,
   COOKIE_SECURE,
   SWAGGER_DOC,
+  MONGO_SESSION_STORE,
 } = process.env;
 const cookieMaxAge = parseInt(COOKIE_MAX_AGE, 10);
 const cookieSecure = COOKIE_SECURE !== 'false';
@@ -45,6 +48,11 @@ app.use(expressSession({
   },
   resave: false,
   saveUninitialized: false,
+  store: MONGO_SESSION_STORE === 'true' ? new MongoStore({
+    url: connectionString,
+    // dbName: 'harcmap-sessions',
+    stringify: false,
+  }) : undefined,
 }));
 // Passport
 passport.serializeUser(serializeUser);

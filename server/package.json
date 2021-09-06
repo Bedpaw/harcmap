@@ -12,14 +12,15 @@
 	"scripts": {
 		"start": "node -r dotenv/config server.js",
 		"watch": "nodemon --exec npm start",
-		"unit-tests": "jest",
-		"unit-tests:detectOpenHandles": "jest --detectOpenHandles",
-		"unit-tests:watch": "jest --watch",
+		"tests": "jest",
+		"tests:detectOpenHandles": "jest --detectOpenHandles",
+		"tests:watch": "jest --watch",
 		"mongo": "docker run --name boilerplate-expressjs-mongo --rm -p 27017:27017 -v `pwd`/.db:/data/db -v `pwd`/bin/mongodb:/docker-entrypoint-initdb.d mongo",
 		"mongo:clean": "rm -R ./.db",
 		"_mongo:dummy": "echo 'todo'"
 	},
 	"dependencies": {
+		"connect-mongo": "^4.5.0",
 		"dotenv": "^8.2.0",
 		"express": "^5.0.0-alpha.8",
 		"express-session": "^1.17.2",

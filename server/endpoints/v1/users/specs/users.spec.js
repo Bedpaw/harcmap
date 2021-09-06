@@ -162,18 +162,33 @@ describe(resourcePath, () => {
   /**
    * Test all unnecessary HTTP methods
    */
-  // test.each([
-  //   'PUT', 'DELETE', 'OPTIONS', 'PATCH', 'TRACE',
-  // ])('%s should return http status 500 and content type: "application/json; charset=utf-8"', (upperMethod, done) => {
-  //   const method = upperMethod.toLowerCase();
-  //   // when
-  //   const expectedContentType = 'application/json; charset=utf-8';
-  //   const expectedHttpStatus = 500;
-  //   const expectedBody = { error: 1000, message: 'no schema' };
-  //
-  //   // then
-  //   request(app)[method](resourcePath)
-  //     .expect('Content-Type', expectedContentType)
-  //     .expect(expectedHttpStatus, expectedBody, done);
-  // });
+  test.each([
+    'PUT', 'DELETE',
+  ])('%s should return http status 401 and content type: "application/json; charset=utf-8"', (upperMethod, done) => {
+    const method = upperMethod.toLowerCase();
+    // when
+    const expectedContentType = 'application/json; charset=utf-8';
+    const expectedHttpStatus = 401;
+    const expectedBody = { error: 1104, message: 'no permission to resource' };
+
+    // then
+    request(app)[method](resourcePath)
+      .expect('Content-Type', expectedContentType)
+      .expect(expectedHttpStatus, expectedBody, done);
+  });
+
+  test.each([
+    'OPTIONS', 'PATCH', 'TRACE',
+  ])('%s should return http status 500 and content type: "application/json; charset=utf-8"', (upperMethod, done) => {
+    const method = upperMethod.toLowerCase();
+    // when
+    const expectedContentType = 'application/json; charset=utf-8';
+    const expectedHttpStatus = 500;
+    const expectedBody = { error: 1000, message: 'no schema' };
+
+    // then
+    request(app)[method](resourcePath)
+      .expect('Content-Type', expectedContentType)
+      .expect(expectedHttpStatus, expectedBody, done);
+  });
 });

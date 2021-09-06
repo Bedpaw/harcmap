@@ -10,8 +10,8 @@
     "build:prod:watch":  "cd client && npm run build:prod:watch",
     "server:start": "cd server && npm run start",
     "server:watch": "cd server && npm run watch",
-    "server:unit-tests": "cd server && npm run unit-tests",
-    "server:unit-tests:watch": "cd server && npm run unit-tests:watch",
+    "server:tests": "cd server && npm run tests",
+    "server:tests:watch": "cd server && npm run tests:watch",
     "mongo": "cd server && npm run mongo",
     "mongo:clean": "cd server && npm run mongo:clean"
   },

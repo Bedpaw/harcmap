@@ -6,21 +6,20 @@ const app = require('../../../../app');
 const resourcePath = '/api/v1/auth/sign-out';
 
 describe(resourcePath, () => {
-  test('POST should return 401 for none logged user', (done) => {
+  test('POST should return 200 for logged user', (done) => {
     // when
     const expectedContentType = 'application/json; charset=utf-8';
-    const expectedHttpStatus = 401;
+    const expectedHttpStatus = 200;
     const expectedBody = {
-      error: 1105,
-      message: 'cannot logout unauthorized user',
+      success: true,
     };
-    // serializeUser({
-    //   _id: '12345',
-    //   username: 'user1',
-    //   password: '61a73c554fd0a2024eb3bffb06a597ef5095764ab049d8440c683f0ccd4e77d5a737fa90358664006cfa13c3b839028e63fc82f77e652730524c111efac95073',
-    //   email: 'example1@domain.com',
-    //   role: 'common',
-    // });
+    mongodb.setDocument({
+      _id: '12345',
+      username: 'user1',
+      password: '61a73c554fd0a2024eb3bffb06a597ef5095764ab049d8440c683f0ccd4e77d5a737fa90358664006cfa13c3b839028e63fc82f77e652730524c111efac95073',
+      email: 'example1@domain.com',
+      role: 'common',
+    });
 
     // then
     request(app)
