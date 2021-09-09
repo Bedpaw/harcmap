@@ -7,6 +7,8 @@ import { routes } from 'src/router/routes';
 export const ACCOUNT_TYPES = {
   common: 'common',
   admin: 'admin',
+  observer: 'observer',
+  userObserver: 'userObserver',
 };
 
 export const permissions = {

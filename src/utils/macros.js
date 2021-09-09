@@ -3,6 +3,11 @@ export const MACROS = {
     timeout: 'timeout',
     permanent: 'permanent',
   },
+  timePeriods: {
+    before: 'before',
+    current: 'current',
+    after: 'after',
+  },
   pointCategory: [
     /*    {
       categoryId: 0,
