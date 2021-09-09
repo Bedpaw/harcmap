@@ -1,16 +1,19 @@
 import { userController } from 'api/real/user-controller';
 import { eventController } from 'api/real/event-controller';
-import { makeRequest, request } from 'utils/request';
 import { API_ERRORS } from 'utils/macros/errors';
+import { httpService } from 'src/config/http-service';
 
 export const realApi = {
   ...userController,
   ...eventController,
   information () {
-    return makeRequest({
-      method: request.get,
+    return httpService.get({
       url: '/information',
-      ...API_ERRORS.information,
+      responseConfig: {
+        errorConfig: {
+          ...API_ERRORS.information,
+        },
+      },
     });
   },
 };
