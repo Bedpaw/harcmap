@@ -7,7 +7,7 @@ export const eventController = {
   getEventById ({ eventId }) {
     return httpService.get({
       url: '/event',
-      queryParamsObject: { eventId },
+      queryObject: { eventId },
       responseConfig: {
         successCallback: data => new AppEvent(data),
         errorConfig: {
@@ -19,7 +19,7 @@ export const eventController = {
   getPointsByEventId ({ eventId }) {
     return httpService.get({
       url: '/event/points',
-      queryParamsObject: { eventId },
+      queryObject: { eventId },
       responseConfig: {
         successCallback: data => data.points.map(point => new MapPoint(point)),
         errorConfig: {
@@ -31,7 +31,7 @@ export const eventController = {
   getCategoriesByEventId ({ eventId }) {
     return httpService.get({
       url: '/event/point/categories',
-      queryParamsObject: { eventId },
+      queryObject: { eventId },
       responseConfig: {
         successCallback: data => data.categories,
         errorConfig: {
