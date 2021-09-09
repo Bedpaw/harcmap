@@ -39,6 +39,7 @@ export const pl = {
   },
   general: {
     showMore: 'pokaż&nbsp;więcej...',
+    showMore2: 'Pokaź więcej...',
     pointUnit: 'pkt',
     pointCategoryLevel: 'poziom',
     pointTimeout: 'Czasowy',
@@ -173,6 +174,14 @@ export const pl = {
     },
     activationWrong: {
       main: 'Link aktywacyjny jest niepoprawny! Skontaktuj się z administratorem wydarzenia.',
+    },
+    eventsList: {
+      new: 'Nowe:',
+      upcoming: 'Nadchodzące:',
+      current: 'Trwające:',
+      finished: 'Historia:',
+      joinEvent: 'Dołącz do wydarzenia',
+      createEvent: 'Nowe wydarzenie',
     },
     admin: {
       setMapPosition: {
