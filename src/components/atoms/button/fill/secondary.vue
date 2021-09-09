@@ -1,7 +1,7 @@
 <template>
   <a-button-secondary
     @click="$emit('click', $event)"
-    class="f-fill"
+    :class="bigArea? 'f-fill' : 'f-fill f-small-area'"
     :add-class="['f-fill', addClass]"
     :loading="loading"
     :disabled="disabled"
@@ -32,6 +32,10 @@ export default {
     text: {
       type: String,
       default: '',
+    },
+    bigArea: {
+      type: Boolean,
+      default: true,
     },
   },
 };
