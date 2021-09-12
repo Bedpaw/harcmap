@@ -23,6 +23,7 @@ export const pl = {
     editPoint: 'Edycja punktu',
     searchPoint: 'Szukaj punktów',
     eventsList: 'Lista wydarzeń',
+    joinEvent: 'Dołącz do wydarzenia',
     short: {
       error: 'Błąd',
       timeoutPoints: 'Czasowe',
@@ -35,6 +36,7 @@ export const pl = {
       scoreboard: 'Wyniki',
       searchPoint: 'Szukaj',
       eventsList: 'Lista wydarzeń',
+      joinEvent: 'Dołącz do wydarzenia',
     },
   },
   general: {
@@ -58,6 +60,8 @@ export const pl = {
     saved: 'Zapisano!',
     lightTheme: 'Jasny tryb',
     darkTheme: 'Ciemny tryb',
+    join: 'Dołącz',
+    name: 'Nazwa',
   },
   form: {
     field: {
@@ -84,6 +88,7 @@ export const pl = {
       eventId: 'Kod wydarzenia jest generowany automatycznie',
       fieldNotRequired: 'Pole jest nieobowiązkowe',
       userTeam: 'Nazwa patrolu musi być unikatowa',
+      joinEventCode: 'Wpisz kod wydarzenia do którego chcesz dołączyć',
     },
     validation: {
       required: 'Pole jest wymagane.',
@@ -99,6 +104,7 @@ export const pl = {
       save: 'Zapisz',
       choose: 'wybierz',
       next: 'Dalej',
+      cancel: 'Anuluj',
       goToLogin: 'Przejdź do logowania',
       setDefaultMapPositionAndZoom: 'Ustaw pozycję mapy',
       setPointMapPosition: 'Ustaw lokalizację punktu',
@@ -182,6 +188,11 @@ export const pl = {
       finished: 'Historia:',
       joinEvent: 'Dołącz do wydarzenia',
       createEvent: 'Nowe wydarzenie',
+    },
+    joinEvent: {
+      confirmData: 'Potwierdź dane wydarzenia',
+      eventStartDate: 'Data rozpoczęcia',
+      eventEndDate: 'Data zakończenia',
     },
     admin: {
       setMapPosition: {
@@ -293,6 +304,13 @@ export const pl = {
     addPoint: {
       positionIsRequired: 'Wymagane jest ustawienie lokalizacji punktu.',
     },
+  },
+  accountTypes: {
+    admin: 'Administrator',
+    common: 'Użytkownik',
+    observer: 'Obserwator',
+    userObserver: 'Obserwator użytkownika',
+    accountType: 'Typ konta',
   },
   features: {
     timer: {
