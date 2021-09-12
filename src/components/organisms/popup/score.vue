@@ -1,31 +1,21 @@
 <template>
-  <div
-    v-if="detailsAreOpen"
-    class="m-cover f-popup"
-    @click="toggle"
-  >
-    <div class="o-popup f-score" @click.stop>
-      <a-icon-close-popup @click="toggle"/>
-      <div class="f-text-subtext f-pb-1">{{ user.userTeam }}</div>
-      <o-collected-points
-        class="f-text-16 f-text-normal"
-        :collected-points="collectedPointsByUser(user)"
-      />
-    </div>
-  </div>
+  <o-popup-empty ref="popup">
+    <div class="f-text-subtext f-pb-1">{{ user.userTeam }}</div>
+    <o-collected-points
+      class="f-text-16 f-text-normal"
+      :collected-points="collectedPointsByUser(user)"
+    />
+  </o-popup-empty>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import OCollectedPoints from 'organisms/collected-points';
-import AIconClosePopup from 'atoms/icon/close-popup';
+import OPopupEmpty from 'organisms/popup/empty';
 
 export default {
   name: 'o-popup-score',
-  components: { AIconClosePopup, OCollectedPoints },
-  data: () => ({
-    detailsAreOpen: false,
-  }),
+  components: { OPopupEmpty, OCollectedPoints },
   props: {
     user: {
       type: Object,
@@ -39,7 +29,7 @@ export default {
   },
   methods: {
     toggle () {
-      this.detailsAreOpen = (this.detailsAreOpen === false);
+      this.$refs.popup.toggle();
     },
   },
 };
