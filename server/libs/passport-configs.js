@@ -10,7 +10,7 @@ const { ObjectId } = require('./mongodb');
  */
 function setStrategy (passport) {
   passport.use(new LocalStrategy({
-    usernameField: 'username',
+    usernameField: 'email',
     passwordField: 'password',
   }, (username, password, done) => {
     Users.get({ username })

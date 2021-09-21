@@ -1,27 +1,33 @@
 const Joi = require('joi');
 const {
-  email, teamRole, eventRole,
+  eventDurationDate,
+  mapCoordinate,
+  eventName,
+  eventKey,
+  mapRefreshTime,
+  defaultMapZoom,
 } = require('../../../libs/common-schemas');
 
 // empty schema means that no data can be pass
 const GET = Joi.object({});
 
 // "required" method is necessary in most POST methods
-const POST = Joi.object({
-  email: email.required(),
-  roles: {
-    eventRole: eventRole.required(),
-    teamRole: teamRole.required(),
-  },
-});
+const POST = Joi.object({});
 
 // put(update) data rather dont need to be "required"
 const PUT = Joi.object({
-  email,
-  roles: {
-    eventRole,
-    teamRole,
+  eventName,
+  eventKey,
+  eventDuration: {
+    startDate: eventDurationDate,
+    endDate: eventDurationDate,
   },
+  mapProperties: {
+    zoom: defaultMapZoom,
+    longitude: mapCoordinate,
+    latitude: mapCoordinate,
+  },
+  eventRefreshTime: mapRefreshTime,
 });
 
 // empty schema means that no data can be pass

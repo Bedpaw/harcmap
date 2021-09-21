@@ -1,26 +1,28 @@
 const { getSHA } = require('../../../../libs/utils');
+const { generateRandomString } = require('../../../../../vendors/random');
 const Users = require('../../../../models/users');
 
 // registration
 // todo check if doesnt exist
 async function signUp (userObject) {
-  const userObjectWithHash = userObject;
-
-  userObjectWithHash.role = 'common';
-  userObjectWithHash.password = getSHA(userObject.password);
+  Object.assign(userObject, {
+    password: getSHA(userObject.password),
+    accountActivation: {
+      isActive: false,
+      key: getSHA(generateRandomString(10)),
+    },
+    passwordReset: {
+      key: null,
+      date: null,
+    },
+    accountCreated: Date.now(),
+    userEvents: [],
+  });
 
   const result = await Users.create(userObject);
-  const { success, data } = result;
-  let responseData = result;
+  const { success } = result;
 
-  if (success) {
-    responseData = data[0];
-
-    delete responseData.password;
-    delete responseData._id;
-  }
-
-  return responseData;
+  return { success };
 
 }
 

@@ -1,10 +1,8 @@
 const Users = require('../../../../models/users');
 const mongodb = require('../../../../libs/mongodb');
 
-async function addUser(id, userObject) {
-	const result = await Users.update({ _id: mongodb.ObjectId(id) }, userObject);
-
-	return result;
+async function updateUser (id, userObject) {
+  return await Users.update({ _id: mongodb.ObjectId(id) }, userObject);
 }
 
-module.exports = addUser;
+module.exports = updateUser;

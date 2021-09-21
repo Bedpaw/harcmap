@@ -1,16 +1,18 @@
 const Users = require('../../../../models/users');
 
-async function getUsers() {
-	const usersArray = await Users.all();
+async function getUsers () {
+  const usersArray = await Users.all();
 
-	// filter passwords
-	const usersArrayWithoutPasswords = usersArray.map((userObject) => {
-		const userWithoutPassword = userObject;
-		delete userWithoutPassword.password;
-		return userWithoutPassword;
-	});
+  // filter passwords
+  return usersArray.map((userObject) => {
+    const { email, userEvents, roles } = userObject;
 
-	return usersArrayWithoutPasswords;
+    return {
+      email,
+      userEvents,
+      roles,
+    };
+  });
 }
 
 module.exports = getUsers;

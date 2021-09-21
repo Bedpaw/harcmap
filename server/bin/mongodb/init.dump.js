@@ -1,4 +1,4 @@
-db = db.getSiblingDB('boilerplate-expressjs');
+db = db.getSiblingDB('harcmap');
 
 db.createUser({
   user: 'user',

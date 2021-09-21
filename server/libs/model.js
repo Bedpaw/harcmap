@@ -1,41 +1,50 @@
 const Joi = require('joi');
 const mongodb = require('./mongodb');
-const { validateMany, validateOne } = require('./utils');
+const { validateMany, validateOne, parseDocumentToUpdate } = require('./utils');
 const errorCodes = require('./errors/codes');
 
 class Model {
   constructor (collectionName, validationSchema) {
     this.collectionName = collectionName;
-    this.validationSchema = validationSchema;
+    this.validationSchema = Joi.object(validationSchema);
     this.validationSchemaRequired = {};
 
     // add ".required()" to schema for CREATE method - all fields are required
-    Object.keys(validationSchema).forEach((fieldName) => {
-      this.validationSchemaRequired[fieldName] = validationSchema[fieldName].required();
+    Object.entries(validationSchema).forEach(([fieldName, fieldValue]) => {
+      const fieldIsObject = !!fieldValue && fieldValue.constructor === Object;
+
+      if (fieldIsObject) {
+        Object.entries(fieldValue).forEach(([nestedFieldName, nestedFieldValue]) => {
+          fieldValue[nestedFieldName] = nestedFieldValue.required();
+        });
+        this.validationSchemaRequired[fieldName] = Joi.object(fieldValue);
+      } else {
+        this.validationSchemaRequired[fieldName] = fieldValue.required();
+      }
     });
+
+    this.validationSchemaRequired = Joi.object(this.validationSchemaRequired);
   }
 
   /**
-	 * Get all items (after filter it)
-	 * @param [filters] [object]
-	 * @return {Promise<void>}
-	 */
+   * Get all items (after filter it)
+   * @param [filters] [object]
+   * @return {Promise<void>}
+   */
   async all (filters = {}) {
     const collection = await mongodb.getCollection(this.collectionName);
-    const items = await collection.find(filters).toArray();
-
-    return items;
+    return await collection.find(filters).toArray();
   }
 
   /**
-	 * Create new items
-	 * @param newDocument [object|array]
-	 * @return {Promise<{success: boolean}>}
-	 */
-  async create (newDocument) {
+   * Create new items
+   * @param newDocuments [object|array]
+   * @return {Promise<{success: boolean}>}
+   */
+  async create (newDocuments) {
     // unify input
-    const items = Array.isArray(newDocument) ? newDocument : [newDocument];
-    const validationResults = validateMany(items, Joi.object(this.validationSchemaRequired));
+    const items = Array.isArray(newDocuments) ? newDocuments : [newDocuments];
+    const validationResults = validateMany(items, this.validationSchemaRequired);
     const result = {
       success: false,
       error: undefined,
@@ -65,38 +74,35 @@ class Model {
   }
 
   /**
-	 * @description Get filtered item
-	 * @param filters {object}
-	 */
+   * @description Get filtered item
+   * @param filters {object}
+   */
   async get (filters = {}) {
     const collection = await mongodb.getCollection(this.collectionName);
-    const result = await collection.findOne(filters);
-
-    return result;
+    return await collection.findOne(filters);
   }
 
   /**
-	 * @description Delete filtered item
-	 * @param filters {object}
-	 */
+   * @description Delete filtered item
+   * @param filters {object}
+   */
   async delete (filters = {}) {
     const collection = await mongodb.getCollection(this.collectionName);
     const deleteResult = await collection.deleteOne(filters);
-    const result = {
+
+    return {
       success: deleteResult.deletedCount === 1,
     };
-
-    return result;
   }
 
   /**
-	 * @description Update filtered items
-	 * @param filters {object}
-	 * @param newDocument {object}
-	 */
+   * @description Update filtered items
+   * @param filters {object}
+   * @param newDocument {object}
+   */
   async update (filters = {}, newDocument = {}) {
     // unify input
-    const validationResults = validateOne(newDocument, Joi.object(this.validationSchema));
+    const validationResults = validateOne(newDocument, this.validationSchema);
     const result = {
       success: false,
       error: undefined,
@@ -109,9 +115,7 @@ class Model {
       result.errorDetails = validationResults.errors;
     } else {
       const collection = await mongodb.getCollection(this.collectionName);
-      const updateResult = await collection.updateMany(filters, { $set: newDocument });
-
-      console.log(updateResult);
+      const updateResult = await collection.updateMany(filters, { $set: parseDocumentToUpdate(newDocument) });
 
       // check if created all items
       if (updateResult.modifiedCount === 1) {

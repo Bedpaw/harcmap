@@ -1,10 +1,5 @@
 components:
   props:
-      username:
-        description: 'User nick/name'
-        type: string
-        minLength: 3
-        maxLength: 24
       email:
         description: 'User email. Used also as login'
         type: string
@@ -16,10 +11,9 @@ components:
         format: password
         minLength: 8
         maxLength: 24
-      role:
-        description: "User permission lvl"
-        type: string
-        nullable: false
+      userEvents:
+        description: 'List of events that user participle'
+        type: array
       error:
         description: 'Error code name'
         type: number
@@ -34,4 +28,44 @@ components:
         description: 'Field describe status of operation'
         type: boolean
         nullable: false
-      
+      roles:
+        type: object
+        properties:
+          eventRole:
+            description: 'Describe permissions in event scope'
+            type: string
+          teamRole:
+            description: 'Describe permissions in team scope'
+            type: string  
+      eventName:
+        description: 'Event name'
+        type: string
+      eventKey:
+        description: 'Event access key'
+        type: string    
+      eventDuration:
+        type: object
+        properties:
+          startDate:
+            description: 'Time when event start'
+            type: number
+            nullable: true
+          endDate:
+            description: 'Time when event end'
+            type: number
+            nullable: true
+      mapProperties:
+        type: object
+        properties:
+          zoom:
+            description: 'Default map zoom for user'
+            type: number
+          longitude:
+            description: 'Default map longitude for user'
+            type: number
+          latitude:
+            description: 'Default map latitude for user'
+            type: number
+      eventRefreshTime:
+        description: 'Refresh time(in seconds) of map with points'
+        type: number  

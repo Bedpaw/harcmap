@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const expressSession = require('express-session');
 const swaggerUi = require('swagger-ui-express');
-const MongoStore = require('connect-mongo')(expressSession);
+const MongoStore = require('connect-mongo');
 const specs = require('./swagger.config');
 
 const { connectionString } = require('./libs/mongodb');
@@ -25,6 +25,7 @@ const cookieSecure = COOKIE_SECURE !== 'false';
 // Endpoints sources
 const about = require('./endpoints/about');
 const users = require('./endpoints/v1/users/index');
+const events = require('./endpoints/v1/events/index');
 const auth = require('./endpoints/v1/auth/index');
 
 // App instance
@@ -65,6 +66,7 @@ createSecuredEndpoints(app, endpointsAccessConfig);
 
 // API
 apiv1.use('/users', users);
+apiv1.use('/events', events);
 apiv1.use('/auth', auth);
 app.use('/api/v1', apiv1);
 

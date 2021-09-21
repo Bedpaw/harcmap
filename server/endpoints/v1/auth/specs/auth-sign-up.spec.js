@@ -5,10 +5,9 @@ const app = require('../../../../app');
 const resourcePath = '/api/v1/auth/sign-up';
 
 describe(resourcePath, () => {
-  test('POST should create and return new user data', (done) => {
+  test('POST should create user and return success information', (done) => {
     // given
     const dataToSend = {
-      username: 'user1',
       password: 'Password1',
       email: 'example1@domain.com',
     };
@@ -17,9 +16,7 @@ describe(resourcePath, () => {
     const expectedContentType = 'application/json; charset=utf-8';
     const expectedHttpStatus = 200;
     const expectedBody = {
-      username: 'user1',
-      email: 'example1@domain.com',
-      role: 'common',
+      success: true,
     };
 
     // then
@@ -35,46 +32,6 @@ describe(resourcePath, () => {
     [{}, {
       value: {},
       errors: [
-        '"username" is required',
-        '"email" is required',
-        '"password" is required',
-      ],
-    }],
-    // username field tests
-    // to short
-    [{
-      username: 'Na',
-    }, {
-      value: {
-        username: 'Na',
-      },
-      errors: [
-        '"username" length must be at least 3 characters long',
-        '"email" is required',
-        '"password" is required',
-      ],
-    }],
-    // to long
-    [{
-      username: 'NaNaNaNaNaNaNaNaNaNaNaNaNaN',
-    }, {
-      value: {
-        username: 'NaNaNaNaNaNaNaNaNaNaNaNaNaN',
-      },
-      errors: [
-        '"username" length must be less than or equal to 24 characters long',
-        '"email" is required',
-        '"password" is required',
-      ],
-    }],
-    // correct
-    [{
-      username: 'NameOfUser1',
-    }, {
-      value: {
-        username: 'NameOfUser1',
-      },
-      errors: [
         '"email" is required',
         '"password" is required',
       ],
@@ -88,7 +45,6 @@ describe(resourcePath, () => {
         email: 'NaNa@aNaNaNaNaNaNaNaNaNa.com',
       },
       errors: [
-        '"username" is required',
         '"email" length must be less than or equal to 24 characters long',
         '"password" is required',
       ],
@@ -101,7 +57,6 @@ describe(resourcePath, () => {
         email: 'exampleMail.com',
       },
       errors: [
-        '"username" is required',
         '"email" must be a valid email',
         '"password" is required',
       ],
@@ -114,7 +69,6 @@ describe(resourcePath, () => {
         email: 'example@mail.com',
       },
       errors: [
-        '"username" is required',
         '"password" is required',
       ],
     }],
@@ -126,7 +80,6 @@ describe(resourcePath, () => {
         password: 'Password1',
       },
       errors: [
-        '"username" is required',
         '"email" is required',
       ],
     }],

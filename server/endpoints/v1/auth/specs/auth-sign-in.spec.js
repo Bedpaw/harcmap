@@ -9,7 +9,7 @@ describe(resourcePath, () => {
   test('POST should sign in user and return user data', (done) => {
     // given
     const dataToSend = {
-      username: 'user1',
+      email: 'example1@domain.com',
       password: 'Password1',
     };
 
@@ -17,16 +17,12 @@ describe(resourcePath, () => {
     const expectedContentType = 'application/json; charset=utf-8';
     const expectedHttpStatus = 200;
     const expectedBody = {
-      username: 'user1',
       email: 'example1@domain.com',
-      role: 'common',
     };
     mongodb.setDocument({
       _id: '12345',
-      username: 'user1',
       password: '61a73c554fd0a2024eb3bffb06a597ef5095764ab049d8440c683f0ccd4e77d5a737fa90358664006cfa13c3b839028e63fc82f77e652730524c111efac95073',
       email: 'example1@domain.com',
-      role: 'common',
     });
 
     // then
@@ -39,10 +35,10 @@ describe(resourcePath, () => {
 
   test.each([
     {
-      username: 'user11',
+      email: 'example12@domain.com',
       password: 'Password1',
     }, {
-      username: 'user1',
+      email: 'example1@domain.com',
       password: 'Password11',
     },
   ])('POST should return 401 HTTP for incorrect login data: %p', (dataToSend, done) => {
@@ -55,10 +51,8 @@ describe(resourcePath, () => {
     };
     mongodb.setDocument({
       _id: '12345',
-      username: 'user1',
       password: '61a73c554fd0a2024eb3bffb06a597ef5095764ab049d8440c683f0ccd4e77d5a737fa90358664006cfa13c3b839028e63fc82f77e652730524c111efac95073',
       email: 'example1@domain.com',
-      role: 'common',
     });
 
     // then
@@ -74,41 +68,41 @@ describe(resourcePath, () => {
     [{}, {
       value: {},
       errors: [
-        '"username" is required',
+        '"email" is required',
         '"password" is required',
       ],
     }],
-    // username field tests
+    // email field tests
     // to short
     [{
-      username: 'Na',
+      email: 'Na',
     }, {
       value: {
-        username: 'Na',
+        email: 'Na',
       },
       errors: [
-        '"username" length must be at least 3 characters long',
+        '"email" must be a valid email',
         '"password" is required',
       ],
     }],
     // to long
     [{
-      username: 'NaNaNaNaNaNaNaNaNaNaNaNaNaN',
+      email: 'Na@NaNaNaNaNaNaNaNaNaNaNaNaN.pl',
     }, {
       value: {
-        username: 'NaNaNaNaNaNaNaNaNaNaNaNaNaN',
+        email: 'Na@NaNaNaNaNaNaNaNaNaNaNaNaN.pl',
       },
       errors: [
-        '"username" length must be less than or equal to 24 characters long',
+        '"email" length must be less than or equal to 24 characters long',
         '"password" is required',
       ],
     }],
     // correct
     [{
-      username: 'NameOfUser1',
+      email: 'example1@domain.com',
     }, {
       value: {
-        username: 'NameOfUser1',
+        email: 'example1@domain.com',
       },
       errors: [
         '"password" is required',
@@ -122,7 +116,7 @@ describe(resourcePath, () => {
         password: 'Password1',
       },
       errors: [
-        '"username" is required',
+        '"email" is required',
       ],
     }],
   ])('POST should return 400 HTTP status for incorrect data: %p with correct response: %p', (dataToSend, errorDetails, done) => {
@@ -136,10 +130,8 @@ describe(resourcePath, () => {
     };
     mongodb.setDocument({
       _id: '12345',
-      username: 'user1',
       password: '61a73c554fd0a2024eb3bffb06a597ef5095764ab049d8440c683f0ccd4e77d5a737fa90358664006cfa13c3b839028e63fc82f77e652730524c111efac95073',
       email: 'example1@domain.com',
-      role: 'common',
     });
 
     // then

@@ -15,7 +15,7 @@
 		"tests": "jest",
 		"tests:detectOpenHandles": "jest --detectOpenHandles",
 		"tests:watch": "jest --watch",
-		"mongo": "docker run --name boilerplate-expressjs-mongo --rm -p 27017:27017 -v `pwd`/.db:/data/db -v `pwd`/bin/mongodb:/docker-entrypoint-initdb.d mongo",
+		"mongo": "docker run --name harcmap-mongo --rm -p 27017:27017 -v `pwd`/.db:/data/db -v `pwd`/bin/mongodb:/docker-entrypoint-initdb.d mongo",
 		"mongo:clean": "rm -R ./.db",
 		"_mongo:dummy": "echo 'todo'"
 	},

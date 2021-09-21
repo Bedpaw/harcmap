@@ -1,18 +1,24 @@
 const Joi = require('joi');
 
 const {
-	email,
-	username,
-	role,
+  email,
 } = require('../libs/common-schemas');
 const Model = require('../libs/model');
 
 // User schema
 const userSchema = {
-	email,
-	username,
-	password: Joi.string(),
-	role,
+  email,
+  password: Joi.string(),
+  accountActivation: {
+    isActive: Joi.boolean(),
+    key: Joi.string().allow(null),
+  },
+  passwordReset: {
+    key: Joi.string().allow(null),
+    date: Joi.number().allow(null),
+  },
+  accountCreated: Joi.number(),
+  userEvents: Joi.array(),
 };
 
 // Create model
