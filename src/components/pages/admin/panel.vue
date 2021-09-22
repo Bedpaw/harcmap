@@ -30,6 +30,7 @@ export default {
         { route: ROUTES.newPoint },
         { url: '/point/all', label: 'Pobierz listę punktów' },
         { route: ROUTES.searchPoint },
+        { route: ROUTES.usersList },
       ]
         .filter(link => {
           const routeIsDefined = uCheck.isDefined(link.route);

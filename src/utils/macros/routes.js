@@ -286,4 +286,16 @@ export const ROUTES = {
       requiredAuth: true,
     },
   },
+  usersList: {
+    path: '/users-list',
+    name: 'usersList',
+    label: translator.t('title.usersList'),
+    shortLabel: translator.t('title.short.usersList'),
+    icon: ICONS.people,
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+      adminOnly: true,
+    },
+  },
 };
