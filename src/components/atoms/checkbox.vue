@@ -4,7 +4,7 @@
       class="a-checkbox"
       type="checkbox"
       :id="id"
-      :checked="shouldBeChecked"
+      :checked="value"
       :value="value"
       :disabled="isDisabled"
       @change="updateInput"
@@ -17,15 +17,12 @@
 export default {
   name: 'a-checkbox',
   model: {
-    prop: 'modelValue',
+    prop: 'value',
     event: 'change',
   },
   props: {
     value: {
-      type: String,
-    },
-    modelValue: {
-      default: '',
+      type: Boolean,
     },
     id: {
       default: '',
@@ -33,11 +30,6 @@ export default {
     isDisabled: {
       type: Boolean,
       default: false,
-    },
-  },
-  computed: {
-    shouldBeChecked () {
-      return this.modelValue === this.value;
     },
   },
   methods: {
