@@ -3,6 +3,7 @@ import { ICONS } from '@dbetka/vue-material-icons';
 
 export const USERS_DEFAULT_CONFIG = {
   // Move accounts type here
+  accountTypes: ACCOUNT_TYPES,
   accountTypeInfo: {
     [ACCOUNT_TYPES.admin]: {
       icon: ICONS.shield,
@@ -19,6 +20,10 @@ export const USERS_DEFAULT_CONFIG = {
     [ACCOUNT_TYPES.userObserver]: {
       icon: ICONS.person_search,
       nameKey: 'accountTypes.userObserver',
+    },
+    [ACCOUNT_TYPES.organizer]: {
+      icon: ICONS.shield,
+      nameKey: 'accountTypes.organizer',
     },
   },
 };

@@ -9,6 +9,7 @@ export const ACCOUNT_TYPES = {
   admin: 'admin',
   observer: 'observer',
   userObserver: 'userObserver',
+  organizer: 'organizer',
 };
 
 export const permissions = {

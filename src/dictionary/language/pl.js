@@ -24,6 +24,7 @@ export const pl = {
     searchPoint: 'Szukaj punktów',
     eventsList: 'Lista wydarzeń',
     joinEvent: 'Dołącz do wydarzenia',
+    usersList: 'Użytkownicy',
     short: {
       error: 'Błąd',
       timeoutPoints: 'Czasowe',
@@ -37,6 +38,7 @@ export const pl = {
       searchPoint: 'Szukaj',
       eventsList: 'Lista wydarzeń',
       joinEvent: 'Dołącz do wydarzenia',
+      usersList: 'Użytkownicy',
     },
   },
   general: {
@@ -62,6 +64,7 @@ export const pl = {
     darkTheme: 'Ciemny tryb',
     join: 'Dołącz',
     name: 'Nazwa',
+    search: 'Szukaj',
   },
   form: {
     field: {
@@ -89,6 +92,8 @@ export const pl = {
       fieldNotRequired: 'Pole jest nieobowiązkowe',
       userTeam: 'Nazwa patrolu musi być unikatowa',
       joinEventCode: 'Wpisz kod wydarzenia do którego chcesz dołączyć',
+      searchPoint: 'Szukaj po kodzie lub nazwie punktu',
+      searchUser: 'Szukaj po e-mailu lub nazwie drużyny',
     },
     validation: {
       required: 'Pole jest wymagane.',
@@ -108,6 +113,8 @@ export const pl = {
       goToLogin: 'Przejdź do logowania',
       setDefaultMapPositionAndZoom: 'Ustaw pozycję mapy',
       setPointMapPosition: 'Ustaw lokalizację punktu',
+      sendResetPasswordToEmail: 'Wyślij email resetujący hasło',
+      blockAccount: 'Zablokuj konto'
     },
   },
   page: {
@@ -206,9 +213,8 @@ export const pl = {
         editEvent: 'Edytuj wydarzenie',
         checkScoreboard: 'Sprawdź tabelę wyników',
       },
-      searchPoint: {
-        search: 'Szukaj',
-        searchAssist: 'Szukaj po kodzie lub nazwie punktu.',
+      userList: {
+        accountIsActive: 'Konto jest aktywne',
       },
     },
   },
@@ -310,6 +316,7 @@ export const pl = {
     common: 'Użytkownik',
     observer: 'Obserwator',
     userObserver: 'Obserwator użytkownika',
+    organizer: 'Organizator',
     accountType: 'Typ konta',
   },
   features: {
