@@ -19,7 +19,7 @@
         v-for="(accountInfo, key) in USERS_DEFAULT_CONFIG.accountTypeInfo"
         :key="key" :id="key" :value="key"
         v-model="user.accountType"
-        :disabled="key === USERS_DEFAULT_CONFIG.accountTypes.organizer">
+        :is-disabled="key === USERS_DEFAULT_CONFIG.accountTypes.organizer">
         {{$t(accountInfo.nameKey)}}
       </a-radio>
 
