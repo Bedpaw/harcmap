@@ -4,15 +4,16 @@
   "description": "HarcMap",
   "main": "src/index.js",
   "scripts": {
-    "clone-fonts": "node bin/create-list-of-icons.js",
-    "build:dev": "npx webpack --config webpack.dev.js --watch",
-    "build:prod": "npx webpack --config webpack.prod.js",
-    "run:dev": "NODE_ENV=development node app.js",
-    "run:prod": "NODE_ENV=production node app.js",
-    "run:pm2": "pm2 start app.js",
-    "run:mongodb": "docker run --name harcmap_mongo --rm -p 27017:27017 -v `pwd`/config/mongodb:/docker-entrypoint-initdb.d mongo",
-    "fill-database": "NODE_ENV=development node bin/prepareEvent.js",
-    "tests:restapi": "jest --config=jest-node.config.js --testPathPattern=restapi"
+    "clone-fonts" : "node bin/create-list-of-icons.js",
+    "build:dev" : "npx webpack --config webpack.dev.js --watch",
+    "build:prod" : "npx webpack --config webpack.prod.js",
+    "run:dev" : "NODE_ENV=development node app.js",
+    "run:prod" : "NODE_ENV=production node app.js",
+    "run:pm2" : "pm2 start app.js",
+    "run:mongodb" : "docker run --name harcmap_mongo --rm -p 27017:27017 -v `pwd`/config/mongodb:/docker-entrypoint-initdb.d mongo",
+    "run:mongodb:windows" : "docker run --name harcmap_mongo --rm -p 27017:27017 -v %cd%/config/mongodb:/docker-entrypoint-initdb.d mongo",
+    "fill-database" : "NODE_ENV=development node bin/prepareEvent.js",
+    "tests:restapi" : "jest --config=jest-node.config.js --testPathPattern=restapi"
   },
   "repository": {
     "type": "git",
