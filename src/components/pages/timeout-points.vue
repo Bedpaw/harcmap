@@ -19,7 +19,8 @@ import MTableRowTimeoutPoints from 'molecules/table-row/timeout-points';
 import MClock from 'molecules/clock';
 import { mapGetters } from 'vuex';
 import { map } from 'map';
-import moment from 'moment';
+import { userUtils } from 'config/users-config';
+import { pointUtils } from 'utils/point';
 
 export default {
   name: 'p-timeout-points',
@@ -33,14 +34,9 @@ export default {
       'getTimeoutPoints',
     ]),
     points () {
-      if (this.checkIsAdmin()) return this.getTimeoutPoints;
-      else {
-        return this.getTimeoutPoints.filter(point => {
-          const appearanceTime = moment(new Date(point.pointAppearanceTime));
-          const now = moment();
-          return now.diff(appearanceTime, 'days') === 0;
-        });
-      }
+      return userUtils.can.seeAllTimeOutPoints
+        ? this.getTimeoutPoints
+        : pointUtils.getTodayPoints(this.getTimeoutPoints);
     },
   },
   methods: {

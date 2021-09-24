@@ -67,7 +67,6 @@ import OForm from 'organisms/form';
 import MSelect from 'molecules/select';
 import AButtonSecondary from 'atoms/button/secondary';
 import AButtonSubmit from 'atoms/button/submit';
-import { uCheck } from '@dbetka/utils';
 import { mixins } from 'mixins/base';
 import MFieldDatetime from 'molecules/field/datetime';
 import MFieldText from 'molecules/field/text';
@@ -76,6 +75,7 @@ import OFloatContainer from 'organisms/float-container';
 import OAdminSetMapPosition from 'organisms/admin/set-map-position';
 import { DEFAULT_EVENT_CONFIG } from 'src/config/event-config';
 import { idUtils } from 'utils/id';
+import { eventUtils } from 'utils/event';
 
 export default {
   name: 't-event-form',
@@ -124,7 +124,7 @@ export default {
   },
   computed: {
     hasSetPosition () {
-      return uCheck.isNotNull(this.values.mapLatitude) && uCheck.isNotNull(this.values.mapLongitude);
+      return eventUtils.hasSetPosition(this.values);
     },
   },
   methods: {

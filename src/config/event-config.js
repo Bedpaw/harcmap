@@ -1,5 +1,5 @@
-// TODO move to macros
-const minute = 60;
+import { MACROS } from 'utils/macros';
+const { secondsInMinute } = MACROS.time;
 
 export const DEFAULT_EVENT_CONFIG = {
   mapRefreshTime: 15,
@@ -9,19 +9,19 @@ export const DEFAULT_EVENT_CONFIG = {
   mapRefreshTimeOptions: [
     {
       label: '1 min',
-      value: minute,
+      value: secondsInMinute,
     }, {
       label: '5 min',
-      value: 5 * minute,
+      value: 5 * secondsInMinute,
     }, {
       label: '10 min',
-      value: 10 * minute,
+      value: 10 * secondsInMinute,
     }, {
       label: '15 min',
-      value: 15 * minute,
+      value: 15 * secondsInMinute,
     }, {
       label: '30 min',
-      value: 30 * minute,
+      value: 30 * secondsInMinute,
     },
   ],
 };

@@ -2,19 +2,20 @@
   <section>
     <m-buttons-list primary :buttons-details="primaryButtons" :title="$t('page.eventsList.new')"></m-buttons-list>
     <m-buttons-list :buttons-details="currentEvents" :title="$t('page.eventsList.current')"></m-buttons-list>
-    <m-buttons-list :buttons-details="upcomingEvents" :title="$t('page.eventsList.upcoming')"></m-buttons-list>
-    <m-buttons-list :buttons-details="finishedEvents" :title="$t('page.eventsList.finished')"></m-buttons-list>
+    <m-buttons-list :buttons-details="futureEvents" :title="$t('page.eventsList.upcoming')"></m-buttons-list>
+    <m-buttons-list :buttons-details="pastEvents" :title="$t('page.eventsList.finished')"></m-buttons-list>
   </section>
 </template>
 
 <script>
 import MButtonsList from 'molecules/buttons-list';
-import { USERS_DEFAULT_CONFIG } from 'src/config/users-config';
 import { MACROS } from 'utils/macros';
-import { DATE_FORMATS, getDateInFormat, splitObjectsListByTime } from 'utils/date';
+import { DATE_FORMATS, getDateInFormat, getFromToString } from 'utils/date';
 import { ICONS_TYPES } from '@dbetka/vue-material-icons';
-import { GENERAL_DEFAULT_CONFIG } from 'src/config/general-config';
+import { generalConfigUtils } from 'src/config/general-config';
 import { eventsListMock } from 'organisms/events-list-mock';
+import { userUtils } from 'config/users-config';
+import { eventUtils } from 'utils/event';
 
 export default {
   name: 'o-events-list',
@@ -23,33 +24,33 @@ export default {
   },
   data: () => ({
     events: [],
-    upcomingEvents: [],
+    futureEvents: [],
     currentEvents: [],
-    finishedEvents: [],
+    pastEvents: [],
   }),
   methods: {
-    prepareButtonsDetails (event, eventTimeToCurrentTime = MACROS.timePeriods.current) {
+    prepareButtonsDetails (event, timePeriod = MACROS.timePeriods.isCurrent) {
       const {
         eventStartDate,
         eventEndDate,
         eventName,
         eventId,
       } = event;
-      const firstDate = getDateInFormat(eventStartDate, DATE_FORMATS.DDMMYYYY);
-      const secondDate = getDateInFormat(eventEndDate, DATE_FORMATS.DDMMYYYY);
-      const secondLineText = firstDate === secondDate
-        ? firstDate
-        : `${firstDate} - ${secondDate}`;
+
+      const secondLineText = getFromToString(
+        getDateInFormat(eventStartDate, DATE_FORMATS.DDMMYYYY),
+        getDateInFormat(eventEndDate, DATE_FORMATS.DDMMYYYY),
+      );
 
       return {
         onClick: this.signInToEvent.bind(this),
         id: eventId,
         iconLeftProps: {
-          name: GENERAL_DEFAULT_CONFIG.timeIcons[eventTimeToCurrentTime].icon,
+          name: generalConfigUtils.getIconByTimePeriod(timePeriod),
           class: 'f-text-standard',
         },
         iconRightProps: {
-          name: USERS_DEFAULT_CONFIG.accountTypeInfo[event.accountType].icon,
+          name: userUtils.getIcon(event),
           class: 'f-text-standard',
           type: ICONS_TYPES.outlined,
         },
@@ -77,10 +78,10 @@ export default {
   },
   watch: {
     events: function (events) {
-      const [before, current, after] = splitObjectsListByTime(events, 'eventStartDate', 'eventEndDate');
-      this.finishedEvents = after.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.before));
-      this.currentEvents = current.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.current));
-      this.upcomingEvents = before.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.after));
+      const [past, current, future] = eventUtils.splitEventsByTimePeriods(events);
+      this.pastEvents = past.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isPast));
+      this.currentEvents = current.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isCurrent));
+      this.futureEvents = future.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isFuture));
     },
   },
   computed: {

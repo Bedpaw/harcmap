@@ -22,7 +22,7 @@ import MPanel from 'molecules/panel';
 import { mapGetters } from 'vuex';
 import { THEMES } from 'utils/style-manager';
 import { eventUtils } from 'utils/event';
-import moment from 'moment';
+import { DATE_FORMATS, getDateInFormat } from 'utils/date';
 
 export default {
   name: 't-start',
@@ -62,20 +62,18 @@ export default {
       this.mainMessage = this.createMainMessage();
     },
     createMainMessage () {
-      const datetimeFormat = 'DD.MM.YYYY HH:mm';
-      const timeFormat = 'HH:mm';
-      const eventStartDate = moment(new Date(this.event.eventStartDate));
-      const eventEndDate = moment(new Date(this.event.eventEndDate));
+      const { eventStartDate, eventEndDate } = this.event;
+      const { isBeforeStart, isOnGoing, isEndDateToday } = eventUtils;
 
-      if (eventUtils.checkIfIsBeforeStart(this.event)) {
-        return this.$t('page.start.eventStartDate') + eventStartDate.format(datetimeFormat);
+      if (isBeforeStart(this.event)) {
+        return this.$t('page.start.eventStartDate') + getDateInFormat(eventStartDate, DATE_FORMATS.DDMMYYYYHHmm);
       }
 
-      if (eventUtils.checkIfIsOnGoing(this.event)) {
-        if (eventUtils.checkIfEndDateIsToday(this.event)) {
-          return this.$t('page.start.eventEndTime') + eventEndDate.format(timeFormat);
+      if (isOnGoing(this.event)) {
+        if (isEndDateToday(this.event)) {
+          return this.$t('page.start.eventEndTime') + getDateInFormat(eventEndDate, DATE_FORMATS.HHmm);
         }
-        return this.$t('page.start.eventEndDate') + eventEndDate.format(datetimeFormat);
+        return this.$t('page.start.eventEndDate') + getDateInFormat(eventEndDate, DATE_FORMATS.DDMMYYYYHHmm);
       }
       return this.$t('page.start.eventIsOutOfDate');
     },

@@ -17,7 +17,6 @@ import OMap from 'organisms/map';
 import MBannerMap from 'molecules/banner-map';
 import MPointerMap from 'molecules/map-pointer';
 import { map } from 'map';
-import { uCheck } from '@dbetka/utils';
 import { mapConfig } from 'map/config';
 
 export default {
@@ -36,7 +35,7 @@ export default {
   mounted () {
     this.$store.commit('event/setHidePoint', this.point);
     map.updateMapFeatures();
-    if (uCheck.isNotNull(this.point.pointLatitude) && uCheck.isNotNull(this.point.pointLongitude)) {
+    if (this.pointUtils.hasSetPosition(this.point)) {
       map.panToPointLocationOnMap(this.point, { goToMap: false, zoom: mapConfig.settings.maxZoom });
     }
   },

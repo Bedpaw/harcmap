@@ -1,12 +1,22 @@
 export const MACROS = {
+  time: {
+    secondsInMinute: 60,
+    msInSeconds: 1000,
+    msInMinute: 60 * 1000,
+    daysInYear: 365,
+  },
   pointType: {
     timeout: 'timeout',
     permanent: 'permanent',
   },
+  order: {
+    ascending: 'ascending',
+    descending: 'descending',
+  },
   timePeriods: {
-    before: 'before',
-    current: 'current',
-    after: 'after',
+    isPast: 'isPast',
+    isCurrent: 'isCurrent',
+    isFuture: 'isFuture',
   },
   pointCategory: [
     /*    {

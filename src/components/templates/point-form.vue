@@ -86,6 +86,7 @@ import { ErrorMessage } from 'utils/error-message';
 import OFloatContainer from 'organisms/float-container';
 import OAdminSetNewPointPosition from 'organisms/admin/set-point-position';
 import { idUtils } from 'utils/id';
+import { pointUtils } from 'utils/point';
 
 export default {
   name: 't-point-form',
@@ -139,13 +140,13 @@ export default {
       return this.isTimeout ? `${rules.required}|${rules.name}` : rules.name;
     },
     isTimeout () {
-      return this.values.pointType === MACROS.pointType.timeout;
+      return pointUtils.isTimeOut(this.values);
     },
     isPermanent () {
-      return this.values.pointType === MACROS.pointType.permanent;
+      return pointUtils.isPermanent(this.values);
     },
     hasSetPosition () {
-      return uCheck.isNotNull(this.values.pointLatitude) && uCheck.isNotNull(this.values.pointLongitude);
+      return pointUtils.hasSetPosition(this.values);
     },
   },
   methods: {

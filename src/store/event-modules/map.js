@@ -22,11 +22,6 @@ export default {
     }),
   },
   mutations: {
-    setDefaultMapPositionAndZoom: (state) => {
-      state.mapLatitude = state.mapDefaultLatitude;
-      state.mapLongitude = state.mapDefaultLongitude;
-      state.mapZoom = state.mapDefaultZoom;
-    },
     setMapPosition: (state, { mapLatitude, mapLongitude }) => {
       state.mapLatitude = mapLatitude;
       state.mapLongitude = mapLongitude;

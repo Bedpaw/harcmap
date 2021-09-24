@@ -3,8 +3,8 @@ import { store } from 'store';
 import { fromLonLat } from 'ol/proj';
 import { map } from 'src/map/index';
 import { ICONS } from 'src/__jscash__/icons-names-list';
-import { MACROS } from 'utils/macros';
-import moment from 'moment';
+import { DATE_FORMATS, getDateInFormat } from 'utils/date';
+import { pointUtils } from 'utils/point';
 
 export class Popup {
   constructor ({ container }) {
@@ -53,8 +53,9 @@ export class Popup {
     if (point === undefined) return;
 
     const coordinates = fromLonLat([point.pointLongitude, point.pointLatitude]);
-    const permanentPoint = point.pointType === MACROS.pointType.permanent;
-    const details = permanentPoint ? this.getPermanentPointDetails(point) : this.getTimeoutPointDetails(point);
+    const details = pointUtils.isPermanent(point)
+      ? this.getPermanentPointDetails(point)
+      : this.getTimeoutPointDetails(point);
     store.commit('mapPopup/setData', details);
     store.commit('mapPopup/setPointId', point.pointId);
 
@@ -63,40 +64,41 @@ export class Popup {
   }
 
   getTimeoutPointDetails (point) {
-    const dateFormat = 'HH:mm DD.MM.YYYY';
+    const { pointName, pointAppearanceTime, pointExpirationTime } = point;
     return [
       {
         icon: ICONS.place,
-        value: point.pointLatitude.toFixed(5) + ',' + point.pointLongitude.toFixed(5),
+        value: pointUtils.getLonLatAsString(point),
       },
       {
         icon: ICONS.title,
-        value: point.pointName,
+        value: pointName,
       },
       {
         icon: ICONS.watch_later,
-        value: moment(new Date(point.pointAppearanceTime)).format(dateFormat),
+        value: getDateInFormat(pointAppearanceTime, DATE_FORMATS.HHmmDDMMYYYY),
       },
       {
         icon: ICONS.history_toggle_off,
-        value: moment(new Date(point.pointExpirationTime)).format(dateFormat),
+        value: getDateInFormat(pointExpirationTime, DATE_FORMATS.HHmmDDMMYYYY),
       },
     ];
   }
 
   getPermanentPointDetails (point) {
+    const { pointName, pointId } = point;
     const detailsList = [];
     detailsList.push({
       icon: ICONS.place,
-      value: point.pointLatitude.toFixed(5) + ',' + point.pointLongitude.toFixed(5),
+      value: pointUtils.getLonLatAsString(point),
     });
-    point.pointName && detailsList.push({
+    pointName && detailsList.push({
       icon: ICONS.title,
-      value: point.pointName,
+      value: pointName,
     });
     detailsList.push({
       icon: ICONS.vpn_key,
-      value: point.pointId,
+      value: pointId,
     });
     return detailsList;
   }
