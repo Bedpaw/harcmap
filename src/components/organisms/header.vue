@@ -58,6 +58,7 @@ export default {
         ROUTES.start.name,
         ROUTES.adminPanel.name,
         ROUTES.spectatorPanel.name,
+        ROUTES.eventsList,
       ].includes(this.$route.name);
     },
     pathBackButton () {

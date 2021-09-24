@@ -275,4 +275,15 @@ export const ROUTES = {
       requiredAuth: true,
     },
   },
+  joinEvent: {
+    path: '/join-event',
+    name: 'joinEvent',
+    label: translator.t('title.joinEvent'),
+    shortLabel: translator.t('title.short.joinEvent'),
+    icon: ICONS.event,
+    meta: {
+      onlyBeforeLogin: false,
+      requiredAuth: true,
+    },
+  },
 };

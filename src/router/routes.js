@@ -26,6 +26,7 @@ export const routes = [
   [ROUTES.searchPoint, () => import('pages/admin/search-point.vue')],
   [ROUTES.newEvent, () => import('pages/add-event.vue')],
   [ROUTES.eventsList, () => import('pages/events-list.vue')],
+  [ROUTES.joinEvent, () => import('pages/join-event.vue')],
 ]
   .map(([route, component]) => ({
     ...getDataForRouter(route),
