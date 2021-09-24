@@ -2,7 +2,8 @@
   <o-popup-empty ref="popup">
     <article class="f-flex f-flex-col f-flex-al-start f-text-16 f-text-normal">
       <div class="f-pb-2 f-text-bold f-text-18" >{{$t('page.joinEvent.confirmData')}}</div>
-      <div v-for="dataRow in dataRows" :key="dataRow.label">{{$t(dataRow.label)}}:
+      <div v-for="dataRow in dataRows" :key="dataRow.label">
+        {{$t(dataRow.label)}}:
         <span class="f-text-bold f-line-24"> {{dataRow.data}}</span>
       </div>
       <a-button-primary add-area-class="f-mt-2 f-mb-0" @click="enterEvent">{{$t('form.button.next')}}</a-button-primary>
