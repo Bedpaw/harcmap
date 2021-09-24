@@ -28,7 +28,7 @@ export default {
         { route: ROUTES.scoreboard },
         { route: ROUTES.editEvent },
         { route: ROUTES.newPoint },
-        { url: '/point/all', label: 'Pobierz listę punktów' },
+        { url: '/point/all', label: this.$t('page.admin.adminPanel.downloadPointsList') },
         { route: ROUTES.searchPoint },
         { route: ROUTES.usersList },
       ]
