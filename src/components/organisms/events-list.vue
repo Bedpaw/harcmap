@@ -69,7 +69,7 @@ export default {
       this.$router.push(this.ROUTES.newEvent.path);
     },
     navigateToJoinEvent () {
-      console.log('Redirecting to join event');
+      this.$router.push(this.ROUTES.joinEvent.path);
     },
   },
   mounted () {

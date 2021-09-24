@@ -2,6 +2,7 @@ import moment from 'moment';
 
 export const DATE_FORMATS = {
   DDMMYYYY: 'DD.MM.YYYY',
+  DDMMYYYYHHmm: 'DD.MM.YYYY HH:mm',
 };
 export function getDateInFormat (date, format = DATE_FORMATS.DDMMYYYY) {
   return moment(date).format(format);
