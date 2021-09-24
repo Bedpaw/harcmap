@@ -3,8 +3,8 @@ import { compareDate, splitObjectsListByTime } from 'utils/date';
 const { isToday, isActual, isFuture, isPast } = compareDate;
 
 const timeUtils = {
-  isBeforeStart: ({ eventStartDate }) => isPast(eventStartDate),
-  isAfterStart: ({ eventStartDate }) => isFuture(eventStartDate),
+  isBeforeStart: ({ eventStartDate }) => isFuture(eventStartDate),
+  isAfterStart: ({ eventStartDate }) => isPast(eventStartDate),
   isOnGoing: ({
     eventStartDate,
     eventEndDate,
