@@ -1,0 +1,240 @@
+paths:
+  /events/:eventId/points:
+    get:
+      summary: 'Get list of points in event with eventId (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Points
+      responses:
+        200:
+          description: 'Return list of points'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    pointId:
+                      $ref: '#/components/props/pointId'
+                    pointKey:
+                      $ref: '#/components/props/pointKey'
+                    pointName:
+                      $ref: '#/components/props/pointName'
+                    pointCollectedDate:
+                      $ref: '#/components/props/pointCollectedDate'
+                    pointDuration:
+                      $ref: '#/components/props/pointDuration'
+                    pointCategory:
+                      $ref: '#/components/props/pointCategory'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+    post:
+      summary: 'Add point (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Points
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pointKey:
+                  $ref: '#/components/props/pointKey'
+                pointName:
+                  $ref: '#/components/props/pointName'
+                pointDuration:
+                  $ref: '#/components/props/pointDuration'
+                pointCategoryId:
+                  $ref: '#/components/props/categoryId'
+              required:
+                - pointKey
+                - pointName
+                - pointCategoryId
+      responses:
+        200:
+          description: 'Successfully add point'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    $ref: '#/components/props/success'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+  /events/:eventId/points/collect:
+    post:
+      summary: 'Collect point in event with eventId (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Points
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pointKey:
+                  $ref: '#/components/props/pointKey'
+              required:
+                - pointKey
+      responses:
+        200:
+          description: 'Result of operation'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    $ref: '#/components/props/success'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+  /events/:eventId/points/:pointId:
+    get:
+      summary: 'Get point with pointId from event with eventId (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Points
+      responses:
+        200:
+          description: 'Point data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pointKey:
+                    $ref: '#/components/props/pointKey'
+                  pointName:
+                    $ref: '#/components/props/pointName'
+                  pointCollectedDate:
+                    $ref: '#/components/props/pointCollectedDate'
+                  pointDuration:
+                    $ref: '#/components/props/pointDuration'
+                  pointCategory:
+                    $ref: '#/components/props/pointCategory'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+    put:
+      summary: 'Update point with pointId from event with eventId (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Points
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pointKey:
+                  $ref: '#/components/props/pointKey'
+                pointName:
+                  $ref: '#/components/props/pointName'
+                pointCollectedDate:
+                  $ref: '#/components/props/pointCollectedDate'
+                pointDuration:
+                  $ref: '#/components/props/pointDuration'
+                pointCategoryId:
+                  $ref: '#/components/props/categoryId'
+      responses:
+        200:
+          description: 'Result of operation'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    $ref: '#/components/props/success'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+    delete:
+      summary: 'Delete point with pointId from event with eventId (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Points
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pointId:
+                  $ref: '#/components/props/pointId'
+              required:
+                - teamId
+      responses:
+        200:
+          description: 'Result of operation'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    $ref: '#/components/props/success'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'                  

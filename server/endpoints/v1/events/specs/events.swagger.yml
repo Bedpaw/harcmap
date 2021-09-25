@@ -1,7 +1,7 @@
 paths:
-  /events/:id:
+  /events/:eventId:
     get:
-      summary: 'Get event with :id (SECURED)'
+      summary: 'Get event with :eventId (SECURED)'
       description: 'Special privilege required'
       tags:
         - Events
@@ -68,6 +68,44 @@ paths:
                     $ref: '#/components/props/success'
         400:
           description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+  /events/join:
+    post:
+      summary: 'Allow user to join event (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventKey:
+                  $ref: '#/components/props/eventKey'
+              required:
+                - eventKey
+      responses:
+        200:
+          description: 'Successfully join to event'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    $ref: '#/components/props/success'
+        400:
+          description: 'Validation error or none exist eventKey'
           content:
             application/json:
               schema:

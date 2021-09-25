@@ -24,13 +24,22 @@ const options = {
       description: 'Endpoint zwracający informacje o aplikacji',
     }, {
       name: 'Auth',
-      description: 'Endpoint do operacji na sesji(rejestracja, logowanie, wylogowywanie)',
+      description: 'Endpoint do obsługi sesji(rejestracja, logowanie, wylogowywanie)',
     }, {
       name: 'Users',
-      description: 'Endpoint do operacji na użytkownikach',
+      description: 'Endpoint do obsługi użytkowników',
     }, {
       name: 'Events',
-      description: 'Endpoint do operacji na wydarzeniach',
+      description: 'Endpoint do obsługi wydarzeń',
+    }, {
+      name: 'Teams',
+      description: 'Endpoint do obsługi zespołów wydarzenia',
+    }, {
+      name: 'Points',
+      description: 'Endpoint do obsługi punktów wydarzenia',
+    }, {
+      name: 'Categories',
+      description: 'Endpoint do obsługi kategorii punktów wydarzenia',
     }],
   },
 };

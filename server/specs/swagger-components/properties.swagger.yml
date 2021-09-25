@@ -1,19 +1,38 @@
 components:
   props:
-      email:
-        description: 'User email. Used also as login'
-        type: string
-        format: email
-        maxLength: 24
-      password:
-        description: 'User password'    
-        type: string
-        format: password
-        minLength: 8
-        maxLength: 24
-      userEvents:
-        description: 'List of events that user participle'
-        type: array
+    userId:
+      description: 'User id (ObjectId)'
+      type: string
+    email:
+      description: 'User email. Used also as login'
+      type: string
+      format: email
+      maxLength: 24
+    password:
+      description: 'User password'
+      type: string
+      format: password
+      minLength: 8
+      maxLength: 24
+    isActive:
+      description: 'User account is active (in creating user, default: false)'
+      type: boolean
+    userEvents:
+      description: 'List of events that user participle'
+      type: array
+      items:
+        type: object
+        properties:
+          eventId:
+            $ref: '#/components/props/eventId'
+          eventName:
+            $ref: '#/components/props/eventName'
+          teamId:
+            $ref: '#/components/props/teamId'
+          teamName:
+            $ref: '#/components/props/teamName'
+          roles:
+            $ref: '#/components/props/roles'
       error:
         description: 'Error code name'
         type: number
@@ -28,25 +47,28 @@ components:
         description: 'Field describe status of operation'
         type: boolean
         nullable: false
-      roles:
-        type: object
-        properties:
-          eventRole:
-            description: 'Describe permissions in event scope'
-            type: string
-          teamRole:
-            description: 'Describe permissions in team scope'
-            type: string  
-      eventName:
-        description: 'Event name'
-        type: string
-      eventKey:
-        description: 'Event access key'
-        type: string    
-      eventDuration:
-        type: object
-        properties:
-          startDate:
+    roles:
+      type: object
+      properties:
+        eventRole:
+          description: 'Describe permissions in event scope'
+          type: string
+        teamRole:
+          description: 'Describe permissions in team scope'
+          type: string
+    eventId:
+      description: 'Event id'
+      type: string
+    eventName:
+      description: 'Event name'
+      type: string
+    eventKey:
+      description: 'Event access key'
+      type: string
+    eventDuration:
+      type: object
+      properties:
+        startDate:
             description: 'Time when event start'
             type: number
             nullable: true
@@ -66,6 +88,79 @@ components:
           latitude:
             description: 'Default map latitude for user'
             type: number
-      eventRefreshTime:
-        description: 'Refresh time(in seconds) of map with points'
-        type: number  
+    eventRefreshTime:
+      description: 'Refresh time(in seconds) of map with points'
+      type: number
+    teamId:
+      description: 'Team id'
+      type: string
+    teamName:
+      description: 'Team name'
+      type: string
+    collectedPoints:
+      description: 'List of collected points (pointsId)'
+      type: array
+      items:
+        type: string
+    teamMembers:
+      description: 'List of members in team'
+      type: array
+      items:
+        type: object
+        properties:
+          email:
+            $ref: '#/components/props/email'
+          userId:
+            $ref: '#/components/props/userId'
+    teamLeader:
+      description: 'Id of user that have to be leader of team'
+      type: string
+    pointId:
+      description: 'Point id'
+      type: string
+    pointKey:
+      description: 'Point key to collect'
+      type: string
+    pointName:
+      description: 'Point name'
+      type: string
+    pointCollectedDate:
+      description: 'Date when point was collected. Can be null'
+      type: string
+      nullable: true
+    pointDuration:
+      description: 'Start and end time when point is available'
+      type: object
+      properties:
+        startDate:
+          description: 'Time when point start to be available. If null, point exist from start of event'
+          type: string
+          default: null
+          nullable: true
+        endDate:
+          description: 'Time when point end to be available. If null, point exist to end of event'
+          type: string
+          default: null
+          nullable: true
+    pointCategory:
+      description: 'Point category name and id'
+      type: object
+      properties:
+        categoryId:
+          $ref: '#/components/props/categoryId'
+        categoryName:
+          $ref: '#/components/props/categoryName'
+    categoryId:
+      description: 'Category id'
+      type: string
+    categoryName:
+      description: 'Category name'
+      type: string
+    pointValue:
+      description: 'Point category value'
+      type: number
+    pointShape:
+      description: 'Point category shape'
+      type: string    
+        
+        

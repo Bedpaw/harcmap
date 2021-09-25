@@ -21,8 +21,8 @@ db.users.insert({
   'accountCreated': 0,
   'userEvents': [ObjectId('507f191e810c19729de860ea')],
 });
-// TODO accountBaned (admin ban, multi device login)
 
+// TODO accountBaned - in event (admin ban, multi device login)
 db.usersEvents.insert({
   '_id': ObjectId('507f191e810c19729de860ea'),
   'eventId': ObjectId('60e6cc2eaa95cc33d7c46701'),
@@ -62,6 +62,7 @@ db.events.insert({
 db.points_60e6cc2eaa95cc33d7c46701.insert({
   '_id': ObjectId('60e6d13faa95cc33d7c4671b'),
   'pointKey': 'ab12',
+  'pointName': 'Point name',
   'pointCollectedDate': null,
   'pointCategoryId': ObjectId('60e7046eaa95cc33d7c4672b'),
   'pointDuration': {
@@ -72,6 +73,7 @@ db.points_60e6cc2eaa95cc33d7c46701.insert({
 
 db.categories_60e6cc2eaa95cc33d7c46701.insert({
   '_id': ObjectId('60e7046eaa95cc33d7c4672b'),
+  'categoryName': 'red',
   'pointValue': 2,
   'pointShape': 'dot',
 });

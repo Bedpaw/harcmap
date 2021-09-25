@@ -5,6 +5,12 @@ paths:
       description: 'Special privilege required'
       tags:
         - Users
+      parameters:
+        - in: "query"
+          name: "eventId"
+          description: "Return information about users participle in specific event (eventId) and return only one item in userEvents"
+          default: undefined
+          required: true
       responses:
         200:
           description: 'Return list of users'
@@ -15,12 +21,14 @@ paths:
                 items:
                   type: object
                   properties:
+                    userId:
+                      $ref: '#/components/props/userId'
                     email:
                       $ref: '#/components/props/email'
+                    isActive:
+                      $ref: '#/components/props/isActive'
                     userEvents:
                       $ref: '#/components/props/userEvents'
-                    roles:
-                      $ref: '#/components/props/roles'
         400:
           description: 'Validation error'
           content:
@@ -46,11 +54,17 @@ paths:
               properties:
                 email:
                   $ref: '#/components/props/email'
-                roles:
-                  $ref: '#/components/props/roles'
+                password:
+                  $ref: '#/components/props/password'
+                isActive:
+                  $ref: '#/components/props/isActive'
+                eventId:
+                  $ref: '#/components/props/eventId'
+                teamId:
+                  $ref: '#/components/props/teamId'
               required:
                 - email
-                - roles    
+                - password
       responses:
         200:
           description: 'User data'
@@ -73,12 +87,107 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
-  /users/:id:
+  /users/account-activation/:key:
     get:
-      summary: 'Get user with :id (SECURED)'
+      summary: 'Activate user account with "key"'
+      tags:
+        - Users
+      responses:
+        303:
+          description: 'Activation success. Redirect to login form'
+        400:
+          description: 'Validation error. Wrong request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+  /users/reset-password:
+    post:
+      summary: 'Send request for generate password-reset-key'
+      tags:
+        - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  $ref: '#/components/props/email'
+              required:
+                - email
+      responses:
+        200:
+          description: 'For safety always return true'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    value: true
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+  /users/reset-password/:key:
+    get:
+      summary: 'Navigate to password reset form'
+      tags:
+        - Users
+      responses:
+        200:
+          description: 'HTML site'
+        400:
+          description: 'Validation error - wrong key param'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+    post:
+      summary: 'Reset password for user with passwordReset "key"'
+      tags:
+        - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  $ref: '#/components/props/password'
+              required:
+                - password
+      responses:
+        200:
+          description: 'Operation success'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    $ref: '#/components/props/success'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+  /users/:userId:
+    get:
+      summary: 'Get user with :userId (SECURED)'
       description: 'Special privilege required'
       tags:
         - Users
+      parameters:
+        - in: "query"
+          name: "eventId"
+          description: "Return information about user in specific event (eventId) - return only one item in userEvents"
+          default: undefined
+          required: true
       responses:
         200:
           description: 'User data'
@@ -89,10 +198,10 @@ paths:
                 properties:
                   email:
                     $ref: '#/components/props/email'
+                  isActive:
+                    $ref: '#/components/props/isActive'
                   userEvents:
                     $ref: '#/components/props/userEvents'
-                  roles:
-                    $ref: '#/components/props/roles'  
         400:
           description: 'Validation error'
           content:
@@ -118,10 +227,21 @@ paths:
               properties:
                 email:
                   $ref: '#/components/props/email'
-                userEvents:
-                  $ref: '#/components/props/userEvents'
-                roles:
-                  $ref: '#/components/props/roles'
+                password:
+                  $ref: '#/components/props/password'
+                isActive:
+                  $ref: '#/components/props/isActive'
+                events:
+                  description: 'Object with events for edit. Keys are dynamic. If user have no permission to edit one of sent event, endpoint will return 401 status'
+                  type: object
+                  properties:
+                    [ eventId ]:
+                      type: object
+                      properties:
+                        teamId:
+                          $ref: '#/components/props/teamId'
+                        roles:
+                          $ref: '#/components/props/roles'
       responses:
         200:
           description: 'Result of operation'
@@ -144,30 +264,3 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
-    delete: 
-      summary: 'Delete user with :id (SECURED)'
-      description: 'Special privilege required'
-      tags:
-        - Users
-      responses:
-        200:
-          description: 'Result of operation'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    $ref: '#/components/props/success'
-        400:
-          description: 'Validation error'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/400'
-        401:
-          description: 'No permissions'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/401'   
