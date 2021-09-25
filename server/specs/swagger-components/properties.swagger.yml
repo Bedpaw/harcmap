@@ -69,25 +69,25 @@ components:
       type: object
       properties:
         startDate:
-            description: 'Time when event start'
-            type: number
-            nullable: true
-          endDate:
-            description: 'Time when event end'
-            type: number
-            nullable: true
-      mapProperties:
-        type: object
-        properties:
-          zoom:
-            description: 'Default map zoom for user'
-            type: number
-          longitude:
-            description: 'Default map longitude for user'
-            type: number
-          latitude:
-            description: 'Default map latitude for user'
-            type: number
+          description: 'Time when event start'
+          type: number
+          nullable: true
+        endDate:
+          description: 'Time when event end'
+          type: number
+          nullable: true
+    mapProperties:
+      type: object
+      properties:
+        zoom:
+          description: 'Default map zoom for user'
+          type: number
+        longitude:
+          description: 'Default map longitude for user'
+          type: number
+        latitude:
+          description: 'Default map latitude for user'
+          type: number
     eventRefreshTime:
       description: 'Refresh time(in seconds) of map with points'
       type: number
