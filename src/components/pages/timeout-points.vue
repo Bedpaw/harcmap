@@ -34,7 +34,7 @@ export default {
       'getTimeoutPoints',
     ]),
     points () {
-      return userUtils.can.seeAllTimeOutPoints
+      return userUtils.can.seeAllTimeOutPoints()
         ? this.getTimeoutPoints
         : pointUtils.getTodayPoints(this.getTimeoutPoints);
     },
