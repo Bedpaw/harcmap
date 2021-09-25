@@ -7,7 +7,7 @@
         v-model="phrase"
       />
     </div>
-    <slot name="result-list" :elements="filteredElements"></slot>
+    <slot name="result-list" :filteredElements="filteredElements"></slot>
   </t-page>
 
 </template>

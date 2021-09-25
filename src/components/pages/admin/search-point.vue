@@ -4,11 +4,11 @@
     :elements="points"
     :searchKeys="['pointId', 'pointName']"
   >
-    <template v-slot:result-list="{ elements: points }">
+    <template v-slot:result-list="{ filteredElements: filteredPoints }">
       <div class="f-flex-1 f-scroll-default f-mr--2" >
         <div
           class="m-grid f-search-point f-mr-2"
-          v-for="point of points"
+          v-for="point of filteredPoints"
           :key="point.pointId"
         >
           <a-button-icon class="f-minimal">
