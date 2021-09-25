@@ -4,11 +4,11 @@
     :elements="users"
     :searchKeys="['user', 'userTeam']"
   >
-    <template v-slot:result-list="{ elements: users }">
+    <template v-slot:result-list="{ filteredElements: filteredUsers }">
       <div class="f-flex-1 f-scroll-default f-mt--2" >
         <div
           class="m-grid f-search-user f-mr-2"
-          v-for="user of users"
+          v-for="user of filteredUsers"
           :key="user.user"
         >
           <div class="f-py-1 f-line-24">{{ user.userTeam }}</div>
