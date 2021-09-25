@@ -38,7 +38,7 @@
 import AButtonFillPrimary from 'atoms/button/fill/primary';
 import AButtonFillSecondary from 'atoms/button/fill/secondary';
 import AButton from 'atoms/button';
-import { DEFAULT_EVENT_CONFIG } from 'src/config/event-config';
+import { DEFAULT_EVENT_CONFIG } from 'config/event-config';
 
 export default {
   name: 'm-buttons-list-events',

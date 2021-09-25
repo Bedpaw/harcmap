@@ -39,7 +39,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { ROUTES } from 'utils/macros/routes';
+import { ROUTES } from 'config/routes-config';
 
 export default {
   name: 'o-header',

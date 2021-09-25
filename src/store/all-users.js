@@ -1,5 +1,6 @@
 import { ACCOUNT_TYPES } from 'utils/permissions';
 import { uCheck } from '@dbetka/utils';
+import { mockApi } from 'api/mock/mock';
 
 export default {
   namespaced: true,
@@ -33,7 +34,7 @@ export default {
   actions: {
     download (context) {
       return new Promise((resolve, reject) => {
-        api.allUsers()
+        mockApi.allUsers()
           .then(({ users }) => {
             context.commit('setUsers', users);
             resolve(users);

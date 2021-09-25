@@ -1,5 +1,5 @@
 import { store } from 'store';
-import { ROUTES } from 'utils/macros/routes';
+import { ROUTES } from 'config/routes-config';
 
 const isTheSameRoute = (to, from) => to === from;
 
@@ -24,7 +24,7 @@ const isLoginGuard = (to, from) => {
 
 const getRedirectPath = () => {
   const isLogIn = store.getters['user/isLogin'];
-  const eventIsNotChoose = store.getters['event/eventId'] !== '';
+  const eventIsNotChoose = store.getters['event/eventId'] === '';
   if (!isLogIn) {
     return ROUTES.welcome.path;
   }
