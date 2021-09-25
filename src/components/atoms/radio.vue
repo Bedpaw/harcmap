@@ -1,32 +1,36 @@
 <template>
-  <label :for="id">
+  <label :for="id" :class="labelClass">
     <input
       class="a-radio"
       type="radio"
-      :id="id"
-      :checked="shouldBeChecked"
+      :checked="isChecked"
+      @change="$emit('change', $event.target.value)"
+      @focus="hasFocus = true"
+      @blur="hasFocus = false"
       :value="value"
+      :id="id"
       :disabled="isDisabled"
-      @change="updateInput"
     />
-    <slot></slot>
+    <a-icon
+      :name="iconName"
+      :class="{'f-text-primary': hasFocus}"
+    ></a-icon>
+    <span class="f-pl-1 f-line-28">
+      <slot></slot>
+    </span>
   </label>
 </template>
 
 <script>
+import { mixins } from 'mixins/base';
+import { ICONS } from '@dbetka/vue-material-icons';
 export default {
   name: 'a-radio',
-  model: {
-    prop: 'modelValue',
-    event: 'change',
-  },
+  mixins: [mixins.vModelRadio],
+  data: () => ({
+    hasFocus: false,
+  }),
   props: {
-    value: {
-      type: String,
-    },
-    modelValue: {
-      default: '',
-    },
     id: {
       default: '',
     },
@@ -36,13 +40,17 @@ export default {
     },
   },
   computed: {
-    shouldBeChecked () {
-      return this.modelValue === this.value;
+    labelClass () {
+      return {
+        'f-flex': true,
+        'f-disabled': this.isDisabled,
+        'f-text-primary': this.hasFocus,
+      };
     },
-  },
-  methods: {
-    updateInput () {
-      this.$emit('change', this.value);
+    iconName () {
+      const checkedIcon = ICONS.radio_button_checked;
+      const uncheckedIcon = ICONS.radio_button_unchecked;
+      return this.isChecked ? checkedIcon : uncheckedIcon;
     },
   },
 };
