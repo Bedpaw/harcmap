@@ -1,14 +1,14 @@
 <template>
   <section>
-    <m-buttons-list primary :buttons-details="primaryButtons" :title="$t('page.eventsList.new')"></m-buttons-list>
-    <m-buttons-list :buttons-details="currentEvents" :title="$t('page.eventsList.current')"></m-buttons-list>
-    <m-buttons-list :buttons-details="upcomingEvents" :title="$t('page.eventsList.upcoming')"></m-buttons-list>
-    <m-buttons-list :buttons-details="finishedEvents" :title="$t('page.eventsList.finished')"></m-buttons-list>
+    <m-buttons-list-events primary :buttons-details="primaryButtons" :title="$t('page.eventsList.new')"></m-buttons-list-events>
+    <m-buttons-list-events :buttons-details="currentEvents" :title="$t('page.eventsList.current')"></m-buttons-list-events>
+    <m-buttons-list-events :buttons-details="upcomingEvents" :title="$t('page.eventsList.upcoming')"></m-buttons-list-events>
+    <m-buttons-list-events :buttons-details="finishedEvents" :title="$t('page.eventsList.finished')"></m-buttons-list-events>
   </section>
 </template>
 
 <script>
-import MButtonsList from 'molecules/buttons-list';
+import MButtonsListEvents from 'molecules/buttons-list-events';
 import { USERS_DEFAULT_CONFIG } from 'src/config/users-config';
 import { MACROS } from 'utils/macros';
 import { DATE_FORMATS, getDateInFormat, splitObjectsListByTime } from 'utils/date';
@@ -19,7 +19,7 @@ import { eventsListMock } from 'organisms/events-list-mock';
 export default {
   name: 'o-events-list',
   components: {
-    MButtonsList,
+    MButtonsListEvents,
   },
   data: () => ({
     events: [],
@@ -53,13 +53,8 @@ export default {
           class: 'f-text-standard',
           type: ICONS_TYPES.outlined,
         },
+        text: eventName,
         secondLineText,
-        secondLineTextAddClass: 'f-text-gray f-mt-half ',
-        props: {
-          text: eventName,
-          addClass: 'f-flex f-flex f-flex-col-rev f-flex-al-center f-flex-just-center',
-          bigArea: false,
-        },
       };
     },
     signInToEvent (eventId) {
@@ -88,22 +83,16 @@ export default {
       return [
         {
           onClick: this.navigateToJoinEvent.bind(this),
+          text: this.$t('page.eventsList.joinEvent'),
           iconLeftProps: {
             name: this.ICONS.check,
-          },
-          props: {
-            text: this.$t('page.eventsList.joinEvent'),
-            bigArea: false,
           },
         },
         {
           onClick: this.navigateToCreateEvent.bind(this),
+          text: this.$t('page.eventsList.createEvent'),
           iconLeftProps: {
             name: this.ICONS.add,
-          },
-          props: {
-            text: this.$t('page.eventsList.createEvent'),
-            bigArea: false,
           },
         },
       ];

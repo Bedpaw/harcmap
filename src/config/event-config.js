@@ -2,6 +2,7 @@
 const minute = 60;
 
 export const DEFAULT_EVENT_CONFIG = {
+  paginationStepOnEventList: 3,
   mapRefreshTime: 15,
   mapZoom: 2,
   eventEndDate: null,

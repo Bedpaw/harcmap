@@ -114,7 +114,7 @@ export const pl = {
       setDefaultMapPositionAndZoom: 'Ustaw pozycję mapy',
       setPointMapPosition: 'Ustaw lokalizację punktu',
       sendResetPasswordToEmail: 'Wyślij email resetujący hasło',
-      blockAccount: 'Zablokuj konto'
+      blockAccount: 'Zablokuj konto',
     },
   },
   page: {
@@ -215,6 +215,9 @@ export const pl = {
       },
       userList: {
         accountIsActive: 'Konto jest aktywne',
+      },
+      adminPanel: {
+        downloadPointsList: 'Pobierz listę punktów',
       },
     },
   },
