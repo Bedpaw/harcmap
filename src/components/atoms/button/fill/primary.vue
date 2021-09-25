@@ -1,7 +1,7 @@
 <template>
   <a-button-primary
     @click="$emit('click', $event)"
-    :class="bigArea? 'f-fill' : 'f-fill f-small-area'"
+    :add-area-class="['f-fill', addAreaClass]"
     :add-class="['f-fill', addClass]"
     :loading="loading"
     :disabled="disabled"
@@ -25,6 +25,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    addAreaClass: {
+      type: [Array, String],
+      default: '',
+    },
     addClass: {
       type: [Array, String],
       default: '',
@@ -32,10 +36,6 @@ export default {
     text: {
       type: String,
       default: '',
-    },
-    bigArea: {
-      type: Boolean,
-      default: true,
     },
   },
 };

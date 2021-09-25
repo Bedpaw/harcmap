@@ -2,6 +2,7 @@ import { MACROS } from 'utils/macros';
 const { secondsInMinute } = MACROS.time;
 
 export const DEFAULT_EVENT_CONFIG = {
+  paginationStepOnEventList: 3,
   mapRefreshTime: 15,
   mapZoom: 2,
   eventEndDate: null,
