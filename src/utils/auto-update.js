@@ -37,4 +37,3 @@ export const autoUpdate = {
     intervalID = null;
   },
 };
-

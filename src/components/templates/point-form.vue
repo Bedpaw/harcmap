@@ -78,7 +78,6 @@ import MSelect from 'molecules/select';
 import AButtonSecondary from 'atoms/button/secondary';
 import AButtonSubmit from 'atoms/button/submit';
 import { MACROS } from 'utils/macros';
-import { uCheck } from '@dbetka/utils';
 import { mixins } from 'mixins/base';
 import MFieldDatetime from 'molecules/field/datetime';
 import MFieldText from 'molecules/field/text';
