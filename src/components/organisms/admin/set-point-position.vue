@@ -18,6 +18,7 @@ import MBannerMap from 'molecules/banner-map';
 import MPointerMap from 'molecules/map-pointer';
 import { map } from 'map';
 import { mapConfig } from 'map/config';
+import { pointUtils } from 'utils/point';
 
 export default {
   name: 'o-admin-set-new-point-position',
@@ -35,7 +36,7 @@ export default {
   mounted () {
     this.$store.commit('event/setHidePoint', this.point);
     map.updateMapFeatures();
-    if (this.pointUtils.hasSetPosition(this.point)) {
+    if (pointUtils.hasSetPosition(this.point)) {
       map.panToPointLocationOnMap(this.point, { goToMap: false, zoom: mapConfig.settings.maxZoom });
     }
   },

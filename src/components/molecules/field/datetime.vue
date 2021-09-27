@@ -57,7 +57,7 @@ export default {
         else return null;
       },
       set (value) {
-        if (value) this.$emit('input', getDateValueFromFormat(value, DATE_FORMATS.DDMMYYYYHHmm));
+        if (value) this.$emit('input', getDateValueFromFormat(value, DATE_FORMATS.YYYYMMDDTHHmm));
         else return null;
       },
     },
