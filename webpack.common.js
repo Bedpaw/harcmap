@@ -13,7 +13,13 @@ module.exports = {
   entry: 'src/index.js',
   optimization: {
     splitChunks: {
-      chunks: 'all',
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
     },
   },
   output: {
@@ -50,6 +56,7 @@ module.exports = {
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       template: resolve('src/index.html'),
+      filename: 'index.html',
     }),
     new webpack.DefinePlugin({
       'APP_NAME': JSON.stringify(AppName),
