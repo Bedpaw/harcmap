@@ -11,6 +11,7 @@
     "run:prod": "NODE_ENV=production node app.js",
     "run:pm2": "pm2 start app.js",
     "run:mongodb": "docker run --name harcmap_mongo --rm -p 27017:27017 -v `pwd`/config/mongodb:/docker-entrypoint-initdb.d mongo",
+    "run:mongodb:windows": "docker run --name harcmap_mongo --rm -p 27017:27017 -v %cd%/config/mongodb:/docker-entrypoint-initdb.d mongo",
     "fill-database": "NODE_ENV=development node bin/prepareEvent.js",
     "tests:restapi": "jest --config=jest-node.config.js --testPathPattern=restapi"
   },
@@ -29,6 +30,7 @@
     "npm": ">=6.0.0"
   },
   "dependencies": {
+    "@dbetka/wdk": "^0.1.5",
     "@dbetka/sass-watcher": "^0.1.5",
     "body-parser": "^1.19.0",
     "child_process": "^1.0.2",

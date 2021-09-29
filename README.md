@@ -57,6 +57,13 @@ Write below commands to browser console:
 - `autoLogin.common()` will log out current user and login to common user
 - `autoLogin.admin()` will log out current user and login to admin user
 
+#### Test on mobile devices from localhost on your computer
+**Instruction:**
+1. Run devel environment
+2. Connect mobile device and computer to the same WI-FI network
+3. Check computer IP in your WI-FI network
+4. Put computer IP to phone browser address like here _https://192.168.1.10:3030/_
+5. Use your project from localhost on mobile device!
 
 ## Local database
 
