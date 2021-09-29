@@ -17,7 +17,7 @@ module.exports = {
       test: /\.(sass|scss)$/,
       use: [
         'style-loader',
-        'css-loader',
+        'css-loader?' + JSON.stringify({ url: false }),
         'sass-loader',
         'import-glob-loader',
       ],
@@ -28,14 +28,6 @@ module.exports = {
         'style-loader',
         'css-loader',
       ],
-    },
-    {
-      test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-      loader: 'file-loader',
-      options: {
-        limit: 100000,
-        outputPath: 'assets',
-      },
     },
     {
       test: /\.vue$/,
