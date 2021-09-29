@@ -10,7 +10,9 @@ const AppVersion = webpackUtils.getAppVersionFromPackageJSON();
 
 module.exports = {
   mode: 'development',
-  entry: 'src/index.js',
+  entry: {
+    main: 'src/index.js',
+  },
   optimization: {
     splitChunks: {
       cacheGroups: {
@@ -20,6 +22,7 @@ module.exports = {
           chunks: 'all',
         },
       },
+      // chunks: 'all',
     },
   },
   output: {

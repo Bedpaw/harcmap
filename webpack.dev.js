@@ -6,7 +6,7 @@ module.exports = merge(common, {
   mode: 'development',
   devtool: 'inline-source-map',
   output: {
-    filename: '[chunkhash].js',
+    filename: '[name].js',
   },
   plugins: [
     new webpack.DefinePlugin({
