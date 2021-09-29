@@ -43,7 +43,6 @@ module.exports = {
       map: resolve('src/map'),
       store: resolve('src/store'),
       utils: resolve('src/utils'),
-      assets: resolve('src/assets'),
       vendors: resolve('vendors'),
 
       atoms: resolve('src/components/atoms'),
@@ -65,7 +64,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {
-          from: 'src/assets',
+          from: 'src/img',
           to: 'img',
         },
       ],
