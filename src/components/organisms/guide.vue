@@ -4,16 +4,16 @@
       <a-icon-close-popup add-class="f-mt-1 f-mr-1" @click="close"/>
       <slider ref="slider" @slide="onSlide">
 
-        <slider-item>
+        <slideritem>
           <m-slide :title="this.$t('features.guide.howItWorks.title')" :icon="ICONS.help">
             {{ $t('features.guide.howItWorks.description') }}
             <span class="f-bold">{{ minutes($store.getters['event/mapRefreshTime']) }}</span>
             {{ $t('features.guide.howItWorks.add0') }}
             <div class="f-mt-1">{{ $t('features.guide.howItWorks.add1') }}</div>
           </m-slide>
-        </slider-item>
+        </slideritem>
 
-        <slider-item>
+        <slideritem>
           <m-slide :title="this.$t('features.guide.eventStart.title')" :icon="ICONS.timer">
             <div>{{ $t('features.guide.eventStart.description') }}</div>
             <div class="f-mt-1 f-bold">
@@ -25,9 +25,9 @@
               <span>{{ datetime($store.getters['event/eventEndDate']) }}</span>
             </div>
           </m-slide>
-        </slider-item>
+        </slideritem>
 
-        <slider-item>
+        <slideritem>
           <m-slide :title="this.$t('features.guide.permanentPoints.title')" :icon="ICONS.add_circle">
             <div class="f-mb-3">{{ $t('features.guide.permanentPoints.description') }}</div>
             <div class="f-flex">
@@ -43,9 +43,9 @@
               <div class="f-line-24">{{ $t('features.guide.permanentPoints.add2') }} <span class="f-bold">3 {{ $t('general.pointUnit')}}</span></div>
             </div>
           </m-slide>
-        </slider-item>
+        </slideritem>
 
-        <slider-item>
+        <slideritem>
           <m-slide :title="this.$t('features.guide.seeOnTimeoutPoints.title')" :icon="ICONS.stars">
             <div class="f-mb-3">{{ $t('features.guide.seeOnTimeoutPoints.description') }}</div>
             <div class="f-flex">
@@ -61,15 +61,15 @@
               <div class="f-line-24">{{ $t('features.guide.seeOnTimeoutPoints.add2') }}</div>
             </div>
           </m-slide>
-        </slider-item>
+        </slideritem>
 
-        <slider-item>
+        <slideritem>
           <m-slide :title="this.$t('features.guide.startCollecting.title')" :icon="ICONS.map">
             {{ $t('features.guide.startCollecting.description') }}
           </m-slide>
-        </slider-item>
+        </slideritem>
 
-        <slider-item>
+        <slideritem>
           <m-slide :title="this.$t('features.guide.checkYourResults.title')" :icon="ICONS.bar_chart">
             <div class="f-mb-1">{{ $t('features.guide.checkYourResults.description') }}</div>
             <ul>
@@ -81,16 +81,16 @@
               <li>{{ $t('features.guide.checkYourResults.add5') }}</li>
             </ul>
           </m-slide>
-        </slider-item>
+        </slideritem>
 
-        <slider-item>
+        <slideritem>
           <m-slide :title="this.$t('features.guide.covidInfo.title')" :icon="ICONS.coronavirus">
             <div class="f-mb-1">{{ $t('features.guide.covidInfo.description') }}</div>
           </m-slide>
-        </slider-item>
+        </slideritem>
 
-        <slider-item>
-        </slider-item>
+        <slideritem>
+        </slideritem>
 
       </slider>
 
@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import { slider as Slider, slideritem as SliderItem } from 'vue-concise-slider';
+import { slider, slideritem } from 'vue-concise-slider';
 import OFloatContainer from 'organisms/float-container';
 import MSlide from 'molecules/slide';
 import AIconClosePopup from 'atoms/icon/close-popup';
@@ -110,15 +110,15 @@ export default {
   name: 'o-guide',
   components: {
     AIconClosePopup,
-    Slider,
-    SliderItem,
+    slider,
+    slideritem,
     MSlide,
     OFloatContainer,
   },
   computed: {
     ...mapGetters('guide', ['isOpen']),
     numberOfSlides () {
-      if (this.$refs.slider) return this.$refs.slider.$children.length;
+      if (this.$refs.slider) return this.$refs.slider.config.sliderLength;
       else return 0;
     },
   },
