@@ -29,10 +29,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.14.8",
-    "@capacitor/app": "^1.0.1",
-    "@capacitor/core": "^3.0.0",
-    "@capacitor/geolocation": "^1.0.1",
-    "@capacitor/local-notifications": "^1.0.0",
     "babel-loader": "^8.2.2",
     "babel-plugin-transform-builtin-extend": "^1.1.2",
     "copy-webpack-plugin": "^9.0.1",
