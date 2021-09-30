@@ -5,13 +5,15 @@ import {
   ValidationProvider,
 } from 'vee-validate';
 import * as rules from 'vee-validate/dist/rules';
-import { messages } from 'vee-validate/dist/locale/pl.json';
+import PL from 'vee-validate/dist/locale/pl.json';
 import validateTools from 'vendors/validate-tools';
 import { translator } from 'src/dictionary';
 
 // Register it globally
 Vue.component('validation-provider', ValidationProvider);
 Vue.component('validation-observer', ValidationObserver);
+
+const { messages } = PL;
 
 messages.required = translator.t('form.validation.required');
 messages.email = translator.t('form.validation.email');

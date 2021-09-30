@@ -53,11 +53,20 @@ export default {
       'isOpen',
     ]),
   },
+  mounted () {
+    // Mobile browsers calculate viewport height in wrong way - setVH is correction for it.
+    this.setVH();
+    window.addEventListener('resize', () => this.setVH());
+  },
   methods: {
     ...mapMutations('menu', {
       openMenu: 'open',
       closeMenu: 'close',
     }),
+    setVH () {
+      const VH = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${VH}px`);
+    },
     openMenuIfLogin () {
       this.$store.getters['user/isLogin'] && this.openMenu();
     },

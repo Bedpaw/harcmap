@@ -17,7 +17,7 @@ module.exports = {
       test: /\.(sass|scss)$/,
       use: [
         'style-loader',
-        'css-loader',
+        'css-loader?' + JSON.stringify({ url: false }),
         'sass-loader',
         'import-glob-loader',
       ],
@@ -28,10 +28,6 @@ module.exports = {
         'style-loader',
         'css-loader',
       ],
-    },
-    {
-      test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-      loader: 'url-loader?limit=100000',
     },
     {
       test: /\.vue$/,
