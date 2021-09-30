@@ -19,7 +19,6 @@ module.exports = {
         'style-loader',
         'css-loader?' + JSON.stringify({ url: false }),
         'sass-loader',
-        'import-glob-loader',
       ],
     },
     {
