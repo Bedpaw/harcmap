@@ -7,7 +7,7 @@
     "build:dev:watch": "npx webpack --config webpack.dev.js --watch",
     "build:prod": "npx webpack --config webpack.prod.js",
     "build:prod:watch": "npx webpack --config webpack.prod.js --watch",
-    "sass-watcher": "sass-watcher --config sass-watcher.json"
+    "import:sass:watch": "sass-watcher --config sass-watcher.json"
   },
   "dependencies": {
     "@dbetka/sass-watcher": "^0.1.5",

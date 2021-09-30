@@ -38,7 +38,7 @@
 #### Client
 1. Go to client dir `cd client`
 2. Install client packages: `npm i`
-3. Run the front-end sass watcher: `npm run sass-watcher`
+3. Run the front-end sass watcher: `npm run import:sass:watch`
 4. Run the front-end builder: `npm run build:dev:watch`
 5. Build client files destination is in `public/`
    
@@ -58,7 +58,7 @@
 #### Client
 1. Go to client dir `cd client`
 2. Install client packages: `npm i`
-3. Run the front-end sass watcher: `npm run sass-watcher`
+3. Run the front-end sass watcher: `npm run import:sass:watch`
 4. Run the front-end builder: `npm run build:prod`
 5. Build client files destination is in `public/`
 
