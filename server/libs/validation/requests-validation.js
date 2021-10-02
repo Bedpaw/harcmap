@@ -21,6 +21,7 @@ function validateRequests (app) {
       if (endpointSchemaObject) {
         // data to validate for POST, PUT, DELETE
         let data = body;
+        const { allowEmptyObject } = requestSchemaStore[endpointUrl];
 
         // data to validate for GET
         if (method === 'GET') {
@@ -28,22 +29,23 @@ function validateRequests (app) {
         }
         // TODO validation body for GET and query for POST, PUT, DELETE
 
+        const dataAreEmptyObject = Object.keys(data).length === 0;
         const validatedData = validateOne(data, endpointSchemaObject);
+        const noValidationErrors = validatedData.errors.length === 0;
 
-        // validation error
-        if (validatedData.errors.length) {
-          throw new AppError(errorCodes.REQUEST_VALIDATION_ERROR, {
-            httpStatus: 400,
-            details: validatedData,
-          });
+        if ((!allowEmptyObject && noValidationErrors) || (allowEmptyObject && dataAreEmptyObject)) {
+          return next();
         }
+
+        throw new AppError(errorCodes.REQUEST_VALIDATION_ERROR, {
+          httpStatus: 400,
+          details: validatedData,
+        });
       } else {
-        // no schema
         throw new AppError(errorCodes.NO_SCHEMA, {
           httpStatus: 500,
         });
       }
-      next();
     });
   });
 }

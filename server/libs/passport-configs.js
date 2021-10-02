@@ -12,12 +12,14 @@ function setStrategy (passport) {
   passport.use(new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
-  }, (username, password, done) => {
-    Users.get({ username })
+  }, (email, password, done) => {
+
+    console.log(email, password);
+
+    Users.get({ email })
       .then((userData) => {
-        const user = userData;
-        if (user && user.password === getSHA(password)) {
-          done(null, user);
+        if (userData && userData.password === getSHA(password)) {
+          done(null, userData);
         } else {
           // invalid username or password
           throw new AppError(errorCodes.INVALID_CREDENTIALS, {
@@ -37,14 +39,16 @@ function setStrategy (passport) {
  * @param done {function}
  */
 function deserializeUser (_id, done) {
-  console.log('deserialize');
+  console.log('deserialize', _id);
   Users.get({ _id: ObjectId(_id) })
     .then((userData) => {
-      const returnedUserData = userData;
-      delete returnedUserData.password;
-      delete returnedUserData._id;
+      const dataInSession = {
+        _id,
+        email: userData.email,
+        userEvents: [],
+      };
 
-      done(null, returnedUserData);
+      done(null, dataInSession);
     })
     .catch((error) => {
       done(error);
@@ -58,7 +62,11 @@ function deserializeUser (_id, done) {
  */
 function serializeUser (_id, done) {
   console.log('serialize', _id);
-  done(null, _id);
+  if (!_id) {
+    done(null, _id);
+  } else {
+    done('no _id in serialization', null);
+  }
 }
 
 module.exports = {

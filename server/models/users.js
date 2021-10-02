@@ -22,6 +22,8 @@ const userSchema = {
 };
 
 // Create model
-const Users = new Model('users', userSchema);
+const Users = new Model('users', userSchema, {
+  uniqueFiled: 'email',
+});
 
 module.exports = Users;

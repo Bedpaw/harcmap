@@ -1,32 +1,44 @@
 const passport = require('passport');
-const logger = require('../../../../libs/logger');
-const { AppError, errorCodes, handleErrors } = require('../../../../libs/errors');
+const {
+  handleErrors,
+  AppError,
+  errorCodes,
+} = require('../../../../libs/errors');
 
 // Login
 function signIn (request, response, next) {
   const isAuth = request.isAuthenticated();
-  logger.log('isAuth', isAuth);
+  const { user } = request;
 
   if (!isAuth) {
     passport.authenticate('local', (authenticateAppError, userData) => {
-      if (authenticateAppError) {
-        handleErrors(authenticateAppError, request, response, next);
+      if (authenticateAppError || !userData) {
+        throw new AppError(errorCodes.NOT_LOGGED, {
+          httpStatus: 401,
+        });
+        // handleErrors(authenticateAppError, request, response, next);
       } else {
         request.login(userData._id, (serializeAppError) => {
           if (serializeAppError) {
             handleErrors(serializeAppError, request, response, next);
           } else {
-            delete userData.password;
-            delete userData._id;
-            response.send(userData);
+            const responseData = {
+              email: userData.email,
+              userEvents: [],
+            };
+
+            response.send(responseData);
           }
         });
       }
     })(request, response, next);
   } else {
-    throw new AppError(errorCodes.USER_IS_ALREADY_AUTHENTICATED, {
-      httpStatus: 401,
-    });
+    const responseData = {
+      email: user.email,
+      userEvents: user.userEvents,
+    };
+
+    response.send(responseData);
   }
 }
 

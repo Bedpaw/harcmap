@@ -19,7 +19,7 @@ const endpointsAccessConfig = {
     GET: users.admin,
     PUT: users.admin,
   },
-  // TODO zabezpieczyć pole "roles" dla "users.owner"
+  // TODO zabezpieczyć pole "role" dla "users.owner"
   '/api/v1/users/:id': {
     GET: [users.admin, users.owner],
     PUT: [users.admin, users.owner],

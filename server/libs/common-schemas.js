@@ -12,11 +12,8 @@ const email = Joi.string()
   .email()
   .max(24);
 
-const eventRole = Joi.string()
+const role = Joi.string()
   .equal('common', 'moderator', 'creator');
-
-const teamRole = Joi.string()
-  .equal('common', 'leader');
 
 const eventName = Joi.string()
   .min(3)
@@ -37,10 +34,9 @@ const mapRefreshTime = Joi.number();
 module.exports = {
   email,
   password,
-  eventRole,
+  role,
   eventName,
   eventKey,
-  teamRole,
   date,
   defaultMapZoom,
   mapRefreshTime,

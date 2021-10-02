@@ -42,15 +42,21 @@ paths:
         content:
           application/json:
             schema:
-              type: object 
+              type: object
               properties:
                 email:
                   $ref: '#/components/props/email'
                 password:
                   $ref: '#/components/props/password'
-              required:
-                - email
-                - password    
+            examples:
+              login:
+                summary: 'If we want to login'
+                description: 'If we give any data in body, backend will validate email and password fields'
+                value: { email: 'example@domain.com', password: 'Password1' }
+              logged:
+                summary: 'Check if user is already logged'
+                description: 'Must send empty object'
+                value: { }
       responses:
         200:
           description: 'User data'

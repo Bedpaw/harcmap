@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 const request = require('supertest');
-const mongodb = require('../../../../libs/__mocks__/mongodb');
 const app = require('../../../../app');
 const resourcePath = '/api/v1/auth/sign-in';
 
@@ -9,7 +8,7 @@ describe(resourcePath, () => {
   test('POST should sign in user and return user data', (done) => {
     // given
     const dataToSend = {
-      email: 'example1@domain.com',
+      email: 'example@domain.com',
       password: 'Password1',
     };
 
@@ -17,13 +16,17 @@ describe(resourcePath, () => {
     const expectedContentType = 'application/json; charset=utf-8';
     const expectedHttpStatus = 200;
     const expectedBody = {
-      email: 'example1@domain.com',
+      email: 'example@domain.com',
+      accountActivation: {
+        isActive: true,
+        key: null,
+      },
+      passwordReset: {
+        key: null,
+        date: null,
+      },
+      accountCreated: 0,
     };
-    mongodb.setDocument({
-      _id: '12345',
-      password: '61a73c554fd0a2024eb3bffb06a597ef5095764ab049d8440c683f0ccd4e77d5a737fa90358664006cfa13c3b839028e63fc82f77e652730524c111efac95073',
-      email: 'example1@domain.com',
-    });
 
     // then
     request(app)
@@ -49,11 +52,6 @@ describe(resourcePath, () => {
       error: 1100,
       message: 'invalid credentials',
     };
-    mongodb.setDocument({
-      _id: '12345',
-      password: '61a73c554fd0a2024eb3bffb06a597ef5095764ab049d8440c683f0ccd4e77d5a737fa90358664006cfa13c3b839028e63fc82f77e652730524c111efac95073',
-      email: 'example1@domain.com',
-    });
 
     // then
     request(app)
@@ -128,11 +126,6 @@ describe(resourcePath, () => {
       message: 'request validation error',
       errorDetails,
     };
-    mongodb.setDocument({
-      _id: '12345',
-      password: '61a73c554fd0a2024eb3bffb06a597ef5095764ab049d8440c683f0ccd4e77d5a737fa90358664006cfa13c3b839028e63fc82f77e652730524c111efac95073',
-      email: 'example1@domain.com',
-    });
 
     // then
     request(app)

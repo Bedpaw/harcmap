@@ -5,12 +5,16 @@ async function getUsers () {
 
   // filter passwords
   return usersArray.map((userObject) => {
-    const { email, userEvents, roles } = userObject;
+    const {
+      email,
+      userEvents,
+      role,
+    } = userObject;
 
     return {
       email,
       userEvents,
-      roles,
+      role,
     };
   });
 }

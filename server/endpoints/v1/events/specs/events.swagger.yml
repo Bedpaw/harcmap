@@ -1,4 +1,38 @@
 paths:
+  /events:
+    post:
+      summary: 'Create event with (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Events
+      responses:
+        200:
+          description: 'Event data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  eventName:
+                    $ref: '#/components/props/eventName'
+                  eventDuration:
+                    $ref: '#/components/props/eventDuration'
+                  mapProperties:
+                    $ref: '#/components/props/mapProperties'
+                  eventRefreshTime:
+                    $ref: '#/components/props/eventRefreshTime'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
   /events/:eventId:
     get:
       summary: 'Get event with :eventId (SECURED)'
@@ -78,6 +112,41 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
+  /events/check:
+    post:
+      summary: 'Allow user to check event, role, team that code'
+      tags:
+        - Events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventKey:
+                  $ref: '#/components/props/eventKey'
+              required:
+                - eventKey
+      responses:
+        200:
+          description: 'Information about code'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  eventId:
+                    $ref: '#/components/props/eventId'
+                  role:
+                    $ref: '#/components/props/role'
+                  team:
+                    $ref: '#/components/props/team'
+        400:
+          description: 'Validation error or none exist eventKey'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
   /events/join:
     post:
       summary: 'Allow user to join event (SECURED)'
@@ -90,9 +159,14 @@ paths:
             schema:
               type: object
               properties:
+                userId:
+                  $ref: '#/components/props/userId'
                 eventKey:
                   $ref: '#/components/props/eventKey'
+                teamName:
+                  $ref: '#/components/props/teamName'
               required:
+                - userId
                 - eventKey
       responses:
         200:

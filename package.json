@@ -13,8 +13,8 @@
     "server:tests" : "cd server && npm run tests",
     "server:tests:watch" : "cd server && npm run tests:watch",
     "mongo" : "cd server && npm run mongo",
-    "mongo:windows" : "cd server && npm run mongo:windows",
-    "mongo:clean" : "cd server && npm run mongo:clean"
+    "mongo:fresh" : "cd server && npm run mongo:fresh",
+    "mongo:windows" : "cd server && npm run mongo:windows"
   },
   "repository": {
     "type": "git",

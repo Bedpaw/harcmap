@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 const request = require('supertest');
-const mongodb = require('../../../../libs/__mocks__/mongodb');
 const app = require('../../../../app');
 const resourcePath = '/api/v1/auth/sign-out';
 
@@ -34,11 +33,6 @@ describe(resourcePath, () => {
       error: 1105,
       message: 'cannot logout unauthorized user',
     };
-    mongodb.setDocument({
-      _id: '12345',
-      password: '61a73c554fd0a2024eb3bffb06a597ef5095764ab049d8440c683f0ccd4e77d5a737fa90358664006cfa13c3b839028e63fc82f77e652730524c111efac95073',
-      email: 'example1@domain.com',
-    });
 
     // then
     request(app)

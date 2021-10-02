@@ -3,13 +3,17 @@ const mongodb = require('../../../../libs/mongodb');
 
 async function getUser (id) {
   const user = await Users.get({ _id: mongodb.ObjectId(id) });
-  const { email, userEvents, roles } = user;
+	const {
+		email,
+		userEvents,
+		role,
+	} = user;
 
   return {
-    email,
-    userEvents,
-    roles,
-  };
+		email,
+		userEvents,
+		role,
+	};
 }
 
 module.exports = getUser;

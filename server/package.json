@@ -18,7 +18,7 @@
 		"mongo" : "docker run --name harcmap-mongo --rm -p 27017:27017 -v `pwd`/.db:/data/db -v `pwd`/bin/mongodb:/docker-entrypoint-initdb.d mongo",
 		"mongo:windows" : "docker run --name harcmap-mongo --rm -p 27017:27017 -v %cd%/.db:/data/db -v %cd%/bin/mongodb:/docker-entrypoint-initdb.d mongo",
 		"mongo:clean" : "rm -R ./.db",
-		"_mongo:dummy" : "echo 'todo'",
+		"mongo:fresh" : "npm run mongo:clean; npm run mongo",
 		"pm2:start" : "pm2 start pm2-prod.config.js",
 		"pm2:show" : "pm2 show 'Harcmap Stage'",
 		"pm2:reload" : "pm2 reload pm2-prod.config.js"

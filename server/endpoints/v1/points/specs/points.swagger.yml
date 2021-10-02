@@ -21,12 +21,16 @@ paths:
                       $ref: '#/components/props/pointKey'
                     pointName:
                       $ref: '#/components/props/pointName'
+                    pointType:
+                      $ref: '#/components/props/pointType'
                     pointCollectedDate:
                       $ref: '#/components/props/pointCollectedDate'
                     pointDuration:
                       $ref: '#/components/props/pointDuration'
+                    pointPosition:
+                      $ref: '#/components/props/pointPosition'
                     pointCategory:
-                      $ref: '#/components/props/pointCategory'
+                      $ref: '#/components/props/categoryId'
         400:
           description: 'Validation error'
           content:
@@ -54,13 +58,19 @@ paths:
                   $ref: '#/components/props/pointKey'
                 pointName:
                   $ref: '#/components/props/pointName'
+                pointType:
+                  $ref: '#/components/props/pointType'
                 pointDuration:
                   $ref: '#/components/props/pointDuration'
+                pointPosition:
+                  $ref: '#/components/props/pointPosition'
                 pointCategoryId:
                   $ref: '#/components/props/categoryId'
               required:
                 - pointKey
                 - pointName
+                - pointType
+                - pointPosition
                 - pointCategoryId
       responses:
         200:
@@ -140,12 +150,16 @@ paths:
                     $ref: '#/components/props/pointKey'
                   pointName:
                     $ref: '#/components/props/pointName'
+                  pointType:
+                    $ref: '#/components/props/pointType'
                   pointCollectedDate:
                     $ref: '#/components/props/pointCollectedDate'
                   pointDuration:
                     $ref: '#/components/props/pointDuration'
+                  pointPosition:
+                    $ref: '#/components/props/pointPosition'
                   pointCategory:
-                    $ref: '#/components/props/pointCategory'
+                    $ref: '#/components/props/categoryId'
         400:
           description: 'Validation error'
           content:
@@ -173,11 +187,15 @@ paths:
                   $ref: '#/components/props/pointKey'
                 pointName:
                   $ref: '#/components/props/pointName'
+                pointType:
+                  $ref: '#/components/props/pointType'
                 pointCollectedDate:
                   $ref: '#/components/props/pointCollectedDate'
                 pointDuration:
                   $ref: '#/components/props/pointDuration'
-                pointCategoryId:
+                pointPosition:
+                  $ref: '#/components/props/pointPosition'
+                pointCategory:
                   $ref: '#/components/props/categoryId'
       responses:
         200:
@@ -206,16 +224,6 @@ paths:
       description: 'Special privilege required'
       tags:
         - Points
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                pointId:
-                  $ref: '#/components/props/pointId'
-              required:
-                - teamId
       responses:
         200:
           description: 'Result of operation'

@@ -1,13 +1,21 @@
 const Joi = require('joi');
 const mongodb = require('./mongodb');
-const { validateMany, validateOne, parseDocumentToUpdate } = require('./utils');
-const errorCodes = require('./errors/codes');
+const {
+  validateMany,
+  validateOne,
+  parseDocumentToUpdate,
+} = require('./utils');
+const {
+  errorCodes,
+  AppError,
+} = require('./errors');
 
 class Model {
-  constructor (collectionName, validationSchema) {
+  constructor (collectionName, validationSchema, options = {}) {
     this.collectionName = collectionName;
     this.validationSchema = Joi.object(validationSchema);
     this.validationSchemaRequired = {};
+    this.uniqueFiled = options.uniqueFiled;
 
     // add ".required()" to schema for CREATE method - all fields are required
     Object.entries(validationSchema).forEach(([fieldName, fieldValue]) => {
@@ -58,15 +66,36 @@ class Model {
     } else {
       const itemsToCreate = validationResults.results.valid.map((item) => item.value);
       const collection = await mongodb.getCollection(this.collectionName);
-      const insertResult = await collection.insertMany(itemsToCreate);
+      let foundDuplicates = false;
+      let insertResult = {};
+
+      // TODO move uniqueField feature to function
+      if (this.uniqueFiled) {
+        const findQuery = {};
+
+        findQuery[this.uniqueFiled] = {
+          '$in': itemsToCreate.map((item) => item[this.uniqueFiled]),
+        };
+
+        const duplicationUniqueField = await collection.find(findQuery).toArray();
+
+        foundDuplicates = duplicationUniqueField.length !== 0;
+      }
+
+      if (!foundDuplicates) {
+        insertResult = await collection.insertMany(itemsToCreate);
+      }
 
       // check if created all items
       if (insertResult.insertedCount === items.length) {
         result.success = true;
         result.data = insertResult.ops;
+      } else if (foundDuplicates) {
+        throw new AppError(errorCodes.MODEL_FOUND_DOCUMENT_WITH_UNIQUE_FIELD);
       } else {
-        result.error = errorCodes.MODEL_INSERT_INCORRECT_LENGTH;
-        result.errorDetails = insertResult;
+        throw new AppError(errorCodes.MODEL_INSERT_INCORRECT_LENGTH, {
+          details: insertResult,
+        });
       }
     }
 
@@ -76,10 +105,27 @@ class Model {
   /**
    * @description Get filtered item
    * @param filters {object}
+   * @param [options] {object}
    */
-  async get (filters = {}) {
+  async get (filters = {}, options = {}) {
+    const { aggregate } = options;
     const collection = await mongodb.getCollection(this.collectionName);
-    return await collection.findOne(filters);
+    let result;
+
+    if (!aggregate) {
+      result = await collection.findOne(filters);
+    } else {
+      // result = collection.aggregate([
+      //   { $match: filters },
+      //   {
+      //     $lookup: {
+      //       from: aggregate.collection,
+      //     },
+      //   },
+      // ]);
+    }
+
+    return result;
   }
 
   /**

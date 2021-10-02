@@ -10,6 +10,9 @@ const signInSchema = {
     email: email.required(),
     password: password.required(),
   }),
+  // login endpoint accept also empty object
+  // TODO move this to method scope
+  allowEmptyObject: true,
 };
 
 // logout

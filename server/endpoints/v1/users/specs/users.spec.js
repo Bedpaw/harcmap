@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 const request = require('supertest');
-const mongodb = require('../../../../libs/__mocks__/mongodb');
 const app = require('../../../../app');
 const resourcePath = '/api/v1/users';
 

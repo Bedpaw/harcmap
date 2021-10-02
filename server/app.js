@@ -61,6 +61,7 @@ passport.deserializeUser(deserializeUser);
 setStrategy(passport);
 app.use(passport.initialize());
 app.use(passport.session());
+
 // Create endpoints permissions access
 createSecuredEndpoints(app, endpointsAccessConfig);
 

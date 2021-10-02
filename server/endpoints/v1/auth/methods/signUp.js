@@ -23,7 +23,6 @@ async function signUp (userObject) {
   const { success } = result;
 
   return { success };
-
 }
 
 module.exports = signUp;

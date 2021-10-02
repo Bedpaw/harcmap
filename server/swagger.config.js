@@ -32,9 +32,6 @@ const options = {
       name: 'Events',
       description: 'Endpoint do obsługi wydarzeń',
     }, {
-      name: 'Teams',
-      description: 'Endpoint do obsługi zespołów wydarzenia',
-    }, {
       name: 'Points',
       description: 'Endpoint do obsługi punktów wydarzenia',
     }, {

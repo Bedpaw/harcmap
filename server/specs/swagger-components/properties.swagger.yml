@@ -17,6 +17,9 @@ components:
     isActive:
       description: 'User account is active (in creating user, default: false)'
       type: boolean
+    isBanned:
+      description: 'User account is banned in event (default: false)'
+      type: boolean
     userEvents:
       description: 'List of events that user participle'
       type: array
@@ -31,31 +34,27 @@ components:
             $ref: '#/components/props/teamId'
           teamName:
             $ref: '#/components/props/teamName'
-          roles:
-            $ref: '#/components/props/roles'
-      error:
-        description: 'Error code name'
-        type: number
-        length: 4
-      message:
-        description: 'Error text name'
-        type: string
-      errorDetails:
-        description: 'Validation details'
-        type: object
-      success:
-        description: 'Field describe status of operation'
-        type: boolean
-        nullable: false
-    roles:
+          role:
+            $ref: '#/components/props/role'
+          isBanned:
+            $ref: '#/components/props/isBanned'
+    error:
+      description: 'Error code name'
+      type: number
+      length: 4
+    message:
+      description: 'Error text name'
+      type: string
+    errorDetails:
+      description: 'Validation details'
       type: object
-      properties:
-        eventRole:
-          description: 'Describe permissions in event scope'
-          type: string
-        teamRole:
-          description: 'Describe permissions in team scope'
-          type: string
+    success:
+      description: 'Field describe status of operation'
+      type: boolean
+      nullable: false
+    role:
+      description: 'Describe permissions in app'
+      type: string
     eventId:
       description: 'Event id'
       type: string
@@ -128,6 +127,14 @@ components:
       description: 'Date when point was collected. Can be null'
       type: string
       nullable: true
+    pointPosition:
+      description: 'Point position on map'
+      type: object
+      properties:
+        longitude:
+          type: number
+        latitude:
+          type: number
     pointDuration:
       description: 'Start and end time when point is available'
       type: object
@@ -142,14 +149,6 @@ components:
           type: string
           default: null
           nullable: true
-    pointCategory:
-      description: 'Point category name and id'
-      type: object
-      properties:
-        categoryId:
-          $ref: '#/components/props/categoryId'
-        categoryName:
-          $ref: '#/components/props/categoryName'
     categoryId:
       description: 'Category id'
       type: string
@@ -161,6 +160,8 @@ components:
       type: number
     pointShape:
       description: 'Point category shape'
-      type: string    
-        
+      type: string
+    team:
+      type: string
+      nullable: true  
         
