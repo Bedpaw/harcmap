@@ -4,6 +4,7 @@ import { ACCOUNT_TYPES } from 'utils/permissions';
 import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
 import { firstLogin } from 'utils/first-login';
+import { api } from '../api';
 
 export default {
   namespaced: true,

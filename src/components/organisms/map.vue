@@ -15,6 +15,7 @@ import { mapMutations } from 'vuex';
 import { toLonLat } from 'ol/proj';
 import OPopupMap from 'organisms/popup/map';
 import Cookies from 'js-cookie';
+import { api } from '../../api';
 
 export default {
   name: 'o-map',
