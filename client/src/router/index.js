@@ -28,7 +28,7 @@ const router = new Router({
       return originalPush.call(this, location, onResolve, onReject);
     }
     return originalPush.call(this, location).catch((err) => {
-      if (Router.isNavigationFailure(err)) {
+      if (Router.isNavigationFailure(err, Router.NavigationFailureType.duplicated)) {
         // resolve err
         return err;
       }
