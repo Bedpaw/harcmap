@@ -5,7 +5,6 @@ import { store } from 'store';
 import './directives';
 import './validation';
 import { ROUTES } from 'utils/macros/routes';
-import { ICONS } from './__jscash__/icons-names-list';
 import { ACCOUNT_TYPES, permissions } from 'utils/permissions';
 import App from './components/app.vue';
 import VueEllipseProgress from 'vue-ellipse-progress';
@@ -21,7 +20,6 @@ Vue.config.productionTip = false;
 Vue.mixin({
   computed: {
     ROUTES: () => ROUTES,
-    ICONS: () => ICONS,
     ACCOUNT_TYPES: () => ACCOUNT_TYPES,
   },
   methods: {
