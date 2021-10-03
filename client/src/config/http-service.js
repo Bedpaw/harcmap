@@ -1,5 +1,5 @@
 import { API_ERRORS, API_WARNS } from 'utils/macros/errors';
-import validateCodes from '../../lib/validateCodes';
+import validateCodes from 'validateCodes';
 import { store } from 'store';
 import router from 'src/router';
 import { ROUTES } from 'utils/macros/routes';

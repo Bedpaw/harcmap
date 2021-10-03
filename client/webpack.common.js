@@ -8,6 +8,7 @@ const resolve = webpackUtils.resolve;
 
 const AppName = 'HarcMap';
 const AppVersion = webpackUtils.getAppVersionFromPackageJSON();
+const publicPath = '../public';
 
 module.exports = {
   mode: 'development',
@@ -28,7 +29,7 @@ module.exports = {
   },
   output: {
     // filename in dev and prod configs
-    path: resolve('public'),
+    path: resolve(publicPath),
     publicPath: '/',
     clean: true,
   },
@@ -43,7 +44,8 @@ module.exports = {
       map: resolve('src/map'),
       store: resolve('src/store'),
       utils: resolve('src/utils'),
-      vendors: resolve('vendors'),
+      vendors: resolve('../vendors'),
+      validateCodes: resolve('../lib/validateCodes.js'),
 
       atoms: resolve('src/components/atoms'),
       extends: resolve('src/components/extends'),
@@ -53,7 +55,7 @@ module.exports = {
       pages: resolve('src/components/pages'),
       templates: resolve('src/components/templates'),
     },
-    extensions: ['.vue', '.sass', '.js', '.css'],
+    extensions: ['.js', '.vue', '.sass', '.css'],
   },
   plugins: [
     new VueLoaderPlugin(),
