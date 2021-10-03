@@ -13,7 +13,7 @@
 <script>
 import TPage from 'templates/page';
 import AButtonPrimary from 'atoms/button/primary';
-import { ROUTES } from 'utils/macros/routes';
+import { ROUTES } from 'config/routes-config';
 import { uCheck } from '@dbetka/utils';
 
 export default {

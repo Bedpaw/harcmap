@@ -73,7 +73,7 @@ import MFieldText from 'molecules/field/text';
 import { ErrorMessage } from 'utils/error-message';
 import OFloatContainer from 'organisms/float-container';
 import OAdminSetMapPosition from 'organisms/admin/set-map-position';
-import { DEFAULT_EVENT_CONFIG } from 'src/config/event-config';
+import { DEFAULT_EVENT_CONFIG } from 'config/event-config';
 import { idUtils } from 'utils/id';
 import { eventUtils } from 'utils/event';
 

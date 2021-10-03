@@ -20,7 +20,7 @@
 
 <script>
 import TPage from 'templates/page';
-import { ROUTES } from 'utils/macros/routes';
+import { ROUTES } from 'config/routes-config';
 import { mixins } from 'mixins/base';
 import OForm from 'organisms/form';
 import MFieldText from 'molecules/field/text';

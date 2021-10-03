@@ -19,7 +19,7 @@
 import { mapGetters, mapMutations } from 'vuex';
 import AButtonIconFooter from 'atoms/button/icon-footer';
 import { logical } from 'vendors/logical';
-import { ROUTES } from 'utils/macros/routes';
+import { ROUTES } from 'config/routes-config';
 
 export default {
   name: 'o-footer',

@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import { store } from 'store';
-import { ROUTES } from 'utils/macros/routes';
 import { api } from 'api';
 import { promise } from 'utils/promise';
 import { routes } from './routes';
 import { versionCompatibility } from 'utils/version-compatibility';
 import { ErrorMessage } from 'utils/error-message';
 import { session } from 'utils/session';
+import { guardsUtils } from 'src/router/guards';
 
 let firstRun = true;
 
@@ -58,41 +58,21 @@ function makeFirstRun () {
 }
 
 function redirectIfNotAuth (to, from, next) {
-  const isLogin = store.getters['user/isLogin'] === true;
-  const adminRequired = to.meta.adminOnly === true;
-  const unlimitedOnly = to.meta.unlimitedOnly === true;
-  const isAdmin = permissions.checkIsAdmin();
-  const isLimitedUser = permissions.checkIsLimited();
+  const {
+    checkGuards, getRedirectPath, guards: {
+      isTheSameRoute, isLoginGuard, isAdminGuard, isAdminObserverGuard,
+    },
+  } = guardsUtils;
+  const blockRedirectGuards = [isTheSameRoute];
+  const redirectSomewhereElseGuards = [isAdminObserverGuard, isAdminGuard, isLoginGuard];
 
-  if (to === from) {
+  if (checkGuards(blockRedirectGuards, to, from)) {
     next(false);
-  }
-  if (adminRequired && isAdmin === false) {
-    if (isLogin) {
-      next(ROUTES.start.path);
-    } else {
-      next(ROUTES.welcome.path);
-    }
     return;
   }
-  if (unlimitedOnly && isLimitedUser) {
-    if (isLogin) {
-      next(ROUTES.start.path);
-    } else {
-      next(ROUTES.welcome.path);
-    }
+  if (checkGuards(redirectSomewhereElseGuards, to, from)) {
+    next(getRedirectPath());
     return;
-  }
-  if (isLogin) {
-    if (to.meta.onlyBeforeLogin) {
-      next(ROUTES.start.path);
-      return;
-    }
-  } else {
-    if (to.meta.requiredAuth === true) {
-      next(ROUTES.welcome.path);
-      return;
-    }
   }
   next();
 }

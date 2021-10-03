@@ -51,6 +51,7 @@ module.exports = {
       utils: resolve('src/utils'),
       config: resolve('src/config'),
       vendors: resolve('vendors'),
+      config: resolve('src/config'),
 
       atoms: resolve('src/components/atoms'),
       extends: resolve('src/components/extends'),

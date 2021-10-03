@@ -1,5 +1,5 @@
 import { API_ERRORS, API_WARNS } from 'utils/macros/errors';
-import { httpService } from 'src/config/http-service';
+import { httpService } from 'config/http-service';
 
 export const userController = {
   allUsers () {

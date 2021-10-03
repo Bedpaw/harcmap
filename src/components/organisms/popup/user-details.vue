@@ -44,6 +44,7 @@
 import OPopupEmpty from 'organisms/popup/empty';
 import AButtonSecondary from 'atoms/button/secondary';
 import { USERS_DEFAULT_CONFIG, userUtils } from 'src/config/users-config';
+import { USERS_DEFAULT_CONFIG } from 'config/users-config';
 import ARadio from 'atoms/radio';
 import ACheckbox from 'atoms/checkbox';
 

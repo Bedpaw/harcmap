@@ -1,6 +1,6 @@
 import { createMap } from 'src/map/create';
 import { points } from 'map/points';
-import { ROUTES } from 'utils/macros/routes';
+import { ROUTES } from 'config/routes-config';
 import { store } from 'store';
 import router from 'src/router';
 import { lines } from 'map/lines';
