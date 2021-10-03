@@ -9,7 +9,6 @@
 
 <script>
 import MButtonsListEvents from 'molecules/buttons-list-events';
-import { USERS_DEFAULT_CONFIG } from 'config/users-config';
 import { MACROS } from 'utils/macros';
 import { DATE_FORMATS, getDateInFormat, getFromToString } from 'utils/date';
 import { ICONS_TYPES } from '@dbetka/vue-material-icons';
