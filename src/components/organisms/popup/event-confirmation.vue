@@ -16,7 +16,7 @@
 import OPopupEmpty from 'organisms/popup/empty';
 import AButtonPrimary from 'atoms/button/primary';
 import AButtonSecondary from 'atoms/button/secondary';
-import { USERS_DEFAULT_CONFIG } from 'src/config/users-config';
+import { USERS_DEFAULT_CONFIG } from 'config/users-config';
 import { DATE_FORMATS, getDateInFormat } from 'utils/date';
 
 export default {

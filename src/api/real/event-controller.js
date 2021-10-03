@@ -1,7 +1,7 @@
 import { AppEvent } from 'src/structures/app-event';
 import { API_ERRORS } from 'utils/macros/errors';
 import { MapPoint } from 'src/structures/map-point';
-import { httpService } from 'src/config/http-service';
+import { httpService } from 'config/http-service';
 
 export const eventController = {
   getEventById ({ eventId }) {

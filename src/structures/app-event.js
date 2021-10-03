@@ -1,4 +1,4 @@
-import { DEFAULT_EVENT_CONFIG } from 'src/config/event-config';
+import { DEFAULT_EVENT_CONFIG } from 'config/event-config';
 import { idUtils } from 'utils/id';
 
 export class AppEvent {

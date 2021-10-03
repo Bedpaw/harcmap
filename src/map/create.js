@@ -8,6 +8,7 @@ import { ERRORS } from 'utils/macros/errors';
 import { store } from 'store';
 import { Attribution, defaults as defaultControls } from 'ol/control';
 import { mapConfig } from 'map/config';
+import { translator } from 'src/dictionary';
 
 export function createMap (map, config) {
   const {
@@ -20,8 +21,7 @@ export function createMap (map, config) {
 
   if (!elementId) {
     const errorMessage = new ErrorMessage(ERRORS.elementIdIsRequiredForMap);
-    // TODO Translation
-    errorMessage.showMessage('Mapa przestała działać. Proszę zgłosić usterkę do administratora.');
+    errorMessage.showMessage(translator.t('communicate.map.error'));
   }
 
   map.realMap = new Map({

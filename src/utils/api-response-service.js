@@ -5,7 +5,7 @@ import { WarnMessage } from 'utils/warn-message';
 import { translator } from 'src/dictionary';
 import { store } from 'store';
 import router from 'src/router';
-import { ROUTES } from 'utils/macros/routes';
+import { ROUTES } from 'config/routes-config';
 import validateCodes from '../../lib/validateCodes';
 
 /**

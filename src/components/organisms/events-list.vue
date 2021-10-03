@@ -9,11 +9,11 @@
 
 <script>
 import MButtonsListEvents from 'molecules/buttons-list-events';
-import { USERS_DEFAULT_CONFIG } from 'src/config/users-config';
+import { USERS_DEFAULT_CONFIG } from 'config/users-config';
 import { MACROS } from 'utils/macros';
 import { DATE_FORMATS, getDateInFormat, splitObjectsListByTime } from 'utils/date';
 import { ICONS_TYPES } from '@dbetka/vue-material-icons';
-import { GENERAL_DEFAULT_CONFIG } from 'src/config/general-config';
+import { GENERAL_DEFAULT_CONFIG } from 'config/general-config';
 import { eventsListMock } from 'organisms/events-list-mock';
 
 export default {

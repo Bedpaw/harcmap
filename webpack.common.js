@@ -50,6 +50,7 @@ module.exports = {
       store: resolve('src/store'),
       utils: resolve('src/utils'),
       vendors: resolve('vendors'),
+      config: resolve('src/config'),
 
       atoms: resolve('src/components/atoms'),
       extends: resolve('src/components/extends'),
