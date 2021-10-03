@@ -12,7 +12,7 @@
     </div>
 
     <a-icon
-      v-show="checkIfPointIsPast() === false || checkIsAdmin()"
+      v-show="shouldShowPanToIcon"
       :name="ICONS.map"
       :size="24"
       :class="classForMap"
@@ -22,19 +22,11 @@
 </template>
 
 <script>
-import { getHoursAndMinutesAsString } from 'utils/date';
-import moment from 'moment';
+import { getCalendarDate, getFromToString, getHoursAndMinutesAsString } from 'utils/date';
+import { pointUtils } from 'utils/point';
 
 export default {
   name: 'm-table-row-timeout-points',
-  data: () => ({
-    pointAppearanceTime: null,
-    pointExpirationTime: null,
-  }),
-  created () {
-    this.pointAppearanceTime = new Date(this.point.pointAppearanceTime);
-    this.pointExpirationTime = new Date(this.point.pointExpirationTime);
-  },
   props: {
     point: {
       required: true,
@@ -43,50 +35,32 @@ export default {
   },
   computed: {
     timerIcon () {
-      if (this.checkIfPointIsFuture()) return this.ICONS.access_time;
-      if (this.checkIfPointIsActive()) return this.ICONS.watch_later;
-      else return this.ICONS.history_toggle_off;
+      return pointUtils.getTimeIcon(this.point);
+    },
+    shouldShowPanToIcon () {
+      return pointUtils.isPast(this.point) === false || this.checkIsAdmin();
     },
     availabilityTimeAsString () {
-      const appearanceTime = moment(new Date(this.pointAppearanceTime)).calendar(null, {
-        sameDay: 'HH:mm',
-        nextDay: 'DD.MM.YYYY HH:mm',
-        nextWeek: 'DD.MM.YYYY HH:mm',
-        lastDay: 'DD.MM.YYYY HH:mm',
-        lastWeek: 'DD.MM.YYYY HH:mm',
-        sameElse: 'DD.MM.YYYY HH:mm',
-      });
-      const expirationTime = getHoursAndMinutesAsString(this.pointExpirationTime);
-      return appearanceTime + ' - ' + expirationTime;
+      return getFromToString(
+        getCalendarDate(this.point.pointAppearanceTime),
+        getHoursAndMinutesAsString(this.point.pointExpirationTime),
+      );
     },
     classForMap () {
-      if (this.checkIsAdmin() || this.checkIfPointIsActive()) return '';
+      if (this.checkIsAdmin() || pointUtils.isTimeoutActive(this.point)) return '';
       else return 'f-disabled-point';
     },
     classForTimer () {
-      if (this.checkIfPointIsFuture()) return 'f-future-point';
-      if (this.checkIfPointIsActive()) return 'f-active-point';
-      else return 'f-disabled-point';
+      return pointUtils.getTimeClass(this.point);
     },
   },
   methods: {
-    checkIfPointIsActive () {
-      return this.$store.getters['event/checkTimeoutPointIsVisible'](this.point);
-    },
-    checkIfPointIsFuture () {
-      const now = (new Date()).getTime();
-      return this.pointAppearanceTime > now;
-    },
-    checkIfPointIsPast () {
-      const now = (new Date()).getTime();
-      return this.pointExpirationTime < now;
-    },
     panTo (point) {
       if (this.checkIsAdmin()) {
         this.$emit('panTo', point);
         return;
       }
-      this.checkIfPointIsActive() && this.$emit('panTo', point);
+      pointUtils.isTimeoutActive(this.point) && this.$emit('panTo', point);
     },
   },
 

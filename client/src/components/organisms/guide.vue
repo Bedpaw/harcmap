@@ -104,7 +104,7 @@ import OFloatContainer from 'organisms/float-container';
 import MSlide from 'molecules/slide';
 import AIconClosePopup from 'atoms/icon/close-popup';
 import { mapGetters, mapMutations } from 'vuex';
-import moment from 'moment';
+import { DATE_FORMATS, getDateInFormat, getDurationInHumanize } from 'utils/date';
 
 export default {
   name: 'o-guide',
@@ -129,11 +129,10 @@ export default {
       isLast && this.close();
     },
     minutes (time) {
-      moment.locale('pl');
-      return moment.duration(time, 'seconds').humanize();
+      return getDurationInHumanize(time);
     },
-    datetime (datetime) {
-      return moment(new Date(datetime)).format('DD.MM.YYYY [o] HH:mm');
+    datetime (dateTime) {
+      return getDateInFormat(dateTime, DATE_FORMATS.DDMMYYYYoHHmm);
     },
   },
   watch: {

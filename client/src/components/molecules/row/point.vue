@@ -17,6 +17,7 @@
       </div>
     </div>
     <div v-if="detailsAreOpen" class="f-line-18 f-text-14 f-text-left f-pl-3 f-pb-1">
+      <!-- TODO translations      -->
       Współrzędne: <span class="f-text-bold">{{ point.pointLatitude.toFixed(5) }}, {{ point.pointLongitude.toFixed(5) }}</span> <br>
       Czas zebrania: <span class="f-text-bold">{{ getCollectionTime }}</span>
     </div>
@@ -26,8 +27,8 @@
 <script>
 import AIconCategory from 'atoms/icon/category';
 import { mapGetters } from 'vuex';
-import moment from 'moment';
 import { map } from 'map';
+import { getCollectionTime } from 'utils/date';
 
 export default {
   name: 'm-row-point',
@@ -48,8 +49,7 @@ export default {
       'getCategoryById',
     ]),
     getCollectionTime () {
-      moment.locale('pl');
-      return moment(this.point.pointCollectionTime).calendar();
+      return getCollectionTime(this.point.pointCollectionTime);
     },
   },
   methods: {
