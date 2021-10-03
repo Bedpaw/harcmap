@@ -1,7 +1,7 @@
 <template>
   <t-start>
     <template slot="buttons">
-      <template v-if="checkIsAdmin()">
+      <template v-if="userUtils.can.seeAdminStartView()">
         <a-button-fill-primary
           @click="$router.push(ROUTES.scoreboard.path)"
           :text="$t('page.admin.start.checkScoreboard')"
@@ -37,9 +37,13 @@
 import AButtonFillSecondary from 'atoms/button/fill/secondary';
 import AButtonFillPrimary from 'atoms/button/fill/primary';
 import TStart from 'templates/start';
+import { userUtils } from 'config/users-config';
 
 export default {
   name: 'p-start',
+  data: () => ({
+    userUtils,
+  }),
   components: {
     TStart,
     AButtonFillPrimary,

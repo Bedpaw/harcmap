@@ -49,6 +49,7 @@ module.exports = {
       map: resolve('src/map'),
       store: resolve('src/store'),
       utils: resolve('src/utils'),
+      config: resolve('src/config'),
       vendors: resolve('vendors'),
       config: resolve('src/config'),
 

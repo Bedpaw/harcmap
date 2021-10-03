@@ -16,15 +16,12 @@
 import OPopupEmpty from 'organisms/popup/empty';
 import AButtonPrimary from 'atoms/button/primary';
 import AButtonSecondary from 'atoms/button/secondary';
-import { USERS_DEFAULT_CONFIG } from 'config/users-config';
+import { userUtils } from 'config/users-config';
 import { DATE_FORMATS, getDateInFormat } from 'utils/date';
 
 export default {
   name: 'o-popup-event-confirmation',
   components: { OPopupEmpty, AButtonPrimary, AButtonSecondary },
-  data: () => ({
-    USERS_DEFAULT_CONFIG,
-  }),
   props: {
     event: {
       required: true,
@@ -59,7 +56,7 @@ export default {
         },
         {
           label: 'accountTypes.accountType',
-          data: this.$t(USERS_DEFAULT_CONFIG.accountTypeInfo[accountType].nameKey),
+          data: this.$t(userUtils.getNameKey({ accountType })),
         },
       ];
     },

@@ -1,22 +1,22 @@
-import moment from 'moment';
 import { map } from 'map';
 import { ErrorMessage } from 'utils/error-message';
 import { versionCompatibility } from 'utils/version-compatibility';
+import { MACROS } from 'utils/macros';
+import { getSecondsToFullMinute } from 'utils/date';
 
-const oneSecond = 1000;
-const intervalTime = 60 * oneSecond;
+const { msInMinute } = MACROS.time;
+
 let intervalID = null;
 let timeoutID = null;
 
 export const autoUpdate = {
   run () {
-    const secondsToFullMinute = 60 - Number(moment().format('s'));
     timeoutID = setTimeout(() => {
       autoUpdate.once();
       intervalID = setInterval(
         autoUpdate.once,
-        intervalTime);
-    }, secondsToFullMinute * oneSecond);
+        msInMinute);
+    }, getSecondsToFullMinute({ inMs: true }));
   },
   once () {
     api.information()

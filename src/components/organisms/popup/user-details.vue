@@ -43,7 +43,7 @@
 <script>
 import OPopupEmpty from 'organisms/popup/empty';
 import AButtonSecondary from 'atoms/button/secondary';
-import { USERS_DEFAULT_CONFIG } from 'config/users-config';
+import { USERS_DEFAULT_CONFIG, userUtils } from 'config/users-config';
 import ARadio from 'atoms/radio';
 import ACheckbox from 'atoms/checkbox';
 
@@ -61,7 +61,7 @@ export default {
   }),
   computed: {
     isOrganizer () {
-      return this.user.accountType === this.USERS_DEFAULT_CONFIG.accountTypes.organizer;
+      return userUtils.isOrganizer(this.user);
     },
   },
   methods: {
