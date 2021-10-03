@@ -55,7 +55,7 @@ module.exports = {
       pages: resolve('src/components/pages'),
       templates: resolve('src/components/templates'),
     },
-    extensions: ['.js', '.vue', '.sass', '.css'],
+    extensions: ['.ts', '.js', '.vue', '.sass', '.css'],
   },
   plugins: [
     new VueLoaderPlugin(),
