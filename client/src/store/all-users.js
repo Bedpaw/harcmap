@@ -1,6 +1,6 @@
 import { ACCOUNT_TYPES } from 'utils/permissions';
 import { uCheck } from '@dbetka/utils';
-import { api } from '../api';
+import { api } from 'api';
 
 export default {
   namespaced: true,

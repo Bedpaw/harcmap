@@ -1,7 +1,7 @@
 import { map } from 'map';
 import Vue from 'vue';
 import { MACROS } from 'utils/macros';
-import { api } from '../../api';
+import { api } from 'api';
 
 export default {
   state: {

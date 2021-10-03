@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import { eventUtils } from 'utils/event';
 import { map } from 'map';
 import { eventStoreModules as Modules } from 'store/event-modules';
-import { api } from '../api';
+import { api } from 'api';
 
 export default {
   namespaced: true,
