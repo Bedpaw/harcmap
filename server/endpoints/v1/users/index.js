@@ -1,11 +1,12 @@
 const { Router } = require('express');
 const requestSchema = require('./request-schema');
 const { addEndpointValidation } = require('../../../libs/validation');
-const getUsers = require('./methods/getUsers');
-const addUser = require('./methods/addUser');
-const getUser = require('./methods/getUser');
-const updateUser = require('./methods/updateUser');
-const deleteUser = require('./methods/deleteUser');
+const getUsers = require('./methods/get-users');
+const activateUser = require('./methods/activate-user');
+const requestResetPassword = require('./methods/request-reset-password');
+const resetPassword = require('./methods/reset-password');
+const getUser = require('./methods/get-user');
+const updateUser = require('./methods/update-user');
 
 const router = Router();
 
@@ -17,10 +18,33 @@ router.route('/')
     const users = await getUsers();
 
     response.send(users);
+  });
+
+// TODO
+router.route('/account-activation/:key')
+  .get(activateUser);
+
+// TODO
+router.route('/reset-password')
+  .post(async (request, response) => {
+    const { email } = request.body;
+
+    await requestResetPassword(email);
+
+    response.send({ success: true });
+  });
+
+// TODO
+router.route('/reset-password/:key')
+  .get(async (request, response) => {
+
+    response.send('here will be HTML page');
   })
   .post(async (request, response) => {
-    const { body } = request;
-    const result = await addUser(body);
+    const { key } = request.params;
+    const { password } = request.body;
+
+    const result = await resetPassword(key, password);
 
     response.send(result);
   });
@@ -32,18 +56,13 @@ router.route('/:id')
 
     response.send(user);
   })
+  // TODO
   .put(async (request, response) => {
     const { body } = request;
     const { id } = request.params;
     const result = await updateUser(id, body);
 
     response.send(result);
-  })
-  .delete(async (request, response) => {
-    const { id } = request.params;
-    const user = await deleteUser(id);
-
-    response.send(user);
   });
 
 module.exports = router;

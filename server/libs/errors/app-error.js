@@ -7,7 +7,7 @@
 const codes = require('./codes');
 
 function getKeyByValue (object, value) {
-	return Object.keys(object).find((key) => object[key] === value);
+  return Object.keys(object).find((key) => object[key] === value);
 }
 
 // This function get name of error from error codes list
@@ -25,7 +25,7 @@ class AppError extends Error {
 	/**
 	 * @param code {number} - error code from errorCodes library
 	 * @param options {{
-	 * 	[description]: any,
+	 * 	[details]: any,
 	 * 	[httpStatus]: number,
 	 * 	[message]: string
 	 * }}

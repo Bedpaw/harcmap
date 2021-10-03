@@ -33,7 +33,7 @@ function validateRequests (app) {
         const validatedData = validateOne(data, endpointSchemaObject);
         const noValidationErrors = validatedData.errors.length === 0;
 
-        if ((!allowEmptyObject && noValidationErrors) || (allowEmptyObject && dataAreEmptyObject)) {
+        if ((allowEmptyObject && dataAreEmptyObject) || noValidationErrors) {
           return next();
         }
 

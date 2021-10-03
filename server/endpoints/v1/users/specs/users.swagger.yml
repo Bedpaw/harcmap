@@ -93,7 +93,7 @@ paths:
       tags:
         - Users
       responses:
-        303:
+        302:
           description: 'Activation success. Redirect to login form'
         400:
           description: 'Validation error. Wrong request'
@@ -125,7 +125,7 @@ paths:
                 type: object
                 properties:
                   success:
-                    value: true
+                    type: boolean
         400:
           description: 'Validation error'
           content:

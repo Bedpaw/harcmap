@@ -5,6 +5,20 @@ paths:
       description: 'Special privilege required'
       tags:
         - Events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventName:
+                  $ref: '#/components/props/eventName'
+                eventDuration:
+                  $ref: '#/components/props/eventDuration'
+                mapProperties:
+                  $ref: '#/components/props/mapProperties'
+                eventRefreshTime:
+                  $ref: '#/components/props/eventRefreshTime'
       responses:
         200:
           description: 'Event data'

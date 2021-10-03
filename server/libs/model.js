@@ -35,16 +35,6 @@ class Model {
   }
 
   /**
-   * Get all items (after filter it)
-   * @param [filters] [object]
-   * @return {Promise<void>}
-   */
-  async all (filters = {}) {
-    const collection = await mongodb.getCollection(this.collectionName);
-    return await collection.find(filters).toArray();
-  }
-
-  /**
    * Create new items
    * @param newDocuments [object|array]
    * @return {Promise<{success: boolean}>}
@@ -107,22 +97,44 @@ class Model {
    * @param filters {object}
    * @param [options] {object}
    */
+  // TODO secure from empty filters object
   async get (filters = {}, options = {}) {
-    const { aggregate } = options;
+    const {
+      aggregationPipeline,
+    } = options;
     const collection = await mongodb.getCollection(this.collectionName);
     let result;
 
-    if (!aggregate) {
-      result = await collection.findOne(filters);
+    if (aggregationPipeline) {
+      const aggregation = aggregationPipeline(filters);
+      const aggregatedData = await collection.aggregate(aggregation).toArray();
+
+      result = aggregatedData[0];
     } else {
-      // result = collection.aggregate([
-      //   { $match: filters },
-      //   {
-      //     $lookup: {
-      //       from: aggregate.collection,
-      //     },
-      //   },
-      // ]);
+      result = await collection.findOne(filters);
+    }
+
+    return result;
+  }
+
+  /**
+   * Get all items (after filter it)
+   * @param filters {object}
+   * @param [options] {object}
+   */
+  // TODO secure from empty filters object
+  async getMany (filters, options = {}) {
+    const {
+      aggregationPipeline,
+    } = options;
+    const collection = await mongodb.getCollection(this.collectionName);
+    let result;
+
+    if (aggregationPipeline) {
+      const aggregation = aggregationPipeline(filters);
+      result = await collection.aggregate(aggregation).toArray();
+    } else {
+      result = await collection.find(filters).toArray();
     }
 
     return result;

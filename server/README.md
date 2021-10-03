@@ -30,4 +30,6 @@
     - statistics,
     - refactor Model (small modules),
     - validations details only on staging/local,
+- Secure:
+    - secure all POST, PUT, DELETE endpoints from DDOS
     

@@ -5,7 +5,7 @@ const { SHA3 } = require('sha3');
  * @param text {string}
  * @return {string}
  */
-function getSHA(text) {
+function getSHA (text) {
 	const hash = new SHA3(512);
 	hash.update(text);
 	return hash.digest('hex');

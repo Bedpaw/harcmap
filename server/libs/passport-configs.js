@@ -1,6 +1,10 @@
 const LocalStrategy = require('passport-local').Strategy;
 const Users = require('../models/users');
-const { AppError, errorCodes } = require('./errors');
+const getUserAggregation = require('../aggregations/get-user');
+const {
+  AppError,
+  errorCodes,
+} = require('./errors');
 const { getSHA } = require('./utils');
 const { ObjectId } = require('./mongodb');
 
@@ -13,10 +17,9 @@ function setStrategy (passport) {
     usernameField: 'email',
     passwordField: 'password',
   }, (email, password, done) => {
-
-    console.log(email, password);
-
-    Users.get({ email })
+    Users.get({ email }, {
+        aggregationPipeline: getUserAggregation,
+      })
       .then((userData) => {
         if (userData && userData.password === getSHA(password)) {
           done(null, userData);
@@ -42,13 +45,16 @@ function deserializeUser (_id, done) {
   console.log('deserialize', _id);
   Users.get({ _id: ObjectId(_id) })
     .then((userData) => {
-      const dataInSession = {
+      const dataStorageInSession = {
         _id,
         email: userData.email,
-        userEvents: [],
+        userEvents: userData.userEvents.map(item => ({
+          eventId: item.eventId,
+          role: item.role,
+        })),
       };
 
-      done(null, dataInSession);
+      done(null, dataStorageInSession);
     })
     .catch((error) => {
       done(error);
@@ -62,7 +68,7 @@ function deserializeUser (_id, done) {
  */
 function serializeUser (_id, done) {
   console.log('serialize', _id);
-  if (!_id) {
+  if (_id) {
     done(null, _id);
   } else {
     done('no _id in serialization', null);

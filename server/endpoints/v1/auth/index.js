@@ -1,9 +1,13 @@
 const { Router } = require('express');
-const { signUpSchema, signInSchema, signOutSchema } = require('./request-schema');
+const {
+  signUpSchema,
+  signInSchema,
+  signOutSchema,
+} = require('./request-schema');
 const { addEndpointValidation } = require('../../../libs/validation');
-const signIn = require('./methods/signIn');
-const signUp = require('./methods/signUp');
-const signOut = require('./methods/signOut');
+const signIn = require('./methods/sign-in');
+const signUp = require('./methods/sign-up');
+const signOut = require('./methods/sign-out');
 
 const router = Router();
 
