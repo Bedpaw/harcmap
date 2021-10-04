@@ -2,6 +2,7 @@ import moment from 'moment';
 import { map } from 'map';
 import { ErrorMessage } from 'utils/error-message';
 import { versionCompatibility } from 'utils/version-compatibility';
+import { api } from 'api';
 
 const oneSecond = 1000;
 const intervalTime = 60 * oneSecond;

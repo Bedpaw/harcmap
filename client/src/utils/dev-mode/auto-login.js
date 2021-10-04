@@ -34,8 +34,4 @@ export const autoLogin = {
   admin: () => login(users.admin),
 };
 
-if (PRODUCTION === false) {
-  window.autoLogin = autoLogin;
-}
-
 export const DEV_USERS_LIST = users;
