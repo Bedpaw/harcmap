@@ -2,11 +2,11 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import { store } from 'store';
 import { api } from 'api';
-import { promise } from 'utils/promise';
 import { routes } from './routes';
 import { versionCompatibility } from 'utils/version-compatibility';
 import { ErrorMessage } from 'utils/error-message';
 import { session } from 'utils/session';
+import { promiseUtils } from 'utils/promise';
 import { guardsUtils } from 'src/router/guards';
 
 let firstRun = true;
@@ -52,7 +52,7 @@ function makeFirstRun () {
       .then(session.tryLogin)
       .then(resolve)
       .catch(reject)
-      .finally(() => promise.timeout(1000))
+      .finally(() => promiseUtils.timeout(1000))
       .finally(() => store.commit('setIsLoading', false));
   });
 }
