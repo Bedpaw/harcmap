@@ -6,7 +6,7 @@
       <a-checkbox
         class="f-pb-1"
         :id="'isActive-' + user.user"
-        v-model="user.accountIsActive"
+        v-model="accountIsActive"
         :is-disabled="isOrganizer"
       >
         {{$t('page.admin.userList.accountIsActive')}}
@@ -18,7 +18,7 @@
         class="f-pb-1"
         v-for="(accountInfo, key) in USERS_DEFAULT_CONFIG.accountTypeInfo"
         :key="key" :id="key" :value="key"
-        v-model="user.accountType"
+        v-model="accountType"
         :is-disabled="key === USERS_DEFAULT_CONFIG.accountTypes.organizer">
         {{$t(accountInfo.nameKey)}}
       </a-radio>
@@ -58,11 +58,17 @@ export default {
   },
   data: () => ({
     USERS_DEFAULT_CONFIG,
+    accountType: null,
+    accountIsActive: false,
   }),
   computed: {
     isOrganizer () {
       return userUtils.isOrganizer(this.user);
     },
+  },
+  mounted () {
+    this.accountIsActive = this.user.accountIsActive;
+    this.accountType = this.user.accountType;
   },
   methods: {
     toggle () {

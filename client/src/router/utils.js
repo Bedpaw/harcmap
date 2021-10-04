@@ -1,5 +1,5 @@
-import { ICONS } from 'src/__jscash__/icons-names-list';
 import { translator } from 'src/dictionary';
+import { ICONS } from '@dbetka/vue-material-icons';
 
 export class AppRoute {
   /**

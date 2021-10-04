@@ -46,7 +46,6 @@ module.exports = {
       utils: resolve('src/utils'),
       vendors: resolve('../vendors'),
       validateCodes: resolve('../lib/validateCodes.js'),
-      vendors: resolve('vendors'),
       config: resolve('src/config'),
 
       atoms: resolve('src/components/atoms'),

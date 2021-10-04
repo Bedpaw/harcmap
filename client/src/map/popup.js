@@ -2,9 +2,9 @@ import Overlay from 'ol/Overlay';
 import { store } from 'store';
 import { fromLonLat } from 'ol/proj';
 import { map } from 'src/map/index';
-import { ICONS } from 'src/__jscash__/icons-names-list';
 import { DATE_FORMATS, getDateInFormat } from 'utils/date';
 import { pointUtils } from 'utils/point';
+import { ICONS } from '@dbetka/vue-material-icons';
 
 export class Popup {
   constructor ({ container }) {

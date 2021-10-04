@@ -1,5 +1,5 @@
-import { ICONS } from 'src/__jscash__/icons-names-list';
 import { MACROS } from 'utils/macros';
+import { ICONS } from '@dbetka/vue-material-icons';
 
 const { timePeriods: { isPast, isFuture, isCurrent } } = MACROS;
 

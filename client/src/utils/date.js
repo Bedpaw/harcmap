@@ -102,7 +102,7 @@ export const splitObjectsListByTime = (objectsList, startDateKey, endDateKey) =>
   const isCurrent = [];
   const isFuture = [];
 
-  objectsList.map(obj => {
+  objectsList.forEach(obj => {
     const startDate = obj[startDateKey];
     const endDate = obj[endDateKey];
     if (compareDate.isActual(startDate, endDate)) {

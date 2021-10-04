@@ -4,7 +4,6 @@ import router from './router';
 import { store } from 'store';
 import './directives';
 import './validation';
-import { ICONS } from './__jscash__/icons-names-list';
 import { ACCOUNT_TYPES, permissions } from 'utils/permissions';
 import App from './components/app.vue';
 import VueEllipseProgress from 'vue-ellipse-progress';
