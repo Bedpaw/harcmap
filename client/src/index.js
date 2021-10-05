@@ -17,10 +17,6 @@ initApp();
 
 Vue.config.productionTip = false;
 
-if (PRODUCTION === false) {
-  console.log(APP_NAME + ' v' + VERSION + ' in development mode');
-}
-
 Vue.mixin({
   computed: {
     ROUTES: () => ROUTES,

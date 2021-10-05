@@ -70,11 +70,17 @@
 
 ### Development kit
 
+#### Dev Tools
+In development mode check window.devTools object to use some internal app tools for example:
+- autoLogin - switching between account types
+- httpService - ease http calls
+- api - all endpoints defined in app
+
 #### Auto login
 Write below commands to browser console:
-- `autoLogin.switch()` will log out current user and login on opposite `accountType`
-- `autoLogin.common()` will log out current user and login to common user
-- `autoLogin.admin()` will log out current user and login to admin user
+- `devTools.autoLogin.switch()` will log out current user and login on opposite `accountType`
+- `devTools.autoLogin.common()` will log out current user and login to common user
+- `devTools.autoLogin.admin()` will log out current user and login to admin user
 
 #### Test on mobile devices from localhost on your computer
 **Instruction:**

@@ -3,6 +3,7 @@ import Vue from 'vue';
 import { pointUtils } from 'utils/point';
 
 const { pointIsCollected, isTimeOut, sortPointsAscending } = pointUtils;
+import { api } from 'api';
 
 export default {
   state: {

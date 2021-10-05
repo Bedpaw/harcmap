@@ -1,6 +1,7 @@
 import { map } from 'map';
 import { ErrorMessage } from 'utils/error-message';
 import { versionCompatibility } from 'utils/version-compatibility';
+import { api } from 'api';
 import { MACROS } from 'utils/macros';
 import { getSecondsToFullMinute } from 'utils/date';
 
