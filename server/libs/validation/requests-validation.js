@@ -39,7 +39,7 @@ function validateRequests (app) {
 
         throw new AppError(errorCodes.REQUEST_VALIDATION_ERROR, {
           httpStatus: 400,
-          details: validatedData,
+          details: validatedData.errors,
         });
       } else {
         throw new AppError(errorCodes.NO_SCHEMA, {

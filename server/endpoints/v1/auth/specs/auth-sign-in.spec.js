@@ -1,155 +1,236 @@
 require('dotenv').config();
 
-const request = require('supertest');
-const app = require('../../../../app');
-const resourcePath = '/api/v1/auth/sign-in';
+const testEndpoint = require('../../../../tests/utils/test-endpoint');
+const endpoint = '/api/v1/auth/sign-in';
 
-describe(resourcePath, () => {
-  test('POST should sign in user and return user data', (done) => {
-    // given
-    const dataToSend = {
-      email: 'example@domain.com',
-      password: 'Password1',
-    };
-
-    // when
-    const expectedContentType = 'application/json; charset=utf-8';
-    const expectedHttpStatus = 200;
-    const expectedBody = {
-      email: 'example@domain.com',
-      accountActivation: {
-        isActive: true,
-        key: null,
+describe(endpoint, () => {
+  testEndpoint(endpoint, {
+    description: 'User login',
+    method: 'POST',
+    expectedStatus: 200,
+    body: {
+      send: {
+        password: 'Password1',
+        email: 'example@domain.com',
       },
-      passwordReset: {
-        key: null,
-        date: null,
+      expect: {
+        email: 'example@domain.com',
+        userEvents: [
+          {
+            eventId: '507f191e810c19729de860ea',
+            eventName: 'event1',
+            teamId: '60e6ca2aaa95cc33d7c466f8',
+            teamName: 'team1',
+            role: 'creator',
+            isBanned: false,
+          },
+          {
+            eventId: '605920002c60e426288b896f',
+            eventName: 'event2',
+            teamId: '60e6b02e0b6c6887accf6c03',
+            teamName: 'team2',
+            role: 'teamLeader',
+            isBanned: false,
+          },
+        ],
       },
-      accountCreated: 0,
-    };
-
-    // then
-    request(app)
-      .post(resourcePath)
-      .send(dataToSend)
-      .expect('Content-Type', expectedContentType)
-      .expect(expectedHttpStatus, expectedBody, done);
-  });
-
-  test.each([
-    {
-      email: 'example12@domain.com',
-      password: 'Password1',
-    }, {
-      email: 'example1@domain.com',
-      password: 'Password11',
     },
-  ])('POST should return 401 HTTP for incorrect login data: %p', (dataToSend, done) => {
-    // when
-    const expectedContentType = 'application/json; charset=utf-8';
-    const expectedHttpStatus = 401;
-    const expectedBody = {
-      error: 1100,
-      message: 'invalid credentials',
-    };
-
-    // then
-    request(app)
-      .post(resourcePath)
-      .send(dataToSend)
-      .expect('Content-Type', expectedContentType)
-      .expect(expectedHttpStatus, expectedBody, done);
   });
 
-  test.each([
-    // test empty body and standard errorDetails
-    [{}, {
-      value: {},
-      errors: [
-        '"email" is required',
-        '"password" is required',
-      ],
-    }],
-    // email field tests
-    // to short
-    [{
-      email: 'Na',
-    }, {
-      value: {
-        email: 'Na',
-      },
-      errors: [
-        '"email" must be a valid email',
-        '"password" is required',
-      ],
-    }],
-    // to long
-    [{
-      email: 'Na@NaNaNaNaNaNaNaNaNaNaNaNaN.pl',
-    }, {
-      value: {
-        email: 'Na@NaNaNaNaNaNaNaNaNaNaNaNaN.pl',
-      },
-      errors: [
-        '"email" length must be less than or equal to 24 characters long',
-        '"password" is required',
-      ],
-    }],
-    // correct
-    [{
-      email: 'example1@domain.com',
-    }, {
-      value: {
-        email: 'example1@domain.com',
-      },
-      errors: [
-        '"password" is required',
-      ],
-    }],
-    // password field tests
-    [{
+  testEndpoint(endpoint, {
+    description: 'User is already logged - return his data',
+    signIn: {
       password: 'Password1',
-    }, {
-      value: {
+      email: 'example@domain.com',
+    },
+    method: 'POST',
+    expectedStatus: 200,
+    body: {
+      send: {},
+      expect: {
+        email: 'example@domain.com',
+        userEvents: [
+          {
+            eventId: '507f191e810c19729de860ea',
+            eventName: 'event1',
+            teamId: '60e6ca2aaa95cc33d7c466f8',
+            teamName: 'team1',
+            role: 'creator',
+            isBanned: false,
+          },
+          {
+            eventId: '605920002c60e426288b896f',
+            eventName: 'event2',
+            teamId: '60e6b02e0b6c6887accf6c03',
+            teamName: 'team2',
+            role: 'teamLeader',
+            isBanned: false,
+          },
+        ],
+      },
+    },
+  });
+
+  testEndpoint(endpoint, {
+    description: 'Failed to get not logged user data',
+    method: 'POST',
+    expectedStatus: 401,
+    body: {
+      send: {},
+      expect: {
+        error: 1106,
+        message: 'not logged',
+      },
+    },
+  });
+
+  testEndpoint(endpoint, {
+    description: 'Should return 401 for invalid credentials for invalid email and password',
+    method: 'POST',
+    expectedStatus: 401,
+    body: [{
+      send: {
+        email: 'example12@domain.com',
         password: 'Password1',
       },
-      errors: [
-        '"email" is required',
-      ],
+      expect: {
+        error: 1100,
+        message: 'invalid credentials',
+      },
+    }, {
+      send: {
+        email: 'example1@domain.com',
+        password: 'Password11',
+      },
+      expect: {
+        error: 1100,
+        message: 'invalid credentials',
+      },
     }],
-  ])('POST should return 400 HTTP status for incorrect data: %p with correct response: %p', (dataToSend, errorDetails, done) => {
-    // when
-    const expectedContentType = 'application/json; charset=utf-8';
-    const expectedHttpStatus = 400;
-    const expectedBody = {
-      error: 1001,
-      message: 'request validation error',
-      errorDetails,
-    };
+  });
 
-    // then
-    request(app)
-      .post(resourcePath)
-      .send(dataToSend)
-      .expect('Content-Type', expectedContentType)
-      .expect(expectedHttpStatus, expectedBody, done);
+  testEndpoint(endpoint, {
+    description: 'Should return 400 status for not empty body but wrong fields',
+    method: 'POST',
+    expectedStatus: 400,
+    body: {
+      send: {
+        wrongField: 'someData',
+      },
+      expect: {
+        error: 1001,
+        message: 'request validation error',
+        errorDetails: [
+          '"email" is required',
+          '"password" is required',
+          '"wrongField" is not allowed',
+        ],
+      },
+    },
+  });
+
+  testEndpoint(endpoint, {
+    description: 'Should return 400 status for invalid email field',
+    method: 'POST',
+    expectedStatus: 400,
+    body: [{
+      send: {
+        password: 'Password1',
+      },
+      expect: {
+        error: 1001,
+        message: 'request validation error',
+        errorDetails: ['"email" is required'],
+      },
+    }, {
+      send: {
+        email: 'invalidEmail.com',
+        password: 'Password1',
+      },
+      expect: {
+        error: 1001,
+        message: 'request validation error',
+        errorDetails: ['"email" must be a valid email'],
+      },
+    }, {
+      send: {
+        email: 'too_long_email_address@toolongemailaddress.com',
+        password: 'Password1',
+      },
+      expect: {
+        error: 1001,
+        message: 'request validation error',
+        errorDetails: ['"email" length must be less than or equal to 24 characters long'],
+      },
+    }],
+  });
+
+  testEndpoint(endpoint, {
+    description: 'Should return 400 status for invalid password field',
+    method: 'POST',
+    expectedStatus: 400,
+    body: [{
+      send: {
+        email: 'example@domain.com',
+      },
+      expect: {
+        error: 1001,
+        message: 'request validation error',
+        errorDetails: ['"password" is required'],
+      },
+    }, {
+      send: {
+        email: 'example@domain.com',
+        password: 'short',
+      },
+      expect: {
+        error: 1001,
+        message: 'request validation error',
+        errorDetails: ['"password" length must be at least 8 characters long'],
+      },
+    }, {
+      send: {
+        email: 'example@domain.com',
+        password: 'this_is_too_long_password',
+      },
+      expect: {
+        error: 1001,
+        message: 'request validation error',
+        errorDetails: ['"password" length must be less than or equal to 24 characters long'],
+      },
+    }],
   });
 
   /**
    * Test all unnecessary HTTP methods
    */
-  test.each([
-    'GET', 'PUT', 'DELETE', 'OPTIONS', 'PATCH', 'TRACE',
-  ])('%s should return http status 500 and content type: "application/json; charset=utf-8"', (upperMethod, done) => {
-    const method = upperMethod.toLowerCase();
-    // when
-    const expectedContentType = 'application/json; charset=utf-8';
-    const expectedHttpStatus = 500;
-    const expectedBody = { error: 1000, message: 'no schema' };
-
-    // then
-    request(app)[method](resourcePath)
-      .expect('Content-Type', expectedContentType)
-      .expect(expectedHttpStatus, expectedBody, done);
+  testEndpoint(endpoint, {
+    description: 'Should return 500 status for others http methods',
+    method: ['GET', 'PUT', 'DELETE', 'OPTIONS', 'TRACE'],
+    expectedStatus: 500,
+    body: [{
+      send: {},
+      expect: {
+        error: 1000,
+        message: 'no schema',
+      },
+    }, {
+      send: {
+        email: 'example@domain.com',
+      },
+      expect: {
+        error: 1000,
+        message: 'no schema',
+      },
+    }, {
+      send: {
+        email: 'example@domain.com',
+        password: 'Password1',
+      },
+      expect: {
+        error: 1000,
+        message: 'no schema',
+      },
+    }],
   });
 });

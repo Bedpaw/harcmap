@@ -26,7 +26,10 @@ const cookieSecure = COOKIE_SECURE !== 'false';
 const about = require('./endpoints/about');
 const users = require('./endpoints/v1/users/index');
 const events = require('./endpoints/v1/events/index');
+const teams = require('./endpoints/v1/teams/index');
 const auth = require('./endpoints/v1/auth/index');
+const points = require('./endpoints/v1/points/index');
+const categories = require('./endpoints/v1/categories/index');
 
 // App instance
 const app = express();
@@ -68,6 +71,9 @@ createSecuredEndpoints(app, endpointsAccessConfig);
 // API
 apiv1.use('/users', users);
 apiv1.use('/events', events);
+apiv1.use('/events/:eventId/teams', teams);
+apiv1.use('/events/:eventId/points', points);
+apiv1.use('/events/:eventId/categories', categories);
 apiv1.use('/auth', auth);
 app.use('/api/v1', apiv1);
 

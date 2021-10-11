@@ -2,6 +2,7 @@ const passport = require('passport');
 const {
   AppError,
   errorCodes,
+  handleErrors,
 } = require('../../../../libs/errors');
 const Users = require('../../../../models/users');
 const getUserAggregation = require('../../../../aggregations/get-user');
@@ -16,18 +17,22 @@ async function signIn (request, response, next) {
     passport.authenticate('local', (authenticateAppError, userData) => {
       // authenticate errors
       if (authenticateAppError || !userData) {
-        throw new AppError(errorCodes.NOT_LOGGED, {
+        const errorCode = authenticateAppError
+          ? errorCodes.INVALID_CREDENTIALS
+          : errorCodes.NOT_LOGGED;
+
+        return handleErrors(new AppError(errorCode, {
           httpStatus: 401,
-        });
+        }), request, response, next);
       }
 
       // run serialize user to session(request.user) logic
       request.login(userData._id, (serializeAppError) => {
         // serialization error
         if (serializeAppError) {
-          throw new AppError(errorCodes.SERIALIZE_ERROR, {
+          return handleErrors(new AppError(errorCodes.SERIALIZE_ERROR, {
             details: serializeAppError,
-          });
+          }), request, response, next);
         }
 
         const responseData = {
