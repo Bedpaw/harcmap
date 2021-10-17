@@ -2,7 +2,7 @@ import Overlay from 'ol/Overlay';
 import { store } from 'store';
 import { fromLonLat } from 'ol/proj';
 import { map } from 'src/map/index';
-import { DATE_FORMATS, getDateInFormat } from 'utils/date';
+import { DATE_FORMATS, displayDate } from 'utils/date';
 import { pointUtils } from 'utils/point';
 import { ICONS } from '@dbetka/vue-material-icons';
 
@@ -76,11 +76,11 @@ export class Popup {
       },
       {
         icon: ICONS.watch_later,
-        value: getDateInFormat(pointAppearanceTime, DATE_FORMATS.HHmmDDMMYYYY),
+        value: displayDate.inFormat(pointAppearanceTime, DATE_FORMATS.HHmmDDMMYYYY),
       },
       {
         icon: ICONS.history_toggle_off,
-        value: getDateInFormat(pointExpirationTime, DATE_FORMATS.HHmmDDMMYYYY),
+        value: displayDate.inFormat(pointExpirationTime, DATE_FORMATS.HHmmDDMMYYYY),
       },
     ];
   }

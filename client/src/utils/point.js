@@ -65,7 +65,6 @@ export const pointUtils = {
       pointId,
       pointCollectionTime,
     } = point;
-
     // Hide if it's hide point
     if (pointId === hiddenPointId) return false;
 

@@ -28,7 +28,7 @@
 import AIconCategory from 'atoms/icon/category';
 import { mapGetters } from 'vuex';
 import { map } from 'map';
-import { getCollectionTime } from 'utils/date';
+import { displayDate } from 'utils/date';
 
 export default {
   name: 'm-row-point',
@@ -49,7 +49,7 @@ export default {
       'getCategoryById',
     ]),
     getCollectionTime () {
-      return getCollectionTime(this.point.pointCollectionTime);
+      return displayDate.relativeToInCalendarFormat(this.point.pointCollectionTime);
     },
   },
   methods: {

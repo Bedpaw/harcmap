@@ -29,7 +29,7 @@
 <script>
 import MInput from 'molecules/input';
 import { mixins } from 'mixins/base';
-import { DATE_FORMATS, getDateInFormat, getDateValueFromFormat } from 'utils/date';
+import { DATE_FORMATS, displayDate, getDate } from 'utils/date';
 
 export default {
   name: 'm-field-date',
@@ -53,10 +53,10 @@ export default {
   computed: {
     vModel: {
       get () {
-        return getDateInFormat(this.value, DATE_FORMATS.YYYYMMDD);
+        return displayDate.inFormat(this.value, DATE_FORMATS.YYYYMMDD);
       },
       set (value) {
-        this.$emit('input', getDateValueFromFormat(value, DATE_FORMATS.YYYYMMDD));
+        this.$emit('input', getDate.fromFormat(value, DATE_FORMATS.YYYYMMDD));
       },
     },
   },

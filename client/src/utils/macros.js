@@ -1,6 +1,7 @@
 export const MACROS = {
   time: {
     secondsInMinute: 60,
+    minutesInHour: 60,
     msInSeconds: 1000,
     msInMinute: 60 * 1000,
     daysInYear: 365,

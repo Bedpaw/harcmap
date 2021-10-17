@@ -2,14 +2,14 @@
   <div class="m-clock">
     <a-icon :size="32" :name=ICONS.schedule class="f-clock"></a-icon>
     <div class="f-mb-2 f-text-center f-text-32 f-text-bold">
-      {{ hours }}<span :class="separatorClass">{{ separator }}</span>{{ minutes }}
+      {{ hours }}<span :class="separatorClass">{{ separator }}</span>{{  minutes }}
     </div>
   </div>
 
 </template>
 
 <script>
-import { getMinutesAsString, getSecondsAsString } from 'utils/date';
+import { getTimeComponents } from 'utils/date';
 export default {
   name: 'm-clock',
   data: () => ({
@@ -37,10 +37,10 @@ export default {
   },
   methods: {
     updateDateTime () {
-      const now = new Date();
-      this.hours = now.getHours();
-      this.minutes = getMinutesAsString(now);
-      this.seconds = getSecondsAsString(now);
+      const [seconds, minutes, hours] = getTimeComponents();
+      this.seconds = seconds;
+      this.minutes = minutes;
+      this.hours = hours;
     },
   },
 };

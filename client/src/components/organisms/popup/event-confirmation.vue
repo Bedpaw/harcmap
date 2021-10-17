@@ -17,7 +17,7 @@ import OPopupEmpty from 'organisms/popup/empty';
 import AButtonPrimary from 'atoms/button/primary';
 import AButtonSecondary from 'atoms/button/secondary';
 import { userUtils } from 'config/users-config';
-import { DATE_FORMATS, getDateInFormat } from 'utils/date';
+import { DATE_FORMATS, displayDate } from 'utils/date';
 
 export default {
   name: 'o-popup-event-confirmation',
@@ -48,11 +48,11 @@ export default {
         },
         {
           label: 'page.joinEvent.eventStartDate',
-          data: getDateInFormat(eventStartDate, DATE_FORMATS.DDMMYYYYHHmm),
+          data: displayDate.inFormat(eventStartDate, DATE_FORMATS.DDMMYYYYHHmm),
         },
         {
           label: 'page.joinEvent.eventEndDate',
-          data: getDateInFormat(eventEndDate, DATE_FORMATS.DDMMYYYYHHmm),
+          data: displayDate.inFormat(eventEndDate, DATE_FORMATS.DDMMYYYYHHmm),
         },
         {
           label: 'accountTypes.accountType',

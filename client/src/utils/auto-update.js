@@ -3,9 +3,10 @@ import { ErrorMessage } from 'utils/error-message';
 import { versionCompatibility } from 'utils/version-compatibility';
 import { api } from 'api';
 import { MACROS } from 'utils/macros';
-import { getSecondsToFullMinute } from 'utils/date';
+import { getDate } from 'utils/date';
 
 const { msInMinute } = MACROS.time;
+const { secondsToFull, msInSeconds } = getDate;
 
 let intervalID = null;
 let timeoutID = null;
@@ -17,7 +18,7 @@ export const autoUpdate = {
       intervalID = setInterval(
         autoUpdate.once,
         msInMinute);
-    }, getSecondsToFullMinute({ inMs: true }));
+    }, msInSeconds(secondsToFull()));
   },
   once () {
     api.information()
