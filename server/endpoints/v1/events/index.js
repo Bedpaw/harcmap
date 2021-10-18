@@ -1,5 +1,10 @@
 const { Router } = require('express');
-const requestSchema = require('./request-schema');
+const {
+	allEvents,
+	oneEvent,
+	check,
+	join,
+} = require('./request-schema');
 const { addEndpointValidation } = require('../../../libs/validation');
 const createEvent = require('./methods/create-event');
 const checkKey = require('./methods/check-key');
@@ -9,16 +14,19 @@ const updateEvent = require('./methods/update-event');
 
 const router = Router();
 
-addEndpointValidation('/api/v1/events/:id', requestSchema);
+addEndpointValidation('/api/v1/events', allEvents);
+addEndpointValidation('/api/v1/events/check', check);
+addEndpointValidation('/api/v1/events/join', join);
+addEndpointValidation('/api/v1/events/:eventId', oneEvent);
 
 // TODO
 router.route('/')
-  .post(async (request, response) => {
-    const { body } = request;
-    const result = await createEvent(body);
+	.post(async (request, response) => {
+		const { body } = request;
+		const result = await createEvent(body);
 
-    response.send(result);
-  });
+		response.send(result);
+	});
 
 // TODO
 router.route('/check')

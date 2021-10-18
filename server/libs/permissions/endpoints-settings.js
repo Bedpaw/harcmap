@@ -15,12 +15,12 @@ const users = {
 const endpointsAccessConfig = {
   '/about': users.all,
   '/api/v1/users': users.admin,
-  '/api/v1/events/:id': {
+  '/api/v1/events/:eventId': {
     GET: users.admin,
     PUT: users.admin,
   },
   // TODO zabezpieczyć pole "role" dla "users.owner"
-  '/api/v1/users/:id': {
+  '/api/v1/users/:userId': {
     GET: [users.admin, users.owner],
     PUT: [users.admin, users.owner],
     DELETE: users.admin,
@@ -33,6 +33,10 @@ const endpointsAccessConfig = {
   },
   '/api/v1/auth/sign-out': {
     POST: users.all,
+  },
+  'api/v1/events/:eventId/categories': {
+    GET: users.all,
+    POST: users.admin,
   },
 };
 

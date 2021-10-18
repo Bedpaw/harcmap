@@ -54,8 +54,6 @@ paths:
             schema:
               type: object
               properties:
-                pointKey:
-                  $ref: '#/components/props/pointKey'
                 pointName:
                   $ref: '#/components/props/pointName'
                 pointType:
@@ -189,8 +187,6 @@ paths:
                   $ref: '#/components/props/pointName'
                 pointType:
                   $ref: '#/components/props/pointType'
-                pointCollectedDate:
-                  $ref: '#/components/props/pointCollectedDate'
                 pointDuration:
                   $ref: '#/components/props/pointDuration'
                 pointPosition:

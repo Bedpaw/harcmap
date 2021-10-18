@@ -73,7 +73,7 @@ apiv1.use('/users', users);
 apiv1.use('/events', events);
 apiv1.use('/events/:eventId/teams', teams);
 apiv1.use('/events/:eventId/points', points);
-apiv1.use('/events/:eventId/categories', categories);
+apiv1.use('/events', categories);
 apiv1.use('/auth', auth);
 app.use('/api/v1', apiv1);
 

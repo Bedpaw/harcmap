@@ -1,41 +1,11 @@
-const http = require('http');
+const path = require('path');
 const supertest = require('supertest');
-const server = require('../../server');
 
-/**
- * @description Method for authorize user in app before test
- * @param credentials {object} - data of user to auth
- * @return {Promise<unknown>}
- */
-function authUser (credentials) {
-  const postData = JSON.stringify(credentials);
+require('dotenv').config({ path: path.join(__dirname, '../../.env.tests') });
 
-  return new Promise((resolve) => {
-    const postRequest = http.request({
-      hostname: 'localhost',
-      port: '3030',
-      path: '/api/v1/auth/sign-in',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(postData),
-      },
-    }, response => {
-      const setCookie = response.headers['set-cookie'];
-      const cookie = setCookie ? setCookie[0].split(';')[0] : 'undefined';
-
-      if (cookie) {
-        resolve(cookie);
-      } else {
-        console.log(`sign-in: ${cookie ? 'success' : 'failed'}`);
-        console.log(cookie);
-      }
-    });
-
-    postRequest.write(postData);
-    postRequest.end();
-  });
-}
+const authUser = require('./auth-user');
+const database = require('./database');
+const app = require('../../app');
 
 /**
  * @description Helper for REST API testing
@@ -44,33 +14,59 @@ function authUser (credentials) {
  *   description: string,
  *   method: string,
  *   body: object|array,
- *   [signIn]: object
+ *   [signIn]: object,
+ *   [insertToDatabase]: object|array,
+ *   [resetDbToDefault]: boolean,
  * }}
  */
 function testEndpoint (endpoint, config) {
   const {
     description,
     method,
-    expectedStatus,
-    body,
+    expectedStatus = 200,
+    body = {},
     signIn,
+    insertToDatabase,
+    resetDbToDefault,
+    expectInDb,
   } = config;
   const methodsListRaw = Array.isArray(method) ? method : [method];
   const methodsList = methodsListRaw.map(eachMethod => eachMethod.toLowerCase());
   const testsList = Array.isArray(body) ? body : [body];
+  const insertToDatabaseList = Array.isArray(insertToDatabase) ? insertToDatabase : [insertToDatabase];
+  const insertToDatabaseListLength = insertToDatabaseList.length;
+  const expectInDbList = Array.isArray(expectInDb) ? expectInDb : [expectInDb];
+  const expectInDbListLength = expectInDbList.length;
+
+  if (resetDbToDefault || insertToDatabase) {
+    afterEach(async () => {
+      await database.clearToDefault();
+    });
+  }
 
   /**
    * @description Function that
    * @param body {object} - object with given and expected body
    * @param testMethod {string} - http method
    */
-  const oneTest = (body, testMethod) => test(description, async () => {
-    const expectedContentType = 'application/json; charset=utf-8';
+  const oneTest = (body, testMethod) => test(`${description} - ${testMethod}.\n      Send: ${JSON.stringify(body.send)}`, async () => {
+    const server = supertest(app);
+    const resource = server[testMethod](endpoint);
+    const serverAddress = resource.app.address();
+    const { port } = serverAddress;
 
-    const resource = supertest(server)[testMethod](endpoint);
+    // insert to db for test
+    if (insertToDatabase) {
+      for (let i = 0; i < insertToDatabaseListLength; i += 1) {
+        const dateToInsert = insertToDatabaseList[i];
 
+        await database.add(dateToInsert);
+      }
+    }
+
+    // authorize user
     if (signIn) {
-      const cookie = await authUser(signIn);
+      const cookie = await authUser(signIn, port);
       resource.set('Cookie', cookie);
     }
 
@@ -78,7 +74,8 @@ function testEndpoint (endpoint, config) {
       send: sendBody,
       expect: expectedBody,
     } = body;
-    const response = await resource.send(sendBody);
+    // send request
+    const response = await resource.send(sendBody || {});
     const {
       res: {
         headers,
@@ -89,11 +86,32 @@ function testEndpoint (endpoint, config) {
     const responseContentType = headers['content-type'];
     const responseBody = JSON.parse(text);
 
+    const expectedContentType = 'application/json; charset=utf-8';
+
+    // assertions
     expect(responseContentType).toBe(expectedContentType);
     expect(responseBody).toEqual(expectedBody);
     expect(responseStatus).toBe(expectedStatus);
+
+    // check in db if necessary
+    if (expectInDb) {
+      for (let i = 0; i < expectInDbListLength; i += 1) {
+        const expectData = expectInDbList[i];
+        const {
+          collectionName,
+          query,
+          document,
+        } = expectData;
+
+        const result = await database.find(collectionName, query);
+
+        expect(result).toEqual(document);
+      }
+    }
+
   });
 
+  // iterate through multiple methods and body tests
   testsList.forEach(testBody => {
     methodsList.forEach(testMethod => {
       oneTest(testBody, testMethod);

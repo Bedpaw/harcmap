@@ -1,3 +1,8 @@
+/**
+ *
+ * AFTER EDIT THIS FILE REMEMBER TO UPDATE FILE: default-dump.js WITH IS COPY OF THIS DATA
+ *
+ */
 // Select database
 db = db.getSiblingDB('harcmap');
 
@@ -53,15 +58,6 @@ db.usersEvents.insert({
   'eventId': ObjectId('605920002c60e426288b8971'),
   'teamId': ObjectId('60e6b02e0b6c6887accf6c03'),
   'role': 'teamLeader',
-  'isBanned': false,
-});
-
-// duplicate
-db.usersEvents.insert({
-  '_id': ObjectId('605920002c60e426288b896f'),
-  'eventId': ObjectId('605920002c60e426288b8971'),
-  'teamId': ObjectId('60e6b02e0b6c6887accf6c03'),
-  'role': 'teamMember',
   'isBanned': false,
 });
 
@@ -159,7 +155,7 @@ db.points.insert({
   },
 });
 
-db.categories_.insert({
+db.categories.insert({
   '_id': ObjectId('60e7046eaa95cc33d7c4672b'),
   'eventId': ObjectId('60e6cc2eaa95cc33d7c46701'),
   'categoryName': 'red',

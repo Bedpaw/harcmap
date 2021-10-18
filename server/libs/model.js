@@ -81,7 +81,9 @@ class Model {
         result.success = true;
         result.data = insertResult.ops;
       } else if (foundDuplicates) {
-        throw new AppError(errorCodes.MODEL_FOUND_DOCUMENT_WITH_UNIQUE_FIELD);
+        throw new AppError(errorCodes.MODEL_FOUND_DOCUMENT_WITH_UNIQUE_FIELD, {
+          httpStatus: 400,
+        });
       } else {
         throw new AppError(errorCodes.MODEL_INSERT_INCORRECT_LENGTH, {
           details: insertResult,
@@ -107,6 +109,7 @@ class Model {
 
     if (aggregationPipeline) {
       const aggregation = aggregationPipeline(filters);
+      // TODO add handler for problem with aggregations
       const aggregatedData = await collection.aggregate(aggregation).toArray();
 
       result = aggregatedData[0];

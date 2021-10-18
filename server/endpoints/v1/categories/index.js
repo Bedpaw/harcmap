@@ -1,25 +1,25 @@
 const { Router } = require('express');
-const requestSchema = require('./request-schema');
+const { allCategories } = require('./request-schema');
 const { addEndpointValidation } = require('../../../libs/validation');
+const getCategories = require('./methods/get-categories');
+const addCategory = require('./methods/add-category');
 
 const router = Router();
 
-// addEndpointValidation('/api/v1/events/:id', requestSchema);
+addEndpointValidation('/api/v1/events/:eventId/categories', allCategories);
 
 // TODO
-router.route('/')
-  .post(async (request, response) => {
-    const { body } = request;
-    const result = await createEvent(body);
+router.route('/:eventId/categories')
+  .get(async (request, response) => {
+    const { eventId } = request.params;
+    console.log(eventId);
+    const result = await getCategories(eventId);
 
     response.send(result);
-  });
-
-// TODO
-router.route('/:teamsId')
+  })
   .post(async (request, response) => {
-    const { eventKey } = request.body;
-    const result = await checkKey(eventKey);
+    const { eventId } = request.params;
+    const result = await addCategory(eventId);
 
     response.send(result);
   });

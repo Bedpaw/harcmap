@@ -1,43 +1,66 @@
 const Joi = require('joi');
 const {
-  eventDurationDate,
-  mapCoordinate,
-  eventName,
-  eventKey,
-  mapRefreshTime,
-  defaultMapZoom,
+	objectId,
+	teamName,
+	eventName,
+	date,
+	mapCoordinates,
+	eventRefreshTime,
+	mapZoom,
+	eventKey,
 } = require('../../../libs/common-schemas');
 
 // empty schema means that no data can be pass
-const GET = Joi.object({});
-
-// "required" method is necessary in most POST methods
-const POST = Joi.object({});
-
-// put(update) data rather dont need to be "required"
-const PUT = Joi.object({
-  eventName,
-  eventKey,
-  eventDuration: {
-    startDate: eventDurationDate,
-    endDate: eventDurationDate,
-  },
-  mapProperties: {
-    zoom: defaultMapZoom,
-    longitude: mapCoordinate,
-    latitude: mapCoordinate,
-  },
-  eventRefreshTime: mapRefreshTime,
-});
-
-// empty schema means that no data can be pass
-const DELETE = Joi.object({});
-
-const schema = {
-  GET,
-  POST,
-  PUT,
-  DELETE,
+const allEvents = {
+	POST: Joi.object({
+		eventName: eventName.required(),
+		eventDuration: {
+			startDate: date.required(),
+			endDate: date.required(),
+		},
+		mapProperties: {
+			zoom: mapZoom.required(),
+			longitude: mapCoordinates.required(),
+			latitude: mapCoordinates.required(),
+		},
+		eventRefreshTime: eventRefreshTime.required(),
+	}),
 };
 
-module.exports = schema;
+const oneEvent = {
+	GET: Joi.object({}),
+	PUT: Joi.object({
+		eventName,
+		eventDuration: {
+			startDate: date,
+			endDate: date,
+		},
+		mapProperties: {
+			zoom: mapZoom,
+			longitude: mapCoordinates,
+			latitude: mapCoordinates,
+		},
+		eventRefreshTime,
+	}),
+};
+
+const check = {
+	POST: Joi.object({
+		eventKey: eventKey.required(),
+	}),
+};
+
+const join = {
+	POST: Joi.object({
+		userId: objectId.required(),
+		eventKey: eventKey.required(),
+		teamName: teamName.required(),
+	}),
+};
+
+module.exports = {
+	allEvents,
+	oneEvent,
+	check,
+	join,
+};

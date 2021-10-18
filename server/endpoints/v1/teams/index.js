@@ -1,29 +1,36 @@
 const { Router } = require('express');
-const requestSchema = require('./request-schema');
+const {
+	allTeams,
+	oneTeam,
+} = require('./request-schema');
 const { addEndpointValidation } = require('../../../libs/validation');
-const createEvent = require('./methods/create-event');
-const checkKey = require('./methods/check-key');
+const getTeams = require('./methods/get-teams');
+const getTeam = require('./methods/get-team');
 
 const router = Router();
 
-// addEndpointValidation('/api/v1/events/:id', requestSchema);
+addEndpointValidation('/api/v1/events/:eventId/teams', allTeams);
+addEndpointValidation('/api/v1/events/:eventId/teams/:teamsId', oneTeam);
 
 // TODO
 router.route('/')
-  .post(async (request, response) => {
-    const { body } = request;
-    const result = await createEvent(body);
+	.get(async (request, response) => {
+		const { eventId } = request.body;
+		const result = await getTeams(eventId);
 
-    response.send(result);
-  });
+		response.send(result);
+	});
 
 // TODO
 router.route('/:teamsId')
-  .post(async (request, response) => {
-    const { eventKey } = request.body;
-    const result = await checkKey(eventKey);
+	.get(async (request, response) => {
+		const {
+			eventId,
+			teamId,
+		} = request.body;
+		const result = await getTeam(eventId, teamId);
 
-    response.send(result);
-  });
+		response.send(result);
+	});
 
 module.exports = router;

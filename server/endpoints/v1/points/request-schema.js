@@ -1,43 +1,56 @@
 const Joi = require('joi');
 const {
-	eventDurationDate,
-	mapCoordinate,
-	eventName,
-	eventKey,
-	mapRefreshTime,
-	defaultMapZoom,
+	pointName,
+	pointType,
+	date,
+	mapCoordinates,
+	objectId,
+	pointKey,
 } = require('../../../libs/common-schemas');
 
-// empty schema means that no data can be pass
-const GET = Joi.object({});
-
-// "required" method is necessary in most POST methods
-const POST = Joi.object({});
-
-// put(update) data rather dont need to be "required"
-const PUT = Joi.object({
-	eventName,
-	eventKey,
-	eventDuration: {
-		startDate: eventDurationDate,
-		endDate: eventDurationDate,
-	},
-	mapProperties: {
-		zoom: defaultMapZoom,
-		longitude: mapCoordinate,
-		latitude: mapCoordinate,
-	},
-	eventRefreshTime: mapRefreshTime,
-});
-
-// empty schema means that no data can be pass
-const DELETE = Joi.object({});
-
-const schema = {
-	GET,
-	POST,
-	PUT,
-	DELETE,
+const onePoint = {
+	GET: Joi.object({}),
+	PUT: Joi.object({
+		pointName: pointName,
+		pointType: pointType,
+		pointDuration: {
+			startDate: date,
+			endDate: date,
+		},
+		pointPosition: {
+			longitude: mapCoordinates,
+			latitude: mapCoordinates,
+		},
+		pointCategoryId: objectId,
+	}),
+	DELETE: Joi.object({}),
 };
 
-module.exports = schema;
+const collectPoint = {
+	POST: Joi.object({
+		pointKey: pointKey.required(),
+	}),
+};
+
+const allPoints = {
+	GET: Joi.object({}),
+	POST: Joi.object({
+		pointName: pointName.required(),
+		pointType: pointType.required(),
+		pointDuration: {
+			startDate: date.required(),
+			endDate: date.required(),
+		},
+		pointPosition: {
+			longitude: mapCoordinates.required(),
+			latitude: mapCoordinates.required(),
+		},
+		pointCategoryId: objectId.required(),
+	}),
+};
+
+module.exports = {
+	allPoints,
+	onePoint,
+	collectPoint,
+};
