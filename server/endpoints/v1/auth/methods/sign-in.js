@@ -34,15 +34,15 @@ async function signIn (request, response, next) {
 			request.login(userData._id, (serializeAppError) => {
 				// serialization error
 				if (serializeAppError) {
-          return handleErrors(new AppError(errorCodes.SERIALIZE_ERROR, {
-            details: serializeAppError,
-          }), request, response, next);
-        }
+					return handleErrors(new AppError(errorCodes.SERIALIZE_ERROR, {
+						details: serializeAppError,
+					}), request, response, next);
+				}
 
-        const responseData = {
-          email: userData.email,
-          userEvents: userData.userEvents,
-        };
+				const responseData = {
+					email: userData.email,
+					userEvents: userData.userEvents,
+				};
 
         response.send(responseData);
       });

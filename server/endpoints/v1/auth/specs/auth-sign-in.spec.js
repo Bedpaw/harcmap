@@ -24,15 +24,15 @@ describe(endpoint, () => {
 					{
 						eventId: '605920002c60e426288b896f',
 						eventName: 'event2',
-            teamId: '60e6b02e0b6c6887accf6c03',
-            teamName: 'team2',
-            role: 'teamLeader',
-            isBanned: false,
-          },
-        ],
-      },
-    },
-  });
+						teamId: '60e6b02e0b6c6887accf6c03',
+						teamName: 'team2',
+						role: 'teamLeader',
+						isBanned: false,
+					},
+				],
+			},
+		},
+	});
 
   testEndpoint(endpoint, {
     description: 'User is already logged - return his data',
@@ -57,15 +57,15 @@ describe(endpoint, () => {
           {
             eventId: '605920002c60e426288b896f',
             eventName: 'event2',
-            teamId: '60e6b02e0b6c6887accf6c03',
-            teamName: 'team2',
-            role: 'teamLeader',
-            isBanned: false,
-          },
-        ],
-      },
-    },
-  });
+						teamId: '60e6b02e0b6c6887accf6c03',
+						teamName: 'team2',
+						role: 'teamLeader',
+						isBanned: false,
+					},
+				],
+			},
+		},
+	});
 
 	testEndpoint(endpoint, {
 		description: 'Failed to get not logged user data',
@@ -131,16 +131,16 @@ describe(endpoint, () => {
 				error: 1100,
 				message: 'invalid credentials',
 			},
-    }],
-  });
+		}],
+	});
 
-  testEndpoint(endpoint, {
-    description: 'Should return 400 status for not empty body but wrong fields',
-    method: 'POST',
-    expectedStatus: 400,
-    body: {
-      send: {
-        wrongField: 'someData',
+	testEndpoint(endpoint, {
+		description: 'Should return 400 status for not empty body but wrong fields',
+		method: 'POST',
+		expectedStatus: 400,
+		body: {
+			send: {
+				wrongField: 'someData',
       },
       expect: {
         error: 1001,
@@ -161,16 +161,16 @@ describe(endpoint, () => {
     body: [{
       send: {
         password: 'Password1',
-      },
-      expect: {
-        error: 1001,
-        message: 'request validation error',
-        errorDetails: ['"email" is required'],
-      },
-    }, {
-      send: {
-        email: 'invalidEmail.com',
-        password: 'Password1',
+			},
+			expect: {
+				error: 1001,
+				message: 'request validation error',
+				errorDetails: ['"email" is required'],
+			},
+		}, {
+			send: {
+				email: 'invalidEmail.com',
+				password: 'Password1',
 			},
 			expect: {
 				error: 1001,
@@ -252,16 +252,16 @@ describe(endpoint, () => {
 				error: 1001,
 				message: 'request validation error',
 				errorDetails: ['"password" length must be at least 8 characters long'],
-      },
-    }, {
-      send: {
-        email: 'example@domain.com',
-        password: 'this_is_too_long_password',
-      },
-      expect: {
-        error: 1001,
-        message: 'request validation error',
-        errorDetails: ['"password" length must be less than or equal to 24 characters long'],
+			},
+		}, {
+			send: {
+				email: 'example@domain.com',
+				password: 'this_is_too_long_password',
+			},
+			expect: {
+				error: 1001,
+				message: 'request validation error',
+				errorDetails: ['"password" length must be less than or equal to 24 characters long'],
       },
     }],
   });
@@ -270,10 +270,10 @@ describe(endpoint, () => {
    * Test all unnecessary HTTP methods
    */
   testEndpoint(endpoint, {
-    description: 'Should return 500 status for others http methods',
-    method: ['GET', 'PUT', 'DELETE', 'OPTIONS', 'TRACE'],
-    expectedStatus: 500,
-    body: [{
+		description: 'Should return 500 status for others http methods',
+		method: ['GET', 'PUT', 'DELETE', 'OPTIONS', 'TRACE'],
+		expectedStatus: 500,
+		body: [{
 			send: {},
 			expect: {
 				error: 1000,
@@ -303,5 +303,5 @@ describe(endpoint, () => {
 				message: 'no schema',
 			},
 		}],
-  });
+	});
 });
