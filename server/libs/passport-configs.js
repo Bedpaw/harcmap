@@ -44,8 +44,8 @@ function setStrategy (passport) {
 function deserializeUser (_id, done) {
   // console.log('deserialize', _id);
   Users.get({ _id: ObjectId(_id) }, {
-      aggregationPipeline: getUserAggregation,
-    })
+    aggregationPipeline: getUserAggregation,
+  })
     .then((userData) => {
       const dataStorageInSession = {
         _id,
