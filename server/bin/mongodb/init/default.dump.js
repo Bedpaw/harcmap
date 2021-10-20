@@ -162,3 +162,11 @@ db.categories.insert({
   'pointValue': 2,
   'pointShape': 'dot',
 });
+
+db.categories.insert({
+  '_id': ObjectId('60e7046eaa15cc33d7c4672b'),
+  'eventId': ObjectId('60e6cc2eaa95cc33d7c46701'),
+  'categoryName': 'green',
+  'pointValue': 1,
+  'pointShape': 'dot',
+});

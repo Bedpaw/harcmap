@@ -37,14 +37,28 @@ function createSecuredEndpoints (app, config) {
   endpointsUrlList.forEach((endpointUrl) => {
     // todo logs
     app.all(endpointUrl, (request, response, next) => {
-      const { method, user } = request;
-      const userRole = user ? user.role : null;
+      const {
+        method,
+        user,
+      } = request;
       const isAuth = request.isAuthenticated();
+      const { eventId } = request.params;
+      let selectedEvent;
+
+      if (isAuth) {
+        selectedEvent = user.userEvents.find(userEvent => {
+          const objectIdString = userEvent.eventId.toString();
+
+          return objectIdString === eventId;
+        });
+      }
+      const userRole = selectedEvent ? selectedEvent.role : undefined;
+
       // request can be pass - default: false
       let PASS = false;
 
       const usersWithAccessToEndpoint = getEndpointPermissions(config, endpointUrl, method);
-      const customPermissions = usersWithAccessToEndpoint.filter((condition) => typeof condition === 'function');
+      // const customPermissions = usersWithAccessToEndpoint.filter((condition) => typeof condition === 'function');
 
       // endpoint is open for all
       if (usersWithAccessToEndpoint.includes('all')) {
@@ -54,13 +68,13 @@ function createSecuredEndpoints (app, config) {
       if (usersWithAccessToEndpoint.includes('authenticated')) {
         PASS = isAuth;
       } else
-      // user role is in path permission object
-      if (usersWithAccessToEndpoint.includes(userRole)) {
+        // user role(in event scope) is in path permission object
+      if (eventId && usersWithAccessToEndpoint.includes(userRole)) {
         PASS = true;
-      } else
-      // custom conditions - function
-      if (customPermissions.filter((conditionFn) => conditionFn(request)).length) {
-        PASS = true;
+        // } else
+        // custom conditions - function
+        // if (customPermissions.filter((conditionFn) => conditionFn(request)).length) {
+        //   PASS = true;
       }
 
       // request pass

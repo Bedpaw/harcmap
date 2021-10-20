@@ -12,7 +12,6 @@ addEndpointValidation('/api/v1/events/:eventId/categories', allCategories);
 router.route('/:eventId/categories')
   .get(async (request, response) => {
     const { eventId } = request.params;
-    console.log(eventId);
     const result = await getCategories(eventId);
 
     response.send(result);

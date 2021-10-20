@@ -3,6 +3,10 @@ const testEndpoint = require('../../../../tests/utils/test-endpoint');
 describe('/api/v1/events/:eventId/categories', () => {
   testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/categories', {
     description: 'Return categories list for event',
+    signIn: {
+      password: 'Password1',
+      email: 'example@domain.com',
+    },
     method: 'GET',
     body: {
       expect: [{
@@ -12,10 +16,22 @@ describe('/api/v1/events/:eventId/categories', () => {
         pointValue: 2,
       }, {
         _id: '60e7046eaa15cc33d7c4672b',
-        categoryName: 'red',
+        categoryName: 'green',
         pointShape: 'dot',
-        pointValue: 2,
+        pointValue: 1,
       }],
+    },
+  });
+
+  testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/categories', {
+    description: 'Dont return categories list if user is not logged',
+    method: 'GET',
+    expectedStatus: 401,
+    body: {
+      expect: {
+        error: 1104,
+        message: 'no permission to resource',
+      },
     },
   });
 

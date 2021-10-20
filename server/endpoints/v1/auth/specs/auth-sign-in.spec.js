@@ -14,7 +14,7 @@ describe(endpoint, () => {
         email: 'example@domain.com',
         userEvents: [
           {
-            eventId: '507f191e810c19729de860ea',
+            eventId: '60e6cc2eaa95cc33d7c46701',
             eventName: 'event1',
             teamId: '60e6ca2aaa95cc33d7c466f8',
             teamName: 'team1',
@@ -22,7 +22,7 @@ describe(endpoint, () => {
             isBanned: false,
           },
           {
-            eventId: '605920002c60e426288b896f',
+            eventId: '605920002c60e426288b8971',
             eventName: 'event2',
             teamId: '60e6b02e0b6c6887accf6c03',
             teamName: 'team2',
@@ -47,7 +47,7 @@ describe(endpoint, () => {
         email: 'example@domain.com',
         userEvents: [
           {
-            eventId: '507f191e810c19729de860ea',
+            eventId: '60e6cc2eaa95cc33d7c46701',
             eventName: 'event1',
             teamId: '60e6ca2aaa95cc33d7c466f8',
             teamName: 'team1',
@@ -55,7 +55,7 @@ describe(endpoint, () => {
             isBanned: false,
           },
           {
-            eventId: '605920002c60e426288b896f',
+            eventId: '605920002c60e426288b8971',
             eventName: 'event2',
             teamId: '60e6b02e0b6c6887accf6c03',
             teamName: 'team2',
