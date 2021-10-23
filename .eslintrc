@@ -1,5 +1,6 @@
 {
   "extends": [
+    "@vue/typescript/recommended",
     "plugin:vue/essential",
     "standard"
   ],

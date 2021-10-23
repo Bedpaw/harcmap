@@ -5,11 +5,45 @@
     "target": "esnext",
     "allowJs": true,
     "moduleResolution": "node",
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "vue": ["vue/dist/vue.esm.js"],
+      "src/*": ["src/*"],
+      "components/*": ["src/components/*"],
+      "config/*": ["src/config/*"],
+      "api": ["src/api"],
+      "map": ["src/map"],
+      "map/*": ["src/map/*"],
+      "store": ["src/store"],
+      "store/*": ["src/store/*"],
+      "utils/*": ["src/utils/*"],
+      "assets/*": ["src/assets/*"],
+      "types/*": ["src/types/*"],
+      "vendors/*": ["../vendors/*"],
+      "validateCodes": ["../lib/validateCodes.js"],
+
+      "atoms/*": ["src/components/atoms/*"],
+      "molecules/*": ["src/components/molecules/*"],
+      "organisms/*": ["src/components/organisms/*"],
+      "templates/*": ["src/components/templates/*"],
+      "pages/*": ["src/components/pages/*"],
+      "extends/*": ["src/components/extends/*"],
+      "mixins/*": ["src/components/mixins/*"]
+    },
     "lib": [
       "esnext",
       "dom",
       "dom.iterable",
       "scripthost"
     ]
-  }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "tests/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
