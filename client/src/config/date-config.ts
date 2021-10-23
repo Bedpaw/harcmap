@@ -6,11 +6,10 @@ import * as calendar from 'dayjs/plugin/calendar';
 import * as duration from 'dayjs/plugin/duration';
 import * as relativeTime from 'dayjs/plugin/relativeTime';
 import * as updateLocale from 'dayjs/plugin/updateLocale';
-// Don't remove
-import * as localePl from 'dayjs/locale/pl';
+import 'dayjs/locale/pl';
 import { DATE_FORMATS } from 'utils/date';
 
-export function initDateConfig () {
+export function initDateConfig (): void {
   dayjs.extend(isToday);
   dayjs.extend(isBetween);
   dayjs.extend(customParseFormat);

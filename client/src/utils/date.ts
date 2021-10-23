@@ -1,5 +1,6 @@
 import { MACROS } from 'utils/macros';
-import dayjs from 'dayjs';
+import * as dayjs from 'dayjs';
+import { DateType } from 'src/models/date';
 
 const { secondsInMinute, msInSeconds, minutesInHour } = MACROS.time;
 
@@ -15,18 +16,18 @@ export const DATE_FORMATS = {
   ss: 'ss',
 };
 
-export const compareDate = {
+export const compareDate: Record<string, (startDate: DateType, endDate?: DateType) => boolean> = {
   isFuture: (date) => dayjs().isBefore(date),
   isPast: (date) => dayjs().isAfter(date),
-  isActual: (startDate, endDate) => dayjs(dayjs()).isBetween(startDate, endDate),
-  isToday: (date) => dayjs().isToday(date),
+  isActual: (startDate, endDate: DateType) => dayjs(dayjs()).isBetween(startDate, endDate),
+  isToday: (date) => dayjs(date).isToday(),
 };
 
 export const displayDate = {
-  inFormat: (date, format = DATE_FORMATS.DDMMYYYY) => dayjs(date).format(format),
-  relativeToInCalendarFormat: (date) => dayjs(date).calendar(),
-  asDuration: (date) => dayjs.duration(date, 'seconds').humanize(),
-  fromTo: (from, to, separator = ' - ') => {
+  inFormat: (date: DateType, format = DATE_FORMATS.DDMMYYYY) => dayjs(date).format(format),
+  relativeToInCalendarFormat: (date: DateType) => dayjs(date).calendar(),
+  asDuration: (date: number) => dayjs.duration(date, 'seconds').humanize(),
+  fromTo: (from: string, to: string, separator = ' - '): string => {
     if (from === to) {
       return from;
     }
@@ -35,15 +36,15 @@ export const displayDate = {
 };
 
 export const getDate = {
-  fromFormat: (date, format = DATE_FORMATS.DDMMYYYY) => dayjs(date, format),
-  secondsAfterFull: (date = dayjs()) => Number(dayjs(date).format(DATE_FORMATS.ss)),
-  minutesAfterFull: (date = dayjs()) => Number(dayjs(date).format(DATE_FORMATS.mm)),
-  secondsToFull: (date = dayjs()) => secondsInMinute - Number(dayjs(date).format(DATE_FORMATS.ss)),
-  minutesToFull: (date = dayjs()) => minutesInHour - Number(dayjs(date).format(DATE_FORMATS.mm)),
-  msInSeconds: (seconds) => seconds * msInSeconds,
+  fromFormat: (date: DateType, format = DATE_FORMATS.DDMMYYYY): dayjs.Dayjs => dayjs(date, format),
+  secondsAfterFull: (date = dayjs()): number => Number(dayjs(date).format(DATE_FORMATS.ss)),
+  minutesAfterFull: (date = dayjs()): number => Number(dayjs(date).format(DATE_FORMATS.mm)),
+  secondsToFull: (date = dayjs()): number => secondsInMinute - Number(dayjs(date).format(DATE_FORMATS.ss)),
+  minutesToFull: (date = dayjs()): number => minutesInHour - Number(dayjs(date).format(DATE_FORMATS.mm)),
+  msInSeconds: (seconds: number): number => seconds * msInSeconds,
 };
 
-export function isBeforeLastGapEndTime (refreshIntervalInSeconds, timeToCompare) {
+export function isBeforeLastGapEndTime (refreshIntervalInSeconds: number, timeToCompare: number): boolean {
   /**
    * Name = example value | [possible range]
    *
@@ -65,22 +66,22 @@ export function isBeforeLastGapEndTime (refreshIntervalInSeconds, timeToCompare)
   return dayjs(timeToCompare).isBefore(lastGapEndTime);
 }
 
-export function getTimeComponents (date = dayjs()) {
+export function getTimeComponents (date = dayjs()): string[] {
   const hours = displayDate.inFormat(date, DATE_FORMATS.HH);
   const minutes = displayDate.inFormat(date, DATE_FORMATS.mm);
   const seconds = displayDate.inFormat(date, DATE_FORMATS.ss);
   return [seconds, minutes, hours];
 }
 
-export const sortObjectsListByTime = (objectsList, timeKey, order = MACROS.order.ascending) => {
+export const sortObjectsListByTime = <T extends Record<string, number>, Key extends keyof T> (objectsList: T[], timeKey: Key, order = MACROS.order.ascending) => {
   if (order === MACROS.order.ascending) return objectsList.sort((a, b) => a[timeKey] - b[timeKey]);
   else if (order === MACROS.order.descending) return objectsList.sort((a, b) => b[timeKey] - a[timeKey]);
 };
 
-export const splitObjectsListByTime = (objectsList, startDateKey, endDateKey) => {
-  const isPast = [];
-  const isCurrent = [];
-  const isFuture = [];
+export const splitObjectsListByTime = <T extends Record<string, DateType>, Key extends keyof T>(objectsList: T[], startDateKey: Key, endDateKey: Key) => {
+  const isPast: T[] = [];
+  const isCurrent: T[] = [];
+  const isFuture: T[] = [];
 
   objectsList.forEach(obj => {
     const startDate = obj[startDateKey];
