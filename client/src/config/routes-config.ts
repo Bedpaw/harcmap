@@ -1,9 +1,8 @@
-import { AppRoute } from '../router/utils';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { ICONS } from '@dbetka/vue-material-icons';
+import { AppRoute } from '../router/utils';
 import { EnterPermission } from '../models/routes';
-
-
 
 const enterPermissions: Record<string, EnterPermission> = {
   alwaysAllowed: {},
@@ -152,8 +151,7 @@ const alwaysAllowedRoutes = {
     name: 'about',
     icon: ICONS.emoji_objects,
   },
-}
-
+};
 
 export const ROUTES = {
   ...AppRoute.createRoutes<keyof typeof alwaysAllowedRoutes>(alwaysAllowedRoutes, enterPermissions.alwaysAllowed),

@@ -1,16 +1,16 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { ICONS } from '@dbetka/vue-material-icons';
 import { AppRouteParams, EnterPermission } from '../models/routes';
-import { translator } from "../dictionary";
-
+import { translator } from '../dictionary';
 
 export class AppRoute {
-  public name: string // !!!camelCase!!!
-  public path: string | null
-  public meta: EnterPermission
-  public icon = ICONS.success as string
-  public label: string
-  public shortLabel: string
+  public name: string; // !!!camelCase!!!
+  public path: string | null;
+  public meta: EnterPermission;
+  public icon = ICONS.success as string;
+  public label: string;
+  public shortLabel: string;
 
   constructor (config: AppRouteParams) {
     const { name, path, icon, enterPermissions, dynamicParam, hasShortLabel } = config;
@@ -48,13 +48,13 @@ export class AppRoute {
   }
 
   static createRoutes <RouteNameKey extends string> (
-      routesObject: Record<string, AppRouteParams>,
-      enterPermissions: EnterPermission)
+    routesObject: Record<string, AppRouteParams>,
+    enterPermissions: EnterPermission)
       : Record<RouteNameKey, AppRoute> {
     for (const [key, routeDetails] of Object.entries(routesObject)) {
       routeDetails.enterPermissions = enterPermissions;
       routesObject[key] = new AppRoute(routeDetails);
     }
-    return routesObject as Record<RouteNameKey, AppRoute>
-  };
+    return routesObject as Record<RouteNameKey, AppRoute>;
+  }
 }

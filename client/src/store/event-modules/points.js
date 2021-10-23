@@ -1,9 +1,9 @@
 import { map } from 'map';
 import Vue from 'vue';
 import { pointUtils } from 'utils/point';
+import { api } from 'api';
 
 const { pointIsCollected, isTimeOut, sortPointsAscending } = pointUtils;
-import { api } from 'api';
 
 export default {
   state: {
