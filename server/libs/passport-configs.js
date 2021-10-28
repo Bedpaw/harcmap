@@ -18,8 +18,8 @@ function setStrategy (passport) {
     passwordField: 'password',
   }, (email, password, done) => {
     Users.get({ email }, {
-        aggregationPipeline: getUserAggregation,
-      })
+      aggregationPipeline: getUserAggregation,
+    })
       .then((userData) => {
         if (userData && userData.password === getSHA(password)) {
           done(null, userData);

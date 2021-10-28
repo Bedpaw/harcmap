@@ -2,16 +2,16 @@
  * @description Module using only for tests purposes
  */
 const {
-	MongoClient,
-	ObjectId,
+  MongoClient,
+  ObjectId,
 } = require('mongodb');
 const insertDefaultData = require('../../bin/mongodb/default-dump.js');
 const {
-	MONGO_HOST,
-	MONGO_USER,
-	MONGO_PASSWORD,
-	MONGO_DATABASE,
-	MONGO_PORT,
+  MONGO_HOST,
+  MONGO_USER,
+  MONGO_PASSWORD,
+  MONGO_DATABASE,
+  MONGO_PORT,
 } = process.env;
 
 const connectionString = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DATABASE}`;
@@ -24,12 +24,12 @@ let connectionHandler;
  * @return {Promise<*>} - reference to database connection
  */
 async function connectToDatabase () {
-	// Create connection handler
-	if (!connectionHandler) {
-		connectionHandler = await MongoClient.connect(connectionString, { useUnifiedTopology: true });
-	}
+  // Create connection handler
+  if (!connectionHandler) {
+    connectionHandler = await MongoClient.connect(connectionString, { useUnifiedTopology: true });
+  }
 
-	return connectionHandler;
+  return connectionHandler;
 }
 
 /**
@@ -39,10 +39,10 @@ async function connectToDatabase () {
  * @return {Promise<*>} - return mongodb collection object
  */
 async function getCollection (collectionName) {
-	const connection = await connectToDatabase();
-	const db = connection.db(MONGO_DATABASE);
+  const connection = await connectToDatabase();
+  const db = connection.db(MONGO_DATABASE);
 
-	return db.collection(collectionName);
+  return db.collection(collectionName);
 }
 
 /**
@@ -51,13 +51,13 @@ async function getCollection (collectionName) {
  * @return {Promise<void>}
  */
 async function add (options) {
-	const {
-		collectionName,
-		document,
-	} = options;
+  const {
+    collectionName,
+    document,
+  } = options;
 
-	const collection = await getCollection(collectionName);
-	await collection.insertOne(document);
+  const collection = await getCollection(collectionName);
+  await collection.insertOne(document);
 }
 
 /**
@@ -68,34 +68,34 @@ async function add (options) {
  */
 async function find (collectionName, query) {
 
-	const collection = await getCollection(collectionName);
-	return await collection.findOne(query);
+  const collection = await getCollection(collectionName);
+  return await collection.findOne(query);
 }
 
 /**
  * @description Clear all collections and return data to default
  */
 async function clearToDefault () {
-	const connection = await connectToDatabase();
-	const db = connection.db(MONGO_DATABASE);
+  const connection = await connectToDatabase();
+  const db = connection.db(MONGO_DATABASE);
 
-	// clear collections
-	const collections = await db.listCollections().toArray();
-	const collectionsLength = collections.length;
+  // clear collections
+  const collections = await db.listCollections().toArray();
+  const collectionsLength = collections.length;
 
-	for (let i = 0; i < collectionsLength; i += 1) {
-		const eachCollectionName = collections[i].name;
+  for (let i = 0; i < collectionsLength; i += 1) {
+    const eachCollectionName = collections[i].name;
 
-		await db.collection(eachCollectionName).drop();
-	}
+    await db.collection(eachCollectionName).drop();
+  }
 
-	// load default data
-	await insertDefaultData(db);
+  // load default data
+  await insertDefaultData(db);
 }
 
 module.exports = {
-	add,
-	find,
-	clearToDefault,
-	ObjectId,
+  add,
+  find,
+  clearToDefault,
+  ObjectId,
 };

@@ -12,7 +12,6 @@ components:
       required:
         - error
         - message
-        - errorDetails
     401:
       type: object
       properties:

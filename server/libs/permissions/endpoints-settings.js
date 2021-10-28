@@ -6,8 +6,6 @@ const users = {
   members: 'teamMember',
   // all registered users
   authenticated: 'authenticated',
-  // logged user with access to his "_id" resources
-  // owner: (request) => request.user && request.params.id === request.user._id,
   // open for all - DONT REQUIRE AUTHORIZATION
   all: 'all',
 };
@@ -15,31 +13,22 @@ const users = {
 // map can contain array of permission users
 // each endpoint require one(OR) of permission user not both or all(AND)
 const endpointsAccessConfig = {
+  // common endpoints
   '/about': users.all,
-  '/api/v1/users': users.creator,
-  '/api/v1/events/:eventId': {
-    GET: users.creator,
-    PUT: users.creator,
-  },
-  // TODO zabezpieczyć pole "role" dla "users.owner"
-  '/api/v1/users/:userId': {
-    GET: users.creator,
-    PUT: users.creator,
-    DELETE: users.creator,
-  },
-  '/api/v1/auth/sign-in': {
-    POST: users.all,
-  },
-  '/api/v1/auth/sign-up': {
-    POST: users.all,
-  },
-  '/api/v1/auth/sign-out': {
-    POST: users.all,
-  },
-  '/api/v1/events/:eventId/categories': {
-    GET: users.creator,
-    POST: users.creator,
-  },
+  '/api-docs': users.all,
+  // auth endpoints
+  '/api/v1/auth/sign-in': users.all,
+  '/api/v1/auth/sign-up': users.all,
+  '/api/v1/auth/sign-out': users.all,
+  // users endpoints
+  '/api/v1/users': [users.creator, users.admin],
+  '/api/v1/users/:userId': [users.creator, users.admin],
+  // events endpoints
+  '/api/v1/events': [users.authenticated],
+  '/api/v1/events/:eventId': [users.creator, users.admin],
+  '/api/v1/events/:eventId/categories': [users.creator, users.admin],
+  '/api/v1/events/:eventId/teams': [users.creator, users.admin],
+  '/api/v1/events/:eventId/teams/:teamId': [users.creator, users.admin],
 };
 
 module.exports = endpointsAccessConfig;

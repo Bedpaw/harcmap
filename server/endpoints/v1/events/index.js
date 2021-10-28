@@ -1,9 +1,9 @@
 const { Router } = require('express');
 const {
-	allEvents,
-	oneEvent,
-	check,
-	join,
+  allEvents,
+  oneEvent,
+  check,
+  join,
 } = require('./request-schema');
 const { addEndpointValidation } = require('../../../libs/validation');
 const createEvent = require('./methods/create-event');
@@ -21,12 +21,12 @@ addEndpointValidation('/api/v1/events/:eventId', oneEvent);
 
 // TODO
 router.route('/')
-	.post(async (request, response) => {
-		const { body } = request;
-		const result = await createEvent(body);
+  .post(async (request, response) => {
+    const { body } = request;
+    const result = await createEvent(body);
 
-		response.send(result);
-	});
+    response.send(result);
+  });
 
 // TODO
 router.route('/check')

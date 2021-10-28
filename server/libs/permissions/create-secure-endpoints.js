@@ -12,7 +12,7 @@ function getEndpointPermissions (config, path, httpMethod) {
   let listOfUsersWithAccess;
 
   // if endpointPermissions are object
-  if (endpointPermissions && typeof endpointPermissions === 'object') {
+  if (endpointPermissions && endpointPermissions.constructor.name === 'Object') {
     endpointPermissions = endpointPermissions[httpMethod] || [];
   }
 
@@ -37,12 +37,11 @@ function createSecuredEndpoints (app, config) {
   endpointsUrlList.forEach((endpointUrl) => {
     // todo logs
     app.all(endpointUrl, (request, response, next) => {
-      const {
-        method,
-        user,
-      } = request;
       const isAuth = request.isAuthenticated();
+      const { method, user } = request;
+      // get dynamic url elements
       const { eventId } = request.params;
+      // check if authorized user have permission to requested source
       let selectedEvent;
 
       if (isAuth) {
@@ -58,7 +57,6 @@ function createSecuredEndpoints (app, config) {
       let PASS = false;
 
       const usersWithAccessToEndpoint = getEndpointPermissions(config, endpointUrl, method);
-      // const customPermissions = usersWithAccessToEndpoint.filter((condition) => typeof condition === 'function');
 
       // endpoint is open for all
       if (usersWithAccessToEndpoint.includes('all')) {
@@ -68,27 +66,39 @@ function createSecuredEndpoints (app, config) {
       if (usersWithAccessToEndpoint.includes('authenticated')) {
         PASS = isAuth;
       } else
-        // user role(in event scope) is in path permission object
+      // user role(in event scope) is in path permission object
       if (eventId && usersWithAccessToEndpoint.includes(userRole)) {
         PASS = true;
-        // } else
-        // custom conditions - function
-        // if (customPermissions.filter((conditionFn) => conditionFn(request)).length) {
-        //   PASS = true;
       }
 
       // request pass
-      if (!PASS) {
-        // request rejected - ERROR
-        const code = usersWithAccessToEndpoint[0] === undefined
-          ? errorCodes.PERMISSION_MIDDLEWARE_CANNOT_FIND_PATH_IN_SETTINGS
-          : errorCodes.NO_PERMISSION_TO_RESOURCE;
-        throw new AppError(code, {
-          httpStatus: 401,
-        });
-      }
+      request.PASS = PASS;
+
       next();
     });
+  });
+
+  app.use((request, response, next) => {
+    const { path } = request;
+    const pathToLowerCase = path.toLowerCase();
+
+    // static files
+    const staticFilesExtensions = /\.(css|js|png|map|ico|jpg|jpeg)$/;
+    if (staticFilesExtensions.test(pathToLowerCase)) {
+      request.PASS = true;
+    }
+
+    // check if request passed verification
+    if (!request.PASS) {
+      // request rejected - ERROR
+      const code = typeof request.PASS !== 'boolean'
+        ? errorCodes.PERMISSION_MIDDLEWARE_CANNOT_FIND_PATH_IN_SETTINGS
+        : errorCodes.NO_PERMISSION_TO_RESOURCE;
+      throw new AppError(code, {
+        httpStatus: 401,
+      });
+    }
+    next();
   });
 }
 

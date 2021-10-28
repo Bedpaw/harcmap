@@ -64,8 +64,14 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    $ref: '#/components/props/success'
+                  categoryId:
+                    $ref: '#/components/props/id'
+                  categoryName:
+                    $ref: '#/components/props/categoryName'
+                  pointValue:
+                    $ref: '#/components/props/pointValue'
+                  pointShape:
+                    $ref: '#/components/props/pointShape'
         400:
           description: 'Validation error'
           content:

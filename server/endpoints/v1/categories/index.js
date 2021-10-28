@@ -8,7 +8,6 @@ const router = Router();
 
 addEndpointValidation('/api/v1/events/:eventId/categories', allCategories);
 
-// TODO
 router.route('/:eventId/categories')
   .get(async (request, response) => {
     const { eventId } = request.params;
@@ -17,8 +16,8 @@ router.route('/:eventId/categories')
     response.send(result);
   })
   .post(async (request, response) => {
-    const { eventId } = request.params;
-    const result = await addCategory(eventId);
+    const { body } = request;
+    const result = await addCategory(body);
 
     response.send(result);
   });
