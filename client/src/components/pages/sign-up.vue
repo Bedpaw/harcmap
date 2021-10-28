@@ -89,6 +89,10 @@ export default {
     signUp () {
       this.isSending = true;
       this.blockForm = true;
+      this.values.user = this.values.user.trim();
+      this.values.password = this.values.password.trim();
+      this.values.userTeam = this.values.userTeam.trim();
+      this.values.eventId = this.values.eventId.trim();
       api.signUp(this.values)
         .then(this.onSignUp)
         .catch(this.onErrorOccurs);

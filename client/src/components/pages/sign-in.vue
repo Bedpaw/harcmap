@@ -60,7 +60,7 @@ export default {
   }),
   mounted () {
     if (PRODUCTION === false) {
-      this.signInAutomatically();
+      // this.signInAutomatically();
     }
   },
   methods: {
@@ -77,6 +77,8 @@ export default {
     signIn () {
       this.isSending = true;
       this.blockForm = true;
+      this.values.user = this.values.user.trim();
+      this.values.password = this.values.password.trim();
       api.signIn(this.values)
         .then(this.onSignIn)
         .catch(this.onErrorOccurs);
