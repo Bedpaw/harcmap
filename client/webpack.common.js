@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpackUtils = require('./webpack/utils');
 const webpackRules = require('./webpack/rules').rules;
+const ESLintPlugin = require('eslint-webpack-plugin');
 const resolve = webpackUtils.resolve;
 
 const AppName = 'HarcMap';
@@ -59,6 +60,12 @@ module.exports = {
     extensions: ['.ts', '.js', '.vue', '.sass', '.css'],
   },
   plugins: [
+    new ESLintPlugin({
+      extensions: ['js', 'vue'],
+      formatter: require.resolve('eslint-friendly-formatter'),
+      eslintPath: require.resolve('eslint'),
+      useEslintrc: true,
+    }),
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       template: resolve('src/index.html'),
