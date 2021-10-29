@@ -1,18 +1,5 @@
-const resolve = require('./utils').resolve;
-
 module.exports = {
   rules: [
-    {
-      test: /\.(js|vue)$/,
-      loader: 'eslint-loader',
-      enforce: 'pre',
-      include: [
-        resolve('src'),
-      ],
-      options: {
-        formatter: require('eslint-friendly-formatter'),
-      },
-    },
     {
       test: /\.(sass|scss)$/,
       use: [
