@@ -5,7 +5,6 @@ async function getEvent (id) {
   const event = await Events.get({ _id: mongodb.ObjectId(id) });
   const {
     eventName,
-    eventKey,
     eventDuration,
     mapProperties,
     eventRefreshTime,
@@ -13,7 +12,6 @@ async function getEvent (id) {
 
   return {
     eventName,
-    eventKey,
     eventDuration,
     mapProperties,
     eventRefreshTime,

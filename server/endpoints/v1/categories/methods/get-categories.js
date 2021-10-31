@@ -5,6 +5,9 @@ async function getCategories (eventId) {
   const results = await Categories.getMany({ eventId: ObjectId(eventId) });
 
   return results.map(result => {
+    result.categoryId = result._id;
+
+    delete result._id;
     delete result.eventId;
 
     return result;

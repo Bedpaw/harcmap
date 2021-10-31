@@ -1,13 +1,13 @@
 const Joi = require('joi');
 
 const allTeams = {
-	GET: Joi.object({}),
+  GET: Joi.object({}),
 };
 const oneTeam = {
-	GET: Joi.object({}),
+  GET: Joi.object({}),
 };
 
 module.exports = {
-	allTeams,
-	oneTeam,
+  allTeams,
+  oneTeam,
 };

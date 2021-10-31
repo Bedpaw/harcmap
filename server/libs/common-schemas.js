@@ -11,7 +11,8 @@ const date = Joi.number();
 const eventKey = Joi.string()
   .length(4);
 const mapCoordinates = Joi.number();
-const objectId = Joi.string();
+const objectIdInRequest = Joi.string();
+const objectIdInDatabase = Joi.object();
 
 /**
  * Users props
@@ -23,10 +24,14 @@ const email = Joi.string()
 const password = Joi.string()
   .min(8)
   .max(24);
-// TODO update
 const role = Joi.string()
-  .equal('common', 'moderator', 'creator');
+  .equal('creator', 'admin', 'teamLeader', 'teamMember');
 const teamName = Joi.string();
+
+/**
+ * Teams props
+ */
+const collectedPoints = Joi.array();
 
 /**
  * Event props
@@ -50,11 +55,12 @@ const pointKey = Joi.string();
  * Category props
  */
 const pointValue = Joi.number();
-const pointShape = Joi.number();
+const pointShape = Joi.string();
 const categoryName = Joi.string();
 
 module.exports = {
-  objectId,
+  objectIdInDatabase,
+  objectIdInRequest,
   email,
   password,
   role,
@@ -73,4 +79,5 @@ module.exports = {
   pointName,
   pointType,
   pointKey,
+  collectedPoints,
 };

@@ -18,8 +18,8 @@ function setStrategy (passport) {
     passwordField: 'password',
   }, (email, password, done) => {
     Users.get({ email }, {
-        aggregationPipeline: getUserAggregation,
-      })
+      aggregationPipeline: getUserAggregation,
+    })
       .then((userData) => {
         if (userData && userData.password === getSHA(password)) {
           done(null, userData);
@@ -42,8 +42,10 @@ function setStrategy (passport) {
  * @param done {function}
  */
 function deserializeUser (_id, done) {
-  console.log('deserialize', _id);
-  Users.get({ _id: ObjectId(_id) })
+  // console.log('deserialize', _id);
+  Users.get({ _id: ObjectId(_id) }, {
+    aggregationPipeline: getUserAggregation,
+  })
     .then((userData) => {
       const dataStorageInSession = {
         _id,
@@ -67,7 +69,7 @@ function deserializeUser (_id, done) {
  * @param done {function}
  */
 function serializeUser (_id, done) {
-  console.log('serialize', _id);
+  // console.log('serialize', _id);
   if (_id) {
     done(null, _id);
   } else {

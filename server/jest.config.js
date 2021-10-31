@@ -2,7 +2,7 @@
 // https://jestjs.io/docs/en/configuration.html
 
 module.exports = {
-	testEnvironment: 'node',
-	testMatch: ['**/specs/*.spec.js'],
-	maxWorkers: 1,
+  testEnvironment: 'node',
+  testMatch: ['**/specs/*.spec.js'],
+  maxWorkers: 1,
 };

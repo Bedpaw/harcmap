@@ -1,7 +1,7 @@
 components:
   props:
-    userId:
-      description: 'User id (ObjectId)'
+    id:
+      description: 'Document unique id from database'
       type: string
     email:
       description: 'User email. Used also as login'
@@ -110,7 +110,9 @@ components:
           email:
             $ref: '#/components/props/email'
           userId:
-            $ref: '#/components/props/userId'
+            $ref: '#/components/props/id'
+          role:
+            $ref: '#/components/props/role'  
     teamLeader:
       description: 'Id of user that have to be leader of team'
       type: string

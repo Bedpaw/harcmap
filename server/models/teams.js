@@ -1,20 +1,18 @@
 const {
   objectIdInDatabase,
-  categoryName,
-  pointValue,
-  pointShape,
+  teamName,
+  collectedPoints,
 } = require('../libs/common-schemas');
 const Model = require('../libs/model');
 
 // User schema
 const userSchema = {
   eventId: objectIdInDatabase,
-  categoryName,
-  pointValue,
-  pointShape,
+  teamName,
+  collectedPoints,
 };
 
 // Create model
-const Categories = new Model('categories', userSchema);
+const Teams = new Model('teams', userSchema);
 
-module.exports = Categories;
+module.exports = Teams;

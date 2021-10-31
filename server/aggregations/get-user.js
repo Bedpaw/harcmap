@@ -48,7 +48,7 @@ function getUserAggregation (query) {
         },
         userEvents: {
           $push: {
-            eventId: '$userEvents._id',
+            eventId: '$event._id',
             eventName: '$event.eventName',
             teamId: '$team._id',
             teamName: '$team.teamName',

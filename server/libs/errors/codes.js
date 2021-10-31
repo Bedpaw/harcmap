@@ -1,5 +1,5 @@
 /**
- * This module contain map of all errors codes to it text version
+ * This module contains map of all errors codes to it text version
  * Docu on confluence
  */
 const errors = {
