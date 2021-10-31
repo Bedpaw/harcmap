@@ -2,6 +2,7 @@
 node_modules
 package-lock.json
 
+config
 server/.env
 server/.db
 server/node_modules

@@ -4,18 +4,18 @@
   "description": "HarcMap",
   "main": "app.js",
   "scripts": {
-	  "build:dev" : "cd client && npm run build:dev",
-	  "build:dev:watch" : "cd client && npm run build:dev:watch",
-	  "build:prod" : "cd client && npm run build:prod",
-	  "build:prod:watch" : "cd client && npm run build:prod:watch",
-	  "server:start" : "cd server && npm run start",
-	  "server:watch" : "cd server && npm run watch",
-	  "server:tests" : "cd server && npm run tests",
-	  "server:tests:watch" : "cd server && npm run tests:watch",
-	  "mongo" : "cd server && npm run mongo",
-	  "mongo:fresh" : "cd server && npm run mongo:fresh",
-	  "mongo:windows" : "cd server && npm run mongo:windows",
-	  "mongo:tests" : "cd server && npm run mongo:tests"
+    "build:dev": "cd client && npm run build:dev",
+    "build:dev:watch": "cd client && npm run build:dev:watch",
+    "build:prod": "cd client && npm run build:prod",
+    "build:prod:watch": "cd client && npm run build:prod:watch",
+    "server:start": "cd server && npm run start",
+    "server:watch": "cd server && npm run watch",
+    "server:tests": "cd server && npm run tests",
+    "server:tests:watch": "cd server && npm run tests:watch",
+    "mongo": "cd server && npm run mongo",
+    "mongo:fresh": "cd server && npm run mongo:fresh",
+    "mongo:windows": "cd server && npm run mongo:windows",
+    "mongo:tests": "cd server && npm run mongo:tests"
   },
   "repository": {
     "type": "git",
@@ -31,7 +31,7 @@
     "node": ">=12.9.0",
     "npm": ">=6.0.0"
   },
-  "devDependencies" : {
+  "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-friendly-formatter": "^4.0.1",
