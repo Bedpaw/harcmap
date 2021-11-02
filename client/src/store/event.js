@@ -1,11 +1,9 @@
-import { MACROS } from 'utils/macros';
-import { uCheck } from '@dbetka/utils';
-import moment from 'moment';
 import Cookies from 'js-cookie';
 import { eventUtils } from 'utils/event';
 import { map } from 'map';
 import { eventStoreModules as Modules } from 'store/event-modules';
 import { api } from 'api';
+import { pointUtils } from 'utils/point';
 
 export default {
   namespaced: true,
@@ -32,41 +30,15 @@ export default {
       mapLatitude: state.mapLatitude,
       mapRefreshTime: state.mapRefreshTime,
     }),
-    pointsVisibleOnMap: (state, getters, rootState, rootGetters) => {
-      return state.points.filter(({
-        pointId,
-        pointCollectionTime,
-        pointType,
-        pointAppearanceTime,
-        pointExpirationTime,
-      }) => {
-        // Hide if it's hide point
-        if (pointId === getters.hidePoint.pointId) return false;
-
-        // Admin can see all points on map
-        if (permissions.checkIsAdmin()) return true;
-
-        if (pointType === MACROS.pointType.permanent) {
-          // Point is not collected
-          if (uCheck.isNull(pointCollectionTime)) return true;
-
-          // Display points collected by user
-          if (rootGetters['user/collectedPointsIds'].includes(pointId) === true) return true;
-
-          // Point is permanent and collected, but user don't know it to next gap time
-          // Gap time is last full time from mapRefreshTime counting from full hours
-          const mapRefreshTimeInMinutes = state.mapRefreshTime / 60;
-          const now = moment();
-          const lastGapEndTime = moment(now).minutes((now.minute() - (now.minute() % mapRefreshTimeInMinutes))).seconds(0);
-          const isBeforeLastGapEndTime = moment(pointCollectionTime).isBefore(lastGapEndTime);
-          return isBeforeLastGapEndTime === false;
-        }
-        return rootGetters['event/checkTimeoutPointIsVisible']({
-          pointAppearanceTime,
-          pointExpirationTime,
-        });
-      });
-    },
+    pointsVisibleOnMap: (state, getters, rootState, rootGetters) =>
+      state.points.filter(
+        (point) => pointUtils.pointIsVisibleOnMap(point,
+          {
+            hiddenPointId: getters.hidePoint.pointId,
+            pointsCollectedByUser: rootGetters['user/collectedPointsIds'],
+            mapRefreshTime: state.mapRefreshTime,
+          },
+        )),
     ...Modules.getters,
   },
   mutations: {
@@ -95,7 +67,7 @@ export default {
           .then(api.getCategoriesByEventId)
           .then(categories => (event.categories = categories))
           .then(() => {
-            const IsBeforeStart = eventUtils.checkIfIsBeforeStart(event);
+            const IsBeforeStart = eventUtils.isBeforeStart(event);
             const IsCommonUser = permissions.checkIsCommon();
             if (IsBeforeStart && IsCommonUser) return [];
             else return api.getPointsByEventId(event);
@@ -132,6 +104,13 @@ export default {
       return new Promise((resolve, reject) => {
         api.updateEvent(updatedEvent)
           .then(() => map.updateMapFeatures())
+          .then(() => resolve())
+          .catch(reject);
+      });
+    },
+    addEvent (context, event) {
+      return new Promise((resolve, reject) => {
+        api.addEvent(event)
           .then(() => resolve())
           .catch(reject);
       });

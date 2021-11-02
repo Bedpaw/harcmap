@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import { getZeroPad } from 'utils/date';
 
 export default {
   name: 'm-countdown-timer',
@@ -30,10 +29,13 @@ export default {
   computed: {
     getSeconds () {
       if (this.seconds < 0) return '00';
-      return getZeroPad(this.seconds);
+      else if (this.seconds < 10) return `0${this.seconds}`;
+      else return this.seconds;
     },
     getMinutes () {
-      return getZeroPad(this.minutes);
+      if (this.minutes < 0) return '00';
+      else if (this.minutes < 10) return `0${this.minutes}`;
+      else return this.minutes;
     },
     timeGapInMinutes () {
       return this.timeGap / 60;

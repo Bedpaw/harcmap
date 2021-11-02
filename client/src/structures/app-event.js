@@ -1,13 +1,16 @@
+import { DEFAULT_EVENT_CONFIG } from 'config/event-config';
+import { idUtils } from 'utils/id';
+
 export class AppEvent {
   constructor ({
-    eventId = '',
+    eventId = idUtils.generateNewId(),
     eventName = '',
-    eventStartDate = null,
-    eventEndDate = null,
+    eventStartDate = DEFAULT_EVENT_CONFIG.eventStartDate,
+    eventEndDate = DEFAULT_EVENT_CONFIG.eventEndDate,
     mapLatitude,
     mapLongitude,
-    mapZoom = 2,
-    mapRefreshTime = 60,
+    mapZoom = DEFAULT_EVENT_CONFIG.mapZoom,
+    mapRefreshTime = DEFAULT_EVENT_CONFIG.mapRefreshTime,
   }) {
     this.eventId = eventId;
     this.eventName = eventName;

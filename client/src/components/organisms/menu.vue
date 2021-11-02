@@ -59,7 +59,7 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex';
 import { THEMES } from 'utils/style-manager';
-import { ROUTES } from 'utils/macros/routes';
+import { ROUTES } from 'config/routes-config';
 import router from 'src/router';
 import { uCheck } from '@dbetka/utils';
 import ALinkMenu from 'atoms/link-menu';
@@ -89,6 +89,7 @@ export default {
         isUnlimited ? ROUTES.newPoint : undefined,
         ROUTES.map,
         isCommon ? ROUTES.about : undefined,
+        ROUTES.eventsList,
       ];
       return links.filter(route => uCheck.isUndefined(route) === false);
     },

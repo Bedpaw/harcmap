@@ -2,7 +2,7 @@ import { API_ERRORS, API_WARNS } from 'utils/macros/errors';
 import validateCodes from 'validateCodes';
 import { store } from 'store';
 import router from 'src/router';
-import { ROUTES } from 'utils/macros/routes';
+import { ROUTES } from 'config/routes-config';
 import { translator } from 'src/dictionary';
 import { ErrorMessage } from 'utils/error-message';
 import { WarnMessage } from 'utils/warn-message';

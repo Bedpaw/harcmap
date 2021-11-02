@@ -31,7 +31,7 @@ import TPage from 'templates/page';
 import AButtonSecondary from 'atoms/button/secondary';
 import { api } from 'api';
 import { mixins } from 'mixins/base';
-import { ROUTES } from 'utils/macros/routes';
+import { ROUTES } from 'config/routes-config';
 import { uPromise } from '@dbetka/utils';
 import MInput from 'molecules/input';
 import AButtonSubmit from 'atoms/button/submit';
@@ -68,7 +68,7 @@ export default {
       this.$store.dispatch('user/signIn', data)
         .then(() => {
           this.$store.getters['user/firstLogin'] && this.$store.commit('guide/open');
-          this.$router.push(ROUTES.start.path);
+          this.$router.push(ROUTES.eventsList.path);
           this.isSending = false;
           this.blockForm = false;
         })

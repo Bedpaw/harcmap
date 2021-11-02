@@ -39,7 +39,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { ROUTES } from 'utils/macros/routes';
+import { ROUTES } from 'config/routes-config';
 
 export default {
   name: 'o-header',
@@ -58,6 +58,7 @@ export default {
         ROUTES.start.name,
         ROUTES.adminPanel.name,
         ROUTES.spectatorPanel.name,
+        ROUTES.eventsList,
       ].includes(this.$route.name);
     },
     pathBackButton () {

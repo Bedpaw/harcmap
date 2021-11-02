@@ -13,7 +13,7 @@
 <script>
 import TPage from 'templates/page';
 import AButtonPrimary from 'atoms/button/primary';
-import { ROUTES } from 'utils/macros/routes';
+import { ROUTES } from 'config/routes-config';
 import { uCheck } from '@dbetka/utils';
 
 export default {
@@ -28,8 +28,9 @@ export default {
         { route: ROUTES.scoreboard },
         { route: ROUTES.editEvent },
         { route: ROUTES.newPoint },
-        { url: '/point/all', label: 'Pobierz listę punktów' },
+        { url: '/point/all', label: this.$t('page.admin.adminPanel.downloadPointsList') },
         { route: ROUTES.searchPoint },
+        { route: ROUTES.usersList },
       ]
         .filter(link => {
           const routeIsDefined = uCheck.isDefined(link.route);

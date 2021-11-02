@@ -1,5 +1,5 @@
 <template>
-  <div class="m-area f-button" @click="emitClick($event)">
+  <div class="m-area f-button" :class="addAreaClass" @click="emitClick($event)">
     <button
       class="a-button"
       :class="getClass"
@@ -30,6 +30,10 @@ export default {
       default: false,
     },
     addClass: {
+      type: [Array, String],
+      default: '',
+    },
+    addAreaClass: {
       type: [Array, String],
       default: '',
     },

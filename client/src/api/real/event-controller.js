@@ -1,7 +1,7 @@
 import { AppEvent } from 'src/structures/app-event';
 import { API_ERRORS } from 'utils/macros/errors';
 import { MapPoint } from 'src/structures/map-point';
-import { httpService } from 'src/config/http-service';
+import { httpService } from 'config/http-service';
 
 export const eventController = {
   getEventById ({ eventId }) {
@@ -122,6 +122,35 @@ export const eventController = {
       responseConfig: {
         errorConfig: {
           ...API_ERRORS.updateEvent,
+        },
+      },
+    });
+  },
+  addEvent ({
+    eventId,
+    eventName,
+    mapLongitude,
+    mapLatitude,
+    mapZoom,
+    mapRefreshTime,
+    eventStartDate,
+    eventEndDate,
+  }) {
+    return httpService.post({
+      url: '/event',
+      body: {
+        eventId,
+        eventName,
+        eventStartDate,
+        eventEndDate,
+        mapLongitude,
+        mapLatitude,
+        mapZoom,
+        mapRefreshTime,
+      },
+      responseConfig: {
+        errorConfig: {
+          ...API_ERRORS.addEvent,
         },
       },
     });

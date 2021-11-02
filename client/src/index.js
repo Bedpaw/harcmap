@@ -4,14 +4,14 @@ import router from './router';
 import { store } from 'store';
 import './directives';
 import './validation';
-import { ROUTES } from 'utils/macros/routes';
 import { ACCOUNT_TYPES, permissions } from 'utils/permissions';
 import App from './components/app.vue';
 import VueEllipseProgress from 'vue-ellipse-progress';
 import Vue2TouchEvents from 'vue2-touch-events';
 import 'utils/dev-mode/auto-login';
 import VueMaterialIcons from '@dbetka/vue-material-icons';
-import { initApp } from 'src/config';
+import { initApp } from 'config';
+import { ROUTES } from 'config/routes-config';
 
 initApp();
 
