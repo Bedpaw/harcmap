@@ -18,6 +18,7 @@ const {
   COOKIE_SECURE,
   SWAGGER_DOC,
   MONGO_SESSION_STORE,
+  MAX_AGE,
 } = process.env;
 const cookieMaxAge = parseInt(COOKIE_MAX_AGE, 10);
 const cookieSecure = COOKIE_SECURE !== 'false';
@@ -67,6 +68,19 @@ app.use(passport.session());
 
 // Create endpoints permissions access
 createSecuredEndpoints(app, endpointsAccessConfig);
+
+/**
+ * Routing
+ */
+// static files
+// maxAge - Cache-Control header in milliseconds
+app.use(express.static('../public', {
+  maxAge: MAX_AGE,
+}));
+
+app.use(express.static('../vendors', {
+  maxAge: MAX_AGE,
+}));
 
 // API
 apiv1.use('/users', users);
