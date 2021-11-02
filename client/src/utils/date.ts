@@ -27,7 +27,7 @@ export const displayDate = {
   inFormat: (date: DateType, format = DATE_FORMATS.DDMMYYYY) => dayjs(date).format(format),
   relativeToInCalendarFormat: (date: DateType) => dayjs(date).calendar(),
   asDuration: (date: number) => dayjs.duration(date, 'seconds').humanize(),
-  fromTo: (from: string, to: string, separator = ' - '): string => {
+  timeRange: (from: string, to: string, separator = ' - '): string => {
     if (from === to) {
       return from;
     }
@@ -41,7 +41,9 @@ export const getDate = {
   minutesAfterFull: (date = dayjs()): number => Number(dayjs(date).format(DATE_FORMATS.mm)),
   secondsToFull: (date = dayjs()): number => secondsInMinute - Number(dayjs(date).format(DATE_FORMATS.ss)),
   minutesToFull: (date = dayjs()): number => minutesInHour - Number(dayjs(date).format(DATE_FORMATS.mm)),
-  msInSeconds: (seconds: number): number => seconds * msInSeconds,
+};
+export const timeUnitConversion = {
+  msToSeconds: (seconds: number): number => seconds * msInSeconds,
 };
 
 export function isBeforeLastGapEndTime (refreshIntervalInSeconds: number, timeToCompare: number): boolean {

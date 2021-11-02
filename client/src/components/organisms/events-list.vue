@@ -37,7 +37,7 @@ export default {
         eventId,
       } = event;
 
-      const secondLineText = displayDate.fromTo(
+      const secondLineText = displayDate.timeRange(
         displayDate.inFormat(eventStartDate, DATE_FORMATS.DDMMYYYY),
         displayDate.inFormat(eventEndDate, DATE_FORMATS.DDMMYYYY),
       );

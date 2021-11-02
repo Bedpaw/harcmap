@@ -41,7 +41,7 @@ export default {
       return pointUtils.isPast(this.point) === false || this.checkIsAdmin();
     },
     availabilityTimeAsString () {
-      return displayDate.fromTo(
+      return displayDate.timeRange(
         displayDate.relativeToInCalendarFormat(this.point.pointAppearanceTime),
         displayDate.inFormat(this.point.pointExpirationTime, DATE_FORMATS.HHmm),
       );
