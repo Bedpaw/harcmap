@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { getEventByIdMock } from 'api/mock/mockMethods/get-event-by-id';
 import { makeDelayFakeAnswer } from 'api/mock/mock';
 import { ErrorMessage } from 'utils/error-message';

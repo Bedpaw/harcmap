@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { store } from 'store';
 import { ROUTES } from 'config/routes-config';
 

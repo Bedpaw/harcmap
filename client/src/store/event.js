@@ -4,7 +4,6 @@ import { map } from 'map';
 import { eventStoreModules as Modules } from 'store/event-modules';
 import { api } from 'api';
 import { pointUtils } from 'utils/point';
-import { api } from 'api';
 
 export default {
   namespaced: true,
