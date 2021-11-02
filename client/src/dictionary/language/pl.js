@@ -58,6 +58,8 @@ export const pl = {
     join: 'Dołącz',
     name: 'Nazwa',
     search: 'Szukaj',
+    cords: 'Współrzędne',
+    collectTime: 'Czas zebrania',
   },
   form: {
     field: {
