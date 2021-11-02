@@ -1,7 +1,10 @@
-import { AppRoute } from 'src/router/utils';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import { ICONS } from '@dbetka/vue-material-icons';
+import { AppRoute } from '../router/utils';
+import { EnterPermission } from '../models/routes';
 
-const enterPermissions = {
+const enterPermissions: Record<string, EnterPermission> = {
   alwaysAllowed: {},
   beforeLogin: {
     onlyBeforeLogin: true,
@@ -112,7 +115,7 @@ const adminRoutes = {
   editPoint: {
     name: 'editPoint',
     dynamicParam: 'pointId',
-    icons: ICONS.edit,
+    icon: ICONS.edit,
   },
   newPoint: {
     name: 'newPoint',
@@ -139,20 +142,22 @@ const choseEventRoutes = {
   },
 };
 
-export const ROUTES = {
-  ...AppRoute.createRoutes(beforeLoginRoutes, enterPermissions.beforeLogin),
-  ...AppRoute.createRoutes(choseEventRoutes, enterPermissions.eventChose),
-  ...AppRoute.createRoutes(authRoutes, enterPermissions.auth),
-  ...AppRoute.createRoutes(adminObserverRoutes, enterPermissions.adminObserver),
-  ...AppRoute.createRoutes(adminRoutes, enterPermissions.admin),
-  error: new AppRoute({
+const alwaysAllowedRoutes = {
+  error: {
     path: '*',
     name: 'error',
-    enterPermission: enterPermissions.alwaysAllowed,
-  }),
-  about: new AppRoute({
+  },
+  about: {
     name: 'about',
     icon: ICONS.emoji_objects,
-    enterPermissions: enterPermissions.alwaysAllowed,
-  }),
+  },
+};
+
+export const ROUTES = {
+  ...AppRoute.createRoutes<keyof typeof alwaysAllowedRoutes>(alwaysAllowedRoutes, enterPermissions.alwaysAllowed),
+  ...AppRoute.createRoutes<keyof typeof beforeLoginRoutes>(beforeLoginRoutes, enterPermissions.beforeLogin),
+  ...AppRoute.createRoutes<keyof typeof choseEventRoutes>(choseEventRoutes, enterPermissions.eventChose),
+  ...AppRoute.createRoutes<keyof typeof authRoutes>(authRoutes, enterPermissions.auth),
+  ...AppRoute.createRoutes<keyof typeof adminObserverRoutes>(adminObserverRoutes, enterPermissions.adminObserver),
+  ...AppRoute.createRoutes<keyof typeof adminRoutes>(adminRoutes, enterPermissions.admin),
 };
