@@ -10,7 +10,7 @@
 <script>
 import MButtonsListEvents from 'molecules/buttons-list-events';
 import { MACROS } from 'utils/macros';
-import { DATE_FORMATS, getDateInFormat, getFromToString } from 'utils/date';
+import { DATE_FORMATS, displayDate } from 'utils/date';
 import { ICONS_TYPES } from '@dbetka/vue-material-icons';
 import { generalConfigUtils } from 'config/general-config';
 import { eventsListMock } from 'organisms/events-list-mock';
@@ -37,9 +37,9 @@ export default {
         eventId,
       } = event;
 
-      const secondLineText = getFromToString(
-        getDateInFormat(eventStartDate, DATE_FORMATS.DDMMYYYY),
-        getDateInFormat(eventEndDate, DATE_FORMATS.DDMMYYYY),
+      const secondLineText = displayDate.timeRange(
+        displayDate.inFormat(eventStartDate, DATE_FORMATS.DDMMYYYY),
+        displayDate.inFormat(eventEndDate, DATE_FORMATS.DDMMYYYY),
       );
 
       return {

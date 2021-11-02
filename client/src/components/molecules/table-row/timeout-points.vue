@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { getCalendarDate, getFromToString, getHoursAndMinutesAsString } from 'utils/date';
+import { DATE_FORMATS, displayDate } from 'utils/date';
 import { pointUtils } from 'utils/point';
 
 export default {
@@ -41,9 +41,9 @@ export default {
       return pointUtils.isPast(this.point) === false || this.checkIsAdmin();
     },
     availabilityTimeAsString () {
-      return getFromToString(
-        getCalendarDate(this.point.pointAppearanceTime),
-        getHoursAndMinutesAsString(this.point.pointExpirationTime),
+      return displayDate.timeRange(
+        displayDate.relativeToInCalendarFormat(this.point.pointAppearanceTime),
+        displayDate.inFormat(this.point.pointExpirationTime, DATE_FORMATS.HHmm),
       );
     },
     classForMap () {

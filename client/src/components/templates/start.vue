@@ -22,7 +22,7 @@ import MPanel from 'molecules/panel';
 import { mapGetters } from 'vuex';
 import { THEMES } from 'utils/style-manager';
 import { eventUtils } from 'utils/event';
-import { DATE_FORMATS, getDateInFormat } from 'utils/date';
+import { DATE_FORMATS, displayDate } from 'utils/date';
 
 export default {
   name: 't-start',
@@ -66,14 +66,14 @@ export default {
       const { isBeforeStart, isOnGoing, isEndDateToday } = eventUtils;
 
       if (isBeforeStart(this.event)) {
-        return this.$t('page.start.eventStartDate') + getDateInFormat(eventStartDate, DATE_FORMATS.DDMMYYYYHHmm);
+        return this.$t('page.start.eventStartDate') + displayDate.inFormat(eventStartDate, DATE_FORMATS.DDMMYYYYHHmm);
       }
 
       if (isOnGoing(this.event)) {
         if (isEndDateToday(this.event)) {
-          return this.$t('page.start.eventEndTime') + getDateInFormat(eventEndDate, DATE_FORMATS.HHmm);
+          return this.$t('page.start.eventEndTime') + displayDate.inFormat(eventEndDate, DATE_FORMATS.HHmm);
         }
-        return this.$t('page.start.eventEndDate') + getDateInFormat(eventEndDate, DATE_FORMATS.DDMMYYYYHHmm);
+        return this.$t('page.start.eventEndDate') + displayDate.inFormat(eventEndDate, DATE_FORMATS.DDMMYYYYHHmm);
       }
       return this.$t('page.start.eventIsOutOfDate');
     },
