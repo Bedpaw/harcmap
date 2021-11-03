@@ -60,6 +60,7 @@ export default {
     USERS_DEFAULT_CONFIG,
     accountType: null,
     accountIsActive: false,
+    icon: null,
   }),
   computed: {
     isOrganizer () {
@@ -67,8 +68,15 @@ export default {
     },
   },
   mounted () {
-    this.accountIsActive = this.user.accountIsActive;
-    this.accountType = this.user.accountType;
+    this.accountIsActive = this.user.accountIsActive; // to juz bylo
+    this.accountType = this.user.accountType; // to juz bylo
+    console.log(this.accountType); // undefined ??
+    console.log(this.accountIsActive); // undefined ??
+
+    console.log(this.user);
+    console.log(userUtils.getIcon(this.user));
+
+    // this.icon = userUtils.getIcon(this.accountType);
   },
   methods: {
     toggle () {

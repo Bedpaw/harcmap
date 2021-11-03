@@ -17,7 +17,7 @@
             <a-icon :name="ICONS.more_vert"/>
           </a-button-icon>
         </div>
-        <o-popup-user-details ref="popup" :user="user"/>
+        <o-popup-user-details ref="popup" v-if="user" :user="user"/>
       </div>
     </template>
   </t-search>
@@ -37,7 +37,7 @@ export default {
     AButtonIcon,
   },
   data: () => ({
-    user: {},
+    user: null,
   }),
   computed: {
     ...mapGetters('allUsers', ['users']),
@@ -54,7 +54,7 @@ export default {
   methods: {
     openDetails (user) {
       this.user = user;
-      this.$refs.popup.toggle();
+      this.$nextTick(() => { this.$refs.popup.toggle(); });
     },
   },
 };
