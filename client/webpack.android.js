@@ -17,7 +17,7 @@ module.exports = merge(common, {
       PASSWORD: JSON.stringify(''),
       ADMIN_USER: JSON.stringify(''),
       ADMIN_PASSWORD: JSON.stringify(''),
-      API_URL: JSON.stringify(''),
+      API_URL: JSON.stringify('https://harcmap.henouser.pl'),
     }),
   ],
 });

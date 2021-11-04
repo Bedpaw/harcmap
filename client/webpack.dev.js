@@ -15,6 +15,7 @@ module.exports = merge(common, {
       PASSWORD: JSON.stringify('HarcMap1'),
       ADMIN_USER: JSON.stringify('admin@demo.com'),
       ADMIN_PASSWORD: JSON.stringify('HarcMap1'),
+      API_URL: JSON.stringify(''),
     }),
   ],
 });

@@ -5,6 +5,8 @@
   "scripts": {
     "build:dev": "npx webpack --config webpack.dev.js",
     "build:dev:watch": "npx webpack --config webpack.dev.js --watch",
+    "build:android": "npx webpack --config webpack.android.js",
+    "build:android:watch": "npx webpack --config webpack.android.js --watch",
     "build:prod": "npx webpack --config webpack.prod.js",
     "build:prod:watch": "npx webpack --config webpack.prod.js --watch",
     "import:sass:watch": "sass-watcher --config sass-watcher.json"
