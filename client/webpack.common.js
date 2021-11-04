@@ -16,6 +16,10 @@ module.exports = {
   entry: {
     main: 'src/index.js',
   },
+  stats: {
+    builtAt: true,
+    assets: false,
+  },
   optimization: {
     splitChunks: {
       cacheGroups: {
