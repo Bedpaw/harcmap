@@ -1,7 +1,7 @@
 <template>
   <a-button-secondary
     @click="$emit('click', $event)"
-    class="f-fill"
+    :add-area-class="['f-fill', addAreaClass]"
     :add-class="['f-fill', addClass]"
     :loading="loading"
     :disabled="disabled"
@@ -26,6 +26,10 @@ export default {
       default: false,
     },
     addClass: {
+      type: [Array, String],
+      default: '',
+    },
+    addAreaClass: {
       type: [Array, String],
       default: '',
     },

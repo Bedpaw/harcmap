@@ -1,12 +1,9 @@
 import Vue from 'vue';
 import i18n from './dictionary';
 import router from './router';
-import uuidInit from './utils/uuid';
 import { store } from 'store';
-import { styleManager } from 'utils/style-manager';
 import './directives';
 import './validation';
-import { ROUTES } from 'utils/macros/routes';
 import { ACCOUNT_TYPES, permissions } from 'utils/permissions';
 import App from './components/app.vue';
 import { App as NativeApp } from '@capacitor/app';
@@ -14,16 +11,13 @@ import VueEllipseProgress from 'vue-ellipse-progress';
 import Vue2TouchEvents from 'vue2-touch-events';
 import 'utils/dev-mode/auto-login';
 import VueMaterialIcons from '@dbetka/vue-material-icons';
+import { initApp } from 'config';
+import { ROUTES } from 'config/routes-config';
 import { LocalNotifications } from '@capacitor/local-notifications';
 
-styleManager.init();
-uuidInit();
+initApp();
 
 Vue.config.productionTip = false;
-
-if (PRODUCTION === false) {
-  console.log(APP_NAME + ' v' + VERSION + ' in development mode');
-}
 
 Vue.mixin({
   computed: {

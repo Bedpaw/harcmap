@@ -1,25 +1,11 @@
-const resolve = require('./utils').resolve;
-
 module.exports = {
   rules: [
-    {
-      test: /\.(js|vue)$/,
-      loader: 'eslint-loader',
-      enforce: 'pre',
-      include: [
-        resolve('src'),
-      ],
-      options: {
-        formatter: require('eslint-friendly-formatter'),
-      },
-    },
     {
       test: /\.(sass|scss)$/,
       use: [
         'style-loader',
-        'css-loader',
+        'css-loader?' + JSON.stringify({ url: false }),
         'sass-loader',
-        'import-glob-loader',
       ],
     },
     {
@@ -28,10 +14,6 @@ module.exports = {
         'style-loader',
         'css-loader',
       ],
-    },
-    {
-      test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-      loader: 'url-loader?limit=100000',
     },
     {
       test: /\.vue$/,
@@ -47,6 +29,11 @@ module.exports = {
           }],
         ],
       },
+    },
+    {
+      test: /\.ts?$/,
+      use: 'ts-loader',
+      exclude: /node_modules/,
     },
   ],
 };

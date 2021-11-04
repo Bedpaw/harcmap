@@ -1,20 +1,28 @@
-import moment from 'moment';
+import { compareDate, splitObjectsListByTime } from 'utils/date';
+
+const { isToday, isActual, isFuture, isPast } = compareDate;
+
+const timeUtils = {
+  isBeforeStart: ({ eventStartDate }) => isFuture(eventStartDate),
+  isAfterStart: ({ eventStartDate }) => isPast(eventStartDate),
+  isOnGoing: ({
+    eventStartDate,
+    eventEndDate,
+  }) => isActual(eventStartDate, eventEndDate),
+  isOutOfDate: ({ eventEndDate }) => isPast(eventEndDate),
+  isEndDateToday: ({ eventEndDate }) => isToday(eventEndDate),
+};
+
+const stateUtils = {
+  hasSetPosition: ({ mapLatitude, mapLongitude }) => mapLatitude !== null && mapLongitude !== null,
+};
+
+const listUtils = {
+  splitEventsByTimePeriods: (eventsList) => splitObjectsListByTime(eventsList, 'eventStartDate', 'eventEndDate'),
+};
 
 export const eventUtils = {
-  checkIfIsBeforeStart ({ eventStartDate }) {
-    return eventStartDate > Date.now();
-  },
-  checkIfIsAfterStart ({ eventStartDate }) {
-    return eventStartDate < Date.now();
-  },
-  checkIfIsOnGoing ({ eventStartDate, eventEndDate }) {
-    return eventStartDate < Date.now() && Date.now() < eventEndDate;
-  },
-  checkIfIsOutOfDate ({ eventEndDate }) {
-    return eventEndDate < Date.now();
-  },
-  checkIfEndDateIsToday ({ eventEndDate }) {
-    const eventEndDateMoment = moment(new Date(eventEndDate));
-    return eventEndDateMoment.diff(moment(), 'days') === 0;
-  },
+  ...timeUtils,
+  ...listUtils,
+  ...stateUtils,
 };

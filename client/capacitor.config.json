@@ -2,7 +2,7 @@
   "appId": "com.harcmap.app",
   "appName": "HarcMap",
   "webDir": "../public",
-  "bundledWebRuntime": true,
+  "bundledWebRuntime": false,
   "plugins": {
     "LocalNotifications": {
       "smallIcon": "ic_stat_icon_config_sample",

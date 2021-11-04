@@ -2,6 +2,7 @@
   <a-button
     @click="$emit('click')"
     :add-class="['f-primary', addClass]"
+    :add-area-class="[addAreaClass]"
     :loading="loading"
     :disabled="disabled"
     :type="type"
@@ -27,6 +28,10 @@ export default {
       default: false,
     },
     addClass: {
+      type: [Array, String],
+      default: '',
+    },
+    addAreaClass: {
       type: [Array, String],
       default: '',
     },
