@@ -11,6 +11,9 @@
           v-for="user of filteredUsers"
           :key="user.user"
         >
+          <div class="f-py-1 f-line-24">
+            {{ getUserIcon(user) }}
+          </div>
           <div class="f-py-1 f-line-24">{{ user.userTeam }}</div>
           <div class="f-pl-1 f-py-1 f-text-subtext f-text-14 f-line-24">{{ user.user }}</div>
           <a-button-icon @click="openDetails(user)">
@@ -28,6 +31,7 @@ import { mapGetters } from 'vuex';
 import TSearch from 'templates/search';
 import AButtonIcon from 'atoms/button/icon';
 import OPopupUserDetails from 'organisms/popup/user-details';
+import { USERS_DEFAULT_CONFIG, userUtils } from 'config/users-config';
 
 export default {
   name: 'p-users-list',
@@ -55,6 +59,9 @@ export default {
     openDetails (user) {
       this.user = user;
       this.$nextTick(() => { this.$refs.popup.toggle(); });
+    },
+    getUserIcon (user) {
+      return userUtils.getIcon(user);
     },
   },
 };
