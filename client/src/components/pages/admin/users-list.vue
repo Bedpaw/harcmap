@@ -12,7 +12,7 @@
           :key="user.user"
         >
           <div class="f-py-1 f-line-24">
-            {{ getUserIcon(user) }}
+            <a-icon :name=getUserIcon(user) />
           </div>
           <div class="f-py-1 f-line-24">{{ user.userTeam }}</div>
           <div class="f-pl-1 f-py-1 f-text-subtext f-text-14 f-line-24">{{ user.user }}</div>
