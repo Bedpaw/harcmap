@@ -3,7 +3,6 @@ const { generateRandomString } = require('../../../../../vendors/random');
 const Users = require('../../../../models/users');
 
 // registration
-// todo check if doesnt exist
 async function signUp (userObject) {
   Object.assign(userObject, {
     password: getSHA(userObject.password),
@@ -19,10 +18,17 @@ async function signUp (userObject) {
     userEvents: [],
   });
 
-  const result = await Users.create(userObject);
-  const { success } = result;
+  const {
+    success,
+    error,
+    errorDetails,
+  } = await Users.create(userObject);
 
-  return { success };
+  return {
+    success,
+    error,
+    errorDetails,
+  };
 }
 
 module.exports = signUp;

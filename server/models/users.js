@@ -2,6 +2,7 @@ const Joi = require('joi');
 
 const {
   email,
+  date,
 } = require('../libs/common-schemas');
 const Model = require('../libs/model');
 
@@ -15,9 +16,9 @@ const userSchema = {
   },
   passwordReset: {
     key: Joi.string().allow(null),
-    date: Joi.number().allow(null),
+    date: date.allow(null),
   },
-  accountCreated: Joi.number(),
+  accountCreated: date,
   userEvents: Joi.array(),
 };
 
