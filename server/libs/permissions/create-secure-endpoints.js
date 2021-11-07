@@ -83,8 +83,13 @@ function createSecuredEndpoints (app, config) {
     const pathToLowerCase = path.toLowerCase();
 
     // static files
-    const staticFilesExtensions = /\.(css|js|png|map|ico|jpg|jpeg)$/;
+    const staticFilesExtensions = /\.(css|js|png|map|ico|jpg|jpeg|html)$/;
     if (staticFilesExtensions.test(pathToLowerCase)) {
+      request.PASS = true;
+    }
+
+    // adds support for index.html
+    if (path === '/') {
       request.PASS = true;
     }
 
