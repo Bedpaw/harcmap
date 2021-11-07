@@ -16,25 +16,27 @@ export const pl = {
     map: 'Mapa',
     adminPanel: 'Panel administratora',
     spectatorPanel: 'Panel obserwatora',
+    newEvent: 'Nowe wydarzenie',
     editEvent: 'Edycja wydarzenia',
     scoreboard: 'Tabela wyników',
     newPoint: 'Nowy punkt',
     editPoint: 'Edycja punktu',
     searchPoint: 'Szukaj punktów',
+    eventsList: 'Lista wydarzeń',
+    joinEvent: 'Dołącz do wydarzenia',
+    usersList: 'Użytkownicy',
     short: {
-      error: 'Błąd',
+      start: 'start',
+      map: 'mapa',
       timeoutPoints: 'Czasowe',
-      collectPoint: 'Zbierz pkt',
-      collectedPoints: 'Zebrane',
       adminPanel: 'Admin',
       spectatorPanel: 'Panel',
-      editEvent: 'Wydarzenie',
-      scoreboard: 'Wyniki',
-      searchPoint: 'Szukaj',
+      collectPoint: 'Zbierz pkt',
     },
   },
   general: {
     showMore: 'pokaż&nbsp;więcej...',
+    showMore2: 'Pokaź więcej...',
     pointUnit: 'pkt',
     pointCategoryLevel: 'poziom',
     pointTimeout: 'Czasowy',
@@ -53,6 +55,11 @@ export const pl = {
     saved: 'Zapisano!',
     lightTheme: 'Jasny tryb',
     darkTheme: 'Ciemny tryb',
+    join: 'Dołącz',
+    name: 'Nazwa',
+    search: 'Szukaj',
+    cords: 'Współrzędne',
+    collectTime: 'Czas zebrania',
   },
   form: {
     field: {
@@ -79,6 +86,9 @@ export const pl = {
       eventId: 'Kod wydarzenia jest generowany automatycznie',
       fieldNotRequired: 'Pole jest nieobowiązkowe',
       userTeam: 'Nazwa patrolu musi być unikatowa',
+      joinEventCode: 'Wpisz kod wydarzenia do którego chcesz dołączyć',
+      searchPoint: 'Szukaj po kodzie lub nazwie punktu',
+      searchUser: 'Szukaj po e-mailu lub nazwie drużyny',
     },
     validation: {
       required: 'Pole jest wymagane.',
@@ -94,9 +104,12 @@ export const pl = {
       save: 'Zapisz',
       choose: 'wybierz',
       next: 'Dalej',
+      cancel: 'Anuluj',
       goToLogin: 'Przejdź do logowania',
       setDefaultMapPositionAndZoom: 'Ustaw pozycję mapy',
       setPointMapPosition: 'Ustaw lokalizację punktu',
+      sendResetPasswordToEmail: 'Wyślij email resetujący hasło',
+      blockAccount: 'Zablokuj konto',
     },
   },
   page: {
@@ -170,6 +183,19 @@ export const pl = {
     activationWrong: {
       main: 'Link aktywacyjny jest niepoprawny! Skontaktuj się z administratorem wydarzenia.',
     },
+    eventsList: {
+      new: 'Nowe:',
+      upcoming: 'Nadchodzące:',
+      current: 'Trwające:',
+      finished: 'Historia:',
+      joinEvent: 'Dołącz do wydarzenia',
+      createEvent: 'Nowe wydarzenie',
+    },
+    joinEvent: {
+      confirmData: 'Potwierdź dane wydarzenia',
+      eventStartDate: 'Data rozpoczęcia',
+      eventEndDate: 'Data zakończenia',
+    },
     admin: {
       setMapPosition: {
         content: 'Wybierz pozycję mapy dla wydarzenia.',
@@ -182,9 +208,11 @@ export const pl = {
         editEvent: 'Edytuj wydarzenie',
         checkScoreboard: 'Sprawdź tabelę wyników',
       },
-      searchPoint: {
-        search: 'Szukaj',
-        searchAssist: 'Szukaj po kodzie lub nazwie punktu.',
+      userList: {
+        accountIsActive: 'Konto jest aktywne',
+      },
+      adminPanel: {
+        downloadPointsList: 'Pobierz listę punktów',
       },
     },
   },
@@ -213,6 +241,7 @@ export const pl = {
       getPointsByEventId: 'Pobieranie punktów dla wybranego wydarzenia się nie powiodło.',
       getCategoriesByEventId: 'Pobieranie kategorii dla wybranego wydarzenia się nie powiodło.',
       updateEvent: 'Edycja danych dla wybranego wydarzenia się nie powiodła.',
+      addEvent: 'Dodanie nowego wydarzenia nie powiodło się.',
       eventStartDateIsEmpty: 'Data i czas rozpoczęcia wydarzenia musi być uzupełniona.',
       eventEndDateIsEmpty: 'Data i czas zakończenia wydarzenia musi być uzupełniona.',
       eventIsOutOfDate: 'Punkt nie został zebrany, ponieważ wydarzenie zostało zakończone.',
@@ -264,6 +293,7 @@ export const pl = {
       confirmPointRemove: 'Czy na pewno chcesz usunąć punkt?',
       pointRemovingInProgress: 'Trwa usuwanie punktu...',
       pointRemoved: 'Punkt został usunięty',
+      error: 'Mapa przestała działać. Proszę zgłosić usterkę do administratora.',
     },
     collectPoint: {
       congratulation: 'Gratulujemy!',
@@ -279,6 +309,14 @@ export const pl = {
     addPoint: {
       positionIsRequired: 'Wymagane jest ustawienie lokalizacji punktu.',
     },
+  },
+  accountTypes: {
+    admin: 'Administrator',
+    common: 'Użytkownik',
+    observer: 'Obserwator',
+    userObserver: 'Obserwator użytkownika',
+    organizer: 'Organizator',
+    accountType: 'Typ konta',
   },
   features: {
     timer: {

@@ -1,68 +1,89 @@
-import { makeRequest, request } from 'utils/request';
 import { API_ERRORS, API_WARNS } from 'utils/macros/errors';
+import { httpService } from 'config/http-service';
 
 export const userController = {
   allUsers () {
-    return makeRequest({
-      method: request.get,
+    return httpService.get({
       url: '/user/all',
-      ...API_ERRORS.all,
+      responseConfig: {
+        errorConfig: {
+          ...API_ERRORS.all,
+        },
+      },
     });
   },
   signIn ({ user, password }) {
-    return makeRequest({
-      method: request.post,
+    return httpService.post({
       url: '/user/login',
-      data: {
-        user,
-        password,
+      body: { user, password },
+      responseConfig: {
+        errorConfig: {
+          ...API_ERRORS.signIn,
+        },
+        warnConfig: {
+          ...API_WARNS.signIn,
+        },
       },
-      ...API_ERRORS.signIn,
-      ...API_WARNS.signIn,
     });
   },
   checkYourLoginSession () {
-    return makeRequest({
-      method: request.post,
+    return httpService.post({
       url: '/user/login',
-      ...API_ERRORS.checkYourLoginSession,
+      responseConfig: {
+        errorConfig: {
+          ...API_ERRORS.checkYourLoginSession,
+        },
+      },
     });
   },
   signUp ({ user, password, userTeam, eventId }) {
-    return makeRequest({
-      method: request.post,
+    return httpService.post({
       url: '/user',
-      data: {
+      body: {
         user,
         password,
         userTeam,
         eventId,
       },
-      ...API_ERRORS.signUp,
+      responseConfig: {
+        errorConfig: {
+          ...API_ERRORS.signUp,
+
+        },
+      },
     });
   },
   remindPassword ({ user }) {
-    return makeRequest({
-      method: request.post,
+    return httpService.post({
       url: '/user/remind',
-      data: { user },
-      ...API_ERRORS.remindPassword,
+      body: { user },
+      responseConfig: {
+        errorConfig: {
+          ...API_ERRORS.remindPassword,
+        },
+      },
     });
   },
   signOut ({ user }) {
-    return makeRequest({
-      method: request.delete,
+    return httpService.delete({
       url: '/user/login',
-      data: { user },
-      ...API_ERRORS.signOut,
+      body: { user },
+      responseConfig: {
+        errorConfig: {
+          ...API_ERRORS.signOut,
+        },
+      },
     });
   },
-  changePassword: function ({ password, key }) {
-    return makeRequest({
-      method: request.put,
-      url: '/user/remind/' + key,
-      data: { password },
-      ...API_ERRORS.changePassword,
+  changePassword ({ password, key }) {
+    return httpService.put({
+      url: `/user/remind/${key}`,
+      body: { password },
+      responseConfig: {
+        errorConfig: {
+          ...API_ERRORS.changePassword,
+        },
+      },
     });
   },
 };

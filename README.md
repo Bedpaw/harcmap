@@ -41,8 +41,9 @@
 #### Client
 1. Go to client dir `cd client`
 2. Install client packages: `npm i`
-3. Run the front-end builder: `npm run build:dev:watch`
-4. Build client files destination is in `public/`
+3. Run the front-end sass watcher: `npm run import:sass:watch`
+4. Run the front-end builder: `npm run build:dev:watch`
+5. Build client files destination is in `public/`
    
 #### Server
 1. Go to server dir `cd client`
@@ -57,8 +58,9 @@
 #### Client
 1. Go to client dir `cd client`
 2. Install client packages: `npm i`
-3. Run the front-end builder: `npm run build:prod`
-4. Build client files destination is in `public/`
+3. Run the front-end sass watcher: `npm run import:sass:watch`
+4. Run the front-end builder: `npm run build:prod`
+5. Build client files destination is in `public/`
 
 #### Server
 Production environment have own configuration on production server.
@@ -66,12 +68,25 @@ It only differs with env variables defined in `.env` file
 
 ### Development kit
 
+#### Dev Tools
+In development mode check window.devTools object to use some internal app tools for example:
+- autoLogin - switching between account types
+- httpService - ease http calls
+- api - all endpoints defined in app
+
 #### Auto login
 Write below commands to browser console:
-- `autoLogin.switch()` will log out current user and login on opposite `accountType`
-- `autoLogin.common()` will log out current user and login to common user
-- `autoLogin.admin()` will log out current user and login to admin user
+- `devTools.autoLogin.switch()` will log out current user and login on opposite `accountType`
+- `devTools.autoLogin.common()` will log out current user and login to common user
+- `devTools.autoLogin.admin()` will log out current user and login to admin user
 
+#### Test on mobile devices from localhost on your computer
+**Instruction:**
+1. Run devel environment
+2. Connect mobile device and computer to the same WI-FI network
+3. Check computer IP in your WI-FI network
+4. Put computer IP to phone browser address like here _https://192.168.1.10:3030/_
+5. Use your project from localhost on mobile device!
 
 ## Local database
 
@@ -107,4 +122,4 @@ To do list:
 - Update version in `client/package.json` and `package.json`
 - Merge to master
 - Create version tag
-- Release on serwer
+- Release on server

@@ -9,6 +9,16 @@ const vueModel = {
   },
 };
 
+const vueModelCheckbox = {
+  get () {
+    return this.checked;
+  },
+  set (value) {
+    this.$emit('change', value);
+  },
+
+};
+
 const vuexVModel = (config = {}) => {
   let {
     module = '',
@@ -73,6 +83,7 @@ const minimizeIfMobile = () => {
 
 export {
   vueModel,
+  vueModelCheckbox,
   vuexVModel,
   mapVuexVModel,
   blockWhenIsLoading,

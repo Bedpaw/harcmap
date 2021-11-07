@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import { store } from 'store';
-import { ROUTES } from 'utils/macros/routes';
 import { api } from 'api';
-import { promise } from 'utils/promise';
 import { routes } from './routes';
 import { versionCompatibility } from 'utils/version-compatibility';
 import { ErrorMessage } from 'utils/error-message';
 import { session } from 'utils/session';
+import { promiseUtils } from 'utils/promise';
+import { guardsUtils } from 'src/router/guards';
 
 let firstRun = true;
 
@@ -18,6 +18,25 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes,
 });
+
+(function silenceNavigationFailureErrors () {
+  // Solution from issue below, it removes ugly navigation duplicated error
+  // https://github.com/vuejs/vue-router/issues/2881#issuecomment-520554378
+  const originalPush = Router.prototype.push;
+  Router.prototype.push = function push (location, onResolve, onReject) {
+    if (onResolve || onReject) {
+      return originalPush.call(this, location, onResolve, onReject);
+    }
+    return originalPush.call(this, location).catch((err) => {
+      if (Router.isNavigationFailure(err, Router.NavigationFailureType.duplicated)) {
+        // resolve err
+        return err;
+      }
+      // rethrow error
+      return Promise.reject(err);
+    });
+  };
+})();
 
 router.beforeEach((to, from, next) => {
   let promise;
@@ -52,47 +71,27 @@ function makeFirstRun () {
       .then(session.tryLogin)
       .then(resolve)
       .catch(reject)
-      .finally(() => promise.timeout(1000))
+      .finally(() => promiseUtils.timeout(1000))
       .finally(() => store.commit('setIsLoading', false));
   });
 }
 
 function redirectIfNotAuth (to, from, next) {
-  const isLogin = store.getters['user/isLogin'] === true;
-  const adminRequired = to.meta.adminOnly === true;
-  const unlimitedOnly = to.meta.unlimitedOnly === true;
-  const isAdmin = permissions.checkIsAdmin();
-  const isLimitedUser = permissions.checkIsLimited();
+  const {
+    checkGuards, getRedirectPath, guards: {
+      isTheSameRoute, isLoginGuard, isAdminGuard, isAdminObserverGuard,
+    },
+  } = guardsUtils;
+  const blockRedirectGuards = [isTheSameRoute];
+  const redirectSomewhereElseGuards = [isAdminObserverGuard, isAdminGuard, isLoginGuard];
 
-  if (to === from) {
+  if (checkGuards(blockRedirectGuards, to, from)) {
     next(false);
-  }
-  if (adminRequired && isAdmin === false) {
-    if (isLogin) {
-      next(ROUTES.start.path);
-    } else {
-      next(ROUTES.welcome.path);
-    }
     return;
   }
-  if (unlimitedOnly && isLimitedUser) {
-    if (isLogin) {
-      next(ROUTES.start.path);
-    } else {
-      next(ROUTES.welcome.path);
-    }
+  if (checkGuards(redirectSomewhereElseGuards, to, from)) {
+    next(getRedirectPath());
     return;
-  }
-  if (isLogin) {
-    if (to.meta.onlyBeforeLogin) {
-      next(ROUTES.start.path);
-      return;
-    }
-  } else {
-    if (to.meta.requiredAuth === true) {
-      next(ROUTES.welcome.path);
-      return;
-    }
   }
   next();
 }

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { ROUTES } from 'utils/macros/routes';
+import { ROUTES } from 'config/routes-config';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {

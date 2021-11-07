@@ -67,13 +67,15 @@ import OForm from 'organisms/form';
 import MSelect from 'molecules/select';
 import AButtonSecondary from 'atoms/button/secondary';
 import AButtonSubmit from 'atoms/button/submit';
-import { uCheck } from '@dbetka/utils';
 import { mixins } from 'mixins/base';
 import MFieldDatetime from 'molecules/field/datetime';
 import MFieldText from 'molecules/field/text';
 import { ErrorMessage } from 'utils/error-message';
 import OFloatContainer from 'organisms/float-container';
 import OAdminSetMapPosition from 'organisms/admin/set-map-position';
+import { DEFAULT_EVENT_CONFIG } from 'config/event-config';
+import { idUtils } from 'utils/id';
+import { eventUtils } from 'utils/event';
 
 export default {
   name: 't-event-form',
@@ -90,35 +92,17 @@ export default {
     AButtonSubmit,
   },
   data () {
-    const minute = 60;
     return {
       values: {
         eventName: '',
-        eventId: '',
-        mapRefreshTime: 60,
+        eventId: idUtils.generateNewId(),
+        mapRefreshTime: DEFAULT_EVENT_CONFIG.mapRefreshTime,
         eventStartDate: null,
         eventEndDate: null,
         mapLatitude: null,
         mapLongitude: null,
       },
-      options: [
-        {
-          label: '1 min',
-          value: minute,
-        }, {
-          label: '5 min',
-          value: 5 * minute,
-        }, {
-          label: '10 min',
-          value: 10 * minute,
-        }, {
-          label: '15 min',
-          value: 15 * minute,
-        }, {
-          label: '30 min',
-          value: 30 * minute,
-        },
-      ],
+      options: DEFAULT_EVENT_CONFIG.mapRefreshTimeOptions,
       eventPositionIsSetting: false,
       blockForm: false,
       isSending: false,
@@ -140,7 +124,7 @@ export default {
   },
   computed: {
     hasSetPosition () {
-      return uCheck.isNotNull(this.values.mapLatitude) && uCheck.isNotNull(this.values.mapLongitude);
+      return eventUtils.hasSetPosition(this.values);
     },
   },
   methods: {

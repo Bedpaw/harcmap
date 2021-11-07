@@ -16,6 +16,7 @@ export const ERRORS = {
   elementIdIsRequiredForMap: translator.t('error.elementIdIsRequiredForMap'),
   fakeErrorInMockApi: translator.t('error.fakeErrorInMockApi'),
   dataAfterSignIn: translator.t('error.dataAfterSignIn'),
+  signIn: T.auth('signIn'),
   signOut: T.auth('signOut'),
 };
 
@@ -53,6 +54,19 @@ const EVENT_API_ERRORS = {
   },
   updateEvent: {
     defaultError: T.event('updateEvent'),
+    errors: [
+      [
+        [validateCodes.EVENT_END_DATE_IS_EMPTY],
+        T.event('eventEndDateIsEmpty'),
+      ],
+      [
+        [validateCodes.EVENT_START_DATE_IS_EMPTY],
+        T.event('eventStartDateIsEmpty'),
+      ],
+    ],
+  },
+  addEvent: {
+    defaultError: T.event('addEvent'),
     errors: [
       [
         [validateCodes.EVENT_END_DATE_IS_EMPTY],

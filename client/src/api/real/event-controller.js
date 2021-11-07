@@ -1,74 +1,100 @@
-import { makeRequest, request } from 'utils/request';
 import { AppEvent } from 'src/structures/app-event';
 import { API_ERRORS } from 'utils/macros/errors';
 import { MapPoint } from 'src/structures/map-point';
+import { httpService } from 'config/http-service';
 
 export const eventController = {
   getEventById ({ eventId }) {
-    return makeRequest({
-      method: request.get,
+    return httpService.get({
       url: '/event',
-      data: { eventId },
-      transformResponseData: data => new AppEvent(data),
-      ...API_ERRORS.getEventById,
+      queryObject: { eventId },
+      responseConfig: {
+        successCallback: data => new AppEvent(data),
+        errorConfig: {
+          ...API_ERRORS.getEventById,
+        },
+      },
     });
   },
   getPointsByEventId ({ eventId }) {
-    return makeRequest({
-      method: request.get,
+    return httpService.get({
       url: '/event/points',
-      data: { eventId },
-      transformResponseData: data => {
-        return data.points.map(point => new MapPoint(point));
+      queryObject: { eventId },
+      responseConfig: {
+        successCallback: data => data.points.map(point => new MapPoint(point)),
+        errorConfig: {
+          ...API_ERRORS.getPointsByEventId,
+        },
       },
-      ...API_ERRORS.getPointsByEventId,
     });
   },
   getCategoriesByEventId ({ eventId }) {
-    return makeRequest({
-      method: request.get,
+    return httpService.get({
       url: '/event/point/categories',
-      data: { eventId },
-      transformResponseData: data => data.categories,
-      ...API_ERRORS.getCategoriesByEventId,
+      queryObject: { eventId },
+      responseConfig: {
+        successCallback: data => data.categories,
+        errorConfig: {
+          ...API_ERRORS.getCategoriesByEventId,
+        },
+      },
     });
   },
   collectPoint ({ user, eventId, pointId }) {
-    return makeRequest({
-      method: request.put,
+    return httpService.put({
       url: '/event/point/collect',
-      data: { user, eventId, pointId },
-      ...API_ERRORS.collectPoint,
+      body: {
+        user,
+        eventId,
+        pointId,
+      },
+      responseConfig: {
+        errorConfig: {
+          ...API_ERRORS.collectPoint,
+        },
+      },
     });
   },
   removePoint ({ eventId, pointId }) {
-    return makeRequest({
-      method: request.delete,
+    return httpService.delete({
       url: '/event/point',
-      data: { eventId, pointId },
-      ...API_ERRORS.removePoint,
+      body: {
+        pointId,
+        eventId,
+      },
+      responseConfig: {
+        errorConfig: {
+          ...API_ERRORS.removePoint,
+        },
+      },
     });
   },
   addPoint ({ point, eventId }) {
-    return makeRequest({
-      method: request.post,
+    return httpService.post({
       url: '/event/point',
-      data: {
+      body: {
         point,
         eventId,
       },
-      ...API_ERRORS.addPoint,
+      responseConfig: {
+        errorConfig: {
+          ...API_ERRORS.addPoint,
+        },
+      },
     });
   },
   editPoint ({ point, eventId }) {
-    return makeRequest({
-      method: request.put,
+    return httpService.put({
       url: '/event/point',
-      data: {
+      body: {
         point,
         eventId,
       },
-      ...API_ERRORS.editPoint,
+      responseConfig: {
+        errorConfig: {
+          ...API_ERRORS.editPoint,
+        },
+      },
     });
   },
   updateEvent ({
@@ -81,10 +107,9 @@ export const eventController = {
     mapZoom,
     mapRefreshTime,
   }) {
-    return makeRequest({
-      method: request.put,
+    return httpService.put({
       url: '/event',
-      data: {
+      body: {
         eventId,
         eventName,
         eventStartDate,
@@ -94,8 +119,40 @@ export const eventController = {
         mapZoom,
         mapRefreshTime,
       },
-      ...API_ERRORS.updateEvent,
+      responseConfig: {
+        errorConfig: {
+          ...API_ERRORS.updateEvent,
+        },
+      },
     });
-
+  },
+  addEvent ({
+    eventId,
+    eventName,
+    mapLongitude,
+    mapLatitude,
+    mapZoom,
+    mapRefreshTime,
+    eventStartDate,
+    eventEndDate,
+  }) {
+    return httpService.post({
+      url: '/event',
+      body: {
+        eventId,
+        eventName,
+        eventStartDate,
+        eventEndDate,
+        mapLongitude,
+        mapLatitude,
+        mapZoom,
+        mapRefreshTime,
+      },
+      responseConfig: {
+        errorConfig: {
+          ...API_ERRORS.addEvent,
+        },
+      },
+    });
   },
 };

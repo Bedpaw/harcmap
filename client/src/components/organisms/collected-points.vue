@@ -30,7 +30,7 @@
         {{ $t('page.collectedPoints.noPoints') }}
       </div>
       <m-row-point
-        v-for="point of collectedPoints.reverse()"
+        v-for="point of [...collectedPoints].reverse()"
         :key="point.pointId"
         :point="point"
       />

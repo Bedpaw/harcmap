@@ -1,8 +1,8 @@
 import Cookies from 'js-cookie';
 import { uCheck } from '@dbetka/utils';
+import { MACROS } from 'utils/macros';
 
 const cookieName = 'firstLogin';
-const cookieExpiresInDays = 365;
 
 export const firstLogin = {
   get state () {
@@ -11,6 +11,6 @@ export const firstLogin = {
   },
   setCookie () {
     Cookies.remove(cookieName);
-    Cookies.set(cookieName, false, { expires: cookieExpiresInDays });
+    Cookies.set(cookieName, false, { expires: MACROS.time.daysInYear });
   },
 };

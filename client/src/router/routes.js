@@ -1,6 +1,7 @@
-import { getDataForRouter, ROUTES } from 'utils/macros/routes';
+import { ROUTES } from 'config/routes-config';
 import PWelcome from 'pages/welcome';
 import PError from 'pages/error';
+import { AppRoute } from 'src/router/utils';
 
 export const routes = [
   [ROUTES.error, PError],
@@ -24,8 +25,12 @@ export const routes = [
   [ROUTES.editPoint, () => import('pages/admin/edit-point.vue')],
   [ROUTES.scoreboard, () => import('pages/admin/scoreboard.vue')],
   [ROUTES.searchPoint, () => import('pages/admin/search-point.vue')],
+  [ROUTES.newEvent, () => import('pages/add-event.vue')],
+  [ROUTES.eventsList, () => import('pages/events-list.vue')],
+  [ROUTES.joinEvent, () => import('pages/join-event.vue')],
+  [ROUTES.usersList, () => import('pages/admin/users-list.vue')],
 ]
   .map(([route, component]) => ({
-    ...getDataForRouter(route),
+    ...AppRoute.getDataForRouter(route),
     component,
   }));

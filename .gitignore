@@ -1,8 +1,9 @@
 .idea
 node_modules
 package-lock.json
-
 config
+public
+
 server/.env
 server/.db
 server/coverage

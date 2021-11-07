@@ -43,7 +43,7 @@ const colorsRGB = {
 
 export const RGBColorsArray = () => {
   const result = { ...colorsRGB };
-  Object.keys(result).map(key => {
+  Object.keys(result).forEach(key => {
     result[key] = colorsUtils.convertRGBToArray(result[key]);
   });
   return result;

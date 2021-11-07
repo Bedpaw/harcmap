@@ -1,5 +1,6 @@
 import { ACCOUNT_TYPES } from 'utils/permissions';
 import { uCheck } from '@dbetka/utils';
+import { mockApi } from 'api/mock/mock';
 
 export default {
   namespaced: true,
@@ -10,8 +11,6 @@ export default {
     users: state => state.users,
     commonUsers: (state, getters) => getters.users
       .filter(user => user.accountType === ACCOUNT_TYPES.common),
-    userByUserField: (state) => userField => state.users
-      .find(user => user.user === userField),
     collectedPointsByUser: (state, getters, rootState, rootGetters) => user => {
       const collectedPoints = [];
       for (const pointId of user.collectedPointsIds) {
@@ -33,7 +32,7 @@ export default {
   actions: {
     download (context) {
       return new Promise((resolve, reject) => {
-        api.allUsers()
+        mockApi.allUsers()
           .then(({ users }) => {
             context.commit('setUsers', users);
             resolve(users);
