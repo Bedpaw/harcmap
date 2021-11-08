@@ -11,9 +11,7 @@
           v-for="user of filteredUsers"
           :key="user.user"
         >
-          <div class="f-py-1 f-line-24">
-            <a-icon :name=getUserIcon(user) />
-          </div>
+          <a-icon :name=getUserIcon(user) />
           <div class="f-py-1 f-line-24">{{ user.userTeam }}</div>
           <div class="f-pl-1 f-py-1 f-text-subtext f-text-14 f-line-24">{{ user.user }}</div>
           <a-button-icon @click="openDetails(user)">
