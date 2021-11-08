@@ -6,9 +6,8 @@ const Joi = require('joi');
 /**
  * Universal props
  */
-// TODO zmienić na datę
 const date = Joi.number();
-const eventKey = Joi.string()
+const keys = Joi.string()
   .length(4);
 const mapCoordinates = Joi.number();
 const objectIdInRequest = Joi.string();
@@ -41,15 +40,12 @@ const eventName = Joi.string()
   .max(50);
 const eventRefreshTime = Joi.number();
 const defaultMapZoom = Joi.number();
-const mapRefreshTime = Joi.number();
-const mapZoom = Joi.number();
 
 /**
  * Points props
  */
 const pointName = Joi.string();
 const pointType = Joi.string();
-const pointKey = Joi.string();
 
 /**
  * Category props
@@ -65,7 +61,6 @@ module.exports = {
   password,
   role,
   eventName,
-  eventKey,
   date,
   defaultMapZoom,
   mapRefreshTime,
@@ -78,6 +73,5 @@ module.exports = {
   teamName,
   pointName,
   pointType,
-  pointKey,
   collectedPoints,
 };
