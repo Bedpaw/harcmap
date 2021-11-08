@@ -68,12 +68,8 @@ export default {
     },
   },
   mounted () {
-    this.accountIsActive = this.user.accountIsActive; // to juz bylo
-    this.accountType = this.user.accountType; // to juz bylo
-    this.icon = userUtils.getIcon(this.user);
-    console.log(this.user);
-    console.log(userUtils.getIcon(this.user));
-
+    this.accountIsActive = this.user.accountIsActive;
+    this.accountType = this.user.accountType;
   },
   methods: {
     toggle () {
