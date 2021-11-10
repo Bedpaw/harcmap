@@ -3,7 +3,7 @@ const common = require('./webpack.common.js');
 const webpack = require('webpack');
 
 module.exports = merge(common, {
-  mode: 'production',
+  mode: 'development',
   performance: {
     hints: false,
   },
@@ -17,7 +17,7 @@ module.exports = merge(common, {
       PASSWORD: JSON.stringify(''),
       ADMIN_USER: JSON.stringify(''),
       ADMIN_PASSWORD: JSON.stringify(''),
-      API_URL: JSON.stringify('https://harcmap.henouser.pl'),
+      API_URL: JSON.stringify('https://localhost:3030'),
     }),
   ],
 });
