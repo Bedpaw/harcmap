@@ -60,7 +60,6 @@ export default {
     USERS_DEFAULT_CONFIG,
     accountType: null,
     accountIsActive: false,
-    icon: null,
   }),
   computed: {
     isOrganizer () {
