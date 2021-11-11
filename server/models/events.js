@@ -4,7 +4,7 @@ const {
   date,
   defaultMapZoom,
   mapCoordinates,
-  mapRefreshTime,
+  eventRefreshTime,
 } = require('../libs/common-schemas');
 
 // event schema
@@ -19,7 +19,7 @@ const eventSchema = {
     longitude: mapCoordinates,
     latitude: mapCoordinates,
   },
-  eventRefreshTime: mapRefreshTime,
+  eventRefreshTime,
 };
 
 // Create model

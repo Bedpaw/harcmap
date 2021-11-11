@@ -55,6 +55,7 @@ const pointShape = Joi.string();
 const categoryName = Joi.string();
 
 module.exports = {
+  keys,
   objectIdInDatabase,
   objectIdInRequest,
   email,
@@ -63,8 +64,6 @@ module.exports = {
   eventName,
   date,
   defaultMapZoom,
-  mapRefreshTime,
-  mapZoom,
   mapCoordinates,
   categoryName,
   pointValue,

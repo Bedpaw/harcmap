@@ -5,7 +5,7 @@ const {
   date,
   mapCoordinates,
   objectIdInRequest,
-  pointKey,
+  keys,
 } = require('../../../libs/common-schemas');
 
 const onePoint = {
@@ -28,7 +28,7 @@ const onePoint = {
 
 const collectPoint = {
   POST: Joi.object({
-    pointKey: pointKey.required(),
+    pointKey: keys.required(),
   }),
 };
 

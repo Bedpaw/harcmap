@@ -6,8 +6,8 @@ const {
   date,
   mapCoordinates,
   eventRefreshTime,
-  mapZoom,
-  eventKey,
+  defaultMapZoom,
+  keys,
 } = require('../../../libs/common-schemas');
 
 // empty schema means that no data can be pass
@@ -19,7 +19,7 @@ const allEvents = {
       endDate: date.required(),
     },
     mapProperties: {
-      zoom: mapZoom.required(),
+      zoom: defaultMapZoom.required(),
       longitude: mapCoordinates.required(),
       latitude: mapCoordinates.required(),
     },
@@ -36,7 +36,7 @@ const oneEvent = {
       endDate: date,
     },
     mapProperties: {
-      zoom: mapZoom,
+      zoom: defaultMapZoom,
       longitude: mapCoordinates,
       latitude: mapCoordinates,
     },
@@ -46,14 +46,14 @@ const oneEvent = {
 
 const check = {
   POST: Joi.object({
-    eventKey: eventKey.required(),
+    eventKey: keys.required(),
   }),
 };
 
 const join = {
   POST: Joi.object({
     userId: objectIdInRequest.required(),
-    eventKey: eventKey.required(),
+    eventKey: keys.required(),
     teamName: teamName.required(),
   }),
 };
