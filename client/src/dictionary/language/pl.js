@@ -25,6 +25,7 @@ export const pl = {
     eventsList: 'Lista wydarzeń',
     joinEvent: 'Dołącz do wydarzenia',
     usersList: 'Użytkownicy',
+    teamView: 'Druzyna',
     short: {
       start: 'start',
       map: 'mapa',

@@ -90,6 +90,7 @@ export default {
         ROUTES.map,
         isCommon ? ROUTES.about : undefined,
         ROUTES.eventsList,
+        ROUTES.teamView,
       ];
       return links.filter(route => uCheck.isUndefined(route) === false);
     },
