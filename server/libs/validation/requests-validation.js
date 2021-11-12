@@ -27,7 +27,6 @@ function validateRequests (app) {
         if (method === 'GET') {
           data = query;
         }
-        // TODO validation body for GET and query for POST, PUT, DELETE
 
         const dataAreEmptyObject = Object.keys(data).length === 0;
         const validatedData = validateOne(data, endpointSchemaObject);

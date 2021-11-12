@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const requestSchema = require('./request-schema');
+const { usersRequestSchema, userRequestSchema } = require('./request-schema');
 const { addEndpointValidation } = require('../../../libs/validation');
 const getUsers = require('./methods/get-users');
 const activateUser = require('./methods/activate-user');
@@ -10,12 +10,13 @@ const updateUser = require('./methods/update-user');
 
 const router = Router();
 
-addEndpointValidation('/api/v1/users', requestSchema);
-addEndpointValidation('/api/v1/users/:id', requestSchema);
+addEndpointValidation('/api/v1/users', usersRequestSchema);
+addEndpointValidation('/api/v1/users/:id', userRequestSchema);
 
 router.route('/')
   .get(async (request, response) => {
-    const users = await getUsers();
+    const { eventId } = request.query;
+    const users = await getUsers(eventId);
 
     response.send(users);
   });

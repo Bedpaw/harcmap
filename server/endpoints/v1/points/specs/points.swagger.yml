@@ -1,6 +1,7 @@
 paths:
   /events/:eventId/points:
     get:
+      deprecated: true
       summary: 'Get list of points in event with eventId (SECURED)'
       description: 'Special privilege required'
       tags:
@@ -44,6 +45,7 @@ paths:
               schema:
                 $ref: '#/components/responses/401'
     post:
+      deprecated: true
       summary: 'Add point (SECURED)'
       description: 'Special privilege required'
       tags:
@@ -94,6 +96,7 @@ paths:
                 $ref: '#/components/responses/401'
   /events/:eventId/points/collect:
     post:
+      deprecated: true
       summary: 'Collect point in event with eventId (SECURED)'
       description: 'Special privilege required'
       tags:
@@ -132,6 +135,7 @@ paths:
                 $ref: '#/components/responses/401'
   /events/:eventId/points/:pointId:
     get:
+      deprecated: true
       summary: 'Get point with pointId from event with eventId (SECURED)'
       description: 'Special privilege required'
       tags:
@@ -171,6 +175,7 @@ paths:
               schema:
                 $ref: '#/components/responses/401'
     put:
+      deprecated: true
       summary: 'Update point with pointId from event with eventId (SECURED)'
       description: 'Special privilege required'
       tags:
@@ -216,6 +221,7 @@ paths:
               schema:
                 $ref: '#/components/responses/401'
     delete:
+      deprecated: true
       summary: 'Delete point with pointId from event with eventId (SECURED)'
       description: 'Special privilege required'
       tags:

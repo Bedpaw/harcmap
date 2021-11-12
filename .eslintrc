@@ -17,6 +17,7 @@
     "no-useless-call": "warn",
     "no-useless-escape": "warn",
     "padded-blocks": "off",
+    "@typescript-eslint/no-var-requires": "off",
     "semi": [
       "error",
       "always"
@@ -41,5 +42,5 @@
       2
     ],
     "object-property-newline": ["error", { "allowAllPropertiesOnSameLine": true }]
-  }
+  },
 }

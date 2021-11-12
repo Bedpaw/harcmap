@@ -22,7 +22,7 @@ function getEndpointPermissions (config, path, httpMethod) {
   } else {
     listOfUsersWithAccess = [endpointPermissions];
   }
-
+  
   return listOfUsersWithAccess;
 }
 
@@ -40,7 +40,7 @@ function createSecuredEndpoints (app, config) {
       const isAuth = request.isAuthenticated();
       const { method, user } = request;
       // get dynamic url elements
-      const { eventId } = request.params;
+      const eventId = request.params.eventId || request.query.eventId;
       // check if authorized user have permission to requested source
       let selectedEvent;
 

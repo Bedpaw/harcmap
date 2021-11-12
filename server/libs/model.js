@@ -135,6 +135,7 @@ class Model {
 
     if (aggregationPipeline) {
       const aggregation = aggregationPipeline(filters);
+      
       result = await collection.aggregate(aggregation).toArray();
     } else {
       result = await collection.find(filters).toArray();

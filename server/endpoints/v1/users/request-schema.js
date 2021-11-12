@@ -2,10 +2,13 @@ const Joi = require('joi');
 const {
   email,
   role,
+  objectIdInRequest,
 } = require('../../../libs/common-schemas');
 
 // empty schema means that no data can be pass
-const GET = Joi.object({});
+const GET = Joi.object({
+  eventId: objectIdInRequest.required(),
+});
 
 // "required" method is necessary in most POST methods
 const POST = Joi.object({
@@ -22,11 +25,19 @@ const PUT = Joi.object({
 // empty schema means that no data can be pass
 const DELETE = Joi.object({});
 
-const schema = {
-  GET,
-  POST,
-  PUT,
-  DELETE,
+// /users/:userId
+const userRequestSchema = {
+  GET: Joi.object({}),
 };
 
-module.exports = schema;
+// /users
+const usersRequestSchema = {
+  GET: Joi.object({
+    eventId: objectIdInRequest.required(),
+  }),
+};
+
+module.exports = {
+  userRequestSchema,
+  usersRequestSchema,
+};
