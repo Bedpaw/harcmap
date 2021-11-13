@@ -1,5 +1,5 @@
 <template>
-  <div class="m-grid f-category-sum">
+  <div class="m-grid f-category-sum f-mb-1">
     <div>{{this.$props.nickname}}</div>
     <div>{{this.$props.email}}</div>
   </div>
