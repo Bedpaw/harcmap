@@ -8,12 +8,11 @@
         <div>Nickname</div>
         <div>Email</div>
       </div>
-      <div class="m-grid f-category-sum f-flex-0 f-mr-2"
+      <div class="m-grid f-category-sum f-flex-0 f-mr-2 f-overflow-hidden"
            v-for="item in members"
            :key="item.id"
       >
-        <div>{{ item.nickname }}</div>
-        <div>{{ item.email }}</div>
+        <m-row-team-row :email="item.email" :nickname="item.nickname"></m-row-team-row>
       </div>
     </div>
   </t-page>
@@ -21,10 +20,12 @@
 
 <script>
 import TPage from 'templates/page';
+import MRowTeamRow from 'molecules/table-row/team-row';
 
 export default {
   name: 'p-team-view',
   components: {
+    MRowTeamRow,
     TPage,
   },
   data: () => ({
