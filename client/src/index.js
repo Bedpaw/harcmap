@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { createApp } from 'vue';
 import i18n from './dictionary';
 import router from './router';
 import { store } from 'store';
@@ -15,9 +15,12 @@ import { ROUTES } from 'config/routes-config';
 
 initApp();
 
-Vue.config.productionTip = false;
-
-Vue.mixin({
+const app = createApp(App);
+app.mixin({
+  compatConfig: {
+    MODE: 2,
+    OPTIONS_DESTROYED: false,
+  },
   computed: {
     ROUTES: () => ROUTES,
     ACCOUNT_TYPES: () => ACCOUNT_TYPES,
@@ -32,12 +35,10 @@ Vue.mixin({
   },
 });
 
-Vue.use(Vue2TouchEvents);
-Vue.use(VueEllipseProgress);
-Vue.use(VueMaterialIcons);
-new Vue({
-  router,
-  store,
-  i18n,
-  render: h => h(App),
-}).$mount('#app');
+app.use(Vue2TouchEvents);
+app.use(VueEllipseProgress);
+app.use(VueMaterialIcons);
+app.use(router);
+app.use(store);
+app.use(i18n);
+app.mount('#app');

@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import { store } from 'store';
 import { api } from 'api';
 import { routes } from './routes';
@@ -11,12 +10,10 @@ import { guardsUtils } from 'src/router/guards';
 
 let firstRun = true;
 
-Vue.use(Router);
-
-const router = new Router({
-  mode: 'history',
+const router = createRouter({
   base: process.env.BASE_URL,
   routes,
+  history: createWebHashHistory(),
 });
 
 (function silenceNavigationFailureErrors () {

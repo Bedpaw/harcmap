@@ -18,6 +18,13 @@ module.exports = {
     {
       test: /\.vue$/,
       loader: 'vue-loader',
+      options: {
+        compilerOptions: {
+          compatConfig: {
+            MODE: 2,
+          },
+        },
+      },
     },
     {
       test: /\.js$/,
@@ -32,8 +39,11 @@ module.exports = {
     },
     {
       test: /\.ts?$/,
-      use: 'ts-loader',
+      loader: 'ts-loader',
       exclude: /node_modules/,
+      options: {
+        appendTsSuffixTo: [/\.vue$/],
+      },
     },
   ],
 };

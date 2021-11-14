@@ -8,7 +8,6 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "vue": ["vue/dist/vue.esm.js"],
       "src/*": ["src/*"],
       "components/*": ["src/components/*"],
       "config/*": ["src/config/*"],

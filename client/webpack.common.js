@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const { VueLoaderPlugin } = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpackUtils = require('./webpack/utils');
@@ -39,7 +39,6 @@ module.exports = {
   },
   resolve: {
     alias: {
-      vue: 'vue/dist/vue.esm.js',
       src: resolve('src'),
       api: resolve('src/api'),
       map: resolve('src/map'),
