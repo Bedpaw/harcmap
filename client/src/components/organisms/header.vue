@@ -6,7 +6,7 @@
     >
       <a-icon
         :name="$icons.names.arrow_back"
-        :size="28"
+        size="28"
         @click="$router.push(pathBackButton)"
       />
     </div>
@@ -28,7 +28,7 @@
     >
       <a-icon
         :name="ROUTES.collectedPoints.icon"
-        :size="28"
+        size="28"
         class="f-header"
         :class="{ 'f-hidden': isLogin === false }"
         @click="redirectToCollectedPointsOrScoreboard"

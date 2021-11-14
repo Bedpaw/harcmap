@@ -1,6 +1,6 @@
 <template>
   <div class="m-clock">
-    <a-icon :size="32" :name="$icons.names.schedule" class="f-clock"></a-icon>
+    <a-icon size="32" :name="$icons.names.schedule" class="f-clock"></a-icon>
     <div class="f-mb-2 f-text-center f-text-32 f-text-bold">
       {{ hours }}<span :class="separatorClass">{{ separator }}</span>{{  minutes }}
     </div>

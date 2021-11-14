@@ -14,8 +14,8 @@ export default {
   name: 'a-icon-close-popup',
   props: {
     size: {
-      type: [Number, String],
-      default: 32,
+      type: String,
+      default: '32',
     },
     addClass: {
       type: [String, Array],

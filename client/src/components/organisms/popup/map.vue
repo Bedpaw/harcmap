@@ -2,7 +2,7 @@
   <div ref="mapPopup" class="o-popup f-map">
     <a-icon-close-popup
       add-class="f-map"
-      :size="20"
+      size="20"
       @click="popup.hide()"
     />
     <div
@@ -14,7 +14,7 @@
       <a-icon
         class="a-icon f-list"
         :name="singleData.icon"
-        :size="20"
+        size="20"
       />
       <div
         class="f-flex-1 f-pl-1 f-py-1"
@@ -32,7 +32,7 @@
       <a-icon
         class="a-icon f-list"
         :name="button.icon"
-        :size="20"
+        size="20"
       />
       <div class="f-flex-1 f-pl-1  f-py-1">
         {{ button.label }}

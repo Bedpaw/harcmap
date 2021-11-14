@@ -4,7 +4,7 @@
   >
     <a-icon
       :name="icon"
-      class="a-icon f-footer"
+      class="f-footer"
       :class="iconClass"
     />
     <div class="a-label f-button-icon-footer">
