@@ -52,7 +52,7 @@ export default {
       };
     },
   },
-  beforeDestroy () {
+  beforeUnmount () {
     this.$store.commit('event/clearHidePoint');
     map.updateMapFeatures();
   },

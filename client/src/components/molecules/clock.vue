@@ -24,7 +24,7 @@ export default {
     this.updateDateTime();
     this.$options.interval = setInterval(this.updateDateTime, 1000);
   },
-  beforeDestroy () {
+  beforeUnmount () {
     clearInterval(this.$options.interval);
   },
   watch: {

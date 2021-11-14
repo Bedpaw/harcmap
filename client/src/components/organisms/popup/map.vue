@@ -107,7 +107,7 @@ export default {
       this.popup.hide();
     },
   },
-  beforeDestroy () {
+  beforeUnmount () {
     this.popup.destroy();
   },
   beforeUpdate () {
