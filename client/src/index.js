@@ -8,7 +8,7 @@ import App from './components/app.vue';
 import VueEllipseProgress from 'vue-ellipse-progress';
 import Vue2TouchEvents from 'vue2-touch-events';
 import 'utils/dev-mode/auto-login';
-import VueMaterialIcons from '@dbetka/vue-material-icons';
+import { materialIcons } from '@dbetka/vue-material-icons';
 import { initApp } from 'config';
 import { ROUTES } from 'config/routes-config';
 
@@ -36,7 +36,7 @@ app.mixin({
 
 app.use(Vue2TouchEvents);
 app.use(VueEllipseProgress);
-app.use(VueMaterialIcons);
+app.use(materialIcons);
 app.use(router);
 app.use(store);
 app.use(i18n);

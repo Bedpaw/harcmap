@@ -1,8 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { ICONS } from '@dbetka/vue-material-icons';
 import { AppRoute } from '../router/utils';
 import { EnterPermission } from '../models/routes';
+import { materialIcons } from '@dbetka/vue-material-icons';
+
+const ICONS = materialIcons.names;
 
 const enterPermissions: Record<string, EnterPermission> = {
   alwaysAllowed: {},

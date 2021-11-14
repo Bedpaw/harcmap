@@ -11,7 +11,7 @@
     />
     <a-icon
       :name="iconName"
-      :type="ICONS_TYPES.outlined"
+      :type="$icons.types.outlined"
       :class="{'f-text-primary': hasFocus}"
     ></a-icon>
     <span class="f-pl-1 f-line-28">
@@ -22,7 +22,9 @@
 
 <script>
 import { mixins } from 'mixins/base';
-import { ICONS } from '@dbetka/vue-material-icons';
+import { materialIcons } from '@dbetka/vue-material-icons';
+
+const ICONS = materialIcons.names;
 
 export default {
   name: 'a-checkbox',

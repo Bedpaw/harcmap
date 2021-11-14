@@ -5,7 +5,7 @@
       :class="{ 'f-hidden': isMainPage }"
     >
       <a-icon
-        :name="ICONS.arrow_back"
+        :name="$icons.names.arrow_back"
         :size="28"
         @click="$router.push(pathBackButton)"
       />

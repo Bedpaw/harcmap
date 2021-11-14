@@ -2,7 +2,7 @@
   <a-icon
     class="a-icon f-close-popup"
     :class="addClass"
-    :name="ICONS.close"
+    :name="$icons.names.close"
     :size="size"
     @click="$emit('click')"
   />

@@ -34,19 +34,19 @@
     <a-link-menu
       v-if="checkIsCommon()"
       @click="openGuide()"
-      :icon="ICONS.help"
+      :icon="$icons.names.help"
       :text="$t('features.guide.howAppWorks')"
     />
 
     <a-link-menu
       @click="toggleTheme()"
-      :icon="ICONS.brightness_4"
+      :icon="$icons.names.brightness_4"
       :text="themeName === THEMES.light ? $t('general.darkTheme') : $t('general.lightTheme')"
     />
 
     <a-link-menu
       @click="signOut()"
-      :icon="ICONS.logout"
+      :icon="$icons.names.logout"
       :text="$t('general.logout')"
     />
 

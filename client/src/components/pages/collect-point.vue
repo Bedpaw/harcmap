@@ -25,8 +25,10 @@ import { mixins } from 'mixins/base';
 import OForm from 'organisms/form';
 import MFieldText from 'molecules/field/text';
 import AButtonSubmit from 'atoms/button/submit';
-import { ICONS } from '@dbetka/vue-material-icons';
 import { translator } from 'src/dictionary';
+import { materialIcons } from '@dbetka/vue-material-icons';
+
+const ICONS = materialIcons.names;
 
 export default {
   name: 'p-collect-point',

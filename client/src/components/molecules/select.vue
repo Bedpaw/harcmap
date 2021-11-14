@@ -29,7 +29,7 @@
       {{ placeholder }}
     </label>
     <a-icon
-      :name="ICONS.arrow_drop_down"
+      :name="$icons.names.arrow_drop_down"
       class="f-input"
       @click.stop="makeFocus($event)"
     />

@@ -13,7 +13,7 @@
 
     <a-icon
       v-show="shouldShowPanToIcon"
-      :name="ICONS.map"
+      :name="$icons.names.map"
       :size="24"
       :class="classForMap"
       @click="panTo(point)"

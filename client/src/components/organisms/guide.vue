@@ -5,7 +5,7 @@
       <slider ref="slider" @slide="onSlide">
 
         <slideritem>
-          <m-slide :title="this.$t('features.guide.howItWorks.title')" :icon="ICONS.help">
+          <m-slide :title="this.$t('features.guide.howItWorks.title')" :icon="$icons.names.help">
             {{ $t('features.guide.howItWorks.description') }}
             <span class="f-bold">{{ minutes($store.getters['event/mapRefreshTime']) }}</span>
             {{ $t('features.guide.howItWorks.add0') }}
@@ -14,7 +14,7 @@
         </slideritem>
 
         <slideritem>
-          <m-slide :title="this.$t('features.guide.eventStart.title')" :icon="ICONS.timer">
+          <m-slide :title="this.$t('features.guide.eventStart.title')" :icon="$icons.names.timer">
             <div>{{ $t('features.guide.eventStart.description') }}</div>
             <div class="f-mt-1 f-bold">
               <span>{{ $t('features.guide.eventStart.add0') }}</span>
@@ -28,49 +28,49 @@
         </slideritem>
 
         <slideritem>
-          <m-slide :title="this.$t('features.guide.permanentPoints.title')" :icon="ICONS.add_circle">
+          <m-slide :title="this.$t('features.guide.permanentPoints.title')" :icon="$icons.names.add_circle">
             <div class="f-mb-3">{{ $t('features.guide.permanentPoints.description') }}</div>
             <div class="f-flex">
-              <a-icon :name="ICONS.stop_circle" class="f-text-info f-mr-1" size="20"/>
+              <a-icon :name="$icons.names.stop_circle" class="f-text-info f-mr-1" size="20"/>
               <div class="f-line-24">{{ $t('features.guide.permanentPoints.add0') }} <span class="f-bold">1 {{ $t('general.pointUnit')}}</span></div>
             </div>
             <div class="f-flex">
-              <a-icon :name="ICONS.stop_circle" class="f-text-warning f-mr-1" size="20"/>
+              <a-icon :name="$icons.names.stop_circle" class="f-text-warning f-mr-1" size="20"/>
               <div class="f-line-24">{{ $t('features.guide.permanentPoints.add1') }} <span class="f-bold">2 {{ $t('general.pointUnit')}}</span></div>
             </div>
             <div class="f-flex">
-              <a-icon :name="ICONS.stop_circle" class="f-text-danger f-mr-1" size="20"/>
+              <a-icon :name="$icons.names.stop_circle" class="f-text-danger f-mr-1" size="20"/>
               <div class="f-line-24">{{ $t('features.guide.permanentPoints.add2') }} <span class="f-bold">3 {{ $t('general.pointUnit')}}</span></div>
             </div>
           </m-slide>
         </slideritem>
 
         <slideritem>
-          <m-slide :title="this.$t('features.guide.seeOnTimeoutPoints.title')" :icon="ICONS.stars">
+          <m-slide :title="this.$t('features.guide.seeOnTimeoutPoints.title')" :icon="$icons.names.stars">
             <div class="f-mb-3">{{ $t('features.guide.seeOnTimeoutPoints.description') }}</div>
             <div class="f-flex">
-              <a-icon :name="ICONS.history_toggle_off" class="f-disabled-point f-mr-1" size="20"/>
+              <a-icon :name="$icons.names.history_toggle_off" class="f-disabled-point f-mr-1" size="20"/>
               <div class="f-line-24">{{ $t('features.guide.seeOnTimeoutPoints.add0') }}</div>
             </div>
             <div class="f-flex">
-              <a-icon :name="ICONS.watch_later" class="f-active-point f-mr-1" size="20"/>
+              <a-icon :name="$icons.names.watch_later" class="f-active-point f-mr-1" size="20"/>
               <div class="f-line-24">{{ $t('features.guide.seeOnTimeoutPoints.add1') }}</div>
             </div>
             <div class="f-flex">
-              <a-icon :name="ICONS.access_time" class="f-future-point f-mr-1" size="20"/>
+              <a-icon :name="$icons.names.access_time" class="f-future-point f-mr-1" size="20"/>
               <div class="f-line-24">{{ $t('features.guide.seeOnTimeoutPoints.add2') }}</div>
             </div>
           </m-slide>
         </slideritem>
 
         <slideritem>
-          <m-slide :title="this.$t('features.guide.startCollecting.title')" :icon="ICONS.map">
+          <m-slide :title="this.$t('features.guide.startCollecting.title')" :icon="$icons.names.map">
             {{ $t('features.guide.startCollecting.description') }}
           </m-slide>
         </slideritem>
 
         <slideritem>
-          <m-slide :title="this.$t('features.guide.checkYourResults.title')" :icon="ICONS.bar_chart">
+          <m-slide :title="this.$t('features.guide.checkYourResults.title')" :icon="$icons.names.bar_chart">
             <div class="f-mb-1">{{ $t('features.guide.checkYourResults.description') }}</div>
             <ul>
               <li>{{ $t('features.guide.checkYourResults.add0') }}</li>
@@ -84,7 +84,7 @@
         </slideritem>
 
         <slideritem>
-          <m-slide :title="this.$t('features.guide.covidInfo.title')" :icon="ICONS.coronavirus">
+          <m-slide :title="this.$t('features.guide.covidInfo.title')" :icon="$icons.names.coronavirus">
             <div class="f-mb-1">{{ $t('features.guide.covidInfo.description') }}</div>
           </m-slide>
         </slideritem>

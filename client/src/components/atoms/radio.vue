@@ -23,7 +23,10 @@
 
 <script>
 import { mixins } from 'mixins/base';
-import { ICONS } from '@dbetka/vue-material-icons';
+import { materialIcons } from '@dbetka/vue-material-icons';
+
+const ICONS = materialIcons.names;
+
 export default {
   name: 'a-radio',
   mixins: [mixins.vModelRadio],

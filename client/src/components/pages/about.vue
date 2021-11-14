@@ -25,7 +25,7 @@
         <img :src="person.photo" :alt="person.fullName" width="64" height="64">
       </div>
       <a-icon
-        :name="ICONS.account_circle"
+        :name="$icons.names.account_circle"
         size="64"
         v-else
       />

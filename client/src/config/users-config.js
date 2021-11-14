@@ -1,5 +1,7 @@
 import { ACCOUNT_TYPES } from 'utils/permissions';
-import { ICONS } from '@dbetka/vue-material-icons';
+import { materialIcons } from '@dbetka/vue-material-icons';
+
+const ICONS = materialIcons.names;
 
 const { organizer, admin, userObserver, common, observer } = ACCOUNT_TYPES;
 

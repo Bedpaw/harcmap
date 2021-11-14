@@ -1,8 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { ICONS } from '@dbetka/vue-material-icons';
+import { materialIcons } from '@dbetka/vue-material-icons';
 import { AppRouteParams, EnterPermission } from '../models/routes';
 import { translator } from '../dictionary';
+
+const ICONS = materialIcons.names;
 
 export class AppRoute {
   public name: string; // !!!camelCase!!!

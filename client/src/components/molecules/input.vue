@@ -16,24 +16,24 @@
       {{ placeholder }}
     </label>
     <a-icon
-      :name="ICONS.visibility"
+      :name="$icons.names.visibility"
       v-if="isPassword && showPassword === false"
       class="f-input"
       @click="showPassword = true"
     />
     <a-icon
-      :name="ICONS.visibility_off"
+      :name="$icons.names.visibility_off"
       v-if="isPassword && showPassword"
       class="f-input"
       @click="showPassword = false"
     />
     <a-icon
-      :name="ICONS.warning"
+      :name="$icons.names.warning"
       v-if="error && isPassword === false"
       class="f-input f-error"
     />
     <a-icon
-      :name="ICONS.check"
+      :name="$icons.names.check"
       v-if="correct && isPassword === false && error === false"
       class="f-input f-correct"
     />
