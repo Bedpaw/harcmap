@@ -18,7 +18,7 @@
       />
       <div
         class="f-flex-1 f-pl-1 f-py-1"
-        ref="toCopy"
+        :ref="setItemRef"
       >
         {{ singleData.value }}
       </div>
@@ -56,6 +56,7 @@ export default {
   },
   data: () => ({
     popup: null,
+    itemRefs: [],
   }),
   computed: {
     ...mapGetters('mapPopup', ['data']),
@@ -89,13 +90,18 @@ export default {
     },
   },
   methods: {
+    setItemRef (el) {
+      if (el) {
+        this.itemRefs.push(el);
+      }
+    },
     definePopup () {
       this.popup = new Popup({
         container: this.$refs.mapPopup,
       });
     },
     copyToClipboard (key) {
-      const element = this.$refs.toCopy[key];
+      const element = this.itemRefs[key];
       actionUtils.copyToClipboard(element);
       communicates.showSuccessTemporary(this.$t('general.copied'));
       this.popup.hide();
@@ -103,6 +109,9 @@ export default {
   },
   beforeDestroy () {
     this.popup.destroy();
+  },
+  beforeUpdate () {
+    this.itemRefs = [];
   },
 };
 </script>

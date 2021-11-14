@@ -2,7 +2,6 @@ import { createApp } from 'vue';
 import i18n from './dictionary';
 import router from './router';
 import { store } from 'store';
-import './directives';
 import './validation';
 import { ACCOUNT_TYPES, permissions } from 'utils/permissions';
 import App from './components/app.vue';
@@ -41,4 +40,5 @@ app.use(VueMaterialIcons);
 app.use(router);
 app.use(store);
 app.use(i18n);
+
 app.mount('#app');

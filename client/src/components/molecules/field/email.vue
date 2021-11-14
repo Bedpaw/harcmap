@@ -1,20 +1,20 @@
 <template>
-  <validation-observer>
-    <validation-provider
-      :name="label.toLowerCase()"
-      :rules="rules.email"
-      v-slot="{ errors }"
-    >
-      <m-input
-        type="email"
-        v-model.trim="vModel"
-        :disabled="disabled"
-        :placeholder="label"
-        :error="errors.length > 0"
-        :assist="errors[0] || assist"
-      />
-    </validation-provider>
-  </validation-observer>
+  <!--  <validation-observer>-->
+  <!--    <validation-provider-->
+  <!--      :name="label.toLowerCase()"-->
+  <!--      :rules="rules.email"-->
+  <!--      v-slot="{ errors }"-->
+  <!--    >-->
+  <m-input
+    type="email"
+    v-model.trim="vModel"
+    :disabled="disabled"
+    :placeholder="label"
+  />
+<!--  :error="errors.length > 0"-->
+<!--  :assist="errors[0] || assist"-->
+<!--    </validation-provider>-->
+<!--  </validation-observer>-->
 </template>
 
 <script>

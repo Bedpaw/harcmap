@@ -1,35 +1,37 @@
 <template>
-  <validation-observer>
-    <validation-provider
-      :name="labels[0].toLowerCase()"
-      :rules="rules.password"
-      v-slot="{ errors }"
-      vid="password"
-    >
-      <m-input
-        :disabled="disabled"
-        :placeholder="labels[0]"
-        type="password"
-        :error="errors.length > 0"
-        :assist="errors[0] || assist"
-        v-model="vModel"
-      />
-    </validation-provider>
-    <validation-provider
-      :name="labels[1].toLowerCase()"
-      :rules="rules.passwordConfirmation"
-      v-slot="{ errors }"
-    >
-      <m-input
-        :disabled="disabled"
-        :placeholder="labels[1]"
-        type="password"
-        :error="errors.length > 0"
-        :assist="errors[0] || assist"
-        v-model="passwordConfirmation"
-      />
-    </validation-provider>
-  </validation-observer>
+  <div>
+    <!--  <validation-observer>-->
+    <!--    <validation-provider-->
+    <!--      :name="labels[0].toLowerCase()"-->
+    <!--      :rules="rules.password"-->
+    <!--      v-slot="{ errors }"-->
+    <!--      vid="password"-->
+    <!--    >-->
+    <m-input
+      :disabled="disabled"
+      :placeholder="labels[0]"
+      type="password"
+      v-model="vModel"
+    />
+    <!--    :error="errors.length > 0"-->
+    <!--  :assist="errors[0] || assist"-->
+    <!--    </validation-provider>-->
+    <!--    <validation-provider-->
+    <!--      :name="labels[1].toLowerCase()"-->
+    <!--      :rules="rules.passwordConfirmation"-->
+    <!--      v-slot="{ errors }"-->
+    <!--    >-->
+    <m-input
+      :disabled="disabled"
+      :placeholder="labels[1]"
+      type="password"
+      v-model="passwordConfirmation"
+    />
+    <!--    :error="errors.length > 0"-->
+    <!--  :assist="errors[0] || assist"-->
+    <!--    </validation-provider>-->
+    <!--  </validation-observer>-->
+  </div>
 </template>
 
 <script>

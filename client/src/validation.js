@@ -1,17 +1,17 @@
-import Vue from 'vue';
-import {
-  // extend as veeExtend,
-  ValidationObserver,
-  ValidationProvider,
-} from 'vee-validate';
+// import Vue from 'vue';
+// import {
+//   // extend as veeExtend,
+//   ValidationObserver,
+//   ValidationProvider,
+// } from 'vee-validate';
 // import * as rules from 'vee-validate/dist/rules';
 // import PL from 'vee-validate/dist/locale/pl.json';
 // import validateTools from 'vendors/validate-tools';
 // import { translator } from 'src/dictionary';
 
 // Register it globally
-Vue.component('validation-provider', ValidationProvider);
-Vue.component('validation-observer', ValidationObserver);
+// Vue.component('validation-provider', ValidationProvider);
+// Vue.component('validation-observer', ValidationObserver);
 
 // const { messages } = PL;
 

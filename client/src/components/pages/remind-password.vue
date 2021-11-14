@@ -7,7 +7,7 @@
       :is-send="formSend"
       :on-submit="remindPassword"
     >
-      <template slot="form">
+      <template v-slot:form>
         <m-field-email
           :disabled="blockForm"
           v-model="user"
@@ -18,7 +18,7 @@
         />
       </template>
 
-      <template slot="response">
+      <template v-slot:response>
         <div class="f-py-2 f-text-bold">
           {{ $t('page.remindPassword.success') }}
         </div>

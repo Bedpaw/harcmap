@@ -4,7 +4,7 @@
       :is-send="formSend"
       :on-submit="signUp"
     >
-      <template slot="form">
+      <template v-slot:form>
         <m-field-email
           v-model="values.user"
           :disabled="blockForm"
@@ -32,7 +32,7 @@
         />
       </template>
 
-      <template slot="response">
+      <template v-slot:response>
         <div class="f-py-2">
           <div class="f-pb-2 f-bold">{{ $t('page.signUp.registrationDone') }}</div>
           {{ $t('page.signUp.linkHasBeenSent') }}

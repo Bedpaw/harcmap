@@ -7,7 +7,7 @@
       :is-send="formSend"
       :on-submit="changePassword"
     >
-      <template slot="form">
+      <template v-slot:form>
         <m-field-set-password
           :disabled="blockForm"
           v-model="password"
@@ -20,7 +20,7 @@
         />
       </template>
 
-      <template slot="response">
+      <template v-slot:response>
         <div class="f-py-2 f-text-bold">
           {{ $t('communicate.changePassword.success') }}
         </div>

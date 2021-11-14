@@ -5,8 +5,7 @@
       @actionTriggered="onSavePosition"
       @cancel="$emit('cancel')"
     >
-      <template slot="text">{{ $t('page.admin.setMapPosition.content') }}</template>
-      <template slot="button-name">{{ $t('form.button.choose') }}</template>
+      <template v-slot:text>{{ $t('page.admin.setMapPosition.content') }}</template>
     </m-banner-map>
   </o-map>
 </template>

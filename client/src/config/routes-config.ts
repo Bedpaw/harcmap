@@ -144,7 +144,7 @@ const choseEventRoutes = {
 
 const alwaysAllowedRoutes = {
   error: {
-    path: '*',
+    path: '/:pathMatch(.*)',
     name: 'error',
   },
   about: {

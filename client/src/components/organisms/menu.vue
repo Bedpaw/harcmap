@@ -20,7 +20,7 @@
       v-for="(route, key) in links"
       :key="key"
       :to="route.path"
-      @click.native="close()"
+      @click="close()"
       class="a-link f-menu"
       :class="{ 'f-selected': isActualPath(route) }"
     >
