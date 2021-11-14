@@ -16,10 +16,6 @@ initApp();
 
 const app = createApp(App);
 app.mixin({
-  compatConfig: {
-    MODE: 2,
-    OPTIONS_DESTROYED: false,
-  },
   computed: {
     ROUTES: () => ROUTES,
     ACCOUNT_TYPES: () => ACCOUNT_TYPES,
