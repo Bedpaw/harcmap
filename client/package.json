@@ -17,7 +17,7 @@
     "dayjs": "^1.10.7",
     "js-cookie": "^2.2.1",
     "js-search": "^2.0.0",
-    "ol": "^6.2.1",
+    "ol": "^6.9.0",
     "vee-validate": "^4.5.5",
     "vue": "^3.2.21",
     "vue-concise-slider": "^4.2.1",
