@@ -25,7 +25,7 @@ export const pl = {
     eventsList: 'Lista wydarzeń',
     joinEvent: 'Dołącz do wydarzenia',
     usersList: 'Użytkownicy',
-    teamView: 'Druzyna',
+    teamView: 'Drużyna',
     short: {
       start: 'start',
       map: 'mapa',
@@ -152,6 +152,13 @@ export const pl = {
       sumTitle: 'Suma punktów wg kategorii',
       listTitle: 'Lista zebranych punktów',
       noPoints: 'Brak zebranych punktów',
+    },
+    teamView: {
+      mainHeaderPartOne: 'Do tej pory zdobyliśmy ',
+      mainHeaderPartTwo: ' punktów',
+      membersHeader: 'Członkowie drużyny',
+      nickname: 'Pseudonim',
+      email: 'Email',
     },
     scoreboard: {
       completionLevelOfTheGame: 'Poziom realizacji gry',
