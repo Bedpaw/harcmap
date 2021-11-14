@@ -1,7 +1,6 @@
 <template>
   <a-button-icon
     class="f-footer"
-    @click="$emit('click')"
   >
     <a-icon
       :name="icon"

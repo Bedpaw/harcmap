@@ -16,7 +16,7 @@
     :half="false"
     :gap="10"
     fontSize="16px">
-    <span slot="legend-value">/{{ maxRange }}</span>
+    <!--    <span slot="legend-value">/{{ maxRange }}</span>-->
   </vue-ellipse-progress>
 </template>
 
