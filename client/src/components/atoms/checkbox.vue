@@ -22,9 +22,6 @@
 
 <script>
 import { mixins } from 'mixins/base';
-import { materialIcons } from '@dbetka/vue-material-icons';
-
-const ICONS = materialIcons.names;
 
 export default {
   name: 'a-checkbox',
@@ -50,8 +47,8 @@ export default {
       };
     },
     iconName () {
-      const checkedIcon = ICONS.check_box;
-      const uncheckedIcon = ICONS.check_box_outline_blank;
+      const checkedIcon = this.$icons.names.check_box;
+      const uncheckedIcon = this.$icons.names.check_box_outline_blank;
       return this.checked ? checkedIcon : uncheckedIcon;
     },
   },

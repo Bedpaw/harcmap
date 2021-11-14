@@ -39,7 +39,7 @@
         @click="eventPositionIsSetting = true"
       >
         <a-icon
-          :name="hasSetPosition ? ICONS.check_box : ICONS.check_box_outline_blank"
+          :name="hasSetPosition ? $icons.names.check_box : $icons.names.check_box_outline_blank"
           class="f-mr-1"
         />
         <div>{{ $t('form.button.setDefaultMapPositionAndZoom') }}</div>
