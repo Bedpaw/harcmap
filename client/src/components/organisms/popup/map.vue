@@ -63,7 +63,7 @@ export default {
     buttons () {
       const buttons = [
         {
-          icon: this.ICONS.edit,
+          icon: this.$icons.names.edit,
           label: this.$t('general.edit'),
           method: () => {
             this.$router.push({
@@ -73,7 +73,7 @@ export default {
           },
         },
         {
-          icon: this.ICONS.delete,
+          icon: this.$icons.names.delete,
           label: this.$t('general.remove'),
           method: () => {
             if (confirm(translator.t('communicate.map.confirmPointRemove'))) {

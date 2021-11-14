@@ -88,14 +88,14 @@ export default {
           onClick: this.navigateToJoinEvent.bind(this),
           text: this.$t('page.eventsList.joinEvent'),
           iconLeftProps: {
-            name: this.ICONS.check,
+            name: this.$icons.names.check,
           },
         },
         {
           onClick: this.navigateToCreateEvent.bind(this),
           text: this.$t('page.eventsList.createEvent'),
           iconLeftProps: {
-            name: this.ICONS.add,
+            name: this.$icons.names.add,
           },
         },
       ];
