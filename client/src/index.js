@@ -5,7 +5,7 @@ import { store } from 'store';
 import './validation';
 import { ACCOUNT_TYPES, permissions } from 'utils/permissions';
 import App from './components/app.vue';
-import VueEllipseProgress from 'vue-ellipse-progress';
+import veProgress from 'vue-ellipse-progress';
 import Vue2TouchEvents from 'vue2-touch-events';
 import 'utils/dev-mode/auto-login';
 import { materialIcons } from '@dbetka/vue-material-icons';
@@ -31,7 +31,7 @@ app.mixin({
 });
 
 app.use(Vue2TouchEvents);
-app.use(VueEllipseProgress);
+app.use(veProgress);
 app.use(materialIcons);
 app.use(router);
 app.use(store);
