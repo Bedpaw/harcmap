@@ -6,15 +6,12 @@ const Joi = require('joi');
 /**
  * Universal props
  */
-const objectIdPattern = '^[a-fA-F0-9]{24,24}$'; // 24 character long hexadecimal pattern
-const keysPattern = '^[ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz123456789]{4,4}$'; // except [O0Il] characters
-
 const date = Joi.number()
   .integer()
   .unsafe() // Date.now() max value is greater then js MAX_SAFE_INTEGER
   .max(8640000000000000); // that's the max value of Date.now()
 const keys = Joi.string()
-  .pattern(new RegExp(keysPattern));
+  .pattern(/^[ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz123456789]{4}$/); // all characters except [O0Il]
 const mapCoordinates = Joi.object({
   longitude: Joi.number()
     .min(-180)
@@ -26,20 +23,18 @@ const mapCoordinates = Joi.object({
     .required(),
 });
 const objectIdInRequest = Joi.string()
-  .pattern(new RegExp(objectIdPattern));
+  .pattern(/^[a-fA-F0-9]{24}$/); // 24 character long hexadecimal pattern
 const objectIdInDatabase = Joi.object();
 
 /**
  * Users props
  */
-const passwordPattern = '^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,24}$';
-
 const email = Joi.string()
   .email()
   .max(24)
   .trim();
 const password = Joi.string()
-  .pattern(new RegExp(passwordPattern));
+  .pattern(/^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,24}$/);
 const role = Joi.string()
   .equal('creator', 'admin', 'teamLeader', 'teamMember');
 const teamName = Joi.string()
