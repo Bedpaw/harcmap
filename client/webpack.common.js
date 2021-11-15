@@ -61,7 +61,7 @@ module.exports = {
   },
   plugins: [
     new ESLintPlugin({
-      extensions: ['js', 'vue'],
+      extensions: ['js', 'vue', 'ts'],
       formatter: require.resolve('eslint-friendly-formatter'),
       eslintPath: require.resolve('eslint'),
       useEslintrc: true,
