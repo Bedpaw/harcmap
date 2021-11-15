@@ -45,6 +45,35 @@ function getTeams (query) {
       },
     },
   }, {
+    $lookup: {
+      from: 'keys',
+      localField: '_id',
+      foreignField: 'teamId',
+      as: 'inviteKeys',
+    },
+  }, {
+    $unwind: '$inviteKeys',
+  }, {
+    $group: {
+      _id: '$_id',
+      teamName: {
+        $first: '$teamName',
+      },
+      collectedPoints: {
+        $first: '$collectedPoints',
+      },
+      teamMembers: {
+        $first: '$teamMembers',
+      },
+      inviteKeys: {
+        $push: {
+          keyId: '$inviteKeys._id',
+          role: '$inviteKeys.role',
+          key: '$inviteKeys.key',
+        },
+      },
+    },
+  }, {
     $sort: {
       _id: 1,
     },

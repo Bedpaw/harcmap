@@ -26,9 +26,17 @@ const endpointsAccessConfig = {
   // events endpoints
   '/api/v1/events': [users.authenticated],
   '/api/v1/events/:eventId': [users.creator, users.admin],
+  // categories
   '/api/v1/events/:eventId/categories': [users.creator, users.admin],
+  // teams
   '/api/v1/events/:eventId/teams': [users.creator, users.admin],
   '/api/v1/events/:eventId/teams/:teamId': [users.creator, users.admin],
+  // points
+  '/api/v1/events/:eventId/points': {
+    GET: [users.authenticated],
+    POST: [users.creator, users.admin],
+  },
+  '/api/v1/events/:eventId/points/:pointId': [users.creator, users.admin],
 };
 
 module.exports = endpointsAccessConfig;

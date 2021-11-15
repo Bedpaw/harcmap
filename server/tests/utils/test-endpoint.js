@@ -84,14 +84,19 @@ function testEndpoint (endpoint, config) {
       status: responseStatus,
     } = response;
     const responseContentType = headers['content-type'];
-    const responseBody = JSON.parse(text);
+    let responseBody;
+    try {
+      responseBody = JSON.parse(text);
+    } catch (error) {
+      responseBody = text;
+    }
 
     const expectedContentType = 'application/json; charset=utf-8';
 
     // assertions
-    expect(responseContentType).toBe(expectedContentType);
     expect(responseBody).toEqual(expectedBody);
     expect(responseStatus).toBe(expectedStatus);
+    expect(responseContentType).toBe(expectedContentType);
 
     // check in db if necessary
     if (expectInDb) {

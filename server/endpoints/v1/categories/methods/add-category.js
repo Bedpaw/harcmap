@@ -1,8 +1,8 @@
 const Categories = require('../../../../models/categories');
-const { ObjectId } = require('../../../../libs/mongodb');
+const { ObjectId } = require('mongodb');
 
-async function addCategory (data) {
-  const eventId = ObjectId(data.eventId);
+async function addCategory (eventIdString, data) {
+  const eventId = ObjectId(eventIdString);
   const dataToInsert = { ...data, eventId };
   // TODO create ONE
   const results = await Categories.create(dataToInsert);

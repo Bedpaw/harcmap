@@ -16,8 +16,8 @@ router.route('/:eventId/categories')
     response.send(result);
   })
   .post(async (request, response) => {
-    const { body } = request;
-    const result = await addCategory(body);
+    const { eventId } = request.params;
+    const result = await addCategory(eventId, request.body);
 
     response.send(result);
   });

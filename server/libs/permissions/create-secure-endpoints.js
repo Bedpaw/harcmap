@@ -64,7 +64,11 @@ function createSecuredEndpoints (app, config) {
       } else
       // only logged users can request for this resource
       if (usersWithAccessToEndpoint.includes('authenticated')) {
-        PASS = isAuth;
+        if (eventId) {
+          PASS = isAuth && !!userRole;
+        } else {
+          PASS = isAuth;
+        }
       } else
       // user role(in event scope) is in path permission object
       if (eventId && usersWithAccessToEndpoint.includes(userRole)) {

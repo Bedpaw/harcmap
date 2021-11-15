@@ -17,6 +17,11 @@ describe('/api/v1/events/:eventId/teams/:teamId', () => {
           role: 'teamMember',
           userId: '6074ab220b6c6887ac32adaa',
         }],
+        inviteKeys: [{
+          keyId: '60758ddf32eed00e1a283911',
+          role: 'teamMember',
+          key: 'hd5b',
+        }],
       },
     },
   });

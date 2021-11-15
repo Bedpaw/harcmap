@@ -150,6 +150,22 @@ db.keys.insert({
   'teamId': null,
 });
 
+db.keys.insert({
+  '_id': ObjectId('60758ddf32eed00e1a283911'),
+  'key': 'hd5b',
+  'role': 'teamMember',
+  'eventId': ObjectId('605920002c60e426288b8971'),
+  'teamId': ObjectId('60e6b02e0b6c6887accf6c05'),
+});
+
+db.keys.insert({
+  '_id': ObjectId('60758ddf32eed00e1a283990'),
+  'key': 'ggy5',
+  'role': 'teamMember',
+  'eventId': ObjectId('605920002c60e426288b8971'),
+  'teamId': ObjectId('60e6b02e0b6c6887accf6c03'),
+});
+
 db.events.insert({
   '_id': ObjectId('60e6cc2eaa95cc33d7c46701'),
   'eventName': 'event1',

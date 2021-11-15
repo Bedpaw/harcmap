@@ -10,6 +10,7 @@ const date = Joi.number()
   .integer()
   .unsafe() // Date.now() max value is greater then js MAX_SAFE_INTEGER
   .max(8640000000000000); // that's the max value of Date.now()
+const dateWithNull = Joi.number().allow(null);
 const keys = Joi.string()
   .pattern(/^[ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz123456789]{4}$/); // all characters except [O0Il]
 const mapCoordinates = Joi.object({
@@ -87,6 +88,12 @@ const categoryName = Joi.string()
   .max(24)
   .trim();
 
+/**
+ * Keys props
+ */
+const keysRole = Joi.string()
+  .equal('teamMember', 'teamLeader', 'observer', 'admin', 'creator');
+
 module.exports = {
   keys,
   objectIdInDatabase,
@@ -96,6 +103,7 @@ module.exports = {
   role,
   eventName,
   date,
+  dateWithNull,
   defaultMapZoom,
   mapCoordinates,
   categoryName,
@@ -106,4 +114,5 @@ module.exports = {
   pointName,
   pointType,
   collectedPoints,
+  keysRole,
 };

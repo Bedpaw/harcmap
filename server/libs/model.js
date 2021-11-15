@@ -51,8 +51,10 @@ class Model {
 
     // validation failed
     if (validationResults.nok) {
-      result.error = errorCodes.MODEL_VALIDATION_NOT_PASS;
-      result.errorDetails = validationResults.results;
+      throw new AppError(errorCodes.MODEL_VALIDATION_NOT_PASS, {
+        httpStatus: 500,
+        details: validationResults.results,
+      });
     } else {
       const itemsToCreate = validationResults.results.valid.map((item) => item.value);
       const collection = await mongodb.getCollection(this.collectionName);
@@ -135,7 +137,7 @@ class Model {
 
     if (aggregationPipeline) {
       const aggregation = aggregationPipeline(filters);
-      
+
       result = await collection.aggregate(aggregation).toArray();
     } else {
       result = await collection.find(filters).toArray();

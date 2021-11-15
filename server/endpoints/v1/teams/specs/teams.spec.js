@@ -22,6 +22,11 @@ describe('/api/v1/events/:eventId/teams', () => {
           role: 'admin',
           userId: '6074ab220b6c6887ac32adbb',
         }],
+        inviteKeys: [{
+          keyId: '60758ddf32eed00e1a283990',
+          role: 'teamMember',
+          key: 'ggy5',
+        }],
       }, {
         teamId: '60e6b02e0b6c6887accf6c05',
         teamName: 'team3',
@@ -30,6 +35,11 @@ describe('/api/v1/events/:eventId/teams', () => {
           email: 'member@harcmap.com',
           role: 'teamMember',
           userId: '6074ab220b6c6887ac32adaa',
+        }],
+        inviteKeys: [{
+          keyId: '60758ddf32eed00e1a283911',
+          role: 'teamMember',
+          key: 'hd5b',
         }],
       }],
     },
