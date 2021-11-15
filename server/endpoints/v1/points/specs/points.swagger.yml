@@ -1,7 +1,6 @@
 paths:
   /events/:eventId/points:
     get:
-      deprecated: true
       summary: 'Get list of points in event with eventId (SECURED)'
       description: 'Special privilege required'
       tags:
@@ -18,8 +17,6 @@ paths:
                   properties:
                     pointId:
                       $ref: '#/components/props/pointId'
-                    pointKey:
-                      $ref: '#/components/props/pointKey'
                     pointName:
                       $ref: '#/components/props/pointName'
                     pointType:
@@ -30,7 +27,7 @@ paths:
                       $ref: '#/components/props/pointDuration'
                     pointPosition:
                       $ref: '#/components/props/pointPosition'
-                    pointCategory:
+                    pointCategoryId:
                       $ref: '#/components/props/categoryId'
         400:
           description: 'Validation error'
@@ -45,7 +42,6 @@ paths:
               schema:
                 $ref: '#/components/responses/401'
     post:
-      deprecated: true
       summary: 'Add point (SECURED)'
       description: 'Special privilege required'
       tags:
@@ -56,8 +52,12 @@ paths:
             schema:
               type: object
               properties:
+                pointId:
+                  $ref: '#/components/props/pointId'
                 pointName:
                   $ref: '#/components/props/pointName'
+                pointKey:
+                  $ref: '#/components/props/pointKey'  
                 pointType:
                   $ref: '#/components/props/pointType'
                 pointDuration:
@@ -134,48 +134,7 @@ paths:
               schema:
                 $ref: '#/components/responses/401'
   /events/:eventId/points/:pointId:
-    get:
-      deprecated: true
-      summary: 'Get point with pointId from event with eventId (SECURED)'
-      description: 'Special privilege required'
-      tags:
-        - Points
-      responses:
-        200:
-          description: 'Point data'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  pointKey:
-                    $ref: '#/components/props/pointKey'
-                  pointName:
-                    $ref: '#/components/props/pointName'
-                  pointType:
-                    $ref: '#/components/props/pointType'
-                  pointCollectedDate:
-                    $ref: '#/components/props/pointCollectedDate'
-                  pointDuration:
-                    $ref: '#/components/props/pointDuration'
-                  pointPosition:
-                    $ref: '#/components/props/pointPosition'
-                  pointCategory:
-                    $ref: '#/components/props/categoryId'
-        400:
-          description: 'Validation error'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/400'
-        401:
-          description: 'No permissions'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/401'
     put:
-      deprecated: true
       summary: 'Update point with pointId from event with eventId (SECURED)'
       description: 'Special privilege required'
       tags:
@@ -221,7 +180,6 @@ paths:
               schema:
                 $ref: '#/components/responses/401'
     delete:
-      deprecated: true
       summary: 'Delete point with pointId from event with eventId (SECURED)'
       description: 'Special privilege required'
       tags:

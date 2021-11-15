@@ -85,7 +85,6 @@ paths:
               schema:
                 $ref: '#/components/responses/401'
     put:
-      deprecated: true
       summary: 'Update event with :id (SECURED)'
       description: 'Special privilege required'
       tags:

@@ -12,6 +12,7 @@ async function getTeams (eventId) {
       _id,
       teamName,
       teamMembers,
+      inviteKeys,
       collectedPoints,
     } = result;
 
@@ -19,6 +20,7 @@ async function getTeams (eventId) {
       teamId: _id,
       teamName,
       teamMembers,
+      inviteKeys: inviteKeys.map(key => ({ ...key, keyId: key.keyId.toString() })),
       collectedPoints: collectedPoints.map(id => id.toString()),
     };
   });

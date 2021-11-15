@@ -9,7 +9,6 @@ const {
 } = require('../../../libs/common-schemas');
 
 const onePoint = {
-  GET: Joi.object({}),
   PUT: Joi.object({
     pointName: pointName,
     pointType: pointType,

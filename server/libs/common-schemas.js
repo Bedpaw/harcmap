@@ -7,6 +7,7 @@ const Joi = require('joi');
  * Universal props
  */
 const date = Joi.number();
+const dateWithNull = Joi.number().allow(null);
 const keys = Joi.string()
   .length(4);
 const mapCoordinates = Joi.number();
@@ -54,6 +55,12 @@ const pointValue = Joi.number();
 const pointShape = Joi.string();
 const categoryName = Joi.string();
 
+/**
+ * Keys props
+ */
+const keysRole = Joi.string()
+  .equal('teamMember', 'teamLeader', 'observer', 'admin', 'creator');
+
 module.exports = {
   keys,
   objectIdInDatabase,
@@ -63,6 +70,7 @@ module.exports = {
   role,
   eventName,
   date,
+  dateWithNull,
   defaultMapZoom,
   mapCoordinates,
   categoryName,
@@ -73,4 +81,5 @@ module.exports = {
   pointName,
   pointType,
   collectedPoints,
+  keysRole,
 };
