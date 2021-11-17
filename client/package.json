@@ -17,6 +17,7 @@
     "dayjs": "^1.10.7",
     "js-cookie": "^2.2.1",
     "js-search": "^2.0.0",
+    "lazy-line-painter": "^1.9.6",
     "ol": "^6.2.1",
     "vee-validate": "^3.4.11",
     "vue": "^2.6.14",

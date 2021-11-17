@@ -71,7 +71,7 @@ function makeFirstRun () {
       .then(session.tryLogin)
       .then(resolve)
       .catch(reject)
-      .finally(() => promiseUtils.timeout(1000))
+      .finally(() => promiseUtils.timeout(2000))
       .finally(() => store.commit('setIsLoading', false));
   });
 }

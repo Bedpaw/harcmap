@@ -18,9 +18,7 @@
     <o-popup/>
     <m-snackbar/>
     <o-guide/>
-    <transition name="fade">
-      <o-loading v-show="isLoading"/>
-    </transition>
+    <o-loading/>
   </div>
 </template>
 
