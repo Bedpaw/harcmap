@@ -49,6 +49,6 @@ ___
 2. Find and open `Develop` tab
 3. Find `Simulator` and click on `localhost` below HarcMap.
 
-#### Real android device
+#### Real iOS device
 // Todo
 
