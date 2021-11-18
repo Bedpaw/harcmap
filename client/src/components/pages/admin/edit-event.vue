@@ -26,6 +26,7 @@ export default {
     this.defaultValues.mapLatitude = this.event.mapDefaultLatitude;
     this.defaultValues.mapLongitude = this.event.mapDefaultLongitude;
     this.defaultValues.mapZoom = this.event.mapDefaultZoom;
+    this.defaultValues.eventRules = this.event.eventRules;
   },
   computed: {
     ...mapGetters('event', [
