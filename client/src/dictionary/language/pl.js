@@ -154,11 +154,12 @@ export const pl = {
       noPoints: 'Brak zebranych punktów',
     },
     teamView: {
-      mainHeaderPartOne: 'Do tej pory zdobyliśmy ',
-      mainHeaderPartTwo: ' punktów',
+      mainHeaderPartOne: 'Do tej pory zdobyliśmy',
+      mainHeaderPartTwo: 'punktów',
       membersHeader: 'Członkowie drużyny',
       nickname: 'Pseudonim',
       email: 'Email',
+      role: 'Rola',
     },
     scoreboard: {
       completionLevelOfTheGame: 'Poziom realizacji gry',

@@ -1,23 +1,27 @@
 <template>
-  <div class="m-grid f-category-sum f-mb-1">
-    <div>{{this.$props.nickname}}</div>
-    <div>{{this.$props.email}}</div>
+  <div class="m-grid f-team-view f-mb-1">
+    <a-icon :type="ICONS_TYPES.outlined" :name=getUserIcon(user) />
+    <div>{{user.nickname}}</div>
+    <div>{{user.email}}</div>
   </div>
 </template>
 
 <script>
+import { userUtils } from 'config/users-config';
+
 export default {
   name: 'm-row-team-row',
   components: {
   },
   props: {
-    nickname: {
-      type: String,
+    user: {
+      type: Object,
       required: true,
     },
-    email: {
-      type: String,
-      required: true,
+  },
+  methods: {
+    getUserIcon (user) {
+      return userUtils.getIcon(user);
     },
   },
 };

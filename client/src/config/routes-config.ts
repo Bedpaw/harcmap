@@ -86,7 +86,7 @@ const authRoutes = {
   },
   teamView: {
     name: 'teamView',
-    icon: ICONS.settings,
+    icon: ICONS.people,
   },
 };
 
