@@ -58,7 +58,6 @@ export default {
       },
       set (value) {
         if (value) {
-          console.log(value);
           this.$emit('input', getDate.fromFormat(value, DATE_FORMATS.YYYYMMDDTHHmm));
         } else return null;
       },
