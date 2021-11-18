@@ -214,6 +214,10 @@ export const pl = {
       adminPanel: {
         downloadPointsList: 'Pobierz listę punktów',
       },
+      eventForm: {
+        showAdvancedOptions: 'Pokaż opcje zaawansowane',
+        hideAdvancedOptions: 'Schowaj opcje zaawansowane',
+      },
     },
   },
   error: {
@@ -317,6 +321,35 @@ export const pl = {
     userObserver: 'Obserwator użytkownika',
     organizer: 'Organizator',
     accountType: 'Typ konta',
+  },
+  gameRules: {
+    category: {
+      user: {
+        map: 'Ustawienia mapy użytkownika',
+      },
+    },
+    description: {
+      GeolocationAvailability: 'NOT IMPLEMENTED',
+      PointDetailsVisibilityOnMap: 'Widoczność szczegółów na mapie pozwala użytkownikom na otworzenie dodatkowego menu po kliknięciu na punkt na mapie',
+    },
+    name: {
+      GeolocationAvailability: 'Ustawienia geolokalizacji',
+      PointDetailsVisibilityOnMap: 'Widoczność szczegółów punktu',
+    },
+    options: {
+      GeolocationAvailability: {
+        Required: 'Wymagana',
+        Available: 'Dostępna',
+        Forbidden: 'Zabroniona',
+      },
+    },
+    optionsDescription: {
+      GeolocationAvailability: {
+        Required: 'Wymagana geolokalizacja nie pozwala zalogować się użytkownikowi do gry jeśli nie zaakceptował jej w swojej przeglądarce',
+        Available: 'Dostępna geolokalizacja pozwala użytkownikowi na zobaczenie swojej pozycji na mapie ',
+        Forbidden: 'Zabroniona geolokalizacji nie pozwala użytkownikowi zobaczenia swojej pozycji na mapie',
+      },
+    },
   },
   features: {
     timer: {
