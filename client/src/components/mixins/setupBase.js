@@ -1,4 +1,4 @@
-import { computed, toRefs } from 'vue';
+import { computed, toRefs, watch } from 'vue';
 import useVuelidate from '@vuelidate/core';
 
 export const modelValueMixin = {
@@ -47,8 +47,9 @@ export const useFieldValidation = (props, context, defaultRules = []) => {
     { vModel },
   );
 
-  const isError = computed(() => v$.value.vModel?.$silentErrors.length > 0);
-  const errorMessage = computed(() => v$.value.vModel?.$silentErrors[0]?.$message || '');
+  watch(vModel, () => v$.value.vModel.$touch());
+  const isError = computed(() => v$.value.vModel?.$error);
+  const errorMessage = computed(() => v$.value.vModel?.$errors[0]?.$message || '');
 
   return {
     vModel,

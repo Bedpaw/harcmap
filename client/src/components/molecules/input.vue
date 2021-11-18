@@ -7,6 +7,7 @@
       :type="getType"
       :disabled="disabled"
       v-model="vModel"
+      @blur="$emit('blur', $event)"
     />
     <label
       class="a-label f-field"
@@ -52,6 +53,7 @@ import { mixins } from 'mixins/base';
 export default {
   name: 'm-input',
   mixins: [mixins.vModel],
+  emits: ['blur'],
   props: {
     disabled: {
       type: Boolean,

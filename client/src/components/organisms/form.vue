@@ -12,12 +12,10 @@
 <script>
 import useVuelidate from '@vuelidate/core';
 import { store } from 'store';
+import { toRefs } from 'vue';
 
 export default {
   name: 'o-form',
-  setup () {
-    return { v$: useVuelidate() };
-  },
   props: {
     onSubmit: {
       type: Function,
@@ -28,17 +26,26 @@ export default {
       default: false,
     },
   },
-  methods: {
-    handleSubmit () {
-      if (this.v$.$silentErrors.length === 0) {
-        this.onSubmit();
-      } else {
+  setup (props) {
+    const v$ = useVuelidate();
+    const { onSubmit } = toRefs(props);
+
+    function handleSubmit () {
+      if (v$.value.$invalid) {
+        v$.value.$touch();
         store.dispatch('snackbar/openTemporary', {
-          message: 'Wypełnij formularz poprawnie',
+          message: 'Wypełnij poprawnie formularz',
           error: true,
         });
+      } else {
+        onSubmit();
       }
-    },
+    }
+
+    return {
+      handleSubmit,
+      v$,
+    };
   },
 };
 </script>
