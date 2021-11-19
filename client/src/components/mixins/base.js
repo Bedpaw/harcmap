@@ -1,14 +1,15 @@
 import { vueModel, vueModelCheckbox } from 'extends/base';
 import { formMixin as form } from './form';
-import { validationMixin as validation } from './validation';
+import { validationRulesMixin as formValidation, validateMixin as fieldValidation } from './validation';
 
 const vModel = {
   props: {
-    value: {},
+    modelValue: {},
   },
   computed: {
     vModel: vueModel,
   },
+  emits: ['update:modelValue'],
 };
 const vModelCheckbox = {
   model: {
@@ -47,5 +48,6 @@ export const mixins = {
   vModelRadio,
   vModelCheckbox,
   form,
-  validation,
+  formValidation,
+  fieldValidation,
 };

@@ -1,19 +1,23 @@
 <template>
-  <!--  <validation-observer tag="div" v-slot="{ handleSubmit }">-->
   <form
     class="f-flex f-flex-col f-pb-1 f-text-left"
+    @submit.prevent="handleSubmit"
   >
-    <!--    @submit.prevent="handleSubmit(onSubmit)"-->
     <slot v-if="isSend === false"/>
     <slot name="form" v-if="isSend === false"/>
     <slot v-else name="response"/>
   </form>
-<!--  </validation-observer>-->
 </template>
 
 <script>
+import useVuelidate from '@vuelidate/core';
+import { store } from 'store';
+
 export default {
   name: 'o-form',
+  setup () {
+    return { v$: useVuelidate() };
+  },
   props: {
     onSubmit: {
       type: Function,
@@ -22,6 +26,18 @@ export default {
     isSend: {
       type: Boolean,
       default: false,
+    },
+  },
+  methods: {
+    handleSubmit () {
+      if (this.v$.$silentErrors.length === 0) {
+        this.onSubmit();
+      } else {
+        store.dispatch('snackbar/openTemporary', {
+          message: 'Wypełnij formularz poprawnie',
+          error: true,
+        });
+      }
     },
   },
 };
