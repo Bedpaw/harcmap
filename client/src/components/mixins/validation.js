@@ -1,36 +1,36 @@
-import { required, minLength, maxLength, email } from '@vuelidate/validators';
+import { validationRules } from 'config/validationRules';
 
-const definedRules = { // based on vee-validate rules
-  email: [required, email],
-  password: 'required minLength:8 maxLength:64 hasNumber hasCapitalize',
-  passwordConfirmation: 'required confirmed:password',
-  userTeam: [required, minLength(4)],
-  eventId: [required, minLength(4), maxLength(4)],
-  pointId: [required, minLength(4), maxLength(4)],
-  required: [required],
-  name: [maxLength(128)],
-  date: [required],
+export const formValidation = {
+  computed: {
+    validationRules () {
+      return validationRules;
+    },
+  },
 };
 
-export const validationRulesMixin = {
-  data: () => ({ definedRules }),
-};
-
-export const validateMixin = {
-  data: () => ({ definedRules }),
+export const fieldValidation = (rules = []) => ({
   props: {
     rules: {
       type: Array,
-      default: '',
+      default: () => [],
     },
   },
   computed: {
-    rulesObjects () {
+    isError () {
+      return this.v$?.vModel?.$silentErrors?.length > 0;
+    },
+    errorMessage () {
+      return this.v$?.vModel?.$silentErrors[0]?.$message || '';
+    },
+    validationRules () {
+      return validationRules;
+    },
+    validationConfig () {
       const config = {};
-      for (const rule of this.rules) {
+      for (const rule of [...rules, ...this.rules]) {
         config[rule.$params.type] = rule;
       }
       return config;
     },
   },
-};
+});

@@ -1,6 +1,6 @@
 import { vueModel, vueModelCheckbox } from 'extends/base';
 import { formMixin as form } from './form';
-import { validationRulesMixin as formValidation, validateMixin as fieldValidation } from './validation';
+import { formValidation, fieldValidation } from './validation';
 
 const vModel = {
   props: {

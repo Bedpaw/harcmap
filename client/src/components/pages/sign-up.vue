@@ -5,24 +5,24 @@
       :on-submit="signUp"
     >
       <template v-slot:form>
-        <!--        <m-field-email-->
-        <!--          v-model="values.user"-->
-        <!--          :disabled="blockForm"-->
-        <!--        />-->
+        <m-field-email
+          v-model="values.user"
+          :disabled="blockForm"
+        />
         <!--        <m-field-set-password-->
         <!--          v-model="values.password"-->
         <!--          :disabled="blockForm"-->
         <!--        />-->
         <m-field-text
           :label="$t('form.field.userTeam')"
-          :rules="definedRules.userTeam"
+          :rules="validationRules.userTeam"
           v-model="values.userTeam"
           :disabled="blockForm"
           :assist="$t('form.assist.userTeam')"
         />
         <m-field-text
           :label="$t('form.field.eventId')"
-          :rules="definedRules.eventId"
+          :rules="validationRules.eventId"
           v-model="values.eventId"
           :disabled="blockForm"
         />
@@ -59,7 +59,10 @@ import AButtonPrimary from 'atoms/button/primary';
 
 export default {
   name: 'p-sign-up',
-  mixins: [mixins.form, mixins.formValidation],
+  mixins: [
+    mixins.form,
+    mixins.formValidation,
+  ],
   components: {
     TPage,
     AButtonPrimary,

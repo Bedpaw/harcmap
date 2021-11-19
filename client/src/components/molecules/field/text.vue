@@ -4,8 +4,8 @@
     v-model="vModel"
     :disabled="disabled"
     :placeholder="label"
-    :error="v$.vModel.$silentErrors.length > 0"
-    :assist="v$.vModel.$silentErrors[0]?.$message || assist"
+    :error="isError"
+    :assist="errorMessage || assist"
   />
 </template>
 
@@ -16,7 +16,10 @@ import { mixins } from 'mixins/base';
 
 export default {
   name: 'm-field-text',
-  mixins: [mixins.vModel, mixins.fieldValidation],
+  mixins: [
+    mixins.vModel,
+    mixins.fieldValidation(),
+  ],
   components: { MInput },
   setup () {
     return { v$: useVuelidate() };
@@ -33,9 +36,7 @@ export default {
     },
   },
   validations () {
-    return {
-      vModel: this.rulesObjects,
-    };
+    return { vModel: this.validationConfig };
   },
 };
 </script>

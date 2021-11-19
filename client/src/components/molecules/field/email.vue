@@ -21,10 +21,14 @@
 import MInput from 'molecules/input';
 import { mixins } from 'mixins/base';
 import { translator } from 'src/dictionary';
+import { validationRules } from 'config/validationRules';
 
 export default {
   name: 'm-field-email',
-  mixins: [mixins.vModel, mixins.validation],
+  mixins: [
+    mixins.vModel,
+    mixins.fieldValidation(validationRules.email),
+  ],
   components: { MInput },
   props: {
     disabled: Boolean,
