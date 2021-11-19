@@ -13,17 +13,15 @@
 import useVuelidate from '@vuelidate/core';
 import MInput from 'molecules/input';
 import { mixins } from 'mixins/base';
+import { modelValueMixin, useModelValue } from 'mixins/setupBase';
 
 export default {
   name: 'm-field-text',
   mixins: [
-    mixins.vModel,
+    modelValueMixin,
     mixins.fieldValidation(),
   ],
   components: { MInput },
-  setup () {
-    return { v$: useVuelidate() };
-  },
   props: {
     disabled: Boolean,
     label: {
@@ -34,6 +32,18 @@ export default {
       type: String,
       default: '',
     },
+    rules: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  setup (props, context) {
+    const { vModel } = useModelValue(props, context);
+
+    return {
+      vModel,
+      v$: useVuelidate(),
+    };
   },
   validations () {
     return { vModel: this.validationConfig };
