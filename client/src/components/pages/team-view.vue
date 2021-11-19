@@ -1,7 +1,7 @@
 <template>
   <t-page>
-    <div class="a-text f-line-24 f-title f-menu f-text-center f-mb-2">{{ teamName }}</div>
-    <div class="a-message f-text-22 f-text-center f-mb-5">
+    <div class="f-line-24 f-text-28 f-bold f-text-center f-mb-2">{{ teamName }}</div>
+    <div class="f-text-22 f-text-center f-mb-5">
       {{$t('page.teamView.mainHeaderPartOne')}}
       <span class="f-bold">{{ collectedPoints }}</span>
       {{$t('page.teamView.mainHeaderPartTwo')}}
