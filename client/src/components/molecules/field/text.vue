@@ -10,17 +10,11 @@
 </template>
 
 <script>
-import useVuelidate from '@vuelidate/core';
 import MInput from 'molecules/input';
-import { mixins } from 'mixins/base';
-import { modelValueMixin, useModelValue } from 'mixins/setupBase';
+import { fieldValidationMixin, useFieldValidation } from 'mixins/setupBase.js';
 
 export default {
   name: 'm-field-text',
-  mixins: [
-    modelValueMixin,
-    mixins.fieldValidation(),
-  ],
   components: { MInput },
   props: {
     disabled: Boolean,
@@ -32,21 +26,10 @@ export default {
       type: String,
       default: '',
     },
-    rules: {
-      type: Array,
-      default: () => [],
-    },
   },
-  setup (props, context) {
-    const { vModel } = useModelValue(props, context);
-
-    return {
-      vModel,
-      v$: useVuelidate(),
-    };
-  },
-  validations () {
-    return { vModel: this.validationConfig };
-  },
+  mixins: [fieldValidationMixin],
+  setup: (props, context) => ({
+    ...useFieldValidation(props, context),
+  }),
 };
 </script>

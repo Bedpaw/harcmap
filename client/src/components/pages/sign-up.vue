@@ -52,7 +52,7 @@ import { api } from 'api';
 import { mixins } from 'mixins/base';
 import AButtonSubmit from 'atoms/button/submit';
 import MFieldEmail from 'molecules/field/email';
-import MFieldSetPassword from 'molecules/field/set-password';
+// import MFieldSetPassword from 'molecules/field/set-password';
 import MFieldText from 'molecules/field/text';
 import OForm from 'organisms/form';
 import AButtonPrimary from 'atoms/button/primary';
@@ -68,7 +68,7 @@ export default {
     AButtonPrimary,
     OForm,
     MFieldText,
-    MFieldSetPassword,
+    // MFieldSetPassword,
     MFieldEmail,
     AButtonSubmit,
   },
