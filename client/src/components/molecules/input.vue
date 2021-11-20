@@ -7,7 +7,6 @@
       :type="getType"
       :disabled="disabled"
       v-model="vModel"
-      @blur="$emit('blur', $event)"
     />
     <label
       class="a-label f-field"

@@ -1,51 +1,32 @@
 <template>
-  <div>
-    <!--  <validation-observer>-->
-    <!--    <validation-provider-->
-    <!--      :name="labels[0].toLowerCase()"-->
-    <!--      :rules="rules.password"-->
-    <!--      v-slot="{ errors }"-->
-    <!--      vid="password"-->
-    <!--    >-->
-    <m-input
-      :disabled="disabled"
-      :placeholder="labels[0]"
-      type="password"
-      v-model="vModel"
-    />
-    <!--    :error="errors.length > 0"-->
-    <!--  :assist="errors[0] || assist"-->
-    <!--    </validation-provider>-->
-    <!--    <validation-provider-->
-    <!--      :name="labels[1].toLowerCase()"-->
-    <!--      :rules="rules.passwordConfirmation"-->
-    <!--      v-slot="{ errors }"-->
-    <!--    >-->
-    <m-input
-      :disabled="disabled"
-      :placeholder="labels[1]"
-      type="password"
-      v-model="passwordConfirmation"
-    />
-    <!--    :error="errors.length > 0"-->
-    <!--  :assist="errors[0] || assist"-->
-    <!--    </validation-provider>-->
-    <!--  </validation-observer>-->
-  </div>
+  <m-input
+    type="password"
+    v-model="vModel"
+    :disabled="disabled"
+    :placeholder="labels[0]"
+    :error="isError"
+    :assist="errorMessage || assist[0]"
+  />
+  <m-input
+    type="password"
+    v-model="passwordConfirmation"
+    :disabled="disabled"
+    :placeholder="labels[1]"
+    :error="isNextError"
+    :assist="nextErrorMessage || assist[1]"
+  />
 </template>
 
 <script>
 import MInput from 'molecules/input';
-import { mixins } from 'mixins/base';
 import { translator } from 'src/dictionary';
+import { fieldValidationMixin, useDoubleFieldValidation } from 'mixins/setupBase';
+import { validationRules } from 'config/validationRules';
+import { ref, toRefs } from 'vue';
 
 export default {
   name: 'm-field-set-password',
-  mixins: [mixins.vModel, mixins.validation],
   components: { MInput },
-  data: () => ({
-    passwordConfirmation: '',
-  }),
   props: {
     disabled: Boolean,
     labels: {
@@ -56,9 +37,26 @@ export default {
       ],
     },
     assist: {
-      type: String,
-      default: '',
+      type: Array,
+      default: () => ['', ''],
     },
+  },
+  mixins: [fieldValidationMixin],
+  setup (props, context) {
+    const { modelValue } = toRefs(props);
+    const passwordConfirmation = ref('');
+    return {
+      passwordConfirmation,
+      ...useDoubleFieldValidation(
+        props,
+        context,
+        validationRules.password,
+        [
+          passwordConfirmation,
+          validationRules.passwordConfirmation(modelValue),
+        ],
+      ),
+    };
   },
 };
 </script>
