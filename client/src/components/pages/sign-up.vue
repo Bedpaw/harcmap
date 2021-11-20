@@ -48,23 +48,18 @@
 
 <script>
 import TPage from 'templates/page';
-import { api } from 'api';
-import { mixins } from 'mixins/base';
 import AButtonSubmit from 'atoms/button/submit';
 import MFieldEmail from 'molecules/field/email';
 import MFieldSetPassword from 'molecules/field/set-password';
 import MFieldText from 'molecules/field/text';
 import OForm from 'organisms/form';
 import AButtonPrimary from 'atoms/button/primary';
-import { ROUTES } from 'config/routes-config';
-import { reactive, ref } from 'vue';
+import { api } from 'api';
+import { reactive } from 'vue';
+import { useForm } from 'plugins/form';
 
 export default {
   name: 'p-sign-up',
-  mixins: [
-    mixins.form,
-    mixins.formValidation,
-  ],
   components: {
     TPage,
     AButtonPrimary,
@@ -82,9 +77,8 @@ export default {
       eventId: '',
     });
 
-    const blockForm = ref(false);
-    const isSending = ref(false);
-    const formSend = ref(false);
+    const form = useForm();
+    const { formSend, isSending, blockForm } = form;
 
     function onSignUp () {
       formSend.value = true;
@@ -102,11 +96,8 @@ export default {
 
     return {
       values,
-      blockForm,
-      isSending,
-      formSend,
       signUp,
-      ROUTES,
+      ...form,
     };
   },
 };

@@ -3,7 +3,6 @@ import { communicates } from 'utils/communicates';
 
 export const formMixin = {
   data: () => ({
-    _errors: [],
     isSending: false,
     blockForm: false,
     isServerError: false,

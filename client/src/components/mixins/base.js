@@ -1,6 +1,5 @@
 import { vueModel, vueModelCheckbox } from 'extends/base';
 import { formMixin as form } from './form';
-import { formValidation, fieldValidation } from './validation';
 
 const vModel = {
   props: {
@@ -48,6 +47,4 @@ export const mixins = {
   vModelRadio,
   vModelCheckbox,
   form,
-  formValidation,
-  fieldValidation,
 };
