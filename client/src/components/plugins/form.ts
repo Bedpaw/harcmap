@@ -3,7 +3,7 @@ import { communicates } from 'utils/communicates';
 import { ref } from 'vue';
 import { ErrorMessage } from '@dbetka/wdk/lib/error-message';
 import { ROUTES } from 'config/routes-config';
-import { validationRules } from 'config/validationRules';
+import { validationRules } from 'plugins/validation/rules';
 
 export function useForm () {
   const blockForm = ref(false);

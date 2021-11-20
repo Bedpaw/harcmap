@@ -13,7 +13,7 @@
 import MInput from 'molecules/input';
 import { translator } from 'src/dictionary';
 import { fieldValidationMixin, useFieldValidation } from 'plugins/validation';
-import { validationRules } from 'config/validationRules';
+import { validationRules } from 'plugins/validation/rules';
 
 export default {
   name: 'm-field-password',

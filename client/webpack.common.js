@@ -45,6 +45,7 @@ module.exports = {
       map: resolve('src/map'),
       store: resolve('src/store'),
       utils: resolve('src/utils'),
+      dictionary: resolve('src/dictionary'),
       vendors: resolve('../vendors'),
       validateCodes: resolve('../lib/validateCodes.js'),
       config: resolve('src/config'),

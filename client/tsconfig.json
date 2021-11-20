@@ -19,6 +19,8 @@
       "store/*": ["src/store/*"],
       "utils/*": ["src/utils/*"],
       "assets/*": ["src/assets/*"],
+      "dictionary": ["src/dictionary"],
+      "dictionary/*": ["src/dictionary/*"],
       "types/*": ["src/types/*"],
       "vendors/*": ["../vendors/*"],
       "validateCodes": ["../lib/validateCodes.js"],

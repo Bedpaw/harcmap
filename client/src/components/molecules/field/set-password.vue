@@ -21,7 +21,7 @@
 import MInput from 'molecules/input';
 import { translator } from 'src/dictionary';
 import { fieldValidationMixin, useDoubleFieldValidation } from 'plugins/validation';
-import { validationRules } from 'config/validationRules';
+import { validationRules } from 'plugins/validation/rules';
 import { ref, toRefs } from 'vue';
 
 export default {
