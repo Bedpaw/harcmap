@@ -40,6 +40,7 @@ module.exports = {
   resolve: {
     alias: {
       src: resolve('src'),
+      components: resolve('src/components'),
       api: resolve('src/api'),
       map: resolve('src/map'),
       store: resolve('src/store'),
@@ -49,6 +50,7 @@ module.exports = {
       config: resolve('src/config'),
       models: resolve('src/models'),
 
+      plugins: resolve('src/components/plugins'),
       atoms: resolve('src/components/atoms'),
       extends: resolve('src/components/extends'),
       mixins: resolve('src/components/mixins'),

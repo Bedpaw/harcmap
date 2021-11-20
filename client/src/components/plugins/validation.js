@@ -1,29 +1,14 @@
-import { computed, toRefs, watch } from 'vue';
+import { computed, watch } from 'vue';
 import useVuelidate from '@vuelidate/core';
+import { modelValueMixin, useModelValue } from 'plugins/v-model';
 
-export const modelValueMixin = {
-  props: {
-    modelValue: {},
-  },
-  emits: ['update:modelValue'],
-};
-
-export const useModelValue = (props, context) => {
-  const { modelValue } = toRefs(props);
-
-  const vModel = computed({
-    get () {
-      return modelValue.value;
-    },
-    set (value) {
-      context.emit('update:modelValue', value);
-    },
-  });
-
-  return {
-    vModel,
-  };
-};
+function rulesListToConfig (array = []) {
+  const object = {};
+  for (const rule of array) {
+    object[rule.$params.type] = rule;
+  }
+  return object;
+}
 
 export const fieldValidationMixin = {
   mixins: [modelValueMixin],
@@ -34,14 +19,6 @@ export const fieldValidationMixin = {
     },
   },
 };
-
-function rulesListToConfig (array = []) {
-  const object = {};
-  for (const rule of array) {
-    object[rule.$params.type] = rule;
-  }
-  return object;
-}
 
 export const useFieldValidation = (props, context, defaultRules = []) => {
   const { vModel } = useModelValue(props, context);

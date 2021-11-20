@@ -11,7 +11,7 @@
 
 <script>
 import MInput from 'molecules/input';
-import { fieldValidationMixin, useFieldValidation } from 'mixins/setupBase.js';
+import { fieldValidationMixin, useFieldValidation } from 'plugins/validation';
 
 export default {
   name: 'm-field-text',

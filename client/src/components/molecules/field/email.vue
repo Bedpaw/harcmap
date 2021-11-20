@@ -13,7 +13,7 @@
 import MInput from 'molecules/input';
 import { translator } from 'src/dictionary';
 import { validationRules } from 'config/validationRules';
-import { fieldValidationMixin, useFieldValidation } from 'mixins/setupBase';
+import { fieldValidationMixin, useFieldValidation } from 'plugins/validation';
 
 export default {
   name: 'm-field-email',

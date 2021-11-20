@@ -12,7 +12,7 @@
 <script>
 import MInput from 'molecules/input';
 import { translator } from 'src/dictionary';
-import { fieldValidationMixin, useFieldValidation } from 'mixins/setupBase';
+import { fieldValidationMixin, useFieldValidation } from 'plugins/validation';
 import { validationRules } from 'config/validationRules';
 
 export default {

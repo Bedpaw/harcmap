@@ -16,7 +16,7 @@
         <m-field-text
           :label="$t('form.field.userTeam')"
           :rules="validationRules.userTeam"
-          v-model="values.userTeam"
+          v-model.trim="values.userTeam"
           :disabled="blockForm"
           :assist="$t('form.assist.userTeam')"
         />
@@ -56,6 +56,8 @@ import MFieldSetPassword from 'molecules/field/set-password';
 import MFieldText from 'molecules/field/text';
 import OForm from 'organisms/form';
 import AButtonPrimary from 'atoms/button/primary';
+import { ROUTES } from 'config/routes-config';
+import { reactive, ref } from 'vue';
 
 export default {
   name: 'p-sign-up',
@@ -72,34 +74,40 @@ export default {
     MFieldEmail,
     AButtonSubmit,
   },
-  data: () => ({
-    values: {
+  setup () {
+    const values = reactive({
       user: '',
       password: '',
       userTeam: '',
       eventId: '',
-    },
-    blockForm: false,
-    isSending: false,
-    formSend: false,
-  }),
-  methods: {
-    onSignUp () {
-      this.formSend = true;
-      this.isSending = false;
-      this.blockForm = false;
-    },
-    signUp () {
-      this.isSending = true;
-      this.blockForm = true;
-      this.values.user = this.values.user.trim();
-      this.values.password = this.values.password.trim();
-      this.values.userTeam = this.values.userTeam.trim();
-      this.values.eventId = this.values.eventId.trim();
-      api.signUp(this.values)
-        .then(this.onSignUp)
+    });
+
+    const blockForm = ref(false);
+    const isSending = ref(false);
+    const formSend = ref(false);
+
+    function onSignUp () {
+      formSend.value = true;
+      isSending.value = false;
+      blockForm.value = false;
+    }
+
+    function signUp () {
+      isSending.value = true;
+      blockForm.value = true;
+      api.signUp(values)
+        .then(onSignUp)
         .catch(this.onErrorOccurs);
-    },
+    }
+
+    return {
+      values,
+      blockForm,
+      isSending,
+      formSend,
+      signUp,
+      ROUTES,
+    };
   },
 };
 </script>

@@ -20,7 +20,7 @@
 <script>
 import MInput from 'molecules/input';
 import { translator } from 'src/dictionary';
-import { fieldValidationMixin, useDoubleFieldValidation } from 'mixins/setupBase';
+import { fieldValidationMixin, useDoubleFieldValidation } from 'plugins/validation';
 import { validationRules } from 'config/validationRules';
 import { ref, toRefs } from 'vue';
 

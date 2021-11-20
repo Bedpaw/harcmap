@@ -23,6 +23,7 @@
       "vendors/*": ["../vendors/*"],
       "validateCodes": ["../lib/validateCodes.js"],
 
+      "plugins/*": ["src/components/plugins/*"],
       "atoms/*": ["src/components/atoms/*"],
       "molecules/*": ["src/components/molecules/*"],
       "organisms/*": ["src/components/organisms/*"],
