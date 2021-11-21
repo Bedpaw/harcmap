@@ -12,5 +12,3 @@ export const validationRules = {
   name: [maxLength(128)],
   date: [required],
 };
-
-console.log(validationRules.password);

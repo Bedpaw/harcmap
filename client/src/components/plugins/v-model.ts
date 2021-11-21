@@ -1,4 +1,4 @@
-import { computed, toRefs } from 'vue';
+import { computed, toRefs, SetupContext } from 'vue';
 
 export const modelValueMixin = {
   props: {
@@ -7,7 +7,7 @@ export const modelValueMixin = {
   emits: ['update:modelValue'],
 };
 
-export const useModelValue = (props, context) => {
+export const useModelValue = (props: Readonly<{ modelValue: {value:string} }>, context:SetupContext) => {
   const { modelValue } = toRefs(props);
 
   const vModel = computed({
