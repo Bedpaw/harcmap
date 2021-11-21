@@ -73,6 +73,7 @@ import { logical } from 'vendors/logical';
 export default {
   name: 'm-select',
   mixins: [mixins.vModel],
+  emits: ['change'],
   props: {
     /**
      * options: [{label: String, value: String}]
