@@ -31,7 +31,9 @@ export default {
   },
   mixins: [fieldValidationMixin],
   setup: (props, context) => ({
-    ...useFieldValidation(props, context, validationRules.email),
+    ...useFieldValidation(props, context, {
+      defaultRules: validationRules.email,
+    }),
   }),
 };
 </script>

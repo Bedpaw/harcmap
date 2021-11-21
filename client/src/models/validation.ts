@@ -7,3 +7,8 @@ export type ValidationProps = {
   modelValue: Ref
   rules: RulesList
 }
+
+export type ConfigFieldValidation = {
+  defaultRules?: RulesList
+  vModel?: Ref
+}
