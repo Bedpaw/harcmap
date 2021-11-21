@@ -1,5 +1,5 @@
 <template>
-  <div class="m-area f-button" :class="addAreaClass" @click="emitClick($event)">
+  <div class="m-area f-button" :class="addAreaClass" @click.stop.prevent="emitClick($event)">
     <button
       class="a-button"
       :class="getClass"
@@ -20,6 +20,7 @@ export default {
   name: 'a-button',
   components: { ALoader },
   inheritAttrs: false,
+  emits: ['click'],
   props: {
     disabled: {
       type: Boolean,
