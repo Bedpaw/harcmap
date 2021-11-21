@@ -116,7 +116,10 @@ export default {
   },
   computed: {
     label () {
-      const option = this.options.find(option => (option.value === this.vModel));
+      const option = this.options.find(option => {
+        console.log(option.value, this.vModel);
+        return option.value === this.vModel;
+      });
       return option ? option.label : '';
     },
     additionalClasses () {

@@ -1,5 +1,5 @@
 <template>
-  <div class="m-area f-button" :class="addAreaClass" @click.stop.prevent="emitClick($event)">
+  <div class="m-area f-button" :class="addAreaClass" @click.stop="emitClick($event)">
     <button
       class="a-button"
       :class="getClass"

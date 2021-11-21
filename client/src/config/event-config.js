@@ -3,7 +3,7 @@ const { secondsInMinute } = MACROS.time;
 
 export const DEFAULT_EVENT_CONFIG = {
   paginationStepOnEventList: 3,
-  mapRefreshTime: 15,
+  mapRefreshTime: 15 * secondsInMinute,
   mapZoom: 2,
   eventEndDate: null,
   eventStartDate: null,

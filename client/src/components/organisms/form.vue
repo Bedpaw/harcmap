@@ -1,7 +1,7 @@
 <template>
   <form
     class="f-flex f-flex-col f-pb-1 f-text-left"
-    @submit.prevent="handleSubmit"
+    @submit.prevent="handleSubmit()"
   >
     <slot v-if="isSend === false"/>
     <slot name="form" v-if="isSend === false"/>
@@ -31,6 +31,7 @@ export default {
     const { onSubmit } = toRefs(props);
 
     function handleSubmit () {
+      console.log('handleSubmit');
       if (v$.value.$invalid) {
         v$.value.$touch();
         store.dispatch('snackbar/openTemporary', {
@@ -38,7 +39,7 @@ export default {
           error: true,
         });
       } else {
-        onSubmit();
+        onSubmit.value();
       }
     }
 
