@@ -17,27 +17,20 @@ export const useDoubleFieldValidation = (props:ValidationProps, context:SetupCon
       nextModel,
     },
   );
+
   const vuelidate = v$.value || undefinedDoubleVuelidate;
-
-  watch(firstModel, () => vuelidate.firstModel.$touch());
-  const isError = computed(() => vuelidate.firstModel?.$error);
-  const errorMessage = computed(() => vuelidate.firstModel?.$errors[0]?.$message || '');
-
-  watch(nextModel, () => vuelidate.nextModel.$touch());
-  const isNextError = computed(() => vuelidate.nextModel?.$error);
-  const nextErrorMessage = computed(() => vuelidate.nextModel?.$errors[0]?.$message || '');
+  const createErrorObject = (field: Ref, model: {$touch: () => void, $error: string, $errors: {$message: string|undefined}[]}) => {
+    watch(field, () => model.$touch());
+    return ({
+      ref: field,
+      error: computed(() => model.$error),
+      message: computed(() => model.$errors[0]?.$message || ''),
+    });
+  };
 
   return {
-    first: {
-      ref: firstModel,
-      error: isError,
-      message: errorMessage,
-    },
-    next: {
-      ref: nextModel,
-      error: isNextError,
-      message: nextErrorMessage,
-    },
+    first: createErrorObject(firstModel, vuelidate.firstModel),
+    next: createErrorObject(nextModel, vuelidate.nextModel),
     v$,
   };
 };
