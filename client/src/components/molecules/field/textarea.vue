@@ -75,6 +75,7 @@ export default {
     showPassword: false,
   }),
   mounted () {
+    // TODO: use JS generator
     const randomNumber = Math.floor(Math.random() * 10000);
     this.id = 'id-input-' + randomNumber;
   },

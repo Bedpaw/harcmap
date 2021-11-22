@@ -47,11 +47,11 @@
 </template>
 
 <script>
-import { mixins } from 'mixins/base';
+import { modelValueMixin, useModelValue } from 'plugins/v-model';
+import { computed, onMounted, ref, toRefs } from 'vue';
 
 export default {
   name: 'm-input',
-  mixins: [mixins.vModel],
   emits: ['blur'],
   props: {
     disabled: {
@@ -79,34 +79,44 @@ export default {
       default: '',
     },
   },
-  data: () => ({
-    id: '',
-    showPassword: false,
-  }),
-  mounted () {
-    const randomNumber = Math.floor(Math.random() * 10000);
-    this.id = 'id-input-' + randomNumber;
-  },
-  computed: {
-    isPassword () {
-      return this.type === 'password';
-    },
-    additionalClasses () {
-      return {
-        'f-filled': this.vModel !== '',
-        'f-error': this.error,
-        'f-correct': this.correct,
-        'f-icon': this.error || this.isPassword,
-        'f-disabled': this.disabled,
-      };
-    },
-    getType () {
-      if (this.isPassword) {
-        return this.showPassword ? '' : this.type;
+  mixins: [modelValueMixin],
+  setup (props, context) {
+    const { vModel } = useModelValue(props, context);
+    const { error, correct, disabled, type } = toRefs(props);
+
+    const id = ref('');
+    const showPassword = ref(false);
+
+    const isPassword = computed(() => type.value === 'password');
+    const additionalClasses = computed(() => ({
+      'f-filled': vModel.value !== '',
+      'f-error': error.value,
+      'f-correct': correct.value,
+      'f-icon': error.value || isPassword.value,
+      'f-disabled': disabled.value,
+    }));
+    const getType = computed(() => {
+      if (isPassword.value) {
+        return showPassword.value ? '' : type.value;
       } else {
-        return this.type;
+        return type.value;
       }
-    },
+    });
+
+    onMounted(() => {
+      // TODO: use JS generator
+      const randomNumber = Math.floor(Math.random() * 10000);
+      id.value = 'id-input-' + randomNumber;
+    });
+
+    return {
+      vModel,
+      id,
+      showPassword,
+      isPassword,
+      additionalClasses,
+      getType,
+    };
   },
 };
 </script>

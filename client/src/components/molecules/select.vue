@@ -110,6 +110,7 @@ export default {
     pointedOption: -1,
   }),
   mounted () {
+    // TODO: use JS generator
     const randomNumber = Math.floor(Math.random() * 10000);
     this.id = 'id-select-' + randomNumber;
     this.resetPointedOption();

@@ -1,5 +1,3 @@
-import { formMixin as form } from './form';
-
 const vModel = {
   props: {
     modelValue: {},
@@ -19,5 +17,4 @@ const vModel = {
 
 export const mixins = {
   vModel,
-  form,
 };
