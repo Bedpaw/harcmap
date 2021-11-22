@@ -19,16 +19,10 @@
         v-model="values.mapRefreshTime"
         :disabled="blockForm"
       />
-      <m-field-datetime
-        :label="$t('form.field.eventStartDate')"
-        v-model="values.eventStartDate"
-        :rules="validationRules.date"
-        :disabled="blockForm"
-      />
-      <m-field-datetime
-        :label="$t('form.field.eventEndDate')"
-        v-model="values.eventEndDate"
-        :rules="validationRules.date"
+      <m-field-datetime-range
+        :label="[$t('form.field.eventStartDate'), $t('form.field.eventEndDate')]"
+        v-model:first-date="values.eventStartDate"
+        v-model:next-date="values.eventEndDate"
         :disabled="blockForm"
       />
 
@@ -67,7 +61,6 @@ import OForm from 'organisms/form';
 import MSelect from 'molecules/select';
 import AButtonSecondary from 'atoms/button/secondary';
 import AButtonSubmit from 'atoms/button/submit';
-import MFieldDatetime from 'molecules/field/datetime';
 import MFieldText from 'molecules/field/text';
 import { ErrorMessage } from 'utils/error-message';
 import OFloatContainer from 'organisms/float-container';
@@ -78,14 +71,15 @@ import { eventUtils } from 'utils/event';
 import { computed, ref, onMounted, toRefs } from 'vue';
 import { useForm } from 'plugins/form';
 import { translator } from 'dictionary';
+import MFieldDatetimeRange from 'molecules/field/datetime-range';
 
 export default {
   name: 't-event-form',
   components: {
+    MFieldDatetimeRange,
     OAdminSetMapPosition,
     OFloatContainer,
     MFieldText,
-    MFieldDatetime,
     TPage,
     MSelect,
     OForm,
