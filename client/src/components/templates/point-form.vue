@@ -24,14 +24,14 @@
         v-if="isTimeout"
         :label="$t('form.field.pointDateAndAppearanceTime')"
         v-model="values.pointAppearanceTime"
-        :rules="rules.required"
+        :rules="validationRules.required"
         :disabled="blockForm"
       />
       <m-field-datetime
         v-if="isTimeout"
         :label="$t('form.field.pointDateAndExpirationTime')"
         v-model="values.pointExpirationTime"
-        :rules="rules.required"
+        :rules="validationRules.required"
         :disabled="blockForm"
       />
       <m-select
@@ -86,10 +86,13 @@ import OFloatContainer from 'organisms/float-container';
 import OAdminSetNewPointPosition from 'organisms/admin/set-point-position';
 import { idUtils } from 'utils/id';
 import { pointUtils } from 'utils/point';
+import { computed, onMounted, ref, toRefs } from 'vue';
+import { useForm } from 'plugins/form';
+import { translator } from 'dictionary';
 
 export default {
   name: 't-point-form',
-  mixins: [mixins.form, mixins.validation],
+  mixins: [mixins.form],
   components: {
     OAdminSetNewPointPosition,
     OFloatContainer,
@@ -101,25 +104,6 @@ export default {
     AButtonSecondary,
     AButtonSubmit,
   },
-  data () {
-    return {
-      values: {},
-      typeOptions: [
-        {
-          label: this.$t('general.pointPermanent'),
-          value: MACROS.pointType.permanent,
-        }, {
-          label: this.$t('general.pointTimeout'),
-          value: MACROS.pointType.timeout,
-        },
-      ],
-      categoryOptions: this.createCategoryOptions(),
-      pointPositionIsSetting: false,
-      blockForm: false,
-      isSending: false,
-      isServerError: false,
-    };
-  },
   props: {
     defaultValues: {
       type: Object,
@@ -130,53 +114,11 @@ export default {
       required: true,
     },
   },
-  mounted () {
-    this.restartValues();
-  },
-  computed: {
-    rulesForName () {
-      const rules = this.rules;
-      return this.isTimeout ? `${rules.required}|${rules.name}` : rules.name;
-    },
-    isTimeout () {
-      return pointUtils.isTimeOut(this.values);
-    },
-    isPermanent () {
-      return pointUtils.isPermanent(this.values);
-    },
-    hasSetPosition () {
-      return pointUtils.hasSetPosition(this.values);
-    },
-  },
-  methods: {
-    saveNewPosition (newPosition) {
-      Object.assign(this.values, newPosition);
-      this.pointPositionIsSetting = false;
-    },
-    createCategoryOptions () {
-      return MACROS.pointCategory.map((category) =>
-        ({
-          label: this.categoryLabelFactory(category.categoryId, category.pointValue),
-          value: category.categoryId,
-        }),
-      );
-    },
-    categoryLabelFactory (id, value) {
-      const level = this.$t('general.pointCategoryLevel');
-      const unit = this.$t('general.pointUnit');
-      return `${id} ${level} - ${value} ${unit}`;
-    },
-    ensureValidDataByPointType () {
-      if (this.values.pointType === MACROS.pointType.timeout) {
-        this.values.pointCategory = 0;
-      }
-      if (this.values.pointType === MACROS.pointType.permanent) {
-        this.values.pointExpirationTime = null;
-        this.values.pointAppearanceTime = null;
-      }
-    },
-    restartValues () {
-      this.values = {
+  setup (props) {
+    const { defaultValues, onSave } = toRefs(props);
+
+    function generateDefaultValues () {
+      return {
         pointId: idUtils.generateNewId(),
         pointName: '',
         pointCategory: MACROS.pointCategory[0].categoryId,
@@ -186,24 +128,88 @@ export default {
         pointLongitude: null,
         pointLatitude: null,
         pointCollectionTime: null,
+        ...defaultValues.value,
       };
-      Object.assign(this.values, this.defaultValues);
-    },
-    onSubmit () {
-      this.blockForm = true;
-      if (this.hasSetPosition === false) {
-        this.onErrorOccurs(new ErrorMessage(this.$t('communicate.addPoint.positionIsRequired')));
+    }
+    const values = ref(generateDefaultValues());
+    const restartValues = () => Object.assign(values.value, generateDefaultValues());
+
+    const typeOptions = computed(() => [
+      {
+        label: translator.t('general.pointPermanent'),
+        value: MACROS.pointType.permanent,
+      },
+      {
+        label: translator.t('general.pointTimeout'),
+        value: MACROS.pointType.timeout,
+      },
+    ]);
+    function categoryLabelFactory (id, value) {
+      const level = translator.t('general.pointCategoryLevel');
+      const unit = translator.t('general.pointUnit');
+      return `${id} ${level} - ${value} ${unit}`;
+    }
+    const categoryOptions = computed(() => MACROS.pointCategory.map((category) =>
+      ({
+        label: categoryLabelFactory(category.categoryId, category.pointValue),
+        value: category.categoryId,
+      }),
+    ));
+    const pointPositionIsSetting = ref(false);
+
+    const form = useForm();
+    const { blockForm, validationRules, onErrorOccurs, onSuccessOccurs } = form;
+
+    const isTimeout = computed(() => pointUtils.isTimeOut(values.value));
+    const isPermanent = computed(() => pointUtils.isPermanent(values.value));
+
+    const rulesForName = computed(() => isTimeout.value ? validationRules.requiredName : validationRules.name);
+
+    const hasSetPosition = computed(() => pointUtils.hasSetPosition(values.value));
+
+    function saveNewPosition (newPosition) {
+      Object.assign(values.value, newPosition);
+      pointPositionIsSetting.value = false;
+    }
+    function ensureValidDataByPointType () {
+      if (values.value.pointType === MACROS.pointType.timeout) {
+        values.value.pointCategory = 0;
+      }
+      if (values.value.pointType === MACROS.pointType.permanent) {
+        values.value.pointExpirationTime = null;
+        values.value.pointAppearanceTime = null;
+      }
+    }
+    function onSubmit () {
+      blockForm.value = true;
+      if (hasSetPosition.value === false) {
+        onErrorOccurs(new ErrorMessage(translator.t('communicate.addPoint.positionIsRequired')));
         return;
       }
-      this.ensureValidDataByPointType();
-      this.onSave(this.values)
+      ensureValidDataByPointType();
+      onSave.value(values.value)
         .then(message => {
-          this.restartValues();
-          this.onSuccessOccurs(message);
+          restartValues();
+          onSuccessOccurs(message);
         })
-        .catch(this.onErrorOccurs);
-    },
-  },
+        .catch(onErrorOccurs);
+    }
 
+    onMounted(() => restartValues());
+
+    return {
+      values,
+      typeOptions,
+      categoryOptions,
+      pointPositionIsSetting,
+      isPermanent,
+      isTimeout,
+      rulesForName,
+      saveNewPosition,
+      onSubmit,
+      ...form,
+      hasSetPosition,
+    };
+  },
 };
 </script>

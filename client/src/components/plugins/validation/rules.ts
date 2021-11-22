@@ -12,6 +12,7 @@ export const validationRules = {
 
   pointId: [required, minLength(4), maxLength(4)],
   required: [required],
+  requiredName: [required, maxLength(128)],
   name: [maxLength(128)],
   date: [required],
 };
