@@ -113,6 +113,7 @@ export default {
       eventEndDate: null,
       mapLatitude: null,
       mapLongitude: null,
+      mapZoom: null,
     });
 
     const options = ref(DEFAULT_EVENT_CONFIG.mapRefreshTimeOptions);
@@ -138,7 +139,9 @@ export default {
         .catch(onErrorOccurs);
     }
 
-    onMounted(() => Object.assign(values.value, defaultValues));
+    onMounted(() => {
+      Object.assign(values.value, defaultValues.value);
+    });
 
     return {
       values,
