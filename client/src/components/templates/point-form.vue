@@ -27,20 +27,6 @@
         v-model:next-date="values.pointExpirationTime"
         :disabled="blockForm"
       />
-      <!--      <m-field-datetime-->
-      <!--        v-if="isTimeout"-->
-      <!--        :label="$t('form.field.pointDateAndAppearanceTime')"-->
-      <!--        v-model="values.pointAppearanceTime"-->
-      <!--        :rules="validationRules.required"-->
-      <!--        :disabled="blockForm"-->
-      <!--      />-->
-      <!--      <m-field-datetime-->
-      <!--        v-if="isTimeout"-->
-      <!--        :label="$t('form.field.pointDateAndExpirationTime')"-->
-      <!--        v-model="values.pointExpirationTime"-->
-      <!--        :rules="validationRules.required"-->
-      <!--        :disabled="blockForm"-->
-      <!--      />-->
       <m-select
         v-if="isPermanent"
         :options="categoryOptions"

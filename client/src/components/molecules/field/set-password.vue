@@ -4,16 +4,16 @@
     v-model="vModel"
     :disabled="disabled"
     :placeholder="labels[0]"
-    :error="isError"
-    :assist="errorMessage || assist[0]"
+    :error="first.error.value"
+    :assist="first.message.value || assist[0]"
   />
   <m-input
     type="password"
     v-model="passwordConfirmation"
     :disabled="disabled"
     :placeholder="labels[1]"
-    :error="isNextError"
-    :assist="nextErrorMessage || assist[1]"
+    :error="next.error.value"
+    :assist="next.message.value || assist[1]"
   />
 </template>
 
@@ -30,7 +30,8 @@ import { translator } from 'src/dictionary';
 import { fieldValidationMixin } from 'plugins/validation/field';
 import { useDoubleFieldValidation } from 'plugins/validation/double-field';
 import { validationRules } from 'plugins/validation/rules';
-import { ref, toRefs } from 'vue';
+import { ref } from 'vue';
+import { useModelValue } from 'plugins/v-model';
 
 export default {
   name: 'm-field-set-password',
@@ -51,17 +52,21 @@ export default {
   },
   mixins: [fieldValidationMixin],
   setup (props, context) {
-    const { modelValue } = toRefs(props);
+    const { vModel } = useModelValue(props, context);
     const passwordConfirmation = ref('');
     return {
+      vModel,
       passwordConfirmation,
       ...useDoubleFieldValidation(
         props,
         context,
-        validationRules.password,
+        [
+          vModel,
+          validationRules.password,
+        ],
         [
           passwordConfirmation,
-          validationRules.passwordConfirmation(modelValue),
+          validationRules.passwordConfirmation(vModel),
         ],
       ),
     };
