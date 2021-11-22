@@ -4,8 +4,7 @@ import i18n from 'dictionary';
 import { helpers } from '@vuelidate/validators';
 import { ValidateTools } from '@dbetka/wdk/lib/validate-tools';
 import { Ref } from '@vue/reactivity';
-import { DATE_FORMATS, getDate } from 'utils/date';
-import * as dayjs from 'dayjs';
+import { compareDate } from 'utils/date';
 
 // or import { createI18nMessage } from '@vuelidate/validators'
 const { createI18nMessage } = validators;
@@ -34,12 +33,8 @@ export const hasCapitalize = withI18nMessage(helpers.withParams({ type: 'hasCapi
   (value:string) => /[A-Z]/.test(value)),
 );
 export const futureDatetime = withI18nMessage(helpers.withParams({ type: 'futureDatetime' },
-  (date:string) => dayjs().valueOf() < getDate.fromFormat(date, DATE_FORMATS.YYYYMMDDTHHmm).valueOf()),
+  (date:string) => compareDate.isFuture(date)),
 );
 export const datetimeAfter = (firstDateRef:Ref) => withI18nMessage(helpers.withParams({ type: 'datetimeAfter' },
-  (secondDate:string) => {
-    const firstTimestamp = getDate.fromFormat(firstDateRef.value, DATE_FORMATS.YYYYMMDDTHHmm).valueOf();
-    const secondTimestamp = getDate.fromFormat(secondDate, DATE_FORMATS.YYYYMMDDTHHmm).valueOf();
-    return firstTimestamp < secondTimestamp;
-  },
+  (secondDate:string) => compareDate.isAfter(firstDateRef.value, secondDate),
 ));

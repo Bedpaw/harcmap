@@ -19,6 +19,7 @@ export const DATE_FORMATS = {
 export const compareDate: Record<string, (startDate: DateType, endDate?: DateType) => boolean> = {
   isFuture: (date) => dayjs().isBefore(date),
   isPast: (date) => dayjs().isAfter(date),
+  isAfter: (edgeDate, dateToCheck) => dayjs(dateToCheck).isAfter(edgeDate),
   isActual: (startDate, endDate: DateType) => dayjs(dayjs()).isBetween(startDate, endDate),
   isToday: (date) => dayjs(date).isToday(),
 };
