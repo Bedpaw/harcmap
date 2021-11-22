@@ -329,7 +329,6 @@ export const pl = {
       },
     },
     description: {
-      GeolocationAvailability: 'NOT IMPLEMENTED',
       PointDetailsVisibilityOnMap: 'Widoczność szczegółów na mapie pozwala użytkownikom na otworzenie dodatkowego menu po kliknięciu na punkt na mapie',
     },
     name: {

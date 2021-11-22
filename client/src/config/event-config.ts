@@ -31,22 +31,9 @@ export const DEFAULT_EVENT_CONFIG = {
   eventEndDate: null as DateType,
   eventStartDate: null as DateType,
   gameRules,
-  mapRefreshTimeOptions: [
-    {
-      label: '1 min',
-      value: secondsInMinute,
-    }, {
-      label: '5 min',
-      value: 5 * secondsInMinute,
-    }, {
-      label: '10 min',
-      value: 10 * secondsInMinute,
-    }, {
-      label: '15 min',
-      value: 15 * secondsInMinute,
-    }, {
-      label: '30 min',
-      value: 30 * secondsInMinute,
-    },
-  ],
+  mapRefreshTimeOptions: [1, 5, 10, 15, 30].map(v => ({
+    label: `${v} min`,
+    value: v * secondsInMinute,
+  }),
+  ),
 };

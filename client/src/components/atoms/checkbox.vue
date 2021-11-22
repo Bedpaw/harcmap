@@ -14,9 +14,9 @@
         :name="iconName"
         :type="ICONS_TYPES.outlined"
         :class="{'f-text-primary': hasFocus}"
-      ></a-icon>
+      />
       <span class="f-pl-1 f-line-28">
-        <slot></slot>
+        <slot/>
       </span>
     </label>
     <div class="a-assist">
