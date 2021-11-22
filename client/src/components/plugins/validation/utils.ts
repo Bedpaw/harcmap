@@ -1,5 +1,6 @@
 import type { ValidationRuleWithParams } from '@vuelidate/core';
 import type { RulesList } from 'models/validation';
+import { computed, Ref, watch } from 'vue';
 
 const vuelidateField = () => ({
   $touch: ():void => undefined,
@@ -22,4 +23,22 @@ export function validationRulesListToConfig (rulesList: RulesList) {
     object[rule.$params.type] = rule;
   }
   return object;
+}
+
+type ModelObjectType = {
+  $touch: () => void
+  $error: string
+  $errors: {$message: string|undefined}[]
+}
+
+export function touchFieldOnChange (field:Ref, model:ModelObjectType) {
+  watch(field, () => model.$touch());
+}
+
+export function createErrorObject (field:Ref, model:ModelObjectType) {
+  return ({
+    ref: field,
+    error: computed(() => model.$error),
+    message: computed(() => model.$errors[0]?.$message || ''),
+  });
 }

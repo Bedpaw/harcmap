@@ -8,10 +8,18 @@
         :assist="$t('form.assist.pointId')"
       />
       <m-field-text
+        v-if="isPermanent"
         :label="$t('form.field.pointName')"
         v-model="values.pointName"
-        :rules="rulesForName"
-        :assist="isPermanent ? $t('form.assist.fieldNotRequired') : ''"
+        :rules="validationRules.name"
+        :assist="$t('form.assist.fieldNotRequired')"
+        :disabled="blockForm"
+      />
+      <m-field-text
+        v-else
+        :label="$t('form.field.pointName')"
+        v-model="values.pointName"
+        :rules="validationRules.requiredName"
         :disabled="blockForm"
       />
       <m-select
