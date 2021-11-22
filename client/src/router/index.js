@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory/*, isNavigationFailure, NavigationFailureType */ } from 'vue-router';
+import { createRouter, createWebHistory/*, isNavigationFailure, NavigationFailureType */ } from 'vue-router';
 import { store } from 'store';
 import { api } from 'api';
 import { routes } from './routes';
@@ -13,7 +13,7 @@ let firstRun = true;
 const router = createRouter({
   base: process.env.BASE_URL,
   routes,
-  history: createWebHashHistory(),
+  history: createWebHistory(),
 });
 
 // (function silenceNavigationFailureErrors () {
