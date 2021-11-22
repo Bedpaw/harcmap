@@ -21,7 +21,6 @@ import TPage from 'templates/page';
 import OForm from 'organisms/form';
 import MInput from 'molecules/input';
 import AButtonSubmit from 'atoms/button/submit';
-import { mixins } from 'mixins/base';
 import OPopupEventConfirmation from 'organisms/popup/event-confirmation';
 import { eventsListMock } from 'organisms/events-list-mock';
 import { ref } from 'vue';
@@ -36,7 +35,6 @@ export default {
     MInput,
     AButtonSubmit,
   },
-  mixins: [mixins.form],
   setup () {
     const eventCode = ref('');
     const event = ref(eventsListMock[0]);

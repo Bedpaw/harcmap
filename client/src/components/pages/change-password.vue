@@ -36,7 +36,6 @@
 import TPage from 'templates/page';
 import AButtonSubmit from 'atoms/button/submit';
 import { api } from 'api';
-import { mixins } from 'mixins/base';
 import MFieldSetPassword from 'molecules/field/set-password';
 import OForm from 'organisms/form';
 import AButtonPrimary from 'atoms/button/primary';
@@ -53,7 +52,6 @@ export default {
     MFieldSetPassword,
     AButtonSubmit,
   },
-  mixins: [mixins.form],
   setup () {
     const password = ref('');
     const message = ref('');
@@ -70,7 +68,7 @@ export default {
       isSending.value = true;
       blockForm.value = true;
       api.changePassword({
-        password,
+        password: password.value,
         key: router.currentRoute.value.params.key,
       })
         .then(onChangePassword)
