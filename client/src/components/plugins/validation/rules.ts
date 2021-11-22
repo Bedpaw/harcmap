@@ -1,5 +1,15 @@
 import { Ref } from '@vue/reactivity';
-import { email, hasCapitalize, hasNumber, maxLength, minLength, required, sameAs } from 'plugins/validation/validatorsWithTranslations';
+import {
+  datetimeAfter,
+  email,
+  futureDatetime,
+  hasCapitalize,
+  hasNumber,
+  maxLength,
+  minLength,
+  required,
+  sameAs,
+} from 'plugins/validation/validatorsWithTranslations';
 
 export const validationRules = {
   email: [required, email],
@@ -14,5 +24,8 @@ export const validationRules = {
   required: [required],
   requiredName: [required, maxLength(128)],
   name: [maxLength(128)],
+
   date: [required],
+  futureDatetime: [required, futureDatetime],
+  dateTimeAfter: (edgeDatetime: Ref) => [required, datetimeAfter(edgeDatetime)],
 };

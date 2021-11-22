@@ -1,39 +1,43 @@
 import useVuelidate from '@vuelidate/core';
 import { computed, SetupContext, watch, Ref } from 'vue';
 import { RulesList, ValidationProps } from 'models/validation';
-import { useModelValue } from 'plugins/v-model';
-import { undefinedVuelidate, validationRulesListToConfig } from 'plugins/validation/utils';
+import { undefinedDoubleVuelidate, validationRulesListToConfig } from 'plugins/validation/utils';
 
-export const useDoubleFieldValidation = (props:ValidationProps, context:SetupContext, defaultRules:RulesList = [], next:[Ref, RulesList]) => {
-  const [nextValue, nextRules] = next;
-  const { vModel } = useModelValue(props, context);
+export const useDoubleFieldValidation = (props:ValidationProps, context:SetupContext, first:[Ref, RulesList], next:[Ref, RulesList]) => {
+  const [firstModel, firstRules] = first;
+  const [nextModel, nextRules] = next;
 
   const v$ = useVuelidate(
     {
-      vModel: validationRulesListToConfig([...props.rules, ...defaultRules]),
-      nextValue: validationRulesListToConfig(nextRules),
+      firstModel: validationRulesListToConfig([...props.rules, ...(firstRules || [])]),
+      nextModel: validationRulesListToConfig(nextRules || []),
     },
     {
-      vModel,
-      nextValue,
+      firstModel,
+      nextModel,
     },
   );
-  const vuelidate = v$.value || undefinedVuelidate;
+  const vuelidate = v$.value || undefinedDoubleVuelidate;
 
-  watch(vModel, () => vuelidate.vModel.$touch());
-  const isError = computed(() => vuelidate.vModel?.$error);
-  const errorMessage = computed(() => vuelidate.vModel?.$errors[0]?.$message || '');
+  watch(firstModel, () => vuelidate.firstModel.$touch());
+  const isError = computed(() => vuelidate.firstModel?.$error);
+  const errorMessage = computed(() => vuelidate.firstModel?.$errors[0]?.$message || '');
 
-  watch(nextValue, () => vuelidate.nextValue.$touch());
-  const isNextError = computed(() => vuelidate.nextValue?.$error);
-  const nextErrorMessage = computed(() => vuelidate.nextValue?.$errors[0]?.$message || '');
+  watch(nextModel, () => vuelidate.nextModel.$touch());
+  const isNextError = computed(() => vuelidate.nextModel?.$error);
+  const nextErrorMessage = computed(() => vuelidate.nextModel?.$errors[0]?.$message || '');
 
   return {
-    vModel,
+    first: {
+      ref: firstModel,
+      error: isError,
+      message: errorMessage,
+    },
+    next: {
+      ref: nextModel,
+      error: isNextError,
+      message: nextErrorMessage,
+    },
     v$,
-    isError,
-    errorMessage,
-    isNextError,
-    nextErrorMessage,
   };
 };

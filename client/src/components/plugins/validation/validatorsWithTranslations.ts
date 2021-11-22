@@ -4,6 +4,8 @@ import i18n from 'dictionary';
 import { helpers } from '@vuelidate/validators';
 import { ValidateTools } from '@dbetka/wdk/lib/validate-tools';
 import { Ref } from '@vue/reactivity';
+import { DATE_FORMATS, getDate } from 'utils/date';
+import * as dayjs from 'dayjs';
 
 // or import { createI18nMessage } from '@vuelidate/validators'
 const { createI18nMessage } = validators;
@@ -28,4 +30,16 @@ export const minLength = (param:number) => withI18nMessage(validators.minLength(
 export const maxLength = (param:number) => withI18nMessage(validators.maxLength(param));
 export const sameAs = (ref:Ref) => withI18nMessage(validators.sameAs(ref));
 export const hasNumber = withI18nMessage(helpers.withParams({ type: 'hasNumber' }, ValidateTools.hasNumber));
-export const hasCapitalize = withI18nMessage(helpers.withParams({ type: 'hasCapitalize' }, (value:string) => /[A-Z]/.test(value)));
+export const hasCapitalize = withI18nMessage(helpers.withParams({ type: 'hasCapitalize' },
+  (value:string) => /[A-Z]/.test(value)),
+);
+export const futureDatetime = withI18nMessage(helpers.withParams({ type: 'futureDatetime' },
+  (date:string) => dayjs().valueOf() < getDate.fromFormat(date, DATE_FORMATS.YYYYMMDDTHHmm).valueOf()),
+);
+export const datetimeAfter = (firstDateRef:Ref) => withI18nMessage(helpers.withParams({ type: 'datetimeAfter' },
+  (secondDate:string) => {
+    const firstTimestamp = getDate.fromFormat(firstDateRef.value, DATE_FORMATS.YYYYMMDDTHHmm).valueOf();
+    const secondTimestamp = getDate.fromFormat(secondDate, DATE_FORMATS.YYYYMMDDTHHmm).valueOf();
+    return firstTimestamp < secondTimestamp;
+  },
+));

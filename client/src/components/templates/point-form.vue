@@ -20,20 +20,27 @@
         v-model="values.pointType"
         :disabled="blockForm"
       />
-      <m-field-datetime
+      <m-field-datetime-range
         v-if="isTimeout"
-        :label="$t('form.field.pointDateAndAppearanceTime')"
-        v-model="values.pointAppearanceTime"
-        :rules="validationRules.required"
+        :label="[$t('form.field.pointDateAndAppearanceTime'), $t('form.field.pointDateAndExpirationTime')]"
+        v-model:first-date="values.pointAppearanceTime"
+        v-model:next-date="values.pointExpirationTime"
         :disabled="blockForm"
       />
-      <m-field-datetime
-        v-if="isTimeout"
-        :label="$t('form.field.pointDateAndExpirationTime')"
-        v-model="values.pointExpirationTime"
-        :rules="validationRules.required"
-        :disabled="blockForm"
-      />
+      <!--      <m-field-datetime-->
+      <!--        v-if="isTimeout"-->
+      <!--        :label="$t('form.field.pointDateAndAppearanceTime')"-->
+      <!--        v-model="values.pointAppearanceTime"-->
+      <!--        :rules="validationRules.required"-->
+      <!--        :disabled="blockForm"-->
+      <!--      />-->
+      <!--      <m-field-datetime-->
+      <!--        v-if="isTimeout"-->
+      <!--        :label="$t('form.field.pointDateAndExpirationTime')"-->
+      <!--        v-model="values.pointExpirationTime"-->
+      <!--        :rules="validationRules.required"-->
+      <!--        :disabled="blockForm"-->
+      <!--      />-->
       <m-select
         v-if="isPermanent"
         :options="categoryOptions"
@@ -79,7 +86,6 @@ import AButtonSecondary from 'atoms/button/secondary';
 import AButtonSubmit from 'atoms/button/submit';
 import { MACROS } from 'utils/macros';
 import { mixins } from 'mixins/base';
-import MFieldDatetime from 'molecules/field/datetime';
 import MFieldText from 'molecules/field/text';
 import { ErrorMessage } from 'utils/error-message';
 import OFloatContainer from 'organisms/float-container';
@@ -89,15 +95,16 @@ import { pointUtils } from 'utils/point';
 import { computed, onMounted, ref, toRefs } from 'vue';
 import { useForm } from 'plugins/form';
 import { translator } from 'dictionary';
+import MFieldDatetimeRange from 'molecules/field/datetime-range';
 
 export default {
   name: 't-point-form',
   mixins: [mixins.form],
   components: {
+    MFieldDatetimeRange,
     OAdminSetNewPointPosition,
     OFloatContainer,
     MFieldText,
-    MFieldDatetime,
     TPage,
     MSelect,
     OForm,
@@ -122,7 +129,7 @@ export default {
         pointId: idUtils.generateNewId(),
         pointName: '',
         pointCategory: MACROS.pointCategory[0].categoryId,
-        pointType: MACROS.pointType.permanent,
+        pointType: MACROS.pointType.timeout,
         pointAppearanceTime: null,
         pointExpirationTime: null,
         pointLongitude: null,

@@ -110,6 +110,8 @@ export const pl = {
     sameAs: 'Pole nie zgadza się z polem potwierdzającym {target}.',
     hasNumber: 'Pole powinno zawierać co najmniej jedną cyfrę.',
     hasCapitalize: 'Pole powinno zawierać co najmniej jedną wielką literę.',
+    futureDatetime: 'Data powinna być późniejsza niż teraz.',
+    datetimeAfter: 'Data powinna być późniejsza niż w polu powyżej.',
   },
   page: {
     about: {
