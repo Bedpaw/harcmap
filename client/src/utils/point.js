@@ -1,5 +1,5 @@
 import { MACROS } from 'utils/macros';
-import { compareDate, isBeforeLastGapEndTime, sortObjectsListByTime } from 'utils/date';
+import { compareDate, displayDate, getDate, isBeforeLastGapEndTime, sortObjectsListByTime } from 'utils/date';
 import { generalConfigUtils } from 'src/config/general-config';
 import { userUtils } from 'config/users-config';
 
@@ -55,6 +55,28 @@ export const pointUtils = {
       timePeriod = timePeriods.isPast;
     }
     return generalConfigUtils.getIconByTimePeriod(timePeriod);
+  },
+  convertPointToForm (point) {
+    const data = { ...point };
+    const expirationTime = point.pointExpirationTime;
+    const appearanceTime = point.pointAppearanceTime;
+
+    if (expirationTime && appearanceTime) {
+      data.pointExpirationTime = getDate.fromTimestamp(expirationTime);
+      data.pointAppearanceTime = getDate.fromTimestamp(appearanceTime);
+    }
+    return data;
+  },
+  convertPointToSend (point) {
+    const data = { ...point };
+    const expirationTime = point.pointExpirationTime;
+    const appearanceTime = point.pointAppearanceTime;
+
+    if (expirationTime && appearanceTime) {
+      data.pointExpirationTime = displayDate.inTimestamp(expirationTime);
+      data.pointAppearanceTime = displayDate.inTimestamp(appearanceTime);
+    }
+    return data;
   },
   pointIsVisibleOnMap (point, {
     hiddenPointId,

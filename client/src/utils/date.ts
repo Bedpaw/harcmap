@@ -26,6 +26,7 @@ export const compareDate: Record<string, (startDate: DateType, endDate?: DateTyp
 
 export const displayDate = {
   inFormat: (date: DateType, format = DATE_FORMATS.DDMMYYYY) => dayjs(date).format(format),
+  inTimestamp: (date: DateType) => dayjs(date).valueOf(),
   relativeToInCalendarFormat: (date: DateType) => dayjs(date).calendar(),
   asDuration: (date: number) => dayjs.duration(date, 'seconds').humanize(),
   timeRange: (from: string, to: string, separator = ' - '): string => {
@@ -38,6 +39,7 @@ export const displayDate = {
 
 export const getDate = {
   fromFormat: (date: DateType, format = DATE_FORMATS.DDMMYYYY): dayjs.Dayjs => dayjs(date, format),
+  fromTimestamp: (date: DateType): dayjs.Dayjs => dayjs(date),
   secondsAfterFull: (date = dayjs()): number => Number(dayjs(date).format(DATE_FORMATS.ss)),
   minutesAfterFull: (date = dayjs()): number => Number(dayjs(date).format(DATE_FORMATS.mm)),
   secondsToFull: (date = dayjs()): number => secondsInMinute - Number(dayjs(date).format(DATE_FORMATS.ss)),

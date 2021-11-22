@@ -81,7 +81,6 @@ import { computed, onMounted, ref, toRefs } from 'vue';
 import { useForm } from 'plugins/form';
 import { translator } from 'dictionary';
 import MFieldDatetimeRange from 'molecules/field/datetime-range';
-import dayjs from 'dayjs';
 
 export default {
   name: 't-point-form',
@@ -109,26 +108,18 @@ export default {
   setup (props) {
     const { defaultValues, onSave } = toRefs(props);
 
-    function generateDefaultValues () {
-      const preprocessedDefaultValues = { ...defaultValues.value };
-      if (defaultValues.value.pointExpirationTime !== null && defaultValues.value.pointAppearanceTime !== null) {
-        preprocessedDefaultValues.pointExpirationTime = dayjs(defaultValues.value.pointExpirationTime);
-        preprocessedDefaultValues.pointAppearanceTime = dayjs(defaultValues.value.pointAppearanceTime);
-      }
-
-      return {
-        pointId: idUtils.generateNewId(),
-        pointName: '',
-        pointCategory: MACROS.pointCategory[0].categoryId,
-        pointType: MACROS.pointType.permanent,
-        pointAppearanceTime: null,
-        pointExpirationTime: null,
-        pointLongitude: null,
-        pointLatitude: null,
-        pointCollectionTime: null,
-        ...preprocessedDefaultValues,
-      };
-    }
+    const generateDefaultValues = () => ({
+      pointId: idUtils.generateNewId(),
+      pointName: '',
+      pointCategory: MACROS.pointCategory[0].categoryId,
+      pointType: MACROS.pointType.permanent,
+      pointAppearanceTime: null,
+      pointExpirationTime: null,
+      pointLongitude: null,
+      pointLatitude: null,
+      pointCollectionTime: null,
+      ...pointUtils.convertPointToForm(defaultValues.value),
+    });
     const values = ref(generateDefaultValues());
     const restartValues = () => Object.assign(values.value, generateDefaultValues());
 
@@ -160,9 +151,7 @@ export default {
 
     const isTimeout = computed(() => pointUtils.isTimeOut(values.value));
     const isPermanent = computed(() => pointUtils.isPermanent(values.value));
-
     const rulesForName = computed(() => isTimeout.value ? validationRules.requiredName : validationRules.name);
-
     const hasSetPosition = computed(() => pointUtils.hasSetPosition(values.value));
 
     function saveNewPosition (newPosition) {
@@ -186,12 +175,7 @@ export default {
       }
       ensureValidDataByPointType();
 
-      const dataToSend = { ...values.value };
-      if (values.value.pointExpirationTime !== null && values.value.pointAppearanceTime !== null) {
-        dataToSend.pointExpirationTime = dayjs(values.value.pointExpirationTime).valueOf();
-        dataToSend.pointAppearanceTime = dayjs(values.value.pointAppearanceTime).valueOf();
-      }
-      onSave.value(dataToSend)
+      onSave.value(pointUtils.convertPointToSend(values.value))
         .then(message => {
           restartValues();
           onSuccessOccurs(message);
