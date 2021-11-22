@@ -1,4 +1,3 @@
-import { vueModel, vueModelCheckbox } from 'extends/base';
 import { formMixin as form } from './form';
 
 const vModel = {
@@ -6,45 +5,19 @@ const vModel = {
     modelValue: {},
   },
   computed: {
-    vModel: vueModel,
+    vModel: {
+      get () {
+        return this.modelValue;
+      },
+      set (value) {
+        this.$emit('update:modelValue', value);
+      },
+    },
   },
   emits: ['update:modelValue'],
-};
-const vModelCheckbox = {
-  model: {
-    prop: 'checked',
-    event: 'change',
-  },
-  props: {
-    checked: {},
-  },
-  computed: {
-    vModel: vueModelCheckbox,
-  },
-};
-
-const vModelRadio = {
-  model: {
-    prop: 'modelValue',
-    event: 'change',
-  },
-  props: {
-    modelValue: { default: '' },
-    value: {
-      type: String,
-      default: undefined,
-    },
-  },
-  computed: {
-    isChecked () {
-      return this.modelValue === this.value;
-    },
-  },
 };
 
 export const mixins = {
   vModel,
-  vModelRadio,
-  vModelCheckbox,
   form,
 };
