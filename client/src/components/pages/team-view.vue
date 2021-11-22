@@ -13,12 +13,12 @@
         <div>{{$t('page.teamView.nickname')}}</div>
         <div>{{$t('page.teamView.email')}}</div>
       </div>
-      <div class="m-grid f-team-view"
-           v-for="user in teamMembersOrdered"
-           :key="user.userId"
+      <div
+        class="m-grid f-team-view"
+        v-for="user in teamMembersOrdered"
+        :key="user.userId"
       >
-        <m-row-team-row :user="user"
-        ></m-row-team-row>
+        <m-row-team-row :user="user"/>
       </div>
     </div>
   </t-page>
