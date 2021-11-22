@@ -35,7 +35,7 @@ export default {
       if (v$.value.$invalid) {
         v$.value.$touch();
         store.dispatch('snackbar/openTemporary', {
-          message: translator.t('correctForm'),
+          message: translator.t('error.correctForm'),
           error: true,
         });
       } else {
