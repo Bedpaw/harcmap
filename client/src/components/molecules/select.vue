@@ -116,9 +116,7 @@ export default {
   },
   computed: {
     label () {
-      const option = this.options.find(option => {
-        return option.value === this.vModel;
-      });
+      const option = this.options.find(option => option.value === this.vModel);
       return option ? option.label : '';
     },
     additionalClasses () {
@@ -133,15 +131,11 @@ export default {
   methods: {
     focusIn () {
       clearTimeout(this.$options.timeoutId);
-      this.$options.timeoutId = setTimeout(() => {
-        this.toggleOptions(true);
-      }, 100);
+      this.$options.timeoutId = setTimeout(() => this.toggleOptions(true), 100);
     },
     focusOut () {
       clearTimeout(this.$options.timeoutId);
-      this.$options.timeoutId = setTimeout(() => {
-        this.toggleOptions(false);
-      }, 100);
+      this.$options.timeoutId = setTimeout(() => this.toggleOptions(false), 100);
     },
     resetPointedOption (value = this.vModel) {
       if (logical.isNull(value)) {
@@ -185,10 +179,7 @@ export default {
         this.optionsAreOutsideWindow = false;
       }
     },
-    chooseOption ({
-      value,
-      index,
-    }) {
+    chooseOption ({ value, index }) {
       if (this.disabled) return;
 
       if (logical.isDefined(index)) {

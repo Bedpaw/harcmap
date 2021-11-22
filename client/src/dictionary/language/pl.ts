@@ -223,6 +223,7 @@ export const pl = {
     elementIdIsRequiredForMap: 'Kod wydarzenia jest wymagany, by uruchomić mapę',
     fakeErrorInMockApi: 'Fałszywy błąd mockApi',
     dataAfterSignIn: 'Logowanie nie powiodło się ze względu na problem z pobraniem danych dotyczących konta. Spróbuj ponownie.',
+    correctForm: 'Wypełnij poprawnie formularz.',
   },
   apiWarn: {
     undefined: 'Wystąpiło niezdefiniowane ostrzeżenie. Skontaktuj się z twórcą aplikacji.',

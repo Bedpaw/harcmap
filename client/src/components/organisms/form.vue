@@ -13,6 +13,7 @@
 import useVuelidate from '@vuelidate/core';
 import { store } from 'store';
 import { toRefs } from 'vue';
+import { translator } from 'dictionary';
 
 export default {
   name: 'o-form',
@@ -34,7 +35,7 @@ export default {
       if (v$.value.$invalid) {
         v$.value.$touch();
         store.dispatch('snackbar/openTemporary', {
-          message: 'Wypełnij poprawnie formularz',
+          message: translator.t('correctForm'),
           error: true,
         });
       } else {

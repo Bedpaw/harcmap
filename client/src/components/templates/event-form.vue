@@ -128,14 +128,12 @@ export default {
         onErrorOccurs(new ErrorMessage(translator.t('communicate.editEvent.positionIsRequired')));
         return;
       }
-      onSave(values.value)
+      onSave.value(values.value)
         .then(onSuccessOccurs)
         .catch(onErrorOccurs);
     }
 
-    onMounted(() => {
-      Object.assign(values.value, defaultValues.value);
-    });
+    onMounted(() => Object.assign(values.value, defaultValues.value));
 
     return {
       values,
