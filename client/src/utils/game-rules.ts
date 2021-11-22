@@ -2,20 +2,22 @@ import { getEnumValuesAsArray } from 'utils/enum';
 import { gameRulesTranslation } from 'utils/translations';
 import {
   GameRule,
+  GameRuleEntryDTO,
+  InputTypeEnum,
   rulesOptions,
-  InputTypeEnum, GameRuleEntryDTO,
 } from 'src/models/game-rules';
 import { DEFAULT_EVENT_CONFIG } from 'config/event-config';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-// Cannot use enum as object key
-const getOptionsEnumAsArray = (rule: GameRule) => getEnumValuesAsArray(rulesOptions[rule.ruleId]);
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-// Cannot narrow type rule value, which depends from inputTypeEnum
-// Use only with rule.ruleType = InputTypeEnum.Select
-const getKeyFromOptions = (rule: GameRule) => getOptionsEnumAsArray(rule)[rule.ruleValue];
+const getOptionsEnumAsArray = (rule: GameRule): string[] => {
+  const optionsEnum = rulesOptions.get(rule.ruleId);
+  return optionsEnum ? getEnumValuesAsArray(optionsEnum) : [];
+};
+const getKeyFromOptions = (rule: GameRule): string | undefined => {
+  if (typeof rule.ruleValue !== 'boolean') {
+    return getOptionsEnumAsArray(rule)[rule.ruleValue];
+  }
+  return undefined;
+};
 
 export const gameRulesUtils = {
   getDescription (rule: GameRule) {
@@ -28,7 +30,7 @@ export const gameRulesUtils = {
   getOptions: (rule: GameRule) =>
     getOptionsEnumAsArray(rule)
       .map((option, index) => ({
-        label: gameRulesTranslation(rule.ruleId, option as string).options(),
+        label: gameRulesTranslation(rule.ruleId, option).options(),
         value: index,
       })),
   mapEventConfigIn (backendEventOptions: GameRuleEntryDTO[]) {

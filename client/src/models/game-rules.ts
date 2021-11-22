@@ -13,9 +13,9 @@ export enum GeolocationAvailabilityOptions {
   Available,
   Forbidden
 }
-export const rulesOptions = {
-  [Rules.GeolocationAvailability]: GeolocationAvailabilityOptions,
-};
+export const rulesOptions = new Map([
+  [Rules.GeolocationAvailability, GeolocationAvailabilityOptions],
+]);
 
 export type GameRulesOptions = boolean | GeolocationAvailabilityOptions
 
@@ -34,8 +34,3 @@ export interface GameRule {
   ruleType: InputTypeEnum,
   ruleCategoryName: string,
 }
-
-export const INPUT_TYPES = {
-  Select: 0,
-  Checkbox: 1,
-};

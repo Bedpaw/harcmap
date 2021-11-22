@@ -1,12 +1,13 @@
 <template>
   <section>
-    <component  v-for="rule of advancedGameRules" :key="rule.ruleId"
-                :is="inputTypeComponent(rule.ruleType)"
-                v-model="rule.ruleValue"
-                :disabled="blockForm"
-                :assist="gameRulesUtils.getDescription(rule)"
-                v-bind="inputProps(rule)"
-                class="f-mb-2"
+    <component
+      v-for="rule of advancedGameRules" :key="rule.ruleId"
+      :is="inputTypeComponent(rule.ruleType)"
+      v-model="rule.ruleValue"
+      :disabled="blockForm"
+      :assist="gameRulesUtils.getDescription(rule)"
+      v-bind="inputProps(rule)"
+      class="f-mb-2"
     >
       {{gameRulesUtils.getName(rule)}}
     </component>
@@ -17,13 +18,12 @@
 import ACheckbox from 'atoms/checkbox';
 import MSelect from 'molecules/select';
 import { gameRulesUtils } from 'utils/game-rules';
-import { INPUT_TYPES, InputTypeEnum } from 'models/game-rules';
+import { InputTypeEnum } from 'models/game-rules';
 
 export default {
   name: 'o-game-advanced-rules.vue',
   data: () => ({
     gameRulesUtils,
-    INPUT_TYPES,
   }),
   components: {
     ACheckbox,
@@ -41,8 +41,8 @@ export default {
   methods: {
     inputTypeComponent (ruleType) {
       return {
-        [INPUT_TYPES.Checkbox]: ACheckbox.name,
-        [INPUT_TYPES.Select]: MSelect.name,
+        [InputTypeEnum.Checkbox]: ACheckbox.name,
+        [InputTypeEnum.Select]: MSelect.name,
       }[ruleType];
     },
     inputProps (rule) {
