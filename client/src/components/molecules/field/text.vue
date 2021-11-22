@@ -9,6 +9,16 @@
   />
 </template>
 
+<!-- USAGE EXAMPLE
+  <m-field-text
+    :label="$t('form.field.userTeam')"
+    :rules="validationRules.userTeam"
+    v-model.trim="values.userTeam"
+    :disabled="blockForm"
+    :assist="$t('form.assist.userTeam')"
+  />
+-->
+
 <script>
 import MInput from 'molecules/input';
 import { fieldValidationMixin, useFieldValidation } from 'plugins/validation/field';

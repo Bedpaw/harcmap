@@ -31,7 +31,6 @@ export default {
     const { onSubmit } = toRefs(props);
 
     function handleSubmit () {
-      console.log('handleSubmit');
       if (v$.value.$invalid) {
         v$.value.$touch();
         store.dispatch('snackbar/openTemporary', {

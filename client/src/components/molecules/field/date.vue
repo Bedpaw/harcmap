@@ -1,47 +1,35 @@
 <template>
-  <!--  <validation-observer>-->
-  <!--    <validation-provider-->
-  <!--      :name="label.toLowerCase()"-->
-  <!--      :rules="rules"-->
-  <!--      v-slot="{ errors }"-->
-  <!--    >-->
   <m-input
-    type="datetime-local"
+    type="date"
     v-model="vModel"
     :disabled="disabled"
     :placeholder="label"
+    :error="isError"
+    :assist="errorMessage || assist"
   />
-<!--    :error="errors.length > 0"-->
-<!--    :assist="errors[0] || assist"-->
-<!--    </validation-provider>-->
-<!--  </validation-observer>-->
 </template>
 
 <!-- USAGE EXAMPLE
   <m-field-date
     :label="$t('form.field.date')"
     v-model="date"
-    :rules="rules.date"
+    :rules="validationRules.date"
     :disabled="blockForm"
   />
 -->
 
 <script>
 import MInput from 'molecules/input';
-import { mixins } from 'mixins/base';
 import { DATE_FORMATS, displayDate, getDate } from 'utils/date';
+import { fieldValidationMixin, useFieldValidation } from 'plugins/validation/field';
+import { computed, toRefs } from 'vue';
 
 export default {
   name: 'm-field-date',
-  mixins: [mixins.vModel],
   components: { MInput },
   props: {
     disabled: Boolean,
     label: {
-      type: String,
-      default: '',
-    },
-    rules: {
       type: String,
       default: '',
     },
@@ -50,15 +38,25 @@ export default {
       default: '',
     },
   },
-  computed: {
-    vModel: {
+  mixins: [fieldValidationMixin],
+  setup: (props, context) => {
+    const { modelValue } = toRefs(props);
+
+    const vModel = computed({
       get () {
-        return displayDate.inFormat(this.value, DATE_FORMATS.YYYYMMDD);
+        if (modelValue.value) return displayDate.inFormat(modelValue, DATE_FORMATS.YYYYMMDD);
+        else return null;
       },
       set (value) {
-        this.$emit('input', getDate.fromFormat(value, DATE_FORMATS.YYYYMMDD));
+        if (value) context.emit('update:modelValue', getDate.fromFormat(value, DATE_FORMATS.YYYYMMDD));
+        else return null;
       },
-    },
+    });
+
+    return {
+      ...useFieldValidation(props, context, { vModel }),
+      vModel,
+    };
   },
 };
 </script>

@@ -9,6 +9,13 @@
   />
 </template>
 
+<!-- USAGE EXAMPLE
+  <m-field-password
+    v-model="date"
+    :disabled="blockForm"
+  />
+-->
+
 <script>
 import MInput from 'molecules/input';
 import { translator } from 'src/dictionary';
