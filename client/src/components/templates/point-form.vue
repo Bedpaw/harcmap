@@ -71,7 +71,6 @@ import MSelect from 'molecules/select';
 import AButtonSecondary from 'atoms/button/secondary';
 import AButtonSubmit from 'atoms/button/submit';
 import { MACROS } from 'utils/macros';
-import { mixins } from 'mixins/base';
 import MFieldText from 'molecules/field/text';
 import { ErrorMessage } from 'utils/error-message';
 import OFloatContainer from 'organisms/float-container';
@@ -82,10 +81,10 @@ import { computed, onMounted, ref, toRefs } from 'vue';
 import { useForm } from 'plugins/form';
 import { translator } from 'dictionary';
 import MFieldDatetimeRange from 'molecules/field/datetime-range';
+import dayjs from 'dayjs';
 
 export default {
   name: 't-point-form',
-  mixins: [mixins.form],
   components: {
     MFieldDatetimeRange,
     OAdminSetNewPointPosition,
@@ -111,17 +110,23 @@ export default {
     const { defaultValues, onSave } = toRefs(props);
 
     function generateDefaultValues () {
+      const preprocessedDefaultValues = { ...defaultValues.value };
+      if (defaultValues.value.pointExpirationTime !== null && defaultValues.value.pointAppearanceTime !== null) {
+        preprocessedDefaultValues.pointExpirationTime = dayjs(defaultValues.value.pointExpirationTime);
+        preprocessedDefaultValues.pointAppearanceTime = dayjs(defaultValues.value.pointAppearanceTime);
+      }
+
       return {
         pointId: idUtils.generateNewId(),
         pointName: '',
         pointCategory: MACROS.pointCategory[0].categoryId,
-        pointType: MACROS.pointType.timeout,
+        pointType: MACROS.pointType.permanent,
         pointAppearanceTime: null,
         pointExpirationTime: null,
         pointLongitude: null,
         pointLatitude: null,
         pointCollectionTime: null,
-        ...defaultValues.value,
+        ...preprocessedDefaultValues,
       };
     }
     const values = ref(generateDefaultValues());
@@ -180,7 +185,13 @@ export default {
         return;
       }
       ensureValidDataByPointType();
-      onSave.value(values.value)
+
+      const dataToSend = { ...values.value };
+      if (values.value.pointExpirationTime !== null && values.value.pointAppearanceTime !== null) {
+        dataToSend.pointExpirationTime = dayjs(values.value.pointExpirationTime).valueOf();
+        dataToSend.pointAppearanceTime = dayjs(values.value.pointAppearanceTime).valueOf();
+      }
+      onSave.value(dataToSend)
         .then(message => {
           restartValues();
           onSuccessOccurs(message);
