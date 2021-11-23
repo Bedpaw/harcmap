@@ -6,6 +6,7 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
 const dayjs = require('dayjs');
+const AppLogoPlugin = require('./webpack/plugin');
 
 const webpackUtils = require('./webpack/utils');
 const resolve = webpackUtils.resolve;
@@ -13,9 +14,6 @@ const resolve = webpackUtils.resolve;
 const AppName = 'HarcMap';
 const AppVersion = webpackUtils.getAppVersionFromPackageJSON();
 const publicPath = '../public';
-
-console.clear();
-process.stdout.write('\n');
 
 module.exports = {
   mode: 'development',
@@ -71,16 +69,18 @@ module.exports = {
     extensions: ['.ts', '.js', '.vue', '.sass', '.css'],
   },
   plugins: [
+    new AppLogoPlugin({ AppName, AppVersion }),
     new ProgressBarPlugin({
       format: '  build ' + chalk.bgGray(':bar') + ' ' + chalk.green.bold(':percent') + ' ',
       renderThrottle: 100,
+      total: 200,
       width: 30,
       complete: '█',
       incomplete: '-',
       stream: process.stdout,
       clear: false,
       callback: () => {
-        const message = 'Done at ' + chalk.bold(dayjs().format('HH:mm:ss')) + '';
+        const message = '\nDone at ' + chalk.bold(dayjs().format('HH:mm:ss')) + '';
         process.stderr.write(chalk.green(message));
       },
     }),
