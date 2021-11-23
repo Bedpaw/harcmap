@@ -7,17 +7,33 @@ class AppLogoPlugin {
 
   apply (compiler) {
     const { AppName, AppVersion } = this.config;
+    const mode = this.capitalizeFirstChar(compiler.options.mode);
+    const watch = this.capitalizeFirstChar(compiler.options.watch ? 'watch' : 'single run');
 
     compiler.hooks.watchRun.tapAsync(
       'AppLogoPlugin',
       (compilation, callback) => {
         this.clear();
         this.newLine();
-        this.writeLogo(`${AppName} v${AppVersion}`, 44);
+        this.writeLogo(`${AppName} Client v${AppVersion}`, 44);
+        this.newLine();
+        this.write(`  ${mode} - ${watch}`);
         this.newLine(2);
         callback();
       },
     );
+
+    compiler.hooks.done.tapAsync(
+      'AppLogoPlugin',
+      (compilation, callback) => {
+        setTimeout(() => this.write('  Waiting for changes...'), 100);
+        callback();
+      },
+    );
+  }
+
+  capitalizeFirstChar (string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   writeLogo (text, length) {

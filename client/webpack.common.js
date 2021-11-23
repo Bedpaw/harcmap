@@ -6,7 +6,7 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
 const dayjs = require('dayjs');
-const AppLogoPlugin = require('./webpack/plugin');
+const AppLogoPlugin = require('./webpack/AppLogoPlugin');
 
 const webpackUtils = require('./webpack/utils');
 const resolve = webpackUtils.resolve;
@@ -71,7 +71,7 @@ module.exports = {
   plugins: [
     new AppLogoPlugin({ AppName, AppVersion }),
     new ProgressBarPlugin({
-      format: '  build ' + chalk.bgGray(':bar') + ' ' + chalk.green.bold(':percent') + ' ',
+      format: '  Build ' + chalk.bgGray(':bar') + ' ' + chalk.green.bold(':percent') + ' ',
       renderThrottle: 100,
       total: 200,
       width: 30,
@@ -79,9 +79,10 @@ module.exports = {
       incomplete: '-',
       stream: process.stdout,
       clear: false,
-      callback: () => {
-        const message = '\nDone at ' + chalk.bold(dayjs().format('HH:mm:ss')) + '';
-        process.stderr.write(chalk.green(message));
+      summary: false,
+      customSummary (buildTime) {
+        process.stderr.write(chalk.green('  Done at ' + chalk.bold(dayjs().format('HH:mm:ss'))));
+        process.stderr.write(chalk.green.bold('\n  Build completed in ' + buildTime + '\n\n'));
       },
     }),
     new ESLintPlugin({
