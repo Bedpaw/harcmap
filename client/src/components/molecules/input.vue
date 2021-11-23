@@ -49,6 +49,7 @@
 <script>
 import { modelValueMixin, useModelValue } from 'plugins/v-model';
 import { computed, onMounted, ref, toRefs } from 'vue';
+import { fieldUidGenerator } from 'plugins/uid-generators';
 
 export default {
   name: 'm-input',
@@ -103,11 +104,7 @@ export default {
       }
     });
 
-    onMounted(() => {
-      // TODO: use JS generator
-      const randomNumber = Math.floor(Math.random() * 10000);
-      id.value = 'id-input-' + randomNumber;
-    });
+    onMounted(() => (id.value = fieldUidGenerator.getNext()));
 
     return {
       vModel,

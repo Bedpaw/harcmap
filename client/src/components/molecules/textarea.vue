@@ -1,12 +1,11 @@
 <template>
   <div class="m-input">
     <m-resize-auto>
-      <template v-slot:default="{resize}">
+      <template v-slot="{resize}">
         <textarea
           :id="id"
           class="a-field f-textarea"
           :class="additionalClasses"
-          :type="getType"
           @input="resize"
           v-model="vModel"
         />
@@ -42,6 +41,7 @@
 import MResizeAuto from 'molecules/resize-auto';
 import { computed, onMounted, ref, toRefs } from 'vue';
 import { modelValueMixin, useModelValue } from 'plugins/v-model';
+import { fieldUidGenerator } from 'plugins/uid-generators';
 
 export default {
   name: 'm-textarea',
@@ -50,10 +50,6 @@ export default {
   },
   props: {
     placeholder: {
-      type: String,
-      default: '',
-    },
-    type: {
       type: String,
       default: '',
     },
@@ -73,38 +69,23 @@ export default {
   mixins: [modelValueMixin],
   setup: (props, context) => {
     const { vModel } = useModelValue(props, context);
-    const { error, correct, type } = toRefs(props);
+    const { error, correct } = toRefs(props);
 
     const id = ref('');
-    const showPassword = ref(false);
 
-    onMounted(() => {
-      // TODO: use JS generator
-      const randomNumber = Math.floor(Math.random() * 10000);
-      id.value = 'id-input-' + randomNumber;
-    });
+    onMounted(() => (id.value = fieldUidGenerator.getNext()));
 
-    const isPassword = computed(() => type.value === 'password');
     const additionalClasses = computed(() => ({
       'f-filled': vModel.value !== '',
       'f-error': error.value,
       'f-correct': correct.value,
-      'f-icon': error.value || isPassword.value,
+      'f-icon': error.value,
     }));
-    const getType = computed(() => {
-      if (isPassword.value) {
-        return showPassword.value ? '' : type.value;
-      } else {
-        return type.value;
-      }
-    });
 
     return {
       vModel,
       id,
-      showPassword,
       additionalClasses,
-      getType,
     };
   },
 };

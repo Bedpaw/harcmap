@@ -70,6 +70,7 @@
 import { logical } from 'vendors/logical';
 import { modelValueMixin, useModelValue } from 'plugins/v-model';
 import { computed, nextTick, onMounted, ref, toRefs } from 'vue';
+import { fieldUidGenerator } from 'plugins/uid-generators';
 
 export default {
   name: 'm-select',
@@ -233,9 +234,7 @@ export default {
     }
 
     onMounted(() => {
-      // TODO: use JS generator
-      const randomNumber = Math.floor(Math.random() * 10000);
-      id.value = 'id-select-' + randomNumber;
+      id.value = fieldUidGenerator.getNext();
       resetPointedOption();
     });
 
