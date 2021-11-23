@@ -9,7 +9,7 @@ class ProgressBarConfig {
       total: 200,
       width: 30,
       complete: '█',
-      incomplete: '-',
+      incomplete: ' ',
       stream: process.stdout,
       clear: false,
       summary: false,

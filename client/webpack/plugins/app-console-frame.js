@@ -3,22 +3,23 @@ const dayjs = require('dayjs');
 dayjs.extend(require('dayjs/plugin/duration'));
 
 class AppConsoleFramePlugin {
-  constructor (config = { AppName, AppVersion }) {
+  constructor (config = { appName, appVersion, target }) {
     this.config = config;
   }
 
   apply (compiler) {
-    const { AppName, AppVersion } = this.config;
+    const { appName, appVersion, target } = this.config;
     const mode = this.capitalizeFirstChar(compiler.options.mode);
+    const targetText = this.capitalizeFirstChar(target);
     const watch = this.capitalizeFirstChar(compiler.options.watch ? 'watch' : 'single run');
 
     const makeLogo = (compilation, callback) => {
       this.time = dayjs();
       this.clear();
       this.newLine();
-      this.writeLogo(`${AppName} Client v${AppVersion}`, 44);
+      this.writeLogo(`${appName} Client v${appVersion}`, 44);
       this.newLine();
-      this.write(`  ${mode} - ${watch}`);
+      this.write(`  ${mode} - ${targetText} - ${watch}`);
       this.newLine(2);
       callback();
     };

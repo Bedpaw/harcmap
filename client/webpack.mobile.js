@@ -1,9 +1,11 @@
 const { merge } = require('webpack-merge');
-const common = require('./webpack.common.js');
+const commonConfigFile = require('./webpack.common.js');
 const webpack = require('webpack');
-const { htmlWebpackPlugin } = require('./webpack/utils');
+const { TARGETS } = require('./webpack/enums');
 
-module.exports = merge(common, {
+const commonConfig = commonConfigFile({ target: TARGETS.mobileApp });
+
+module.exports = merge(commonConfig, {
   mode: 'development',
   performance: {
     hints: false,
@@ -12,7 +14,6 @@ module.exports = merge(common, {
     filename: '[id].[contenthash].js',
   },
   plugins: [
-    htmlWebpackPlugin({ capacitor: true }),
     new webpack.DefinePlugin({
       PRODUCTION: JSON.stringify(true),
       USER: JSON.stringify(''),
