@@ -1,6 +1,5 @@
 const ProgressBarWebpackPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
-const dayjs = require('dayjs');
 
 class ProgressBarConfig {
   constructor () {
@@ -14,10 +13,7 @@ class ProgressBarConfig {
       stream: process.stdout,
       clear: false,
       summary: false,
-      customSummary (buildTime) {
-        process.stderr.write(chalk.green('  Done at ' + chalk.bold(dayjs().format('HH:mm:ss'))));
-        process.stderr.write(chalk.green.bold('\n  Build completed in ' + buildTime + '\n\n'));
-      },
+      customSummary: () => undefined,
     });
   }
 }

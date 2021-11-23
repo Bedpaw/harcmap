@@ -1,13 +1,12 @@
 const webpack = require('webpack');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const getAppVersion = require('./webpack/utils').getAppVersionFromPackageJSON;
+const resolve = require('./webpack/utils').resolve;
 
-const AppLogoPlugin = require('./webpack/plugins/app-logo');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const AppConsoleFramePlugin = require('./webpack/plugins/app-console-frame');
 const ProgressBarConfig = require('./webpack/plugins/progress-bar-config');
 const ESLintConfig = require('./webpack/plugins/eslint-config');
 const ImageConfig = require('./webpack/plugins/image-config');
-
-const getAppVersion = require('./webpack/utils').getAppVersionFromPackageJSON;
-const resolve = require('./webpack/utils').resolve;
 
 const optimization = require('./webpack/optimization');
 const rules = require('./webpack/rules');
@@ -44,7 +43,7 @@ module.exports = {
     extensions: ['.ts', '.js', '.vue', '.sass', '.css'],
   },
   plugins: [
-    new AppLogoPlugin({ AppName, AppVersion }),
+    new AppConsoleFramePlugin({ AppName, AppVersion }),
     new ProgressBarConfig(),
     new ESLintConfig(),
     new ImageConfig(),
