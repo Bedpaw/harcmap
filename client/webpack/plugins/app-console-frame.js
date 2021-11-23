@@ -45,7 +45,7 @@ class AppConsoleFramePlugin {
         process.stderr.cursorTo(0, 6, () => {
           this.write(chalk.green('  Done at ' + chalk.bold(dayjs().format('HH:mm:ss'))));
           this.newLine();
-          this.write(chalk.green.bold('  Build completed in ' + time));
+          this.write(chalk.green.bold('  Build completed in ' + time + 's'));
           this.newLine(2);
           setTimeout(() => {
             if (compiler.options.watch) {
