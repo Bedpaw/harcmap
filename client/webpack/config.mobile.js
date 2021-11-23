@@ -1,15 +1,13 @@
 const { merge } = require('webpack-merge');
-const commonConfigFile = require('./webpack.common.js');
+const commonConfigFile = require('./config.common.js');
 const webpack = require('webpack');
-const { TARGETS } = require('./webpack/enums');
+const { TARGETS } = require('./options/enums');
 
 const commonConfig = commonConfigFile({ target: TARGETS.mobileApp });
 
 module.exports = merge(commonConfig, {
   mode: 'development',
-  performance: {
-    hints: false,
-  },
+  devtool: 'inline-source-map',
   output: {
     filename: '[id].[contenthash].js',
   },

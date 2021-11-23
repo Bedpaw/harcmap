@@ -1,8 +1,7 @@
 const { merge } = require('webpack-merge');
-const commonConfigFile = require('./webpack.common.js');
+const commonConfigFile = require('./config.common.js');
 const webpack = require('webpack');
-const HtmlWebpackConfig = require('./webpack/plugins/html-webpack-config');
-const { TARGETS } = require('./webpack/enums');
+const { TARGETS } = require('./options/enums');
 
 const commonConfig = commonConfigFile({ target: TARGETS.browser });
 
@@ -13,7 +12,6 @@ module.exports = merge(commonConfig, {
     filename: '[name].js',
   },
   plugins: [
-    new HtmlWebpackConfig(),
     new webpack.DefinePlugin({
       PRODUCTION: JSON.stringify(false),
       USER: JSON.stringify('demo@demo.com'),

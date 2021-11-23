@@ -3,4 +3,6 @@ module.exports = {
     browser: 'Browser',
     mobileApp: 'Mobile App',
   }),
+  ROOT: '../',
+  SRC: '../src',
 };

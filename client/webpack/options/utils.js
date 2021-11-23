@@ -5,7 +5,7 @@ function resolve (dir) {
   return path.resolve(path.join(__dirname, '..'), dir);
 }
 
-function getAppVersionFromPackageJSON (filePath = 'package.json') {
+function getAppVersionFromPackageJSON (filePath = '../package.json') {
   const rawData = fs.readFileSync(filePath);
   if (rawData) {
     const packageJSON = JSON.parse(rawData);

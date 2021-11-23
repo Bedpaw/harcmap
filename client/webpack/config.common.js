@@ -1,29 +1,29 @@
 const webpack = require('webpack');
-const getAppVersion = require('./webpack/utils').getAppVersionFromPackageJSON;
-const resolve = require('./webpack/utils').resolve;
+const getAppVersion = require('./options/utils').getAppVersionFromPackageJSON;
+const resolve = require('./options/utils').resolve;
 
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const AppConsoleFramePlugin = require('./webpack/plugins/app-console-frame');
-const ProgressBarConfig = require('./webpack/plugins/progress-bar-config');
-const ESLintConfig = require('./webpack/plugins/eslint-config');
-const ImageConfig = require('./webpack/plugins/image-config');
-const HtmlWebpackConfig = require('./webpack/plugins/html-webpack-config');
+const AppConsoleFramePlugin = require('./plugins/app-console-frame');
+const ProgressBarConfig = require('./plugins/progress-bar-config');
+const ESLintConfig = require('./plugins/eslint-config');
+const ImageConfig = require('./plugins/image-config');
+const HtmlWebpackConfig = require('./plugins/html-webpack-config');
 
-const optimization = require('./webpack/optimization');
-const rules = require('./webpack/rules');
-const alias = require('./webpack/alias');
-const { TARGETS } = require('./webpack/enums');
+const optimization = require('./options/optimization');
+const rules = require('./options/rules');
+const alias = require('./options/alias');
+const { TARGETS } = require('./options/enums');
 
 // -------------------------------------- //
 
 const appName = 'HarcMap';
 const appVersion = getAppVersion();
-const publicPath = '../public';
+const publicPath = '../../public';
 
 module.exports = (env) => ({
   mode: 'development',
   entry: {
-    main: 'src/index.js',
+    main: resolve('../src/index.js'),
   },
   stats: {
     all: false,
