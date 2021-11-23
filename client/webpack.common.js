@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpackUtils = require('./webpack/utils');
 const webpackRules = require('./webpack/rules').rules;
@@ -72,10 +71,6 @@ module.exports = {
       useEslintrc: true,
     }),
     new VueLoaderPlugin(),
-    new HtmlWebpackPlugin({
-      template: resolve('src/index.html'),
-      filename: 'index.html',
-    }),
     new CopyPlugin({
       patterns: [
         {

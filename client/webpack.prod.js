@@ -1,6 +1,7 @@
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
 const webpack = require('webpack');
+const { htmlWebpackPlugin } = require('./webpack/utils');
 
 module.exports = merge(common, {
   mode: 'production',
@@ -11,6 +12,7 @@ module.exports = merge(common, {
     filename: '[id].[contenthash].js',
   },
   plugins: [
+    htmlWebpackPlugin(),
     new webpack.DefinePlugin({
       PRODUCTION: JSON.stringify(true),
       USER: JSON.stringify(''),
