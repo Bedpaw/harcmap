@@ -56,25 +56,19 @@ export const pointUtils = {
     }
     return generalConfigUtils.getIconByTimePeriod(timePeriod);
   },
-  convertPointToForm (point) {
-    const data = { ...point };
-    const expirationTime = point.pointExpirationTime;
-    const appearanceTime = point.pointAppearanceTime;
-
-    if (expirationTime && appearanceTime) {
-      data.pointExpirationTime = getDate.fromTimestamp(expirationTime);
-      data.pointAppearanceTime = getDate.fromTimestamp(appearanceTime);
+  convertPointToForm (oldData) {
+    const data = { ...oldData };
+    if (oldData.pointExpirationTime && oldData.pointAppearanceTime) {
+      data.pointExpirationTime = getDate.fromTimestamp(oldData.pointExpirationTime);
+      data.pointAppearanceTime = getDate.fromTimestamp(oldData.pointAppearanceTime);
     }
     return data;
   },
-  convertPointToSend (point) {
-    const data = { ...point };
-    const expirationTime = point.pointExpirationTime;
-    const appearanceTime = point.pointAppearanceTime;
-
-    if (expirationTime && appearanceTime) {
-      data.pointExpirationTime = displayDate.inTimestamp(expirationTime);
-      data.pointAppearanceTime = displayDate.inTimestamp(appearanceTime);
+  convertPointToSend (oldData) {
+    const data = { ...oldData };
+    if (oldData.pointExpirationTime && oldData.pointAppearanceTime) {
+      data.pointExpirationTime = displayDate.inTimestamp(oldData.pointExpirationTime);
+      data.pointAppearanceTime = displayDate.inTimestamp(oldData.pointAppearanceTime);
     }
     return data;
   },

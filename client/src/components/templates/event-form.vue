@@ -128,12 +128,12 @@ export default {
         onErrorOccurs(new ErrorMessage(translator.t('communicate.editEvent.positionIsRequired')));
         return;
       }
-      onSave.value(values.value)
+      onSave.value(eventUtils.convertEventToSend(values.value))
         .then(onSuccessOccurs)
         .catch(onErrorOccurs);
     }
 
-    onMounted(() => Object.assign(values.value, defaultValues.value));
+    onMounted(() => Object.assign(values.value, eventUtils.convertEventToForm(defaultValues.value)));
 
     return {
       values,
