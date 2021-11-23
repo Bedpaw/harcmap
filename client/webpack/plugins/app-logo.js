@@ -26,7 +26,9 @@ class AppLogoPlugin {
     compiler.hooks.done.tapAsync(
       'AppLogoPlugin',
       (compilation, callback) => {
-        setTimeout(() => this.write('  Waiting for changes...'), 100);
+        if (compiler.options.watch) {
+          setTimeout(() => this.write('  Waiting for changes...'), 100);
+        }
         callback();
       },
     );
