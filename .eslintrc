@@ -35,6 +35,7 @@
       "error",
       2
     ],
-    "object-property-newline": ["error", { "allowAllPropertiesOnSameLine": true }]
+    "object-property-newline": ["error", { "allowAllPropertiesOnSameLine": true }],
+    "@typescript-eslint/no-var-requires": 0
   }
 }
