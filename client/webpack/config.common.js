@@ -30,9 +30,13 @@ module.exports = (env) => ({
     errors: true,
     warnings: true,
   },
+  performance: {
+    maxAssetSize: 250000,
+  },
   optimization,
   output: {
     // filename in dev and prod configs
+    chunkFilename: '[name].[chunkhash].js',
     path: resolve(publicPath),
     publicPath: '/',
     clean: true,

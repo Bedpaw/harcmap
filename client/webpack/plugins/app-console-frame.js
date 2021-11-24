@@ -38,11 +38,13 @@ class AppConsoleFramePlugin {
 
     compiler.hooks.done.tapAsync(
       'AppLogoPlugin',
-      (compilation, callback) => {
+      (stats, callback) => {
         callback();
-        const time = Math.abs(dayjs(compilation.startTime).diff(compilation.endTime, 'second', true));
+        const time = Math.abs(dayjs(stats.startTime).diff(stats.endTime, 'second', true));
 
         process.stderr.cursorTo(0, 6, () => {
+          this.writeAssetsSizes(stats);
+          this.newLine();
           this.write(chalk.green('  Done at ' + chalk.bold(dayjs().format('HH:mm:ss'))));
           this.newLine();
           this.write(chalk.green.bold('  Build completed in ' + time + 's'));
@@ -59,6 +61,21 @@ class AppConsoleFramePlugin {
 
   capitalizeFirstChar (string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  writeAssetsSizes (stats) {
+    for (const assetName in stats.compilation.assets) {
+      const asset = stats.compilation.assets[assetName];
+      const assetExt = assetName.split('.').pop();
+      const assetSize = (Math.round(asset._size / 1024)) + ' KB';
+      const isOverSizeLimit = asset._size > stats.compilation.compiler.options.performance.maxAssetSize;
+      const writeWithColor = chalk.bold[isOverSizeLimit ? 'yellow' : 'green'];
+
+      if (['js'].includes(assetExt)) {
+        this.write('  ' + assetName + ' ' + String(writeWithColor(assetSize)));
+        this.newLine();
+      }
+    }
   }
 
   writeLogo (text, length) {

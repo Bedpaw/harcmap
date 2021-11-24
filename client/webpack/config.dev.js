@@ -9,7 +9,7 @@ module.exports = merge(commonConfig, {
   mode: 'development',
   devtool: 'inline-source-map',
   output: {
-    filename: '[name].js',
+    chunkFilename: '[name].js',
   },
   plugins: [
     new webpack.DefinePlugin({
