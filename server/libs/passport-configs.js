@@ -53,6 +53,7 @@ function deserializeUser (_id, done) {
         userEvents: userData.userEvents.map(item => ({
           eventId: item.eventId,
           role: item.role,
+          teamId: item.teamId,
         })),
       };
 

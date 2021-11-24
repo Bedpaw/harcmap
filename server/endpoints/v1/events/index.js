@@ -49,7 +49,7 @@ router.route('/join')
 router.route('/:id')
   .get(async (request, response) => {
     const { id } = request.params;
-    const event = await getEvent(id);
+    const event = await getEvent(id, request);
 
     response.send(event);
   })

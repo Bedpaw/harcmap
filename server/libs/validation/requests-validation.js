@@ -17,6 +17,13 @@ function validateRequests (app) {
         ? requestSchemaStore[endpointUrl][method]
         : null;
 
+      // secure from double verification in similar endpoints with dynamic url
+      if (request.validated) {
+        return next();
+      }
+
+      request.validated = true;
+
       // schema exist
       if (endpointSchemaObject) {
         // data to validate for POST, PUT, DELETE

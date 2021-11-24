@@ -120,8 +120,9 @@ components:
       description: 'Point id'
       type: string
     pointKey:
-      description: 'Point key to collect'
+      description: 'Point key to collect. Nullable if user have no permission to key'
       type: string
+      nullable: true
     pointName:
       description: 'Point name'
       type: string

@@ -20,7 +20,7 @@ router.route('/:eventId/teams')
 router.route('/:eventId/teams/:teamId')
   .get(async (request, response) => {
     const { eventId, teamId } = request.params;
-    const result = await getTeam(eventId, teamId);
+    const result = await getTeam(request, eventId, teamId);
 
     response.send(result);
   });

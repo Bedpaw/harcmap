@@ -17,6 +17,8 @@ paths:
                   properties:
                     pointId:
                       $ref: '#/components/props/pointId'
+                    pointKey:
+                      $ref: '#/components/props/pointKey'  
                     pointName:
                       $ref: '#/components/props/pointName'
                     pointType:
@@ -96,7 +98,6 @@ paths:
                 $ref: '#/components/responses/401'
   /events/:eventId/points/collect:
     post:
-      deprecated: true
       summary: 'Collect point in event with eventId (SECURED)'
       description: 'Special privilege required'
       tags:

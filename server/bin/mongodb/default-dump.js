@@ -67,6 +67,21 @@ const data = {
     },
     'accountCreated': 0,
     'userEvents': [ObjectId('607f191e810c197222e860aa')],
+  }, {
+    '_id': ObjectId('6074ab220b6c6887ac32ddff'),
+    'email': 'creator@harcmap.com',
+    // password: Password1
+    'password': '61a73c554fd0a2024eb3bffb06a597ef5605920002c60e426288b8971095764ab049d8440c683f0ccd4e77d5a737fa90358664006cfa13c3b839028e63fc82f77e652730524c111efac95073',
+    'accountActivation': {
+      'isActive': true,
+      'key': null,
+    },
+    'passwordReset': {
+      'key': null,
+      'date': null,
+    },
+    'accountCreated': 0,
+    'userEvents': [ObjectId('607f191e810c197222e86022')],
   }],
   // TODO accountBaned - in event (admin ban, multi device login)
   usersEvents: [{
@@ -85,7 +100,7 @@ const data = {
     '_id': ObjectId('605720002c60e426288b896f'),
     'eventId': ObjectId('60e6cc2eaa95cc33d7c46701'),
     'teamId': ObjectId('60e6ca2aaa95cc33d7c466f8'),
-    'role': 'member',
+    'role': 'teamMember',
     'isBanned': false,
   }, {
     '_id': ObjectId('607f191e810c197222e860ea'),
@@ -99,6 +114,12 @@ const data = {
     'teamId': ObjectId('60e6b02e0b6c6887accf6c05'),
     'role': 'teamMember',
     'isBanned': false,
+  }, {
+    '_id': ObjectId('607f191e810c197222e86022'),
+    'eventId': ObjectId('605920002c60e426288b8971'),
+    'teamId': ObjectId('60e6b02e0b6c6887accf6c05'),
+    'role': 'creator',
+    'isBanned': false,
   }],
   teams: [{
     '_id': ObjectId('60e6ca2aaa95cc33d7c466f8'),
@@ -109,12 +130,12 @@ const data = {
     '_id': ObjectId('60e6b02e0b6c6887accf6c03'),
     'eventId': ObjectId('605920002c60e426288b8971'),
     'teamName': 'team2',
-    'collectedPoints': [ObjectId('60e6d13faa95cc33d7c4671b')],
+    'collectedPoints': [],
   }, {
     '_id': ObjectId('60e6b02e0b6c6887accf6c05'),
     'eventId': ObjectId('605920002c60e426288b8971'),
     'teamName': 'team3',
-    'collectedPoints': [],
+    'collectedPoints': [ObjectId('60e6d13faa95cc33d7c467aa')],
   }],
   events: [{
     '_id': ObjectId('60e6cc2eaa95cc33d7c46701'),
@@ -202,7 +223,7 @@ const data = {
     'pointKey': 'wg53',
     'pointName': 'Point second',
     'pointType': 'permanent',
-    'pointCollectedDate': null,
+    'pointCollectedDate': 34523416,
     'pointCategoryId': ObjectId('60e7046eaa95cc33d7c4672b'),
     'pointDuration': {
       'startDate': null,

@@ -2,25 +2,25 @@ const { Router } = require('express');
 const {
   allPoints,
   onePoint,
-  collectPoint,
+  collect,
 } = require('./request-schema');
 const { addEndpointValidation } = require('../../../libs/validation');
 const getPoints = require('./methods/get-points');
 const addPoint = require('./methods/add-point');
-const collect = require('./methods/collect');
+const collectPoint = require('./methods/collect-point');
 const updatePoint = require('./methods/update-point');
 const deletePoint = require('./methods/delete-point');
 
 const router = Router();
 
 addEndpointValidation('/api/v1/events/:eventId/points', allPoints);
-addEndpointValidation('/api/v1/events/:eventId/points/collect', collectPoint);
+addEndpointValidation('/api/v1/events/:eventId/points/collect', collect);
 addEndpointValidation('/api/v1/events/:eventId/points/:pointId', onePoint);
 
 router.route('/:eventId/points')
   .get(async (request, response) => {
     const { eventId } = request.params;
-    const result = await getPoints(eventId);
+    const result = await getPoints(request, eventId);
 
     response.send(result);
   })
@@ -31,11 +31,11 @@ router.route('/:eventId/points')
     response.send(result);
   });
 
-// TODO
 router.route('/:eventId/points/collect')
   .post(async (request, response) => {
-    const { eventId } = request.body;
-    const result = await collect(eventId);
+    const { eventId } = request.params;
+    const { pointKey } = request.body;
+    const result = await collectPoint(request, eventId, pointKey);
 
     response.send(result);
   });

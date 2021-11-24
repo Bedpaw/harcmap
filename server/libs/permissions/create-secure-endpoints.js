@@ -1,4 +1,5 @@
 const { errorCodes, AppError } = require('../errors');
+const { getUserRoleFromSession, getUserTeamIdFromSession } = require('../utils');
 
 /**
  * @description Get endpoint access config and parse it to unify format
@@ -22,7 +23,7 @@ function getEndpointPermissions (config, path, httpMethod) {
   } else {
     listOfUsersWithAccess = [endpointPermissions];
   }
-  
+
   return listOfUsersWithAccess;
 }
 
@@ -41,38 +42,38 @@ function createSecuredEndpoints (app, config) {
       const { method, user } = request;
       // get dynamic url elements
       const eventId = request.params.eventId || request.query.eventId;
+      const teamId = request.params.teamId || request.query.teamId;
       // check if authorized user have permission to requested source
-      let selectedEvent;
+      let userRole;
+      let userTeamId;
 
-      if (isAuth) {
-        selectedEvent = user.userEvents.find(userEvent => {
-          const objectIdString = userEvent.eventId.toString();
-
-          return objectIdString === eventId;
-        });
+      if (isAuth && eventId) {
+        userRole = getUserRoleFromSession(eventId, user);
+        userTeamId = getUserTeamIdFromSession(eventId, user);
       }
-      const userRole = selectedEvent ? selectedEvent.role : undefined;
 
+      const isAdminRole = ['creator', 'admin', 'observer'].includes(userRole);
       // request can be pass - default: false
       let PASS = false;
 
       const usersWithAccessToEndpoint = getEndpointPermissions(config, endpointUrl, method);
 
       // endpoint is open for all
-      if (usersWithAccessToEndpoint.includes('all')) {
+      if (usersWithAccessToEndpoint.includes('guest')) {
         PASS = true;
       } else
       // only logged users can request for this resource
       if (usersWithAccessToEndpoint.includes('authenticated')) {
-        if (eventId) {
-          PASS = isAuth && !!userRole;
-        } else {
-          PASS = isAuth;
-        }
+        PASS = isAuth;
       } else
       // user role(in event scope) is in path permission object
-      if (eventId && usersWithAccessToEndpoint.includes(userRole)) {
-        PASS = true;
+      if (usersWithAccessToEndpoint.includes(userRole)) {
+        // try to get resource for specified team - check if user is it member
+        if (teamId && !isAdminRole) {
+          PASS = teamId === userTeamId;
+        } else {
+          PASS = true;
+        }
       }
 
       // request pass

@@ -1,5 +1,4 @@
 const testEndpoint = require('../../../../tests/utils/test-endpoint');
-const { ObjectId } = require('mongodb');
 
 describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points', () => {
   testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/points', {
@@ -18,6 +17,7 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points', () => {
           startDate: null,
         },
         pointId: '60e6d13faa95cc33d7c4671b',
+        pointKey: 'ab12',
         pointName: 'Point name',
         pointPosition: {
           latitude: 1,
@@ -26,12 +26,13 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points', () => {
         pointType: 'permanent',
       }, {
         pointCategoryId: '60e7046eaa95cc33d7c4672b',
-        pointCollectedDate: null,
+        pointCollectedDate: 34523416,
         pointDuration: {
           endDate: null,
           startDate: null,
         },
         pointId: '60e6d13faa95cc33d7c467aa',
+        pointKey: 'wg53',
         pointName: 'Point second',
         pointPosition: {
           latitude: 1,
@@ -58,6 +59,7 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points', () => {
           startDate: null,
         },
         pointId: '60e6d13faa95cc33d7c4671b',
+        pointKey: null,
         pointName: 'Point name',
         pointPosition: {
           latitude: 1,
@@ -66,12 +68,13 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points', () => {
         pointType: 'permanent',
       }, {
         pointCategoryId: '60e7046eaa95cc33d7c4672b',
-        pointCollectedDate: null,
+        pointCollectedDate: 34523416,
         pointDuration: {
           endDate: null,
           startDate: null,
         },
         pointId: '60e6d13faa95cc33d7c467aa',
+        pointKey: null,
         pointName: 'Point second',
         pointPosition: {
           latitude: 1,

@@ -15,12 +15,13 @@ async function getTeams (eventId) {
       inviteKeys,
       collectedPoints,
     } = result;
+    const parsedInviteKeys = inviteKeys.map(key => ({ ...key, keyId: key.keyId.toString() }));
 
     return {
       teamId: _id,
       teamName,
       teamMembers,
-      inviteKeys: inviteKeys.map(key => ({ ...key, keyId: key.keyId.toString() })),
+      inviteKeys: parsedInviteKeys,
       collectedPoints: collectedPoints.map(id => id.toString()),
     };
   });

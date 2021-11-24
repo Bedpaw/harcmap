@@ -25,7 +25,7 @@ const onePoint = {
   DELETE: Joi.object({}),
 };
 
-const collectPoint = {
+const collect = {
   POST: Joi.object({
     pointKey: keys.required(),
   }),
@@ -51,5 +51,5 @@ const allPoints = {
 module.exports = {
   allPoints,
   onePoint,
-  collectPoint,
+  collect,
 };

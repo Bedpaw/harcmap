@@ -163,10 +163,12 @@ class Model {
    * @description Update filtered items
    * @param filters {object}
    * @param newDocument {object}
+   * @param [options] {object}
    */
-  async update (filters = {}, newDocument = {}) {
+  async update (filters = {}, newDocument = {}, options = {}) {
     // unify input
-    const validationResults = validateOne(newDocument, this.validationSchema);
+    const { rawNewDocument } = options;
+    const validationResults = rawNewDocument ? null : validateOne(newDocument, this.validationSchema);
     const result = {
       success: false,
       error: undefined,
@@ -174,12 +176,13 @@ class Model {
     };
 
     // validation failed
-    if (validationResults.errors.length) {
+    if (validationResults && validationResults.errors.length) {
       result.error = errorCodes.MODEL_VALIDATION_NOT_PASS;
       result.errorDetails = validationResults.errors;
     } else {
       const collection = await mongodb.getCollection(this.collectionName);
-      const updateResult = await collection.updateMany(filters, { $set: parseDocumentToUpdate(newDocument) });
+      const query = rawNewDocument ? newDocument : { $set: parseDocumentToUpdate(newDocument) };
+      const updateResult = await collection.updateMany(filters, query);
 
       // check if created all items
       if (updateResult.modifiedCount === 1) {

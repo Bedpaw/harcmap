@@ -11,11 +11,15 @@ describe('/api/v1/events/:eventId/teams/:teamId', () => {
     body: {
       expect: {
         teamName: 'team3',
-        collectedPoints: [],
+        collectedPoints: ['60e6d13faa95cc33d7c467aa'],
         teamMembers: [{
           email: 'member@harcmap.com',
           role: 'teamMember',
           userId: '6074ab220b6c6887ac32adaa',
+        }, {
+          email: 'creator@harcmap.com',
+          role: 'creator',
+          userId: '6074ab220b6c6887ac32ddff',
         }],
         inviteKeys: [{
           keyId: '60758ddf32eed00e1a283911',
