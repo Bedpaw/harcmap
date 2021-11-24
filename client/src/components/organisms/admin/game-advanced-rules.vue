@@ -1,7 +1,8 @@
 <template>
   <section>
     <component
-      v-for="rule of advancedGameRules" :key="rule.ruleId"
+      v-for="rule of advancedGameRules"
+      :key="rule.ruleId"
       :is="inputTypeComponent(rule.ruleType)"
       v-model="rule.ruleValue"
       :disabled="blockForm"
@@ -9,7 +10,7 @@
       v-bind="inputProps(rule)"
       class="f-mb-2"
     >
-      {{gameRulesUtils.getName(rule)}}
+      {{ gameRulesUtils.getName(rule) }}
     </component>
   </section>
 </template>

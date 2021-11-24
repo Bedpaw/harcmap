@@ -6,11 +6,11 @@ import { translator } from '../dictionary';
 
 export class AppRoute {
   public name: string; // !!!camelCase!!!
-  public path = ''
+  public path = '';
   public meta: EnterPermission;
   public icon = ICONS.success as string;
-  public label: string | null = null
-  public shortLabel: string | null = null
+  public label: string | null = null;
+  public shortLabel: string | null = null;
 
   constructor (config: AppRouteParams) {
     const { name, path = '', icon = '', enterPermissions, dynamicParam = null, hasShortLabel = false } = config;
@@ -32,11 +32,13 @@ export class AppRoute {
   }
 
   private setLabel (): void {
-    this.label = translator.t(`title.${this.name}`) as string;
+    const label = translator.t(`title.${this.name}`);
+    this.label = typeof label === 'string' ? label : '';
   }
 
   private setShortLabel (hasShortLabel: boolean): void {
-    this.shortLabel = hasShortLabel ? translator.t(`title.short.${this.name}`) as string : '';
+    const shortLabel = hasShortLabel ? translator.t(`title.short.${this.name}`) : '';
+    this.shortLabel = typeof shortLabel === 'string' ? shortLabel : '';
   }
 
   static getDataForRouter (route: AppRoute): { path: string, name: string, meta: EnterPermission } {
