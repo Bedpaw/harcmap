@@ -1,4 +1,4 @@
-const Users = require('../../../../models/Users');
+const Users = require('../../../../models/users');
 const mongodb = require('../../../../libs/mongodb');
 const getUsersAggregation = require('../../../../aggregations/get-users');
 
