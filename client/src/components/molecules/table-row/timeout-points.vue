@@ -37,6 +37,7 @@ export default {
       type: Object,
     },
   },
+  emits: ['panTo'],
   computed: {
     timerIcon () {
       return pointUtils.getTimeIcon(this.point);

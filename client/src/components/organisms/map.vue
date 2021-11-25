@@ -56,6 +56,9 @@ export default {
 
     map.realMap.on('moveend', this.saveLastMapPositionToCookies);
   },
+  beforeUnmount () {
+    map.realMap.un('moveend', this.saveLastMapPositionToCookies);
+  },
   methods: {
     ...mapMutations('event', [
       'setMapPosition',
@@ -87,9 +90,6 @@ export default {
       Cookies.remove('mapPosition');
       Cookies.set('mapPosition', dataForCookies, { expires: 7 });
     },
-  },
-  beforeUnmount () {
-    map.realMap.un('moveend', this.saveLastMapPositionToCookies);
   },
 };
 </script>

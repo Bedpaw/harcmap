@@ -191,6 +191,11 @@ export default {
     ...mapGetters('guide', ['isOpen']),
     plugins: () => [new Pagination({ type: 'bullet' })],
   },
+  watch: {
+    isOpen () {
+      this.$refs.flicking && this.$refs.flicking.init();
+    },
+  },
   methods: {
     ...mapMutations('guide', ['close']),
     closeIfLast () {
@@ -206,11 +211,6 @@ export default {
     },
     datetime (dateTime) {
       return displayDate.inFormat(dateTime, DATE_FORMATS.DDMMYYYYHHmm);
-    },
-  },
-  watch: {
-    isOpen () {
-      this.$refs.flicking && this.$refs.flicking.init();
     },
   },
 };

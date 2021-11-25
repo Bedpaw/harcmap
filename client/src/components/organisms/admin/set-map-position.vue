@@ -33,6 +33,7 @@ export default {
       required: true,
     },
   },
+  emits: ['cancel', 'save'],
   mounted () {
     map.panTo({
       latitude: this.event.mapLatitude || DEFAULT_EVENT_CONFIG.newEvent.mapLatitude,

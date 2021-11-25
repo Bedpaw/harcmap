@@ -34,6 +34,7 @@ export default {
   mixins: [modelValueMixin],
   props: {
     id: {
+      type: String,
       default: '',
     },
     isDisabled: {
@@ -45,6 +46,7 @@ export default {
       default: undefined,
     },
   },
+  emits: ['update:modelValue'],
   setup (props, context) {
     const { vModel } = useModelValue(props, context);
     const { isDisabled, value } = toRefs(props);

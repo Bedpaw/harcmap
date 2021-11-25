@@ -37,6 +37,7 @@ export default {
       required: true,
     },
   },
+  emits: ['cancel', 'save'],
   mounted () {
     this.$store.commit('event/setHidePoint', this.point);
     map.updateMapFeatures();

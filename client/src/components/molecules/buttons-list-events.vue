@@ -63,6 +63,7 @@ export default {
     },
     title: {
       type: String,
+      default: 'title',
     },
     buttonLimitStep: {
       type: Number,

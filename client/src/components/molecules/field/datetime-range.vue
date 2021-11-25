@@ -52,9 +52,15 @@ export default {
     },
     firstDate: {
       type: Object,
+      default () {
+        return {};
+      },
     },
     nextDate: {
       type: Object,
+      default () {
+        return {};
+      },
     },
   },
   setup: (props, context) => {

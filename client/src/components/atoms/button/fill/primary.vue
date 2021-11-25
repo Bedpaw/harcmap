@@ -38,5 +38,6 @@ export default {
       default: '',
     },
   },
+  emits: ['click'],
 };
 </script>

@@ -21,5 +21,6 @@ export default {
     text: { type: String, default: '' },
     icon: { type: String, default: '' },
   },
+  emits: ['click'],
 };
 </script>

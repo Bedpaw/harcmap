@@ -57,6 +57,7 @@ export default {
       default: 2000,
     },
   },
+  emits: ['actionTriggered', 'cancel'],
   data: () => ({
     showSuccessMessage: false,
     defaultSuccessMessage: translator.t('features.bannerMap.defaultSuccessMessage'),

@@ -25,6 +25,7 @@ import { fieldValidationMixin, useFieldValidation } from 'plugins/validation/fie
 export default {
   name: 'm-field-email',
   components: { MInput },
+  mixins: [fieldValidationMixin],
   props: {
     disabled: Boolean,
     label: {
@@ -36,7 +37,6 @@ export default {
       default: '',
     },
   },
-  mixins: [fieldValidationMixin],
   setup: (props, context) => ({
     ...useFieldValidation(props, context, {
       defaultRules: validationRules.email,
