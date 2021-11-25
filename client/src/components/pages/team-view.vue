@@ -3,7 +3,7 @@
     <div class="f-line-24 f-text-28 f-bold f-text-center f-mb-2">{{ teamName }}</div>
     <div class="f-text-22 f-text-center f-mb-5">
       {{$t('page.teamView.mainHeaderPartOne')}}
-      <span class="f-bold">{{ collectedPoints }}</span>
+      <span class="f-bold">{{ sumOfCollectedPoints }}</span>
       {{$t('page.teamView.mainHeaderPartTwo')}}
     </div>
     <div class="f-line-24">
@@ -28,6 +28,7 @@
 import TPage from 'templates/page';
 import MRowTeamRow from 'molecules/table-row/team-row';
 import { userUtils } from 'config/users-config';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'p-team-view',
@@ -37,7 +38,7 @@ export default {
   },
   data: () => ({
     teamName: 'Team rzodkiewka',
-    collectedPoints: '4200',
+    collectedPoints: 5,
     teamMembers: [
       {
         email: 'andrew@demo.com',
@@ -66,6 +67,7 @@ export default {
     ],
   }),
   computed: {
+    ...mapGetters('user', ['sumOfCollectedPoints']),
     teamMembersOrdered () {
       return userUtils.getOrderedMembers(this.teamMembers);
     },
