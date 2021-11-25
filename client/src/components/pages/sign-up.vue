@@ -15,14 +15,14 @@
         />
         <m-field-text
           :label="$t('form.field.userTeam')"
-          :rules="rules.userTeam"
-          v-model="values.userTeam"
+          :rules="validationRules.userTeam"
+          v-model.trim="values.userTeam"
           :disabled="blockForm"
           :assist="$t('form.assist.userTeam')"
         />
         <m-field-text
           :label="$t('form.field.eventId')"
-          :rules="rules.eventId"
+          :rules="validationRules.eventId"
           v-model="values.eventId"
           :disabled="blockForm"
         />
@@ -48,18 +48,18 @@
 
 <script>
 import TPage from 'templates/page';
-import { api } from 'api';
-import { mixins } from 'mixins/base';
 import AButtonSubmit from 'atoms/button/submit';
 import MFieldEmail from 'molecules/field/email';
 import MFieldSetPassword from 'molecules/field/set-password';
 import MFieldText from 'molecules/field/text';
 import OForm from 'organisms/form';
 import AButtonPrimary from 'atoms/button/primary';
+import { api } from 'api';
+import { reactive } from 'vue';
+import { useForm } from 'plugins/form';
 
 export default {
   name: 'p-sign-up',
-  mixins: [mixins.form, mixins.validation],
   components: {
     TPage,
     AButtonPrimary,
@@ -69,34 +69,36 @@ export default {
     MFieldEmail,
     AButtonSubmit,
   },
-  data: () => ({
-    values: {
+  setup () {
+    const values = reactive({
       user: '',
       password: '',
       userTeam: '',
       eventId: '',
-    },
-    blockForm: false,
-    isSending: false,
-    formSend: false,
-  }),
-  methods: {
-    onSignUp () {
-      this.formSend = true;
-      this.isSending = false;
-      this.blockForm = false;
-    },
-    signUp () {
-      this.isSending = true;
-      this.blockForm = true;
-      this.values.user = this.values.user.trim();
-      this.values.password = this.values.password.trim();
-      this.values.userTeam = this.values.userTeam.trim();
-      this.values.eventId = this.values.eventId.trim();
-      api.signUp(this.values)
-        .then(this.onSignUp)
+    });
+
+    const form = useForm();
+    const { formSend, isSending, blockForm } = form;
+
+    function onSignUp () {
+      formSend.value = true;
+      isSending.value = false;
+      blockForm.value = false;
+    }
+
+    function signUp () {
+      isSending.value = true;
+      blockForm.value = true;
+      api.signUp(values)
+        .then(onSignUp)
         .catch(this.onErrorOccurs);
-    },
+    }
+
+    return {
+      values,
+      signUp,
+      ...form,
+    };
   },
 };
 </script>

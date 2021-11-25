@@ -4,7 +4,7 @@
       class="a-radio"
       type="radio"
       :checked="isChecked"
-      @change="$emit('change', $event.target.value)"
+      @change="$emit('update:modelValue', $event.target.value)"
       @focus="hasFocus = true"
       @blur="hasFocus = false"
       :value="value"
@@ -22,17 +22,12 @@
 </template>
 
 <script>
-import { mixins } from 'mixins/base';
-import { materialIcons } from '@dbetka/vue-material-icons';
-
-const ICONS = materialIcons.names;
+import { modelValueMixin, useModelValue } from 'plugins/v-model';
+import { computed, ref, toRefs } from 'vue';
+import { useIcons } from '@dbetka/vue-material-icons';
 
 export default {
   name: 'a-radio',
-  mixins: [mixins.vModelRadio],
-  data: () => ({
-    hasFocus: false,
-  }),
   props: {
     id: {
       default: '',
@@ -41,20 +36,38 @@ export default {
       type: Boolean,
       default: false,
     },
+    value: {
+      type: String,
+      default: undefined,
+    },
   },
-  computed: {
-    labelClass () {
-      return {
-        'f-flex': true,
-        'f-disabled': this.isDisabled,
-        'f-text-primary': this.hasFocus,
-      };
-    },
-    iconName () {
-      const checkedIcon = ICONS.radio_button_checked;
-      const uncheckedIcon = ICONS.radio_button_unchecked;
-      return this.isChecked ? checkedIcon : uncheckedIcon;
-    },
+  mixins: [modelValueMixin],
+  setup (props, context) {
+    const { vModel } = useModelValue(props, context);
+    const { isDisabled, value } = toRefs(props);
+    const hasFocus = ref(false);
+
+    const labelClass = computed(() => ({
+      'f-flex': true,
+      'f-disabled': isDisabled.value,
+      'f-text-primary': hasFocus.value,
+    }));
+    const isChecked = computed(() => vModel.value === value.value);
+
+    const iconName = computed(() => {
+      const iconsNames = useIcons().names;
+      const checkedIcon = iconsNames.radio_button_checked;
+      const uncheckedIcon = iconsNames.radio_button_unchecked;
+      return isChecked.value ? checkedIcon : uncheckedIcon;
+    });
+
+    return {
+      vModel,
+      hasFocus,
+      isChecked,
+      labelClass,
+      iconName,
+    };
   },
 };
 </script>

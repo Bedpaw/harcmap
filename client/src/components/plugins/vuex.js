@@ -1,25 +1,6 @@
 import { logical } from 'vendors/logical';
 
-const vueModel = {
-  get () {
-    return this.value;
-  },
-  set (value) {
-    this.$emit('input', value);
-  },
-};
-
-const vueModelCheckbox = {
-  get () {
-    return this.checked;
-  },
-  set (value) {
-    this.$emit('change', value);
-  },
-
-};
-
-const vuexVModel = (config = {}) => {
+export const vuexVModel = (config = {}) => {
   let {
     module = '',
     getter = '',
@@ -52,7 +33,7 @@ const vuexVModel = (config = {}) => {
   };
 };
 
-const mapVuexVModel = (module, list = [], config = {}) => {
+export const mapVuexVModel = (module, list = [], config = {}) => {
   const map = {};
   list.forEach((getter) => {
     map[getter] = vuexVModel({
@@ -62,30 +43,4 @@ const mapVuexVModel = (module, list = [], config = {}) => {
     });
   });
   return map;
-};
-
-const blockWhenIsLoading = (event, promiseMethod) => {
-  const classList = event.target.classList;
-  if (classList.contains('f-disabled')) {
-    return;
-  }
-  classList.add('f-disabled');
-
-  promiseMethod()
-    .then(() => classList.remove('f-disabled'));
-};
-
-const minimizeIfMobile = () => {
-  if (App.get('app.Window').isMobile()) {
-    window.controller.minimize();
-  }
-};
-
-export {
-  vueModel,
-  vueModelCheckbox,
-  vuexVModel,
-  mapVuexVModel,
-  blockWhenIsLoading,
-  minimizeIfMobile,
 };

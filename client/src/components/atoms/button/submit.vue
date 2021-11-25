@@ -1,7 +1,6 @@
 <template>
   <a-button-primary
     :disabled="disabled"
-    @click="$emit('click')"
     type="submit"
     :loading="isSending"
   >

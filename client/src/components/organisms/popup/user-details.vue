@@ -19,21 +19,24 @@
         v-for="(accountInfo, key) in USERS_DEFAULT_CONFIG.accountTypeInfo"
         :key="key" :id="key" :value="key"
         v-model="accountType"
-        :is-disabled="key === USERS_DEFAULT_CONFIG.accountTypes.organizer">
+        :is-disabled="key === USERS_DEFAULT_CONFIG.accountTypes.organizer"
+      >
         {{$t(accountInfo.nameKey)}}
       </a-radio>
 
       <a-button-secondary
         add-area-class="f-100 f-mb-0" add-class="f-100"
         :disabled="isOrganizer"
-        @click="sendResetPasswordCode">
+        @click="sendResetPasswordCode"
+      >
         {{$t('form.button.sendResetPasswordToEmail')}}
       </a-button-secondary>
 
       <a-button-secondary
         add-area-class="f-mt-0"
         :disabled="isOrganizer"
-        @click="blockUser">
+        @click="blockUser"
+      >
         {{$t('form.button.blockAccount')}}
       </a-button-secondary>
     </article>

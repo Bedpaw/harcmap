@@ -2,7 +2,6 @@ import { createApp } from 'vue';
 import i18n from './dictionary';
 import router from './router';
 import { store } from 'store';
-import './validation';
 import { ACCOUNT_TYPES, permissions } from 'utils/permissions';
 import App from './components/app.vue';
 import veProgress from 'vue-ellipse-progress';

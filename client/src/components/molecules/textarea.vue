@@ -1,12 +1,11 @@
 <template>
   <div class="m-input">
     <m-resize-auto>
-      <template v-slot:default="{resize}">
+      <template v-slot="{resize}">
         <textarea
           :id="id"
           class="a-field f-textarea"
           :class="additionalClasses"
-          :type="getType"
           @input="resize"
           v-model="vModel"
         />
@@ -39,21 +38,18 @@
 </template>
 
 <script>
-import { mixins } from 'mixins/base';
 import MResizeAuto from 'molecules/resize-auto';
+import { computed, onMounted, ref, toRefs } from 'vue';
+import { modelValueMixin, useModelValue } from 'plugins/v-model';
+import { fieldUidGenerator } from 'plugins/uid-generators';
 
 export default {
   name: 'm-textarea',
-  mixins: [mixins.vModel],
   components: {
     MResizeAuto,
   },
   props: {
     placeholder: {
-      type: String,
-      default: '',
-    },
-    type: {
       type: String,
       default: '',
     },
@@ -70,33 +66,27 @@ export default {
       default: '',
     },
   },
-  data: () => ({
-    id: '',
-    showPassword: false,
-  }),
-  mounted () {
-    const randomNumber = Math.floor(Math.random() * 10000);
-    this.id = 'id-input-' + randomNumber;
-  },
-  computed: {
-    isPassword () {
-      return this.type === 'password';
-    },
-    additionalClasses () {
-      return {
-        'f-filled': this.vModel !== '',
-        'f-error': this.error,
-        'f-correct': this.correct,
-        'f-icon': this.error || this.isPassword,
-      };
-    },
-    getType () {
-      if (this.isPassword) {
-        return this.showPassword ? '' : this.type;
-      } else {
-        return this.type;
-      }
-    },
+  mixins: [modelValueMixin],
+  setup: (props, context) => {
+    const { vModel } = useModelValue(props, context);
+    const { error, correct } = toRefs(props);
+
+    const id = ref('');
+
+    onMounted(() => (id.value = fieldUidGenerator.getNext()));
+
+    const additionalClasses = computed(() => ({
+      'f-filled': vModel.value !== '',
+      'f-error': error.value,
+      'f-correct': correct.value,
+      'f-icon': error.value,
+    }));
+
+    return {
+      vModel,
+      id,
+      additionalClasses,
+    };
   },
 };
 </script>

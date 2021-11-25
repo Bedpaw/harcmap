@@ -7,17 +7,8 @@ export default {
       event.target.style.height = `${event.target.scrollHeight + 4}px`;
     },
   },
-  mounted () {
-    this.$nextTick(() => {
-      this.$el.setAttribute(
-        'style',
-        'height',
-        `${this.$el.scrollHeight + 4}px`,
-      );
-    });
-  },
   render () {
-    return this.$scopedSlots.default({
+    return this.$slots.default({
       resize: this.resize,
     });
   },

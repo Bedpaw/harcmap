@@ -4,7 +4,6 @@
     :class="addClass"
     :name="$icons.names.close"
     :size="size"
-    @click="$emit('click')"
   />
 </template>
 

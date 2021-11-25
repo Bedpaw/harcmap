@@ -24,7 +24,7 @@
         <div class="f-py-2 f-text-bold">
           {{ $t('communicate.changePassword.success') }}
         </div>
-        <a-button-primary @click="$router.push(ROUTES.signIn.path)">
+        <a-button-primary @click="router.push(ROUTES.signIn.path)">
           {{ $t('form.button.goToLogin') }}
         </a-button-primary>
       </template>
@@ -36,14 +36,15 @@
 import TPage from 'templates/page';
 import AButtonSubmit from 'atoms/button/submit';
 import { api } from 'api';
-import { mixins } from 'mixins/base';
 import MFieldSetPassword from 'molecules/field/set-password';
 import OForm from 'organisms/form';
 import AButtonPrimary from 'atoms/button/primary';
+import { useForm } from 'plugins/form';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'p-change-password',
-  mixins: [mixins.form],
   components: {
     TPage,
     AButtonPrimary,
@@ -51,28 +52,36 @@ export default {
     MFieldSetPassword,
     AButtonSubmit,
   },
-  data: () => ({
-    password: '',
-    blockForm: false,
-    isSending: false,
-    formSend: false,
-    message: '',
-  }),
-  methods: {
-    onChangePassword () {
-      this.formSend = true;
-      this.isSending = false;
-    },
-    changePassword () {
-      this.isSending = true;
-      this.blockForm = true;
+  setup () {
+    const password = ref('');
+    const message = ref('');
+    const form = useForm();
+    const { formSend, isSending, blockForm, onErrorOccurs } = form;
+    const router = useRouter();
+
+    function onChangePassword () {
+      formSend.value = true;
+      isSending.value = false;
+    }
+
+    function changePassword () {
+      isSending.value = true;
+      blockForm.value = true;
       api.changePassword({
-        password: this.password,
-        key: this.$route.params.key,
+        password: password.value,
+        key: router.currentRoute.value.params.key,
       })
-        .then(this.onChangePassword)
-        .catch(this.onErrorOccurs);
-    },
+        .then(onChangePassword)
+        .catch(onErrorOccurs);
+    }
+
+    return {
+      router,
+      password,
+      message,
+      changePassword,
+      ...form,
+    };
   },
 };
 </script>

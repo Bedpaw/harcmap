@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { AppRoute } from '../router/utils';
-import { EnterPermission } from '../models/routes';
+import { EnterPermission } from 'models/routes';
 import { materialIcons } from '@dbetka/vue-material-icons';
 
 const ICONS = materialIcons.names;

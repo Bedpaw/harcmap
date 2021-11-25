@@ -90,16 +90,6 @@ export const pl = {
       searchPoint: 'Szukaj po kodzie lub nazwie punktu',
       searchUser: 'Szukaj po e-mailu lub nazwie drużyny',
     },
-    validation: {
-      required: 'Pole jest wymagane.',
-      email: 'Musisz podać poprawny adres email.',
-      min: 'Pole musi składać się z co najmniej {length} znaków.',
-      max: 'Pole musi składać się z co najmniej {length} znaków.',
-      confirmed: 'Pole nie zgadza się z polem potwierdzającym {target}.',
-      length: 'Pole musi mieć długość {length}.',
-      hasNumber: 'Pole powinno zawierać co najmniej jedną cyfrę.',
-      hasCapitalize: 'Pole powinno zawierać co najmniej jedną wielką literę.',
-    },
     button: {
       save: 'Zapisz',
       choose: 'wybierz',
@@ -111,6 +101,17 @@ export const pl = {
       sendResetPasswordToEmail: 'Wyślij email resetujący hasło',
       blockAccount: 'Zablokuj konto',
     },
+  },
+  validations: {
+    required: 'Pole jest wymagane.',
+    email: 'Musisz podać poprawny adres email.',
+    minLength: 'Pole musi składać się z co najmniej {min} znaków.',
+    maxLength: 'Pole musi składać się z nie więcej niż {max} znaków.',
+    sameAs: 'Pole nie zgadza się z polem potwierdzającym {target}.',
+    hasNumber: 'Pole powinno zawierać co najmniej jedną cyfrę.',
+    hasCapitalize: 'Pole powinno zawierać co najmniej jedną wielką literę.',
+    futureDatetime: 'Data powinna być późniejsza niż teraz.',
+    datetimeAfter: 'Data powinna być późniejsza niż w polu powyżej.',
   },
   page: {
     about: {
@@ -222,6 +223,7 @@ export const pl = {
     elementIdIsRequiredForMap: 'Kod wydarzenia jest wymagany, by uruchomić mapę',
     fakeErrorInMockApi: 'Fałszywy błąd mockApi',
     dataAfterSignIn: 'Logowanie nie powiodło się ze względu na problem z pobraniem danych dotyczących konta. Spróbuj ponownie.',
+    correctForm: 'Wypełnij poprawnie formularz.',
   },
   apiWarn: {
     undefined: 'Wystąpiło niezdefiniowane ostrzeżenie. Skontaktuj się z twórcą aplikacji.',

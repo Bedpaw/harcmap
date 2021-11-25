@@ -40,15 +40,18 @@ module.exports = {
   resolve: {
     alias: {
       src: resolve('src'),
+      components: resolve('src/components'),
       api: resolve('src/api'),
       map: resolve('src/map'),
       store: resolve('src/store'),
       utils: resolve('src/utils'),
+      dictionary: resolve('src/dictionary'),
       vendors: resolve('../vendors'),
       validateCodes: resolve('../lib/validateCodes.js'),
       config: resolve('src/config'),
       models: resolve('src/models'),
 
+      plugins: resolve('src/components/plugins'),
       atoms: resolve('src/components/atoms'),
       extends: resolve('src/components/extends'),
       mixins: resolve('src/components/mixins'),

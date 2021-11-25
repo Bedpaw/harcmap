@@ -1,5 +1,5 @@
 <template>
-  <m-input
+  <m-textarea
     type="text"
     v-model="vModel"
     :disabled="disabled"
@@ -9,23 +9,13 @@
   />
 </template>
 
-<!-- USAGE EXAMPLE
-  <m-field-text
-    :label="$t('form.field.userTeam')"
-    :rules="validationRules.userTeam"
-    v-model.trim="values.userTeam"
-    :disabled="blockForm"
-    :assist="$t('form.assist.userTeam')"
-  />
--->
-
 <script>
-import MInput from 'molecules/input';
 import { fieldValidationMixin, useFieldValidation } from 'plugins/validation/field';
+import MTextarea from 'molecules/textarea';
 
 export default {
-  name: 'm-field-text',
-  components: { MInput },
+  name: 'm-field-textarea',
+  components: { MTextarea },
   props: {
     disabled: Boolean,
     label: {
