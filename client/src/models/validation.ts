@@ -1,7 +1,9 @@
 import { ValidationRuleWithParams } from '@vuelidate/core';
 import { Ref } from '@vue/reactivity';
 
-export type RulesList = Array<ValidationRuleWithParams<{ type:string }>>
+export type ValidationRuleWithType = ValidationRuleWithParams<{ type:string }>
+
+export type RulesList = Array<ValidationRuleWithType>
 
 export type ValidationProps = {
   modelValue: Ref
