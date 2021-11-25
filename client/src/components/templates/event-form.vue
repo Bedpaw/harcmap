@@ -31,7 +31,20 @@
         :rules="rules.date"
         :disabled="blockForm"
       />
-
+      <transition name="fade">
+        <o-game-advanced-rules
+          v-if="showAdvancedOptions"
+          :advanced-game-rules = values.eventRules
+          :block-form="blockForm"
+        >
+        </o-game-advanced-rules>
+      </transition>
+      <a-button
+        @click="showAdvancedOptions = !showAdvancedOptions"
+        add-class="f-clear"
+        add-area-class="f-mt-0">
+        {{showAdvancedOptions ? $t('page.admin.eventForm.hideAdvancedOptions'): $t('page.admin.eventForm.showAdvancedOptions') }}
+      </a-button>
       <a-button-secondary
         :disabled="blockForm"
         class="f-text-center f-mt-0"
@@ -76,11 +89,14 @@ import OAdminSetMapPosition from 'organisms/admin/set-map-position';
 import { DEFAULT_EVENT_CONFIG } from 'config/event-config';
 import { idUtils } from 'utils/id';
 import { eventUtils } from 'utils/event';
+import AButton from 'atoms/button';
+import OGameAdvancedRules from 'organisms/admin/game-advanced-rules';
 
 export default {
   name: 't-event-form',
   mixins: [mixins.form, mixins.validation],
   components: {
+    OGameAdvancedRules,
     OAdminSetMapPosition,
     OFloatContainer,
     MFieldText,
@@ -90,6 +106,7 @@ export default {
     OForm,
     AButtonSecondary,
     AButtonSubmit,
+    AButton,
   },
   data () {
     return {
@@ -101,12 +118,14 @@ export default {
         eventEndDate: null,
         mapLatitude: null,
         mapLongitude: null,
+        eventRules: DEFAULT_EVENT_CONFIG.gameRules,
       },
       options: DEFAULT_EVENT_CONFIG.mapRefreshTimeOptions,
       eventPositionIsSetting: false,
       blockForm: false,
       isSending: false,
       isServerError: false,
+      showAdvancedOptions: false,
     };
   },
   props: {
