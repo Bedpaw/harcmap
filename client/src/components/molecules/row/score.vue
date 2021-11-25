@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="m-grid f-score">
-      <div class="f-text-left">{{ user.userTeam }}</div>
+      <div class="f-text-left">
+        {{ user.userTeam }}
+      </div>
       <div>{{ userScore }} {{ $t('general.pointUnit') }}</div>
       <div>
         <a-icon

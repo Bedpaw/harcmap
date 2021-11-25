@@ -2,15 +2,15 @@
   <t-page class="f-flex f-flex-col">
     <o-form :on-submit="signIn">
       <m-input
+        v-model.trim="values.user"
         :disabled="blockForm"
         :placeholder="$t('form.field.email')"
-        v-model.trim="values.user"
       />
       <m-input
+        v-model="values.password"
         :disabled="blockForm"
         :placeholder="$t('form.field.password')"
         type="password"
-        v-model="values.password"
       />
       <a-button-submit
         :disabled="blockForm"
@@ -18,8 +18,8 @@
       />
     </o-form>
     <a-button-secondary
-      @click="router.push(ROUTES.remindPassword.path)"
       :disabled="blockForm"
+      @click="router.push(ROUTES.remindPassword.path)"
     >
       {{ ROUTES.remindPassword.label }}
     </a-button-secondary>

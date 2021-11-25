@@ -2,27 +2,27 @@
   <t-page class="f-flex f-flex-col">
     <o-form :on-submit="onSubmit">
       <m-field-text
+        v-model.trim="values.eventName"
         :label="$t('form.field.eventName')"
         :rules="validationRules.eventName"
-        v-model.trim="values.eventName"
         :disabled="blockForm"
       />
       <m-field-text
+        v-model="values.eventId"
         disabled
         :label="$t('form.field.eventId')"
-        v-model="values.eventId"
         :assist="$t('form.assist.eventId')"
       />
       <m-select
+        v-model="values.mapRefreshTime"
         :options="options"
         :placeholder="$t('form.field.mapRefreshTime')"
-        v-model="values.mapRefreshTime"
         :disabled="blockForm"
       />
       <m-field-datetime-range
-        :label="[$t('form.field.eventStartDate'), $t('form.field.eventEndDate')]"
         v-model:first-date="values.eventStartDate"
         v-model:next-date="values.eventEndDate"
+        :label="[$t('form.field.eventStartDate'), $t('form.field.eventEndDate')]"
         :disabled="blockForm"
       />
 

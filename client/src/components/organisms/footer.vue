@@ -1,7 +1,7 @@
 <template>
   <div
-    class="o-footer"
     v-if="isLogin"
+    class="o-footer"
   >
     <a-button-icon-footer
       v-for="shortcut of getShortcuts()"

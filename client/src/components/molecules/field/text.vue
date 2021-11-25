@@ -1,7 +1,7 @@
 <template>
   <m-input
-    type="text"
     v-model="vModel"
+    type="text"
     :disabled="disabled"
     :placeholder="label"
     :error="isError"
@@ -26,6 +26,7 @@ import { fieldValidationMixin, useFieldValidation } from 'plugins/validation/fie
 export default {
   name: 'm-field-text',
   components: { MInput },
+  mixins: [fieldValidationMixin],
   props: {
     disabled: Boolean,
     label: {
@@ -37,7 +38,6 @@ export default {
       default: '',
     },
   },
-  mixins: [fieldValidationMixin],
   setup: (props, context) => ({
     ...useFieldValidation(props, context),
   }),

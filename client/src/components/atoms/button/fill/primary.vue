@@ -1,12 +1,12 @@
 <template>
   <a-button-primary
-    @click="$emit('click', $event)"
     :add-area-class="['f-fill', addAreaClass]"
     :add-class="['f-fill', addClass]"
     :loading="loading"
     :disabled="disabled"
+    @click="$emit('click', $event)"
   >
-    <slot/> {{ text }}
+    <slot /> {{ text }}
   </a-button-primary>
 </template>
 

@@ -2,44 +2,44 @@
   <t-page class="f-flex f-flex-col">
     <o-form :on-submit="onSubmit">
       <m-field-text
+        v-model="values.pointId"
         disabled
         :label="$t('form.field.pointId')"
-        v-model="values.pointId"
         :assist="$t('form.assist.pointId')"
       />
       <m-field-text
         v-if="isPermanent"
-        :label="$t('form.field.pointName')"
         v-model="values.pointName"
+        :label="$t('form.field.pointName')"
         :rules="validationRules.name"
         :assist="$t('form.assist.fieldNotRequired')"
         :disabled="blockForm"
       />
       <m-field-text
         v-else
-        :label="$t('form.field.pointName')"
         v-model="values.pointName"
+        :label="$t('form.field.pointName')"
         :rules="validationRules.requiredName"
         :disabled="blockForm"
       />
       <m-select
+        v-model="values.pointType"
         :options="typeOptions"
         :placeholder="$t('form.field.pointType')"
-        v-model="values.pointType"
         :disabled="blockForm"
       />
       <m-field-datetime-range
         v-if="isTimeout"
-        :label="[$t('form.field.pointDateAndAppearanceTime'), $t('form.field.pointDateAndExpirationTime')]"
         v-model:first-date="values.pointAppearanceTime"
         v-model:next-date="values.pointExpirationTime"
+        :label="[$t('form.field.pointDateAndAppearanceTime'), $t('form.field.pointDateAndExpirationTime')]"
         :disabled="blockForm"
       />
       <m-select
         v-if="isPermanent"
+        v-model="values.pointCategory"
         :options="categoryOptions"
         :placeholder="$t('form.field.pointCategory')"
-        v-model="values.pointCategory"
         :disabled="blockForm"
       />
 

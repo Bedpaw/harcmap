@@ -1,13 +1,13 @@
 <template>
   <div class="m-input">
     <m-resize-auto>
-      <template v-slot="{resize}">
+      <template #default="{resize}">
         <textarea
           :id="id"
+          v-model="vModel"
           class="a-field f-textarea"
           :class="additionalClasses"
           @input="resize"
-          v-model="vModel"
         />
       </template>
     </m-resize-auto>
@@ -19,13 +19,13 @@
       {{ placeholder }}
     </label>
     <a-icon
-      :name="$icons.names.warning"
       v-if="error"
+      :name="$icons.names.warning"
       class="f-input f-error"
     />
     <a-icon
-      :name="$icons.names.check"
       v-if="correct && error === false"
+      :name="$icons.names.check"
       class="f-input f-correct"
     />
     <div
@@ -48,6 +48,7 @@ export default {
   components: {
     MResizeAuto,
   },
+  mixins: [modelValueMixin],
   props: {
     placeholder: {
       type: String,
@@ -66,7 +67,6 @@ export default {
       default: '',
     },
   },
-  mixins: [modelValueMixin],
   setup: (props, context) => {
     const { vModel } = useModelValue(props, context);
     const { error, correct } = toRefs(props);

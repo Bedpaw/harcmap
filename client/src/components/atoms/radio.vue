@@ -1,22 +1,25 @@
 <template>
-  <label :for="id" :class="labelClass">
+  <label
+    :for="id"
+    :class="labelClass"
+  >
     <input
+      :id="id"
       class="a-radio"
       type="radio"
       :checked="isChecked"
+      :value="value"
+      :disabled="isDisabled"
       @change="$emit('update:modelValue', $event.target.value)"
       @focus="hasFocus = true"
       @blur="hasFocus = false"
-      :value="value"
-      :id="id"
-      :disabled="isDisabled"
-    />
+    >
     <a-icon
       :name="iconName"
       :class="{'f-text-primary': hasFocus}"
-    ></a-icon>
+    />
     <span class="f-pl-1 f-line-28">
-      <slot></slot>
+      <slot />
     </span>
   </label>
 </template>
@@ -28,6 +31,7 @@ import { useIcons } from '@dbetka/vue-material-icons';
 
 export default {
   name: 'a-radio',
+  mixins: [modelValueMixin],
   props: {
     id: {
       default: '',
@@ -41,7 +45,6 @@ export default {
       default: undefined,
     },
   },
-  mixins: [modelValueMixin],
   setup (props, context) {
     const { vModel } = useModelValue(props, context);
     const { isDisabled, value } = toRefs(props);

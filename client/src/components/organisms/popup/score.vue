@@ -1,6 +1,8 @@
 <template>
   <o-popup-empty ref="popup">
-    <div class="f-text-subtext f-pb-1">{{ user.userTeam }}</div>
+    <div class="f-text-subtext f-pb-1">
+      {{ user.userTeam }}
+    </div>
     <o-collected-points
       class="f-text-16 f-text-normal"
       :collected-points="collectedPointsByUser(user)"

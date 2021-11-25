@@ -1,24 +1,24 @@
 <template>
-  <o-header/>
+  <o-header />
   <div class="f-relative f-flex-1">
-    <router-view :key="routerId"/>
+    <router-view :key="routerId" />
   </div>
   <o-footer
     v-touch:swipe.left="openMenuIfLogin"
     v-touch:swipe.right="closeMenu"
   />
-  <o-menu/>
+  <o-menu />
   <div
+    v-touch:swipe.right="closeMenu"
     class="a-cover f-menu"
     :class="isOpen ? 'f-show' : ''"
     @click="closeMenu"
-    v-touch:swipe.right="closeMenu"
   />
-  <o-popup/>
-  <m-snackbar/>
-  <o-guide/>
+  <o-popup />
+  <m-snackbar />
+  <o-guide />
   <transition name="fade">
-    <o-loading v-show="isLoading"/>
+    <o-loading v-show="isLoading" />
   </transition>
 </template>
 

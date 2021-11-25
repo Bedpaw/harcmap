@@ -1,7 +1,7 @@
 <template>
   <m-input
-    type="email"
     v-model.trim="vModel"
+    type="email"
     :disabled="disabled"
     :placeholder="label"
     :error="isError"

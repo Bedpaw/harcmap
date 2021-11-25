@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="f-line-24">
-      <div class="a-text f-title f-table">{{ $t('page.collectedPoints.sumTitle') }}</div>
+      <div class="a-text f-title f-table">
+        {{ $t('page.collectedPoints.sumTitle') }}
+      </div>
       <div class="m-row f-header f-category-sum">
         <div>{{ $t('table.category') }}</div>
         <div>{{ $t('table.numberOfCollected') }}</div>
@@ -15,7 +17,9 @@
       />
     </div>
     <div class="f-pt-3 f-line-24">
-      <div class="a-text f-title f-table">{{ $t('page.collectedPoints.listTitle') }}</div>
+      <div class="a-text f-title f-table">
+        {{ $t('page.collectedPoints.listTitle') }}
+      </div>
       <div class="m-row f-header f-point">
         <div>{{ $t('table.shortCategory') }}</div>
         <div>{{ $t('table.shortPointId') }}</div>
@@ -35,7 +39,6 @@
         :point="point"
       />
     </div>
-
   </div>
 </template>
 

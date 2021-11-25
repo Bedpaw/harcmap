@@ -1,7 +1,7 @@
 <template>
   <m-input
-    type="password"
     v-model="vModel"
+    type="password"
     :disabled="disabled"
     :placeholder="label"
     :error="isError"

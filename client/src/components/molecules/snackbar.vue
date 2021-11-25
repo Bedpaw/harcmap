@@ -1,6 +1,10 @@
 <template>
   <transition name="fade">
-    <div v-if="isOpen" class="m-snackbar" :class="colorClasses">
+    <div
+      v-if="isOpen"
+      class="m-snackbar"
+      :class="colorClasses"
+    >
       <div class="f-flex-1 f-p-2">
         {{ message }}
       </div>

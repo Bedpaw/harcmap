@@ -1,7 +1,7 @@
 <template>
   <m-textarea
-    type="text"
     v-model="vModel"
+    type="text"
     :disabled="disabled"
     :placeholder="label"
     :error="isError"
@@ -16,6 +16,7 @@ import MTextarea from 'molecules/textarea';
 export default {
   name: 'm-field-textarea',
   components: { MTextarea },
+  mixins: [fieldValidationMixin],
   props: {
     disabled: Boolean,
     label: {
@@ -27,7 +28,6 @@ export default {
       default: '',
     },
   },
-  mixins: [fieldValidationMixin],
   setup: (props, context) => ({
     ...useFieldValidation(props, context),
   }),

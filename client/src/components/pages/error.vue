@@ -12,7 +12,10 @@
     </m-panel>
 
     <div class="m-collection f-button f-px-2">
-      <div class="f-pt-3 f-text-bold" v-html="$t('page.error.content')"/>
+      <div
+        class="f-pt-3 f-text-bold"
+        v-html="$t('page.error.content')"
+      />
       <div class="f-pt-1">
         <a-button-primary @click="redirectToMainPage">
           {{ $t('general.backToStart') }}

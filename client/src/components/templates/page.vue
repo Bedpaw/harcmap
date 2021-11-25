@@ -1,6 +1,9 @@
 <template>
-  <div class="t-page" v-touch:swipe.left="openMenu">
-    <slot/>
+  <div
+    v-touch:swipe.left="openMenu"
+    class="t-page"
+  >
+    <slot />
   </div>
 </template>
 
@@ -20,6 +23,9 @@ export default {
       default: true,
     },
   },
+  computed: {
+    ...mapGetters('user', ['isLogin']),
+  },
   mounted () {
     const route = ROUTES[this.$router.currentRoute.name] || {};
     const title = route.label;
@@ -30,9 +36,6 @@ export default {
     } else {
       document.title = APP_NAME;
     }
-  },
-  computed: {
-    ...mapGetters('user', ['isLogin']),
   },
   methods: {
     ...mapMutations('menu', ['open']),

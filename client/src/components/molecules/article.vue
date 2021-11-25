@@ -1,7 +1,9 @@
 <template>
-  <div @click="goToArticle" class="m-article">
-    <div class="a-img f-article">
-    </div>
+  <div
+    class="m-article"
+    @click="goToArticle"
+  >
+    <div class="a-img f-article" />
     <div class="f-pt-2 f-pb-3 f-px-2">
       <div class="a-title f-dark">
         {{ title }}

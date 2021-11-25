@@ -1,13 +1,16 @@
 <template>
   <t-page>
-    <m-clock/>
+    <m-clock />
     <m-table-row-timeout-points
       v-for="point in points"
-      :point="point"
       :key="point.pointId"
+      :point="point"
       @panTo="panToPointLocationOnMap"
     />
-    <div v-if="points.length === 0" class="a-message f-table f-text-center">
+    <div
+      v-if="points.length === 0"
+      class="a-message f-table f-text-center"
+    >
       {{ $t('page.timeoutPoints.noResults') }}
     </div>
   </t-page>

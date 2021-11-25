@@ -7,9 +7,9 @@
     >
       <input
         :id="id"
+        ref="inputElement"
         class="a-input f-select"
         :class="additionalClasses"
-        ref="inputElement"
         :value="label"
         readonly
         @click="focusIn"
@@ -19,7 +19,7 @@
         @keyup.enter.space.prevent="chooseAndToggleOptions"
         @keyup.up.prevent="optionUp"
         @keyup.down.prevent="optionDown"
-      />
+      >
     </div>
     <label
       class="a-label f-field"
@@ -34,10 +34,10 @@
       @click.stop="makeFocus($event)"
     />
     <div
-      class="m-options"
-      :class="{ 'f-top': optionsAreOutsideWindow }"
       v-if="optionsAreOpen"
       ref="optionsElement"
+      class="m-options"
+      :class="{ 'f-top': optionsAreOutsideWindow }"
     >
       <div
         v-for="(option, index) of options"
@@ -74,6 +74,7 @@ import { fieldUidGenerator } from 'plugins/uid-generators';
 
 export default {
   name: 'm-select',
+  mixins: [modelValueMixin],
   props: {
     /**
      * options: [{label: String, value: String}]
@@ -103,7 +104,6 @@ export default {
       default: '',
     },
   },
-  mixins: [modelValueMixin],
   emits: ['change'],
   setup (props, context) {
     const { vModel } = useModelValue(props, context);
