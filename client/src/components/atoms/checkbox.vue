@@ -12,7 +12,7 @@
       />
       <a-icon
         :name="iconName"
-        :type="ICONS_TYPES.outlined"
+        outlined
         :class="{'f-text-primary': hasFocus}"
       />
       <span class="f-pl-1 f-line-28">
@@ -26,17 +26,15 @@
 </template>
 
 <script>
-import { mixins } from 'mixins/base';
-import { ICONS } from '@dbetka/vue-material-icons';
+import { modelValueMixin, useModelValue } from 'plugins/v-model';
+import { computed, ref, toRefs } from 'vue';
+import { useIcons } from '@dbetka/vue-material-icons';
 
 export default {
   name: 'a-checkbox',
-  mixins: [mixins.vModelCheckbox],
-  data: () => ({
-    hasFocus: false,
-  }),
   props: {
     id: {
+      type: [String, Number],
       default: '',
     },
     isDisabled: {
@@ -48,19 +46,31 @@ export default {
       default: '',
     },
   },
-  computed: {
-    labelClass () {
-      return {
-        'f-flex': true,
-        'f-disabled': this.isDisabled,
-        'f-text-primary': this.hasFocus,
-      };
-    },
-    iconName () {
-      const checkedIcon = ICONS.check_box;
-      const uncheckedIcon = ICONS.check_box_outline_blank;
-      return this.checked ? checkedIcon : uncheckedIcon;
-    },
+  mixins: [modelValueMixin],
+  setup (props, context) {
+    const { vModel } = useModelValue(props, context);
+    const { isDisabled } = toRefs(props);
+    const hasFocus = ref(false);
+
+    const labelClass = computed(() => ({
+      'f-flex': true,
+      'f-disabled': isDisabled.value,
+      'f-text-primary': hasFocus.value,
+    }));
+
+    const iconName = computed(() => {
+      const iconsNames = useIcons().names;
+      const checkedIcon = iconsNames.check_box;
+      const uncheckedIcon = iconsNames.check_box_outline_blank;
+      return vModel.value ? checkedIcon : uncheckedIcon;
+    });
+
+    return {
+      vModel,
+      hasFocus,
+      labelClass,
+      iconName,
+    };
   },
 };
 </script>

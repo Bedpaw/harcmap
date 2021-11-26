@@ -1,23 +1,21 @@
-import Vue from 'vue';
+import { createApp } from 'vue';
 import i18n from './dictionary';
 import router from './router';
 import { store } from 'store';
-import './directives';
-import './validation';
 import { ACCOUNT_TYPES, permissions } from 'utils/permissions';
 import App from './components/app.vue';
-import VueEllipseProgress from 'vue-ellipse-progress';
-import Vue2TouchEvents from 'vue2-touch-events';
+import veProgress from 'vue-ellipse-progress';
+import Vue3TouchEvents from 'vue3-touch-events';
 import 'utils/dev-mode/auto-login';
-import VueMaterialIcons from '@dbetka/vue-material-icons';
+import { materialIcons } from '@dbetka/vue-material-icons';
 import { initApp } from 'config';
 import { ROUTES } from 'config/routes-config';
+import '@dbetka/vue-material-icons/dist/vue-material-icons.css';
 
 initApp();
 
-Vue.config.productionTip = false;
-
-Vue.mixin({
+const app = createApp(App);
+app.mixin({
   computed: {
     ROUTES: () => ROUTES,
     ACCOUNT_TYPES: () => ACCOUNT_TYPES,
@@ -32,12 +30,11 @@ Vue.mixin({
   },
 });
 
-Vue.use(Vue2TouchEvents);
-Vue.use(VueEllipseProgress);
-Vue.use(VueMaterialIcons);
-new Vue({
-  router,
-  store,
-  i18n,
-  render: h => h(App),
-}).$mount('#app');
+app.use(Vue3TouchEvents);
+app.use(veProgress);
+app.use(materialIcons);
+app.use(router);
+app.use(store);
+app.use(i18n);
+
+app.mount('#app');

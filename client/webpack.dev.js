@@ -15,6 +15,8 @@ module.exports = merge(common, {
       PASSWORD: JSON.stringify('HarcMap1'),
       ADMIN_USER: JSON.stringify('admin@demo.com'),
       ADMIN_PASSWORD: JSON.stringify('HarcMap1'),
+      __VUE_OPTIONS_API__: true,
+      __VUE_PROD_DEVTOOLS__: true,
     }),
   ],
 });

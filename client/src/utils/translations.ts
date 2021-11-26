@@ -7,7 +7,7 @@ export const apiErrorTranslationFactory = (category: string) => {
   return (name: string) => translator.t(`${categoryPrefix}.${name}`);
 };
 
-export const gameRulesTranslation = (ruleId: Rules, key: string = null) => {
+export const gameRulesTranslation = (ruleId: Rules, key: string|null = null) => {
   const build = (segment: string) => {
     const root = `gameRules.${segment}.${Rules[ruleId]}`;
     const rootWithKey = `${root}.${key}`;

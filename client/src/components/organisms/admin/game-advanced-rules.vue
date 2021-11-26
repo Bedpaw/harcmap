@@ -22,7 +22,7 @@ import { gameRulesUtils } from 'utils/game-rules';
 import { InputTypeEnum } from 'models/game-rules';
 
 export default {
-  name: 'o-game-advanced-rules.vue',
+  name: 'o-game-advanced-rules',
   data: () => ({
     gameRulesUtils,
   }),

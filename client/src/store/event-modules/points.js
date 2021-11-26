@@ -1,5 +1,4 @@
 import { map } from 'map';
-import Vue from 'vue';
 import { pointUtils } from 'utils/point';
 import { api } from 'api';
 const { pointIsCollected, isTimeOut, sortPointsAscending } = pointUtils;
@@ -33,7 +32,7 @@ export default {
         arrayPointId = id;
         return item.pointId === data.pointId;
       });
-      Vue.set(state.points, arrayPointId, Object.assign({}, point, data));
+      state.points[arrayPointId] = Object.assign({}, point, data);
     },
     updateListOfPoints: (state, list = []) => {
       for (const newPoint of list) {
@@ -42,11 +41,11 @@ export default {
           arrayPointId = id;
           return item.pointId === newPoint.pointId;
         });
-        Vue.set(state.points, arrayPointId, Object.assign({}, point, newPoint));
+        state.points[arrayPointId] = Object.assign({}, point, newPoint);
       }
     },
     removePoint: (state, point) => {
-      Vue.delete(state.points, state.points.indexOf(point));
+      state.points.splice(state.points.indexOf(point), 1);
     },
     setHidePoint: (state, payload) => (state.hidePoint = payload),
     clearHidePoint: (state) => (state.hidePoint = {}),

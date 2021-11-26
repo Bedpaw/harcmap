@@ -11,11 +11,13 @@
 import MButtonsListEvents from 'molecules/buttons-list-events';
 import { MACROS } from 'utils/macros';
 import { DATE_FORMATS, displayDate } from 'utils/date';
-import { ICONS_TYPES } from '@dbetka/vue-material-icons';
 import { generalConfigUtils } from 'config/general-config';
 import { eventsListMock } from 'organisms/events-list-mock';
 import { userUtils } from 'config/users-config';
 import { eventUtils } from 'utils/event';
+import { materialIcons } from '@dbetka/vue-material-icons';
+
+const ICONS_TYPES = materialIcons.types;
 
 export default {
   name: 'o-events-list',
@@ -86,14 +88,14 @@ export default {
           onClick: this.navigateToJoinEvent.bind(this),
           text: this.$t('page.eventsList.joinEvent'),
           iconLeftProps: {
-            name: this.ICONS.check,
+            name: this.$icons.names.check,
           },
         },
         {
           onClick: this.navigateToCreateEvent.bind(this),
           text: this.$t('page.eventsList.createEvent'),
           iconLeftProps: {
-            name: this.ICONS.add,
+            name: this.$icons.names.add,
           },
         },
       ];

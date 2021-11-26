@@ -9,7 +9,7 @@
         :id="id"
         class="a-input f-select"
         :class="additionalClasses"
-        ref="input"
+        ref="inputElement"
         :value="label"
         readonly
         @click="focusIn"
@@ -29,7 +29,7 @@
       {{ placeholder }}
     </label>
     <a-icon
-      :name="ICONS.arrow_drop_down"
+      :name="$icons.names.arrow_drop_down"
       class="f-input"
       @click.stop="makeFocus($event)"
     />
@@ -37,7 +37,7 @@
       class="m-options"
       :class="{ 'f-top': optionsAreOutsideWindow }"
       v-if="optionsAreOpen"
-      ref="options"
+      ref="optionsElement"
     >
       <div
         v-for="(option, index) of options"
@@ -67,12 +67,13 @@
 -->
 
 <script>
-import { mixins } from 'mixins/base';
 import { logical } from 'vendors/logical';
+import { modelValueMixin, useModelValue } from 'plugins/v-model';
+import { computed, nextTick, onMounted, ref, toRefs } from 'vue';
+import { fieldUidGenerator } from 'plugins/uid-generators';
 
 export default {
   name: 'm-select',
-  mixins: [mixins.vModel],
   props: {
     /**
      * options: [{label: String, value: String}]
@@ -102,136 +103,160 @@ export default {
       default: '',
     },
   },
-  data: () => ({
-    id: '',
-    optionsAreOpen: false,
-    optionsAreOutsideWindow: false,
-    pointedOption: -1,
-  }),
-  mounted () {
-    const randomNumber = Math.floor(Math.random() * 10000);
-    this.id = 'id-select-' + randomNumber;
-    this.resetPointedOption();
-  },
-  computed: {
-    label () {
-      const option = this.options.find(option => (option.value === this.vModel));
+  mixins: [modelValueMixin],
+  emits: ['change'],
+  setup (props, context) {
+    const { vModel } = useModelValue(props, context);
+    const { options, error, correct, disabled } = toRefs(props);
+
+    const id = ref('');
+    const optionsAreOpen = ref(false);
+    const optionsAreOutsideWindow = ref(false);
+    const pointedOption = ref(-1);
+
+    const label = computed(() => {
+      const option = options.value.find(option => option.value === vModel.value);
       return option ? option.label : '';
-    },
-    additionalClasses () {
-      return {
-        'f-filled': this.label !== '',
-        'f-error': this.error,
-        'f-correct': this.correct,
-        'f-disabled': this.disabled,
-      };
-    },
-  },
-  methods: {
-    focusIn () {
-      clearTimeout(this.$options.timeoutId);
-      this.$options.timeoutId = setTimeout(() => {
-        this.toggleOptions(true);
-      }, 100);
-    },
-    focusOut () {
-      clearTimeout(this.$options.timeoutId);
-      this.$options.timeoutId = setTimeout(() => {
-        this.toggleOptions(false);
-      }, 100);
-    },
-    resetPointedOption (value = this.vModel) {
+    });
+    const additionalClasses = computed(() => ({
+      'f-filled': label.value !== '',
+      'f-error': error.value,
+      'f-correct': correct.value,
+      'f-disabled': disabled.value,
+    }));
+
+    function resetPointedOption (value = vModel.value) {
       if (logical.isNull(value)) {
-        this.pointedOption = -1;
+        pointedOption.value = -1;
       } else {
-        this.pointedOption = this.options.findIndex(option => option.value === value);
+        pointedOption.value = options.value.findIndex(option => option.value === value);
       }
-    },
-    makeFocus (event) {
-      event.preventDefault();
-      this.$refs.input.focus();
-    },
-    closeOptions (config = { resetPointedOption: true }) {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          this.optionsAreOpen = false;
-          if (config.resetPointedOption) {
-            this.resetPointedOption();
-          }
-          resolve();
-        });
-      });
-    },
-    toggleOptions (newState) {
-      if (this.disabled) return;
+    }
 
-      const oppositeState = this.optionsAreOpen === false;
-      this.optionsAreOpen = newState !== undefined ? newState : oppositeState;
-      this.resetPointedOption();
+    const optionsElement = ref(null);
 
-      if (this.optionsAreOpen) {
-        this.$nextTick(() => {
-          const options = this.$refs.options;
+    function toggleOptions (newState) {
+      if (disabled.value) return;
+
+      const oppositeState = optionsAreOpen.value === false;
+      optionsAreOpen.value = newState !== undefined ? newState : oppositeState;
+      resetPointedOption();
+
+      if (optionsAreOpen.value) {
+        nextTick(() => {
+          const options = optionsElement.value;
           const optionsProps = options.getBoundingClientRect();
           const optionsHeight = optionsProps.height;
           const optionsTop = optionsProps.top;
           const windowHeight = window.outerHeight;
-          this.optionsAreOutsideWindow = optionsHeight + optionsTop + 8 >= windowHeight;
+          optionsAreOutsideWindow.value = optionsHeight + optionsTop + 8 >= windowHeight;
         });
       } else {
-        this.optionsAreOutsideWindow = false;
+        optionsAreOutsideWindow.value = false;
       }
-    },
-    chooseOption ({
-      value,
-      index,
-    }) {
-      if (this.disabled) return;
+    }
 
-      if (logical.isDefined(index)) {
-        value = this.options[index].value;
+    const timeoutId = ref(null);
+
+    function focusIn () {
+      clearTimeout(timeoutId.value);
+      timeoutId.value = setTimeout(() => toggleOptions(true), 100);
+    }
+
+    function focusOut () {
+      clearTimeout(timeoutId.value);
+      timeoutId.value = setTimeout(() => toggleOptions(false), 100);
+    }
+
+    const inputElement = ref(null);
+
+    function makeFocus (event) {
+      event.preventDefault();
+      inputElement.value.focus();
+    }
+
+    function closeOptions (config = { resetPointedOption: true }) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          optionsAreOpen.value = false;
+          if (config.resetPointedOption) {
+            resetPointedOption();
+          }
+          resolve();
+        });
+      });
+    }
+
+    function chooseOption ({ value, index }) {
+      if (disabled.value) return;
+
+      if (typeof index !== 'undefined') {
+        value = options.value[index].value;
       }
 
-      this.closeOptions({ resetPointedOption: false })
+      closeOptions({ resetPointedOption: false })
         .then(() => {
-          this.$emit('change', value);
-          this.vModel = value;
-          this.resetPointedOption(value);
+          context.emit('change', value);
+          vModel.value = value;
+          resetPointedOption(value);
         });
-    },
-    chooseAndToggleOptions () {
-      const index = this.pointedOption;
-      if (this.optionsAreOpen && index >= 0) {
-        this.chooseOption({ index });
-      } else {
-        this.toggleOptions();
-      }
-    },
-    optionSwitch (index) {
-      if (this.optionsAreOpen === false) {
-        this.chooseOption({ index });
-      }
-    },
-    optionUp () {
-      if (this.pointedOption - 1 < 0) {
-        this.pointedOption = this.options.length - 1;
-      } else {
-        this.pointedOption -= 1;
-      }
+    }
 
-      this.optionSwitch(this.pointedOption);
-    },
-    optionDown () {
-      if (this.disabled) return;
-
-      if (this.pointedOption + 1 > this.options.length - 1) {
-        this.pointedOption = 0;
+    function chooseAndToggleOptions () {
+      const index = pointedOption.value;
+      if (optionsAreOpen.value && index >= 0) {
+        chooseOption({ index });
       } else {
-        this.pointedOption += 1;
+        toggleOptions();
       }
+    }
 
-      this.optionSwitch(this.pointedOption);
-    },
+    const optionSwitch = index => optionsAreOpen.value === false && chooseOption({ index });
+
+    function optionUp () {
+      if (pointedOption.value - 1 < 0) {
+        pointedOption.value = options.value.length - 1;
+      } else {
+        pointedOption.value -= 1;
+      }
+      optionSwitch(pointedOption.value);
+    }
+
+    function optionDown () {
+      if (disabled.value) return;
+
+      if (pointedOption.value + 1 > options.value.length - 1) {
+        pointedOption.value = 0;
+      } else {
+        pointedOption.value += 1;
+      }
+      optionSwitch(pointedOption.value);
+    }
+
+    onMounted(() => {
+      id.value = fieldUidGenerator.getNext();
+      resetPointedOption();
+    });
+
+    return {
+      vModel,
+      optionsElement,
+      id,
+      optionsAreOpen,
+      optionsAreOutsideWindow,
+      pointedOption,
+      label,
+      additionalClasses,
+      focusIn,
+      focusOut,
+      inputElement,
+      makeFocus,
+      closeOptions,
+      chooseOption,
+      chooseAndToggleOptions,
+      optionUp,
+      optionDown,
+    };
   },
 };
 </script>

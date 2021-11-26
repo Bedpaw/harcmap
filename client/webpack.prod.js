@@ -17,6 +17,8 @@ module.exports = merge(common, {
       PASSWORD: JSON.stringify(''),
       ADMIN_USER: JSON.stringify(''),
       ADMIN_PASSWORD: JSON.stringify(''),
+      __VUE_OPTIONS_API__: true,
+      __VUE_PROD_DEVTOOLS__: false,
     }),
   ],
 });

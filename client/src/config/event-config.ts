@@ -26,7 +26,7 @@ const gameRules: GameRule[] = [
 
 export const DEFAULT_EVENT_CONFIG = {
   paginationStepOnEventList: 3,
-  mapRefreshTime: 15,
+  mapRefreshTime: 15 * secondsInMinute,
   mapZoom: 2,
   eventEndDate: null as DateType,
   eventStartDate: null as DateType,
@@ -34,6 +34,10 @@ export const DEFAULT_EVENT_CONFIG = {
   mapRefreshTimeOptions: [1, 5, 10, 15, 30].map(v => ({
     label: `${v} min`,
     value: v * secondsInMinute,
-  }),
-  ),
+  })),
+  newEvent: {
+    mapLatitude: 52.81843961380375,
+    mapLongitude: 18.882210486320766,
+    mapZoom: 5.456892268842436,
+  },
 };
