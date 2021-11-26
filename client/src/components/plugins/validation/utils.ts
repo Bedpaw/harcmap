@@ -1,10 +1,11 @@
 import type { RulesList, ValidationRuleWithType } from 'models/validation';
 import type { Ref } from '@vue/reactivity';
-import { computed, ExtractPropTypes, watch } from 'vue';
+import { computed, watch } from 'vue';
+import { VuelidateVModelType } from 'models/validation';
 
 const vuelidateField = () => ({
   $touch: ():void => undefined,
-  $error: '',
+  $error: false,
   $errors: [{ $message: '' }],
 });
 
@@ -25,11 +26,11 @@ export function validationRulesListToConfig (rulesList: RulesList) {
   return object;
 }
 
-export function touchFieldOnChange (field:Ref, model:ExtractPropTypes<any>) {
+export function touchFieldOnChange (field:Ref, model:VuelidateVModelType) {
   watch(field, () => model.$touch());
 }
 
-export function createErrorObject (field:Ref, model:ExtractPropTypes<any>) {
+export function createErrorObject (field:Ref, model:VuelidateVModelType) {
   return ({
     ref: field,
     error: computed(() => model.$error),

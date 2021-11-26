@@ -6,7 +6,13 @@ import {
   undefinedVuelidate,
   validationRulesListToConfig,
 } from 'plugins/validation/utils';
-import { ConfigFieldValidation, RulesList, ValidationProps } from 'models/validation';
+import {
+  ConfigFieldValidation,
+  RulesList,
+  ValidationProps,
+  VModelRefs,
+  VModelRules,
+} from 'models/validation';
 import { modelValueMixin, useModelValue } from 'plugins/v-model';
 
 export const fieldValidationMixin = {
@@ -22,7 +28,7 @@ export const fieldValidationMixin = {
 export const useFieldValidation = (props: ValidationProps, context: SetupContext, config: ConfigFieldValidation = {}) => {
   const vModel = config.vModel ? config.vModel : useModelValue(props, context).vModel;
 
-  const v$ = useVuelidate(
+  const v$ = useVuelidate<VModelRules, VModelRefs>(
     { vModel: validationRulesListToConfig([...props.rules, ...(config.defaultRules || [])]) },
     { vModel },
   );
