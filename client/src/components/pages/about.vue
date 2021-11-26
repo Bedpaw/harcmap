@@ -8,7 +8,7 @@
         v-if="showMore === false"
         class="f-text-bold f-text-underline"
         @click="showMore = true"
-        v-html="$t('general.showMore')"
+        v-text="' ' + $t('general.showMore')"
       />
       <span v-else>
         {{ $t('page.about.more') }}
