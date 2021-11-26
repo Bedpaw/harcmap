@@ -17,7 +17,7 @@
           <div class="f-py-2 f-overflow-hidden">{{ point.pointId }}</div>
           <div class="f-pl-1 f-py-2 f-overflow-hidden f-text-subtext f-text-14">{{ point.pointName }}</div>
           <a-button-icon @click="panToMap(point)">
-            <a-icon :name="ICONS.map"/>
+            <a-icon :name="$icons.names.map"/>
           </a-button-icon>
         </div>
       </div>

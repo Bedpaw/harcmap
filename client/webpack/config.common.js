@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const getAppVersion = require('./options/utils').getAppVersionFromPackageJSON;
 const resolve = require('./options/utils').resolve;
 
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const { VueLoaderPlugin } = require('vue-loader');
 const AppConsoleFramePlugin = require('./plugins/app-console-frame');
 const ProgressBarConfig = require('./plugins/progress-bar-config');
 const ESLintConfig = require('./plugins/eslint-config');

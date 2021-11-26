@@ -78,7 +78,7 @@ export default {
       return this.$t('page.start.eventIsOutOfDate');
     },
   },
-  beforeDestroy () {
+  beforeUnmount () {
     clearInterval(this.$options.interval);
   },
 };

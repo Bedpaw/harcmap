@@ -82,7 +82,7 @@ export default {
       Cookies.set('mapPosition', dataForCookies, { expires: 7 });
     },
   },
-  beforeDestroy () {
+  beforeUnmount () {
     map.realMap.un('moveend', this.saveLastMapPositionToCookies);
   },
 };

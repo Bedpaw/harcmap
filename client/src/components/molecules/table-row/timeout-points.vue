@@ -2,7 +2,7 @@
   <div class="m-grid f-timeout-points">
     <a-icon
       :name="timerIcon"
-      :size="24"
+      size="24"
       :class="classForTimer"
     />
 
@@ -13,8 +13,8 @@
 
     <a-icon
       v-show="shouldShowPanToIcon"
-      :name="ICONS.map"
-      :size="24"
+      :name="$icons.names.map"
+      size="24"
       :class="classForMap"
       @click="panTo(point)"
     />

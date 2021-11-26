@@ -12,7 +12,7 @@ const optimization = {
         chunks: 'all',
       },
       components: {
-        test: /src\/components\/(atoms|molecules|organisms|templates|mixins|extends)/,
+        test: /src\/components\/(atoms|molecules|organisms|templates|mixins|plugins)/,
         name: 'components',
         chunks: 'all',
       },

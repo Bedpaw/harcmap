@@ -7,7 +7,7 @@
       <div @click="close">
         <a-icon
           class="a-icon f-snackbar"
-          :name="ICONS.close"
+          :name="$icons.names.close"
         />
       </div>
     </div>

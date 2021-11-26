@@ -5,7 +5,7 @@
       <div>{{ userScore }} {{ $t('general.pointUnit') }}</div>
       <div>
         <a-icon
-          :name="ICONS.more_vert"
+          :name="$icons.names.more_vert"
           @click="toggleDetails"
         />
       </div>

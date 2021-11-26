@@ -16,24 +16,24 @@
       {{ placeholder }}
     </label>
     <a-icon
-      :name="ICONS.visibility"
+      :name="$icons.names.visibility"
       v-if="isPassword && showPassword === false"
       class="f-input"
       @click="showPassword = true"
     />
     <a-icon
-      :name="ICONS.visibility_off"
+      :name="$icons.names.visibility_off"
       v-if="isPassword && showPassword"
       class="f-input"
       @click="showPassword = false"
     />
     <a-icon
-      :name="ICONS.warning"
+      :name="$icons.names.warning"
       v-if="error && isPassword === false"
       class="f-input f-error"
     />
     <a-icon
-      :name="ICONS.check"
+      :name="$icons.names.check"
       v-if="correct && isPassword === false && error === false"
       class="f-input f-correct"
     />
@@ -47,11 +47,13 @@
 </template>
 
 <script>
-import { mixins } from 'mixins/base';
+import { modelValueMixin, useModelValue } from 'plugins/v-model';
+import { computed, onMounted, ref, toRefs } from 'vue';
+import { fieldUidGenerator } from 'plugins/uid-generators';
 
 export default {
   name: 'm-input',
-  mixins: [mixins.vModel],
+  emits: ['blur'],
   props: {
     disabled: {
       type: Boolean,
@@ -78,34 +80,40 @@ export default {
       default: '',
     },
   },
-  data: () => ({
-    id: '',
-    showPassword: false,
-  }),
-  mounted () {
-    const randomNumber = Math.floor(Math.random() * 10000);
-    this.id = 'id-input-' + randomNumber;
-  },
-  computed: {
-    isPassword () {
-      return this.type === 'password';
-    },
-    additionalClasses () {
-      return {
-        'f-filled': this.vModel !== '',
-        'f-error': this.error,
-        'f-correct': this.correct,
-        'f-icon': this.error || this.isPassword,
-        'f-disabled': this.disabled,
-      };
-    },
-    getType () {
-      if (this.isPassword) {
-        return this.showPassword ? '' : this.type;
+  mixins: [modelValueMixin],
+  setup (props, context) {
+    const { vModel } = useModelValue(props, context);
+    const { error, correct, disabled, type } = toRefs(props);
+
+    const id = ref('');
+    const showPassword = ref(false);
+
+    const isPassword = computed(() => type.value === 'password');
+    const additionalClasses = computed(() => ({
+      'f-filled': vModel.value !== '',
+      'f-error': error.value,
+      'f-correct': correct.value,
+      'f-icon': error.value || isPassword.value,
+      'f-disabled': disabled.value,
+    }));
+    const getType = computed(() => {
+      if (isPassword.value) {
+        return showPassword.value ? '' : type.value;
       } else {
-        return this.type;
+        return type.value;
       }
-    },
+    });
+
+    onMounted(() => (id.value = fieldUidGenerator.getNext()));
+
+    return {
+      vModel,
+      id,
+      showPassword,
+      isPassword,
+      additionalClasses,
+      getType,
+    };
   },
 };
 </script>

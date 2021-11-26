@@ -1,6 +1,5 @@
 <template>
   <a-button
-    @click="$emit('click', $event)"
     :add-class="['f-secondary', addClass]"
     :add-area-class="[addAreaClass]"
     :loading="loading"

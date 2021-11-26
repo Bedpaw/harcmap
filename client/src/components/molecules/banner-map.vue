@@ -8,14 +8,14 @@
         <a-button-icon class="f-size-36" @click="$emit('cancel')">
           <a-icon
             class="f-text-danger"
-            :name="ICONS.cancel"
+            :name="$icons.names.cancel"
             size="36"
           />
         </a-button-icon>
         <a-button-icon class="f-size-36" @click="$emit('actionTriggered')">
           <a-icon
             class="f-text-primary"
-            :name="ICONS.check_circle"
+            :name="$icons.names.check_circle"
             size="36"
           />
         </a-button-icon>

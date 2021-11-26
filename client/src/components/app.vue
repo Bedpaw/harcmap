@@ -1,27 +1,25 @@
 <template>
-  <div id="app">
-    <o-header/>
-    <div class="f-relative f-flex-1">
-      <router-view :key="routerId"/>
-    </div>
-    <o-footer
-      v-touch:swipe.left="openMenuIfLogin"
-      v-touch:swipe.right="closeMenu"
-    />
-    <o-menu/>
-    <div
-      class="a-cover f-menu"
-      :class="isOpen ? 'f-show' : ''"
-      @click="closeMenu"
-      v-touch:swipe.right="closeMenu"
-    />
-    <o-popup/>
-    <m-snackbar/>
-    <o-guide/>
-    <transition name="fade">
-      <o-loading v-show="isLoading"/>
-    </transition>
+  <o-header/>
+  <div class="f-relative f-flex-1">
+    <router-view :key="routerId"/>
   </div>
+  <o-footer
+    v-touch:swipe.left="openMenuIfLogin"
+    v-touch:swipe.right="closeMenu"
+  />
+  <o-menu/>
+  <div
+    class="a-cover f-menu"
+    :class="isOpen ? 'f-show' : ''"
+    @click="closeMenu"
+    v-touch:swipe.right="closeMenu"
+  />
+  <o-popup/>
+  <m-snackbar/>
+  <o-guide/>
+  <transition name="fade">
+    <o-loading v-show="isLoading"/>
+  </transition>
 </template>
 
 <script>
