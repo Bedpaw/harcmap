@@ -1,26 +1,31 @@
 <template>
-  <label
-    :for="id"
-    :class="labelClass"
-  >
-    <input
-      :id="id"
-      v-model="vModel"
-      class="a-checkbox"
-      type="checkbox"
-      :disabled="isDisabled"
-      @focus="hasFocus = true"
-      @blur="hasFocus = false"
+  <div>
+    <label
+      :for="id"
+      :class="labelClass"
     >
-    <a-icon
-      :name="iconName"
-      :type="$icons.types.outlined"
-      :class="{'f-text-primary': hasFocus}"
-    />
-    <span class="f-pl-1 f-line-28">
-      <slot />
-    </span>
-  </label>
+      <input
+        :id="id"
+        v-model="vModel"
+        class="a-checkbox"
+        type="checkbox"
+        :disabled="isDisabled"
+        @focus="hasFocus = true"
+        @blur="hasFocus = false"
+      >
+      <a-icon
+        :name="iconName"
+        outlined
+        :class="{'f-text-primary': hasFocus}"
+      />
+      <span class="f-pl-1 f-line-28">
+        <slot />
+      </span>
+    </label>
+    <div class="a-assist">
+      {{ assist }}
+    </div>
+  </div>
 </template>
 
 <script>
@@ -39,6 +44,10 @@ export default {
     isDisabled: {
       type: Boolean,
       default: false,
+    },
+    assist: {
+      type: String,
+      default: '',
     },
   },
   setup (props, context) {

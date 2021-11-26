@@ -1,6 +1,6 @@
 import useVuelidate from '@vuelidate/core';
 import { SetupContext, Ref } from 'vue';
-import { RulesList, ValidationProps } from 'models/validation';
+import { DoubleModelRefs, DoubleModelRules, RulesList, ValidationProps } from 'models/validation';
 import {
   createErrorObject,
   touchFieldOnChange,
@@ -8,11 +8,11 @@ import {
   validationRulesListToConfig,
 } from 'plugins/validation/utils';
 
-export const useDoubleFieldValidation = (props:ValidationProps, context:SetupContext, first:[Ref, RulesList], next:[Ref, RulesList]) => {
+export const useDoubleFieldValidation = (props:ValidationProps, context:SetupContext, first:[Ref<string>, RulesList], next:[Ref<string>, RulesList]) => {
   const [firstModel, firstRules] = first;
   const [nextModel, nextRules] = next;
 
-  const v$ = useVuelidate(
+  const v$ = useVuelidate<DoubleModelRules, DoubleModelRefs>(
     {
       firstModel: validationRulesListToConfig([...props.rules, ...(firstRules || [])]),
       nextModel: validationRulesListToConfig(nextRules || []),

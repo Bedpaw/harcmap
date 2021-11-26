@@ -1,11 +1,11 @@
-import type { ValidationRuleWithParams } from '@vuelidate/core';
-import type { RulesList, VuelidateVModelType } from 'models/validation';
-import { Ref } from '@vue/reactivity';
+import type { RulesList, ValidationRuleWithType } from 'models/validation';
+import type { Ref } from '@vue/reactivity';
 import { computed, watch } from 'vue';
+import { VuelidateVModelType } from 'models/validation';
 
 const vuelidateField = () => ({
   $touch: ():void => undefined,
-  $error: '',
+  $error: false,
   $errors: [{ $message: '' }],
 });
 
@@ -19,7 +19,7 @@ export const undefinedDoubleVuelidate = {
 };
 
 export function validationRulesListToConfig (rulesList: RulesList) {
-  const object: {[index: string]:ValidationRuleWithParams} = {};
+  const object: {[index: string]:ValidationRuleWithType} = {};
   for (const rule of rulesList) {
     object[rule.$params.type] = rule;
   }

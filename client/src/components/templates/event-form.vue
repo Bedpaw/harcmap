@@ -25,7 +25,20 @@
         :label="[$t('form.field.eventStartDate'), $t('form.field.eventEndDate')]"
         :disabled="blockForm"
       />
-
+      <transition name="fade">
+        <o-game-advanced-rules
+          v-if="showAdvancedOptions"
+          :advanced-game-rules = values.eventRules
+          :block-form="blockForm"
+        >
+        </o-game-advanced-rules>
+      </transition>
+      <a-button
+        @click="showAdvancedOptions = !showAdvancedOptions"
+        add-class="f-clear"
+        add-area-class="f-mt-0">
+        {{showAdvancedOptions ? $t('page.admin.eventForm.hideAdvancedOptions'): $t('page.admin.eventForm.showAdvancedOptions') }}
+      </a-button>
       <a-button-secondary
         :disabled="blockForm"
         class="f-text-center f-mt-0"
@@ -62,20 +75,23 @@ import MSelect from 'molecules/select';
 import AButtonSecondary from 'atoms/button/secondary';
 import AButtonSubmit from 'atoms/button/submit';
 import MFieldText from 'molecules/field/text';
-import { ErrorMessage } from 'utils/error-message';
 import OFloatContainer from 'organisms/float-container';
 import OAdminSetMapPosition from 'organisms/admin/set-map-position';
+import AButton from 'atoms/button';
+import OGameAdvancedRules from 'organisms/admin/game-advanced-rules';
+import MFieldDatetimeRange from 'molecules/field/datetime-range';
+import { ErrorMessage } from 'utils/error-message';
 import { DEFAULT_EVENT_CONFIG } from 'config/event-config';
 import { idUtils } from 'utils/id';
 import { eventUtils } from 'utils/event';
 import { computed, ref, onMounted, toRefs } from 'vue';
 import { useForm } from 'plugins/form';
 import { translator } from 'dictionary';
-import MFieldDatetimeRange from 'molecules/field/datetime-range';
 
 export default {
   name: 't-event-form',
   components: {
+    OGameAdvancedRules,
     MFieldDatetimeRange,
     OAdminSetMapPosition,
     OFloatContainer,
@@ -85,6 +101,7 @@ export default {
     OForm,
     AButtonSecondary,
     AButtonSubmit,
+    AButton,
   },
   props: {
     defaultValues: {
@@ -108,10 +125,12 @@ export default {
       mapLatitude: null,
       mapLongitude: null,
       mapZoom: null,
+      eventRules: DEFAULT_EVENT_CONFIG.gameRules,
     });
 
     const options = ref(DEFAULT_EVENT_CONFIG.mapRefreshTimeOptions);
     const eventPositionIsSetting = ref(false);
+    const showAdvancedOptions = ref(false);
 
     const form = useForm();
     const { onErrorOccurs, onSuccessOccurs } = form;
@@ -143,6 +162,7 @@ export default {
       options,
       eventPositionIsSetting,
       hasSetPosition,
+      showAdvancedOptions,
     };
   },
 };

@@ -10,6 +10,7 @@ import 'utils/dev-mode/auto-login';
 import { materialIcons } from '@dbetka/vue-material-icons';
 import { initApp } from 'config';
 import { ROUTES } from 'config/routes-config';
+import '@dbetka/vue-material-icons/dist/vue-material-icons.css';
 
 initApp();
 

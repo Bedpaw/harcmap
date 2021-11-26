@@ -12,7 +12,7 @@
   "dependencies": {
     "@dbetka/sass-watcher": "^0.1.5",
     "@dbetka/utils": "^0.1.3",
-    "@dbetka/vue-material-icons": "^0.3.0",
+    "@dbetka/vue-material-icons": "^0.3.1",
     "@dbetka/wdk": "^0.1.5",
     "@egjs/flicking-plugins": "^4.2.2",
     "@egjs/vue3-flicking": "^4.4.1",

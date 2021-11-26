@@ -25,6 +25,7 @@ export const pl = {
     eventsList: 'Lista wydarzeń',
     joinEvent: 'Dołącz do wydarzenia',
     usersList: 'Użytkownicy',
+    teamView: 'Drużyna',
     short: {
       start: 'start',
       map: 'mapa',
@@ -152,6 +153,14 @@ export const pl = {
       listTitle: 'Lista zebranych punktów',
       noPoints: 'Brak zebranych punktów',
     },
+    teamView: {
+      mainHeaderPartOne: 'Do tej pory zdobyliśmy',
+      mainHeaderPartTwo: 'punktów',
+      membersHeader: 'Członkowie drużyny',
+      nickname: 'Pseudonim',
+      email: 'Email',
+      role: 'Rola',
+    },
     scoreboard: {
       completionLevelOfTheGame: 'Poziom realizacji gry',
       scoreboard: 'Tabela wyników',
@@ -213,6 +222,10 @@ export const pl = {
       },
       adminPanel: {
         downloadPointsList: 'Pobierz listę punktów',
+      },
+      eventForm: {
+        showAdvancedOptions: 'Pokaż opcje zaawansowane',
+        hideAdvancedOptions: 'Schowaj opcje zaawansowane',
       },
     },
   },
@@ -318,6 +331,34 @@ export const pl = {
     userObserver: 'Obserwator użytkownika',
     organizer: 'Organizator',
     accountType: 'Typ konta',
+  },
+  gameRules: {
+    category: {
+      user: {
+        map: 'Ustawienia mapy użytkownika',
+      },
+    },
+    description: {
+      PointDetailsVisibilityOnMap: 'Widoczność szczegółów na mapie pozwala użytkownikom na otworzenie dodatkowego menu po kliknięciu na punkt na mapie',
+    },
+    name: {
+      GeolocationAvailability: 'Ustawienia geolokalizacji',
+      PointDetailsVisibilityOnMap: 'Widoczność szczegółów punktu',
+    },
+    options: {
+      GeolocationAvailability: {
+        Required: 'Wymagana',
+        Available: 'Dostępna',
+        Forbidden: 'Zabroniona',
+      },
+    },
+    optionsDescription: {
+      GeolocationAvailability: {
+        Required: 'Wymagana geolokalizacja nie pozwala zalogować się użytkownikowi do gry jeśli nie zaakceptował jej w swojej przeglądarce',
+        Available: 'Dostępna geolokalizacja pozwala użytkownikowi na zobaczenie swojej pozycji na mapie ',
+        Forbidden: 'Zabroniona geolokalizacji nie pozwala użytkownikowi zobaczenia swojej pozycji na mapie',
+      },
+    },
   },
   features: {
     timer: {
