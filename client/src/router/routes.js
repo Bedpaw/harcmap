@@ -29,6 +29,7 @@ export const routes = [
   [ROUTES.eventsList, () => import('pages/events-list.vue')],
   [ROUTES.joinEvent, () => import('pages/join-event.vue')],
   [ROUTES.usersList, () => import('pages/admin/users-list.vue')],
+  [ROUTES.teamView, () => import('pages/team-view.vue')],
 ]
   .map(([route, component]) => ({
     ...AppRoute.getDataForRouter(route),

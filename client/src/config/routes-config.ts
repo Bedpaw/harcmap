@@ -86,6 +86,10 @@ const authRoutes = {
     icon: ICONS.map,
     hasShortLabel: true,
   },
+  teamView: {
+    name: 'teamView',
+    icon: ICONS.people,
+  },
 };
 
 const adminObserverRoutes = {
