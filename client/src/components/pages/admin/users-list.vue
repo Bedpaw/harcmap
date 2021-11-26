@@ -26,9 +26,9 @@
           </a-button-icon>
         </div>
         <o-popup-user-details
-          v-if="user"
+          v-if="selectedUser"
           ref="popup"
-          :user="user"
+          :user="selectedUser"
         />
       </div>
     </template>
@@ -50,7 +50,7 @@ export default {
     AButtonIcon,
   },
   data: () => ({
-    user: null,
+    selectedUser: null,
   }),
   computed: {
     ...mapGetters('allUsers', ['users']),
@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     openDetails (user) {
-      this.user = user;
+      this.selectedUser = user;
       this.$nextTick(() => this.$refs.popup.toggle());
     },
     getUserIcon (user) {
