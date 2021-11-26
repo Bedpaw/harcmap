@@ -25,7 +25,7 @@
         <img :src="person.photo" :alt="person.fullName" width="64" height="64">
       </div>
       <a-icon
-        :name="ICONS.account_circle"
+        :name="$icons.names.account_circle"
         size="64"
         v-else
       />
@@ -33,19 +33,19 @@
         <div class="f-text-bold">{{ person.fullName }}</div>
         <div class="f-text-14">{{ person.responsibilities }}</div>
         <div class="f-text-14 f-flex">
-          <template
+          <span
             v-for="(link, key) of person.links"
+            :key="link.path"
           >
             <span v-if="key === 1" :key="key" class="f-pr-1">,</span>
             <a
               :href="link.path"
-              :key="link.path"
               class="a-link"
               target="_blank"
             >
               {{ link.label }}
             </a>
-          </template>
+          </span>
         </div>
       </div>
     </div>

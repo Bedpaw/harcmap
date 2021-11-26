@@ -2,7 +2,7 @@
   <div ref="mapPopup" class="o-popup f-map">
     <a-icon-close-popup
       add-class="f-map"
-      :size="20"
+      size="20"
       @click="popup.hide()"
     />
     <div
@@ -14,11 +14,11 @@
       <a-icon
         class="a-icon f-list"
         :name="singleData.icon"
-        :size="20"
+        size="20"
       />
       <div
         class="f-flex-1 f-pl-1 f-py-1"
-        ref="toCopy"
+        :ref="setItemRef"
       >
         {{ singleData.value }}
       </div>
@@ -32,7 +32,7 @@
       <a-icon
         class="a-icon f-list"
         :name="button.icon"
-        :size="20"
+        size="20"
       />
       <div class="f-flex-1 f-pl-1  f-py-1">
         {{ button.label }}
@@ -56,13 +56,14 @@ export default {
   },
   data: () => ({
     popup: null,
+    itemRefs: [],
   }),
   computed: {
     ...mapGetters('mapPopup', ['data']),
     buttons () {
       const buttons = [
         {
-          icon: this.ICONS.edit,
+          icon: this.$icons.names.edit,
           label: this.$t('general.edit'),
           method: () => {
             this.$router.push({
@@ -72,7 +73,7 @@ export default {
           },
         },
         {
-          icon: this.ICONS.delete,
+          icon: this.$icons.names.delete,
           label: this.$t('general.remove'),
           method: () => {
             if (confirm(translator.t('communicate.map.confirmPointRemove'))) {
@@ -89,20 +90,28 @@ export default {
     },
   },
   methods: {
+    setItemRef (el) {
+      if (el) {
+        this.itemRefs.push(el);
+      }
+    },
     definePopup () {
       this.popup = new Popup({
         container: this.$refs.mapPopup,
       });
     },
     copyToClipboard (key) {
-      const element = this.$refs.toCopy[key];
+      const element = this.itemRefs[key];
       actionUtils.copyToClipboard(element);
       communicates.showSuccessTemporary(this.$t('general.copied'));
       this.popup.hide();
     },
   },
-  beforeDestroy () {
+  beforeUnmount () {
     this.popup.destroy();
+  },
+  beforeUpdate () {
+    this.itemRefs = [];
   },
 };
 </script>

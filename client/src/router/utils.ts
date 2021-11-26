@@ -1,19 +1,21 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { ICONS } from '@dbetka/vue-material-icons';
+import { materialIcons } from '@dbetka/vue-material-icons';
 import { AppRouteParams, EnterPermission } from '../models/routes';
 import { translator } from '../dictionary';
 
+const ICONS = materialIcons.names;
+
 export class AppRoute {
   public name: string; // !!!camelCase!!!
-  public path: string | null;
+  public path = '';
   public meta: EnterPermission;
   public icon = ICONS.success as string;
-  public label: string;
-  public shortLabel: string;
+  public label: string | null = null;
+  public shortLabel: string | null = null;
 
   constructor (config: AppRouteParams) {
-    const { name, path, icon, enterPermissions, dynamicParam, hasShortLabel } = config;
+    const { name, path = '', icon = '', enterPermissions, dynamicParam = null, hasShortLabel = false } = config;
     this.name = name;
     this.setPath(path, dynamicParam);
     this.setLabel();
@@ -22,7 +24,7 @@ export class AppRoute {
     this.meta = enterPermissions;
   }
 
-  private setPath (path: string | null, dynamicParam: string) {
+  private setPath (path: string, dynamicParam: string | null) {
     const camelToKebab = (str: string): string => str.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`);
     let mainPath = path || '/' + camelToKebab(this.name);
     if (dynamicParam) {
@@ -32,11 +34,13 @@ export class AppRoute {
   }
 
   private setLabel (): void {
-    this.label = translator.t(`title.${this.name}`) as string;
+    const label = translator.t(`title.${this.name}`);
+    this.label = typeof label === 'string' ? label : '';
   }
 
   private setShortLabel (hasShortLabel: boolean): void {
-    this.shortLabel = hasShortLabel ? translator.t(`title.short.${this.name}`) as string : '';
+    const shortLabel = hasShortLabel ? translator.t(`title.short.${this.name}`) : '';
+    this.shortLabel = typeof shortLabel === 'string' ? shortLabel : '';
   }
 
   static getDataForRouter (route: AppRoute): { path: string, name: string, meta: EnterPermission } {

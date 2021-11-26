@@ -25,6 +25,7 @@ export const pl = {
     eventsList: 'Lista wydarzeń',
     joinEvent: 'Dołącz do wydarzenia',
     usersList: 'Użytkownicy',
+    teamView: 'Drużyna',
     short: {
       start: 'start',
       map: 'mapa',
@@ -90,16 +91,6 @@ export const pl = {
       searchPoint: 'Szukaj po kodzie lub nazwie punktu',
       searchUser: 'Szukaj po e-mailu lub nazwie drużyny',
     },
-    validation: {
-      required: 'Pole jest wymagane.',
-      email: 'Musisz podać poprawny adres email.',
-      min: 'Pole musi składać się z co najmniej {length} znaków.',
-      max: 'Pole musi składać się z co najmniej {length} znaków.',
-      confirmed: 'Pole nie zgadza się z polem potwierdzającym {target}.',
-      length: 'Pole musi mieć długość {length}.',
-      hasNumber: 'Pole powinno zawierać co najmniej jedną cyfrę.',
-      hasCapitalize: 'Pole powinno zawierać co najmniej jedną wielką literę.',
-    },
     button: {
       save: 'Zapisz',
       choose: 'wybierz',
@@ -111,6 +102,17 @@ export const pl = {
       sendResetPasswordToEmail: 'Wyślij email resetujący hasło',
       blockAccount: 'Zablokuj konto',
     },
+  },
+  validations: {
+    required: 'Pole jest wymagane.',
+    email: 'Musisz podać poprawny adres email.',
+    minLength: 'Pole musi składać się z co najmniej {min} znaków.',
+    maxLength: 'Pole musi składać się z nie więcej niż {max} znaków.',
+    sameAs: 'Pole nie zgadza się z polem potwierdzającym {target}.',
+    hasNumber: 'Pole powinno zawierać co najmniej jedną cyfrę.',
+    hasCapitalize: 'Pole powinno zawierać co najmniej jedną wielką literę.',
+    futureDatetime: 'Data powinna być późniejsza niż teraz.',
+    datetimeAfter: 'Data powinna być późniejsza niż w polu powyżej.',
   },
   page: {
     about: {
@@ -151,6 +153,14 @@ export const pl = {
       sumTitle: 'Suma punktów wg kategorii',
       listTitle: 'Lista zebranych punktów',
       noPoints: 'Brak zebranych punktów',
+    },
+    teamView: {
+      mainHeaderPartOne: 'Do tej pory zdobyliśmy',
+      mainHeaderPartTwo: 'punktów',
+      membersHeader: 'Członkowie drużyny',
+      nickname: 'Pseudonim',
+      email: 'Email',
+      role: 'Rola',
     },
     scoreboard: {
       completionLevelOfTheGame: 'Poziom realizacji gry',
@@ -214,6 +224,10 @@ export const pl = {
       adminPanel: {
         downloadPointsList: 'Pobierz listę punktów',
       },
+      eventForm: {
+        showAdvancedOptions: 'Pokaż opcje zaawansowane',
+        hideAdvancedOptions: 'Schowaj opcje zaawansowane',
+      },
     },
   },
   error: {
@@ -222,6 +236,7 @@ export const pl = {
     elementIdIsRequiredForMap: 'Kod wydarzenia jest wymagany, by uruchomić mapę',
     fakeErrorInMockApi: 'Fałszywy błąd mockApi',
     dataAfterSignIn: 'Logowanie nie powiodło się ze względu na problem z pobraniem danych dotyczących konta. Spróbuj ponownie.',
+    correctForm: 'Wypełnij poprawnie formularz.',
   },
   apiWarn: {
     undefined: 'Wystąpiło niezdefiniowane ostrzeżenie. Skontaktuj się z twórcą aplikacji.',
@@ -317,6 +332,34 @@ export const pl = {
     userObserver: 'Obserwator użytkownika',
     organizer: 'Organizator',
     accountType: 'Typ konta',
+  },
+  gameRules: {
+    category: {
+      user: {
+        map: 'Ustawienia mapy użytkownika',
+      },
+    },
+    description: {
+      PointDetailsVisibilityOnMap: 'Widoczność szczegółów na mapie pozwala użytkownikom na otworzenie dodatkowego menu po kliknięciu na punkt na mapie',
+    },
+    name: {
+      GeolocationAvailability: 'Ustawienia geolokalizacji',
+      PointDetailsVisibilityOnMap: 'Widoczność szczegółów punktu',
+    },
+    options: {
+      GeolocationAvailability: {
+        Required: 'Wymagana',
+        Available: 'Dostępna',
+        Forbidden: 'Zabroniona',
+      },
+    },
+    optionsDescription: {
+      GeolocationAvailability: {
+        Required: 'Wymagana geolokalizacja nie pozwala zalogować się użytkownikowi do gry jeśli nie zaakceptował jej w swojej przeglądarce',
+        Available: 'Dostępna geolokalizacja pozwala użytkownikowi na zobaczenie swojej pozycji na mapie ',
+        Forbidden: 'Zabroniona geolokalizacji nie pozwala użytkownikowi zobaczenia swojej pozycji na mapie',
+      },
+    },
   },
   features: {
     timer: {

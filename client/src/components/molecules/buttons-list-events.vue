@@ -1,13 +1,14 @@
 <template>
   <section v-if="buttonsDetails.length > 0" class="f-text-left" >
     <span>{{title}}</span>
-    <component  v-for="button in buttonsDetailsPaginated" :key="button.id"
-                :is="buttonTypeComponent"
-                v-bind="{
-                  addAreaClass: 'f-small-area',
-                  addClass: button.secondLineText ? 'f-two-lines' : '',
-                }"
-                @click="button.onClick(button.id ? button.id : null)"
+    <component
+      v-bind="{
+        addAreaClass: 'f-small-area',
+        addClass: button.secondLineText ? 'f-two-lines' : '',
+      }"
+      v-for="button in buttonsDetailsPaginated" :key="button.id"
+      :is="buttonTypeComponent"
+      @click="button.onClick(button.id ? button.id : null)"
     >
       <a-icon
         v-if="button.iconLeftProps"

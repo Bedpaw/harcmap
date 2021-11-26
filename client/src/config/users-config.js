@@ -1,5 +1,7 @@
 import { ACCOUNT_TYPES } from 'utils/permissions';
-import { ICONS } from '@dbetka/vue-material-icons';
+import { materialIcons } from '@dbetka/vue-material-icons';
+
+const ICONS = materialIcons.names;
 
 const { organizer, admin, userObserver, common, observer } = ACCOUNT_TYPES;
 
@@ -36,6 +38,12 @@ const checkIfCan = (permittedRoles) => permittedRoles
   .some(role => permissions.checkPermissions(role));
 
 export const userUtils = {
+  getOrderedMembers: (teamMembers) => {
+    const commonUsers = teamMembers.filter(user => user.accountType === ACCOUNT_TYPES.userObserver);
+    const leaderUser = teamMembers.find(user => user.accountType === ACCOUNT_TYPES.common);
+    commonUsers.unshift(leaderUser);
+    return commonUsers;
+  },
   getIcon: ({ accountType }) => accountTypeInfo[accountType].icon,
   getNameKey: ({ accountType }) => accountTypeInfo[accountType].nameKey,
   isOrganizer: (user) => user.accountType === organizer,

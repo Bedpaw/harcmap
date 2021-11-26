@@ -1,5 +1,5 @@
 <template>
-  <vue-ellipse-progress
+  <ve-progress
     :progress="progress"
     :angle="-90"
     :color="color"
@@ -9,15 +9,13 @@
     lineMode="in-over"
     emptyThickness="12%"
     animation="reverse 1000 700"
-    :legend="true"
-    :legendValue="numberOfCompleted"
     :noData="false"
-    :loading="false"
+    :hideLegend="false"
     :half="false"
     :gap="10"
     fontSize="16px">
-    <span slot="legend-value">/{{ maxRange }}</span>
-  </vue-ellipse-progress>
+    <span>{{ numberOfCompleted }}/{{ maxRange }}</span>
+  </ve-progress>
 </template>
 
 <script>

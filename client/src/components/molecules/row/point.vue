@@ -7,11 +7,11 @@
       <div>{{ point.pointId }}</div>
       <div>{{ getCategoryById(point.pointCategory).pointValue }} {{ $t('general.pointUnit') }}</div>
       <div>
-        <a-icon :name="ICONS.map" @click="panTo(point)"/>
+        <a-icon :name="$icons.names.map" @click="panTo(point)"/>
       </div>
       <div>
         <a-icon
-          :name="ICONS.arrow_drop_down"
+          :name="$icons.names.arrow_drop_down"
           @click="toggleDetails"
         />
       </div>
