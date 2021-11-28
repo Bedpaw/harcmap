@@ -35,7 +35,7 @@ module.exports = (env) => ({
   },
   optimization,
   output: {
-    // filename in dev and prod configs
+    filename: '[name].[contenthash].js',
     chunkFilename: '[name].[chunkhash].js',
     path: resolve(publicPath),
     publicPath: '/',
@@ -43,6 +43,11 @@ module.exports = (env) => ({
   },
   module: {
     rules,
+    parser: {
+      javascript: {
+        commonjsMagicComments: true,
+      },
+    },
   },
   resolve: {
     alias,

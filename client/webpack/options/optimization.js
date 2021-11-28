@@ -2,7 +2,7 @@ const optimization = {
   splitChunks: {
     cacheGroups: {
       vendor: {
-        test: /node_modules\/(?!ol).*/,
+        test: /node_modules\/(?!(ol|@egjs|vue-ellipse-progress)).*/,
         name: 'vendors',
         chunks: 'all',
       },
@@ -11,8 +11,13 @@ const optimization = {
         name: 'ol',
         chunks: 'all',
       },
+      ellipseProgress: {
+        test: /node_modules\/vue-ellipse-progress/,
+        name: 'ellipse-progress',
+        chunks: 'all',
+      },
       components: {
-        test: /src\/components\/(atoms|molecules|organisms|templates|mixins|plugins)/,
+        test: /src\/components\/(?!(pages|organisms\/guide\.vue)).*/,
         name: 'components',
         chunks: 'all',
       },
