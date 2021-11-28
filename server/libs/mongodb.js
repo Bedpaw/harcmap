@@ -42,7 +42,6 @@ async function getCollection (collectionName) {
 }
 
 module.exports = {
-  ObjectId: mongodb.ObjectId,
   getCollection,
   connectionString,
 };

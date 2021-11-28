@@ -6,7 +6,7 @@ const {
   errorCodes,
 } = require('./errors');
 const { getSHA } = require('./utils');
-const { ObjectId } = require('./mongodb');
+const { ObjectId } = require('mongodb');
 
 /**
  * @description Function responsible for passport user
