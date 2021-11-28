@@ -4,7 +4,6 @@ import router from './router';
 import { store } from 'store';
 import { ACCOUNT_TYPES, permissions } from 'utils/permissions';
 import App from './components/app.vue';
-import veProgress from 'vue-ellipse-progress';
 import Vue3TouchEvents from 'vue3-touch-events';
 // import { App as NativeApp } from '@capacitor/app';
 import 'utils/dev-mode/auto-login';
@@ -33,7 +32,6 @@ app.mixin({
 });
 
 app.use(Vue3TouchEvents);
-app.use(veProgress);
 app.use(materialIcons);
 app.use(router);
 app.use(store);

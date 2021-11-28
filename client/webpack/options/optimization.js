@@ -11,11 +11,6 @@ const optimization = {
         name: 'ol',
         chunks: 'all',
       },
-      ellipseProgress: {
-        test: /node_modules\/vue-ellipse-progress/,
-        name: 'ellipse-progress',
-        chunks: 'all',
-      },
       components: {
         test: /src\/components\/(?!(pages|organisms\/guide\.vue)).*/,
         name: 'components',
