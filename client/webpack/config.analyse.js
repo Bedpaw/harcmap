@@ -11,6 +11,10 @@ module.exports = merge(commonConfig, {
   performance: {
     hints: false,
   },
+  output: {
+    filename: '[name].js',
+    chunkFilename: '[name].js',
+  },
   plugins: [
     new BundleAnalyzerPlugin(),
     new webpack.DefinePlugin({

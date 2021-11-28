@@ -11,21 +11,6 @@ const optimization = {
         name: 'ol',
         chunks: 'all',
       },
-      components: {
-        test: /src\/components\/(?!(pages|organisms\/guide\.vue)).*/,
-        name: 'components',
-        chunks: 'all',
-      },
-      pages: {
-        test: /src\/components\/pages/,
-        name: 'pages',
-        chunks: 'all',
-      },
-      utils: {
-        test: /src\/(utils|map)/,
-        name: 'utils',
-        chunks: 'all',
-      },
     },
   },
 };
