@@ -13,16 +13,12 @@ const date = Joi.number()
 const dateWithNull = Joi.number().allow(null);
 const keys = Joi.string()
   .pattern(/^[ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz123456789]{4}$/); // all characters except [O0Il]
-const mapCoordinates = Joi.object({
-  longitude: Joi.number()
-    .min(-180)
-    .max(180)
-    .required(),
-  latitude: Joi.number()
-    .min(-90)
-    .max(90)
-    .required(),
-});
+const longitude = Joi.number()
+  .min(-180)
+  .max(180);
+const latitude = Joi.number()
+  .min(-90)
+  .max(90);
 const objectIdInRequest = Joi.string()
   .pattern(/^[a-fA-F0-9]{24}$/); // 24 character long hexadecimal pattern
 const objectIdInDatabase = Joi.object();
@@ -105,7 +101,8 @@ module.exports = {
   date,
   dateWithNull,
   defaultMapZoom,
-  mapCoordinates,
+  longitude,
+  latitude,
   categoryName,
   pointValue,
   pointShape,

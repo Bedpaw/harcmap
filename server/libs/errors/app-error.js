@@ -12,8 +12,8 @@ function getKeyByValue (object, value) {
 
 // This function get name of error from error codes list
 function getCodeName (code) {
-	const codeKey = getKeyByValue(codes, code);
-	return codeKey.toLowerCase().replace(/_/g, ' ');
+  const codeKey = getKeyByValue(codes, code);
+  return codeKey.toLowerCase().replace(/_/g, ' ');
 }
 
 /**
@@ -22,7 +22,7 @@ function getCodeName (code) {
  * Add some additional fields
  */
 class AppError extends Error {
-	/**
+  /**
 	 * @param code {number} - error code from errorCodes library
 	 * @param options {{
 	 * 	[details]: any,
@@ -30,27 +30,27 @@ class AppError extends Error {
 	 * 	[message]: string
 	 * }}
 	 */
-	constructor (code, options = {}) {
-		super();
+  constructor (code, options = {}) {
+    super();
 
-		const {
-			// HTTP Status Code to add to response. OPTIONAL
-			httpStatus,
-			// Message to add (if not given reference to this.rawMessage). OPTIONAL
-			message,
-			// more details
-			details,
-		} = options;
+    const {
+      // HTTP Status Code to add to response. OPTIONAL
+      httpStatus,
+      // Message to add (if not given reference to this.rawMessage). OPTIONAL
+      message,
+      // more details
+      details,
+    } = options;
 
-		// default: undefined
-		this.message = message || getCodeName(code);
-		// default: undefined
-		this.code = code;
-		// default: undefined
-		this.httpStatus = httpStatus;
-		// default: undefined
-		this.details = details;
-	}
+    // default: undefined
+    this.message = message || getCodeName(code);
+    // default: undefined
+    this.code = code;
+    // default: undefined
+    this.httpStatus = httpStatus;
+    // default: undefined
+    this.details = details;
+  }
 }
 
 module.exports = AppError;

@@ -11,9 +11,16 @@ const users = {
   guest: 'guest',
 };
 const admins = [users.creator, users.admin, users.observer];
+// all users permissions are difference from "user.authenticated"
+// because in authenticated type, dynamic parts of url are not checking
+// by security system
+const all = admins.concat([users.leader, users.member]);
 
 // map can contain array of permission users
 // each endpoint require one(OR) of permission user not both or all(AND)
+//
+// WARNING! ORDER HAVE MATTERS
+//
 const endpointsAccessConfig = {
   // common endpoints
   '/about': users.guest,
@@ -26,20 +33,22 @@ const endpointsAccessConfig = {
   '/api/v1/users': admins,
   '/api/v1/users/:userId': admins,
   // events endpoints
-  '/api/v1/events': [users.authenticated],
+  '/api/v1/events': users.authenticated,
   '/api/v1/events/:eventId': admins,
+  '/api/v1/events/check': users.authenticated,
+  '/api/v1/events/join': users.guest,
   // categories
   '/api/v1/events/:eventId/categories': admins,
   // teams
   '/api/v1/events/:eventId/teams': admins,
-  '/api/v1/events/:eventId/teams/:teamId': [users.creator, users.admin, users.leader, users.member],
+  '/api/v1/events/:eventId/teams/:teamId': all,
   // points
   '/api/v1/events/:eventId/points': {
-    GET: [users.creator, users.admin, users.leader, users.member],
+    GET: all,
     POST: admins,
   },
   '/api/v1/events/:eventId/points/:pointId': admins,
-  '/api/v1/events/:eventId/points/collect': [users.creator, users.admin, users.leader],
+  '/api/v1/events/:eventId/points/collect': [users.creator, users.admin, users.observer, users.leader],
 };
 
 module.exports = endpointsAccessConfig;

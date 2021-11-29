@@ -174,7 +174,7 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/collect', () => {
       expect: {
         error: 1001,
         message: 'request validation error',
-        errorDetails: ['"pointKey" length must be 4 characters long'],
+        errorDetails: ['"pointKey" with value "ab1w2" fails to match the required pattern: /^[ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz123456789]{4}$/'],
       },
     },
     expectInDb: [{
@@ -210,7 +210,7 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/collect', () => {
     resetDbToDefault: true,
   });
 
-  testEndpoint('/api/v1/events/605920002c60e426288b8971/points/collect', {
+  testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/collect', {
     description: 'Cannot collect already collected point',
     method: 'POST',
     signIn: {
@@ -220,28 +220,27 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/collect', () => {
     expectedStatus: 400,
     body: {
       send: {
-        pointKey: 'ab1w2',
+        pointKey: 'wg53',
       },
       expect: {
-        error: 1001,
-        message: 'request validation error',
-        errorDetails: ['"pointKey" length must be 4 characters long'],
+        error: 1301,
+        message: 'point already collected',
       },
     },
     expectInDb: [{
       collectionName: 'points',
-      query: { _id: ObjectId('60e6d13faa95cc33d7c4671b') },
+      query: { _id: ObjectId('60e6d13faa95cc33d7c467aa') },
       document: {
-        _id: ObjectId('60e6d13faa95cc33d7c4671b'),
+        _id: ObjectId('60e6d13faa95cc33d7c467aa'),
         eventId: ObjectId('60e6cc2eaa95cc33d7c46701'),
         pointCategoryId: ObjectId('60e7046eaa95cc33d7c4672b'),
-        pointCollectedDate: null,
-        pointKey: expect.any(String),
+        pointCollectedDate: 34523416,
+        pointKey: 'wg53',
         pointDuration: {
           endDate: null,
           startDate: null,
         },
-        pointName: 'Point name',
+        pointName: 'Point second',
         pointPosition: {
           latitude: 1,
           longitude: 1,
@@ -250,12 +249,12 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/collect', () => {
       },
     }, {
       collectionName: 'teams',
-      query: { _id: ObjectId('60e6ca2aaa95cc33d7c466f8') },
+      query: { _id: ObjectId('60e6b02e0b6c6887accf6c05') },
       document: {
-        _id: ObjectId('60e6ca2aaa95cc33d7c466f8'),
-        eventId: ObjectId('60e6cc2eaa95cc33d7c46701'),
-        teamName: 'team1',
-        collectedPoints: [],
+        _id: ObjectId('60e6b02e0b6c6887accf6c05'),
+        eventId: ObjectId('605920002c60e426288b8971'),
+        teamName: 'team3',
+        collectedPoints: [ObjectId('60e6d13faa95cc33d7c467aa')],
       },
     }],
     resetDbToDefault: true,

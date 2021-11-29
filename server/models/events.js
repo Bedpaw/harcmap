@@ -3,7 +3,8 @@ const {
   eventName,
   date,
   defaultMapZoom,
-  mapCoordinates,
+  longitude,
+  latitude,
   eventRefreshTime,
 } = require('../libs/common-schemas');
 
@@ -16,8 +17,8 @@ const eventSchema = {
   },
   mapProperties: {
     zoom: defaultMapZoom,
-    longitude: mapCoordinates,
-    latitude: mapCoordinates,
+    longitude,
+    latitude,
   },
   eventRefreshTime,
 };

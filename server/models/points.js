@@ -4,7 +4,8 @@ const {
   pointName,
   pointType,
   dateWithNull,
-  mapCoordinates,
+  longitude,
+  latitude,
 } = require('../libs/common-schemas');
 const Model = require('../libs/model');
 
@@ -21,8 +22,8 @@ const userSchema = {
     endDate: dateWithNull,
   },
   pointPosition: {
-    longitude: mapCoordinates,
-    latitude: mapCoordinates,
+    longitude,
+    latitude,
   },
 };
 

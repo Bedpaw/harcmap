@@ -1,10 +1,7 @@
 /**
  * @description Module using only for tests purposes
  */
-const {
-  MongoClient,
-  ObjectId,
-} = require('mongodb');
+const { MongoClient } = require('mongodb');
 const insertDefaultData = require('../../bin/mongodb/default-dump.js');
 const {
   MONGO_HOST,
@@ -97,5 +94,4 @@ module.exports = {
   add,
   find,
   clearToDefault,
-  ObjectId,
 };

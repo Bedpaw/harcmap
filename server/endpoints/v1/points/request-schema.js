@@ -3,7 +3,8 @@ const {
   pointName,
   pointType,
   date,
-  mapCoordinates,
+  longitude,
+  latitude,
   objectIdInRequest,
   keys,
 } = require('../../../libs/common-schemas');
@@ -17,8 +18,8 @@ const onePoint = {
       endDate: date,
     },
     pointPosition: {
-      longitude: mapCoordinates,
-      latitude: mapCoordinates,
+      longitude,
+      latitude,
     },
     pointCategoryId: objectIdInRequest,
   }),
@@ -41,8 +42,8 @@ const allPoints = {
       endDate: date.required(),
     },
     pointPosition: {
-      longitude: mapCoordinates.required(),
-      latitude: mapCoordinates.required(),
+      longitude: longitude.required(),
+      latitude: latitude.required(),
     },
     pointCategoryId: objectIdInRequest.required(),
   }),

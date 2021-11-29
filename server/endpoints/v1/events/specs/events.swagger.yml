@@ -129,7 +129,6 @@ paths:
                 $ref: '#/components/responses/401'
   /events/check:
     post:
-      deprecated: true
       summary: 'Allow user to check event, role, team that code'
       tags:
         - Events
@@ -155,8 +154,8 @@ paths:
                     $ref: '#/components/props/eventId'
                   role:
                     $ref: '#/components/props/role'
-                  team:
-                    $ref: '#/components/props/team'
+                  teamId:
+                    $ref: '#/components/props/teamId'
         400:
           description: 'Validation error or none exist eventKey'
           content:
@@ -165,7 +164,6 @@ paths:
                 $ref: '#/components/responses/400'
   /events/join:
     post:
-      deprecated: true
       summary: 'Allow user to join event (SECURED)'
       description: 'Special privilege required'
       tags:

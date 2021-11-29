@@ -211,7 +211,7 @@ describe(endpoint, () => {
       expect: {
         error: 1001,
         message: 'request validation error',
-        errorDetails: ['"password" length must be at least 8 characters long'],
+        errorDetails: ['"password" with value "short" fails to match the required pattern: /^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,24}$/'],
       },
     }, {
       send: {
@@ -221,7 +221,7 @@ describe(endpoint, () => {
       expect: {
         error: 1001,
         message: 'request validation error',
-        errorDetails: ['"password" length must be less than or equal to 24 characters long'],
+        errorDetails: ['"password" with value "this_is_too_long_password" fails to match the required pattern: /^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,24}$/'],
       },
     }],
   });
@@ -251,7 +251,7 @@ describe(endpoint, () => {
       expect: {
         error: 1001,
         message: 'request validation error',
-        errorDetails: ['"password" length must be at least 8 characters long'],
+        errorDetails: ['"password" with value "short" fails to match the required pattern: /^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,24}$/'],
       },
     }, {
       send: {
@@ -261,7 +261,7 @@ describe(endpoint, () => {
       expect: {
         error: 1001,
         message: 'request validation error',
-        errorDetails: ['"password" length must be less than or equal to 24 characters long'],
+        errorDetails: ['"password" with value "this_is_too_long_password" fails to match the required pattern: /^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,24}$/'],
       },
     }],
   });

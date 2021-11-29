@@ -85,7 +85,7 @@ describe('/api/v1/users', () => {
     },
   });
 
-  testEndpoint('/api/v1/users?eventId=60e6cc2e95cc33d7c46701', {
+  testEndpoint('/api/v1/users?eventId=36eacc2eaa91cc33d7c46701', {
     description: 'Return error for wrong event id',
     method: 'GET',
     signIn: {

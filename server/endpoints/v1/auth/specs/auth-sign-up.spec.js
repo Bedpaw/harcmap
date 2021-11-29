@@ -91,7 +91,7 @@ describe(endpoint, () => {
       },
     }, {
       send: {
-        password: 'password1',
+        password: 'pAssword1',
       },
       expect: {
         error: 1001,
@@ -103,7 +103,7 @@ describe(endpoint, () => {
     }, {
       send: {
         email: 'not-email',
-        password: 'password1',
+        password: 'pAssword1',
       },
       expect: {
         error: 1001,
@@ -115,7 +115,7 @@ describe(endpoint, () => {
     }, {
       send: {
         email: 'to_long_mail_address@tolongmailaddress.com',
-        password: 'password1',
+        password: 'Password1',
       },
       expect: {
         error: 1001,
@@ -144,7 +144,7 @@ describe(endpoint, () => {
         error: 1001,
         message: 'request validation error',
         errorDetails: [
-          '"password" length must be at least 8 characters long',
+          '"password" with value "short" fails to match the required pattern: /^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,24}$/',
         ],
       },
     }, {
@@ -156,7 +156,7 @@ describe(endpoint, () => {
         error: 1001,
         message: 'request validation error',
         errorDetails: [
-          '"password" length must be less than or equal to 24 characters long',
+          '"password" with value "this_is_too_long_password_and_its_wrong_1" fails to match the required pattern: /^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,24}$/',
         ],
       },
     }],
