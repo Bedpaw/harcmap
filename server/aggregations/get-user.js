@@ -57,6 +57,10 @@ function getUserAggregation (query) {
           },
         },
       },
+    }, {
+      $sort: {
+        _id: 1,
+      },
     },
   ];
 }
