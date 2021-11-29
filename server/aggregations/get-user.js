@@ -46,6 +46,9 @@ function getUserAggregation (query) {
         password: {
           $first: '$password',
         },
+        accountActivation: {
+          $first: '$accountActivation',
+        },
         userEvents: {
           $push: {
             eventId: '$event._id',

@@ -58,7 +58,7 @@ describe(endpoint, () => {
         '_id': ObjectId('507f1f77bcf86cd799439011'),
         'accountActivation': {
           'isActive': true,
-          'key': 'abcd1234',
+          'key': null,
         },
         'accountCreated': 0,
         'email': 'example@domain.com',
