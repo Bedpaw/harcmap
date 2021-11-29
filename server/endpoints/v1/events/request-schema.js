@@ -4,7 +4,8 @@ const {
   teamName,
   eventName,
   date,
-  mapCoordinates,
+  longitude,
+  latitude,
   eventRefreshTime,
   defaultMapZoom,
   keys,
@@ -20,8 +21,8 @@ const allEvents = {
     },
     mapProperties: {
       zoom: defaultMapZoom.required(),
-      longitude: mapCoordinates.required(),
-      latitude: mapCoordinates.required(),
+      longitude: longitude.required(),
+      latitude: latitude.required(),
     },
     eventRefreshTime: eventRefreshTime.required(),
   }),
@@ -37,8 +38,8 @@ const oneEvent = {
     },
     mapProperties: {
       zoom: defaultMapZoom,
-      longitude: mapCoordinates,
-      latitude: mapCoordinates,
+      longitude,
+      latitude,
     },
     eventRefreshTime,
   }),
@@ -54,7 +55,7 @@ const join = {
   POST: Joi.object({
     userId: objectIdInRequest.required(),
     eventKey: keys.required(),
-    teamName: teamName.required(),
+    teamName,
   }),
 };
 

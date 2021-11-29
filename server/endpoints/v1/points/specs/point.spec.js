@@ -51,7 +51,7 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671
     expectedStatus: 401,
     body: {
       send: {
-        pointType: 'time',
+        pointType: 'timeout',
       },
       expect: {
         error: 1104,
@@ -92,7 +92,7 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671
     expectedStatus: 401,
     body: {
       send: {
-        pointType: 'time1',
+        pointType: 'permanent',
       },
       expect: {
         error: 1104,
@@ -133,12 +133,12 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671
     expectedStatus: 400,
     body: {
       send: {
-        pointType: 1,
+        pointType: 'fef',
       },
       expect: {
         error: 1001,
         message: 'request validation error',
-        errorDetails: ['"pointType" must be a string'],
+        errorDetails: ['"pointType" must be one of [timeout, permanent]'],
       },
     },
   });

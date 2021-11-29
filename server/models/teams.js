@@ -5,14 +5,16 @@ const {
 } = require('../libs/common-schemas');
 const Model = require('../libs/model');
 
-// User schema
-const userSchema = {
+// Model schema
+const modelSchema = {
   eventId: objectIdInDatabase,
   teamName,
   collectedPoints,
 };
 
 // Create model
-const Teams = new Model('teams', userSchema);
+const Teams = new Model('teams', modelSchema, {
+  uniqueFiled: 'teamName',
+});
 
 module.exports = Teams;

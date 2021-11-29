@@ -28,7 +28,6 @@ router.route('/')
     response.send(result);
   });
 
-// TODO
 router.route('/check')
   .post(async (request, response) => {
     const { eventKey } = request.body;
@@ -40,8 +39,8 @@ router.route('/check')
 // TODO
 router.route('/join')
   .post(async (request, response) => {
-    const { body } = request;
-    const result = await joinEvent(body);
+    const { userId, eventKey, teamName } = request.body;
+    const result = await joinEvent(request, userId, eventKey, teamName);
 
     response.send(result);
   });
