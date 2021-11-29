@@ -1,9 +1,9 @@
 const Users = require('../../../../models/users');
-const mongodb = require('../../../../libs/mongodb');
+const { ObjectId } = require('mongodb');
 const getUsersAggregation = require('../../../../aggregations/get-users');
 
 async function getUsers (eventId) {
-  const users = await Users.getMany({ 'event._id': mongodb.ObjectId(eventId) }, {
+  const users = await Users.getMany({ 'event._id': ObjectId(eventId) }, {
     aggregationPipeline: getUsersAggregation,
   });
 
