@@ -7,11 +7,12 @@ import { ErrorMessage } from 'utils/error-message';
 import { session } from 'utils/session';
 import { promiseUtils } from 'utils/promise';
 import { guardsUtils } from 'src/router/guards';
+import { APP_BASE_URL } from 'config/app-env';
 
 let firstRun = true;
 
 const router = createRouter({
-  base: process.env.BASE_URL,
+  base: APP_BASE_URL,
   routes,
   history: createWebHistory(),
 });

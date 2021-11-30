@@ -19,8 +19,14 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue';
+import { EllipseProgress } from 'components/async/ellipse-progress';
+
 export default {
   name: 'm-circle-progress',
+  components: {
+    VeProgress: defineAsyncComponent(EllipseProgress),
+  },
   props: {
     progress: {
       type: Number,

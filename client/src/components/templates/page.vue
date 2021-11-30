@@ -7,6 +7,7 @@
 <script>
 import { ROUTES } from 'config/routes-config';
 import { mapGetters, mapMutations } from 'vuex';
+import { APP_NAME } from 'config/app-env';
 
 export default {
   name: 't-page',
