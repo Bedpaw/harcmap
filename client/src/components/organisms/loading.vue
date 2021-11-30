@@ -6,9 +6,9 @@
         width="190.5mm"
         height="190.5mm"
         viewBox="0 0 190.5 190.5"
-        id="harcmap"
+        :id="elementId"
         data-llp-composed="true"
-        class="lazy-line-painter"
+        class="a-logo f-animated lazy-line-painter"
       >
         <g style="display:inline">
           <path
@@ -16,7 +16,7 @@
             :key="index"
             style="fill: none; stroke-linecap: butt; stroke-linejoin: round; stroke-miterlimit: 4;"
             :d="path.d"
-            :data-llp-id="'harcmap-' + index"
+            :data-llp-id="elementId + '-' + index"
             :data-llp-duration="path.duration"
             :data-llp-delay="path.delay"
           />
@@ -34,10 +34,11 @@ import { promise } from '@dbetka/wdk/lib/promise';
 export default {
   name: 'o-loading',
   data: () => ({
+    elementId: 'harcmap-animated-logo',
     showLoading: true,
   }),
   mounted () {
-    const svgElement = document.querySelector('#harcmap');
+    const svgElement = document.querySelector('#' + elementId);
     const animation = new LazyLinePainter(svgElement, {
       ease: 'easeInCubic',
       strokeWidth: 3.75,
@@ -47,16 +48,16 @@ export default {
     });
 
     animation.on('complete', () => {
-      svgElement.classList.remove('after-hiding');
-      svgElement.classList.add('hide');
+      svgElement.classList.remove('f-after-hiding');
+      svgElement.classList.add('f-hide');
 
       promise.timeout(1300)
         .then(() => { if (this.appIsLoading === false) throw new Error(); })
         .then(() => promise.timeout(500))
         .then(() => {
           animation.erase();
-          svgElement.classList.add('after-hiding');
-          svgElement.classList.remove('hide');
+          svgElement.classList.add('f-after-hiding');
+          svgElement.classList.remove('f-hide');
         })
         .then(() => promise.timeout(300))
         .then(() => animation.paint())
