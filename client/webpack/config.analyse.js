@@ -2,6 +2,7 @@ const { merge } = require('webpack-merge');
 const commonConfigFile = require('./config.common.js');
 const webpack = require('webpack');
 const { TARGETS } = require('./options/enums');
+const { getGlobals } = require('./options/env');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const commonConfig = commonConfigFile({ target: TARGETS.browser });
@@ -18,12 +19,8 @@ module.exports = merge(commonConfig, {
   plugins: [
     new BundleAnalyzerPlugin(),
     new webpack.DefinePlugin({
-      PRODUCTION: JSON.stringify(true),
-      USER: JSON.stringify(''),
-      PASSWORD: JSON.stringify(''),
-      ADMIN_USER: JSON.stringify(''),
-      ADMIN_PASSWORD: JSON.stringify(''),
-      API_URL: JSON.stringify(''),
+      '__APP_API_URL__': JSON.stringify(''),
+      ...getGlobals.dev(),
     }),
   ],
 });

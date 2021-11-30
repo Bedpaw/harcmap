@@ -1,5 +1,6 @@
 import { eventController } from 'api/mock/event-controller';
 import { userController } from 'api/mock/user-controller';
+import { APP_VERSION } from 'config/app-env';
 
 export function makeDelayFakeAnswer (method = () => undefined, timeout = 500) {
   return new Promise(resolve => {
@@ -20,8 +21,7 @@ export const mockApi = {
   ...eventController,
   ...userController,
   information () {
-    const appVersion = VERSION;
-    // console.log(`request: 'information', response: '${appVersion}'`);
+    const appVersion = APP_VERSION;
     return makeDelayFakeAnswer(() => ({
       appVersion,
     }));

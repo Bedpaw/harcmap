@@ -51,7 +51,7 @@
     />
 
     <div v-if="isOpen" class="a-version">
-      v{{ VERSION }}
+      v{{ APP_VERSION }}
     </div>
   </div>
 </template>
@@ -63,13 +63,14 @@ import { ROUTES } from 'config/routes-config';
 import router from 'src/router';
 import { uCheck } from '@dbetka/utils';
 import ALinkMenu from 'atoms/link-menu';
+import { APP_VERSION } from 'config/app-env';
 
 export default {
   name: 'o-menu',
   components: { ALinkMenu },
   data: () => ({
     THEMES,
-    VERSION: VERSION,
+    APP_VERSION,
     canToggleTheme: true,
   }),
   computed: {

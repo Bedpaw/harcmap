@@ -61,9 +61,9 @@ module.exports = (env) => ({
     new ImageConfig(),
     new VueLoaderPlugin(),
     new webpack.DefinePlugin({
-      'APP_NAME': JSON.stringify(appName),
-      'VERSION': JSON.stringify(appVersion),
-      'process.env.BASE_URL': JSON.stringify(process.env.BASE_URL),
+      '__APP_NAME__': JSON.stringify(appName),
+      '__APP_VERSION__': JSON.stringify(appVersion),
+      '__APP_BASE_URL__': JSON.stringify(process.env.BASE_URL),
     }),
   ],
 });
