@@ -38,7 +38,7 @@ export default {
     showLoading: true,
   }),
   mounted () {
-    const svgElement = document.querySelector('#' + elementId);
+    const svgElement = document.querySelector('#' + this.elementId);
     const animation = new LazyLinePainter(svgElement, {
       ease: 'easeInCubic',
       strokeWidth: 3.75,
