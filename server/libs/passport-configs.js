@@ -21,6 +21,12 @@ function setStrategy (passport) {
       aggregationPipeline: getUserAggregation,
     })
       .then((userData) => {
+        if (userData.accountActivation.isActive === false) {
+          // user account is not active
+          throw new AppError(errorCodes.ACCOUNT_IS_NOT_ACTIVE, {
+            httpStatus: 401,
+          });
+        }
         if (userData && userData.password === getSHA(password)) {
           done(null, userData);
         } else {

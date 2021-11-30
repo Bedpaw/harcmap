@@ -1,5 +1,5 @@
 const testEndpoint = require('../../../../tests/utils/test-endpoint');
-const { ObjectId } = require('../../../../libs/mongodb');
+const { ObjectId } = require('mongodb');
 
 describe('/api/v1/events/:eventId/categories', () => {
   testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/categories', {
