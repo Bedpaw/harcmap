@@ -28,16 +28,16 @@
       <transition name="fade">
         <o-game-advanced-rules
           v-if="showAdvancedOptions"
-          :advanced-game-rules = values.eventRules
+          :advanced-game-rules="values.eventRules"
           :block-form="blockForm"
-        >
-        </o-game-advanced-rules>
+        />
       </transition>
       <a-button
-        @click="showAdvancedOptions = !showAdvancedOptions"
         add-class="f-clear"
-        add-area-class="f-mt-0">
-        {{showAdvancedOptions ? $t('page.admin.eventForm.hideAdvancedOptions'): $t('page.admin.eventForm.showAdvancedOptions') }}
+        add-area-class="f-mt-0"
+        @click="showAdvancedOptions = !showAdvancedOptions"
+      >
+        {{ showAdvancedOptions ? $t('page.admin.eventForm.hideAdvancedOptions'): $t('page.admin.eventForm.showAdvancedOptions') }}
       </a-button>
       <a-button-secondary
         :disabled="blockForm"

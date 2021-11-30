@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory/*, isNavigationFailure, NavigationFailureType */ } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import { store } from 'store';
 import { api } from 'api';
 import { routes } from './routes';

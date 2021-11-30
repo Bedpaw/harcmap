@@ -1,24 +1,28 @@
 <template>
   <t-page>
-    <div class="f-line-24 f-text-28 f-bold f-text-center f-mb-2">{{ teamName }}</div>
+    <div class="f-line-24 f-text-28 f-bold f-text-center f-mb-2">
+      {{ teamName }}
+    </div>
     <div class="f-text-22 f-text-center f-mb-5">
-      {{$t('page.teamView.mainHeaderPartOne')}}
+      {{ $t('page.teamView.mainHeaderPartOne') }}
       <span class="f-bold">{{ sumOfCollectedPoints }}</span>
-      {{$t('page.teamView.mainHeaderPartTwo')}}
+      {{ $t('page.teamView.mainHeaderPartTwo') }}
     </div>
     <div class="f-line-24">
-      <div class="a-text f-title f-table f-mb-2">{{$t('page.teamView.membersHeader')}}</div>
+      <div class="a-text f-title f-table f-mb-2">
+        {{ $t('page.teamView.membersHeader') }}
+      </div>
       <div class="m-row f-header f-team-view">
-        <div>{{$t('page.teamView.role')}}</div>
-        <div>{{$t('page.teamView.nickname')}}</div>
-        <div>{{$t('page.teamView.email')}}</div>
+        <div>{{ $t('page.teamView.role') }}</div>
+        <div>{{ $t('page.teamView.nickname') }}</div>
+        <div>{{ $t('page.teamView.email') }}</div>
       </div>
       <div
-        class="m-grid f-team-view"
         v-for="user in teamMembersOrdered"
         :key="user.userId"
+        class="m-grid f-team-view"
       >
-        <m-row-team-row :user="user"/>
+        <m-row-team-row :user="user" />
       </div>
     </div>
   </t-page>
