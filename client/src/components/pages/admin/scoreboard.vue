@@ -1,6 +1,8 @@
 <template>
   <t-page class="f-text-center">
-    <div class="a-text f-title f-table">{{ $t('page.scoreboard.completionLevelOfTheGame') }}</div>
+    <div class="a-text f-title f-table">
+      {{ $t('page.scoreboard.completionLevelOfTheGame') }}
+    </div>
     <div class="f-pt-1">
       <m-circle-progress
         v-for="[key, {categoryId}] of permanentCategories.entries()"
@@ -17,7 +19,9 @@
       {{ $t('page.scoreboard.completionLevelDetails') }}
     </div>
     <div class="f-line-24">
-      <div class="a-text f-title f-table">{{ $t('page.scoreboard.scoreboard') }}</div>
+      <div class="a-text f-title f-table">
+        {{ $t('page.scoreboard.scoreboard') }}
+      </div>
       <div class="m-row f-header f-score">
         <div>{{ $t('table.team') }}</div>
         <div>{{ $t('table.score') }}</div>
@@ -35,9 +39,9 @@
       />
       <m-row-score
         v-for="[key, {user, userScore}] of sortedUsers.entries()"
+        :key="user.pointId"
         class="f-text-subtext"
         :class="{ 'f-text-standard': key < 3 }"
-        :key="user.pointId"
         :user="user"
         :user-score="userScore"
       />
@@ -53,23 +57,14 @@ import MCircleProgress from 'molecules/circle-progress';
 
 export default {
   name: 'p-scoreboards',
-  data: () => ({
-    errorMessage: '',
-  }),
   components: {
     MCircleProgress,
     MRowScore,
     TPage,
   },
-  mounted () {
-    this.$store.dispatch('allUsers/download')
-      .then(() => {
-        this.errorMessage = '';
-      })
-      .catch(e => {
-        this.errorMessage = e.message;
-      });
-  },
+  data: () => ({
+    errorMessage: '',
+  }),
   computed: {
     ...mapGetters('allUsers', [
       'commonUsers',
@@ -92,6 +87,15 @@ export default {
         }))
         .sort((a, b) => b.userScore - a.userScore);
     },
+  },
+  mounted () {
+    this.$store.dispatch('allUsers/download')
+      .then(() => {
+        this.errorMessage = '';
+      })
+      .catch(e => {
+        this.errorMessage = e.message;
+      });
   },
 };
 </script>

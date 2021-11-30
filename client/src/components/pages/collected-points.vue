@@ -1,6 +1,6 @@
 <template>
   <t-page class="f-text-center">
-    <o-collected-points :collected-points="collectedPoints"/>
+    <o-collected-points :collected-points="collectedPoints" />
   </t-page>
 </template>
 

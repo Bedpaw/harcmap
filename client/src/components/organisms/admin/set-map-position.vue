@@ -1,11 +1,16 @@
 <template>
-  <o-map ref="oMap" :point-options="false">
+  <o-map
+    ref="oMap"
+    :point-options="false"
+  >
     <m-banner-map
       ref="banner"
       @actionTriggered="onSavePosition"
       @cancel="$emit('cancel')"
     >
-      <template v-slot:text>{{ $t('page.admin.setMapPosition.content') }}</template>
+      <template #text>
+        {{ $t('page.admin.setMapPosition.content') }}
+      </template>
     </m-banner-map>
   </o-map>
 </template>
@@ -28,6 +33,7 @@ export default {
       required: true,
     },
   },
+  emits: ['cancel', 'save'],
   mounted () {
     map.panTo({
       latitude: this.event.mapLatitude || DEFAULT_EVENT_CONFIG.newEvent.mapLatitude,

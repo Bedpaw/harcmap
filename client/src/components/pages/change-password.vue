@@ -7,20 +7,23 @@
       :is-send="formSend"
       :on-submit="changePassword"
     >
-      <template v-slot:form>
+      <template #form>
         <m-field-set-password
-          :disabled="blockForm"
           v-model="password"
+          :disabled="blockForm"
           :labels="[$t('form.field.newPassword'), $t('form.field.reNewPassword')]"
         />
-        <div class="f-text-center f-text-danger" v-text="message"/>
+        <div
+          class="f-text-center f-text-danger"
+          v-text="message"
+        />
         <a-button-submit
           :disabled="blockForm"
           :is-sending="isSending"
         />
       </template>
 
-      <template v-slot:response>
+      <template #response>
         <div class="f-py-2 f-text-bold">
           {{ $t('communicate.changePassword.success') }}
         </div>

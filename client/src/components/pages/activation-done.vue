@@ -1,7 +1,9 @@
 <template>
   <t-page class="f-text-center">
     <div class="f-py-2">
-      <div class="f-bold">{{ $t('page.activationDone.main') }}</div>
+      <div class="f-bold">
+        {{ $t('page.activationDone.main') }}
+      </div>
     </div>
     <a-button-primary @click="$router.push(ROUTES.signIn.path)">
       {{ $t('form.button.goToLogin') }}

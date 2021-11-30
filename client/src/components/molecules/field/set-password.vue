@@ -1,15 +1,15 @@
 <template>
   <m-input
-    type="password"
     v-model="vModel"
+    type="password"
     :disabled="disabled"
     :placeholder="labels[0]"
     :error="first.error.value"
     :assist="first.message.value || assist[0]"
   />
   <m-input
-    type="password"
     v-model="passwordConfirmation"
+    type="password"
     :disabled="disabled"
     :placeholder="labels[1]"
     :error="next.error.value"
@@ -36,6 +36,7 @@ import { useModelValue } from 'plugins/v-model';
 export default {
   name: 'm-field-set-password',
   components: { MInput },
+  mixins: [fieldValidationMixin],
   props: {
     disabled: Boolean,
     labels: {
@@ -50,7 +51,6 @@ export default {
       default: () => ['', ''],
     },
   },
-  mixins: [fieldValidationMixin],
   setup (props, context) {
     const { vModel } = useModelValue(props, context);
     const passwordConfirmation = ref('');

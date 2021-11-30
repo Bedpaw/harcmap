@@ -1,5 +1,8 @@
 <template>
-  <div ref="mapPopup" class="o-popup f-map">
+  <div
+    ref="mapPopup"
+    class="o-popup f-map"
+  >
     <a-icon-close-popup
       add-class="f-map"
       size="20"
@@ -8,8 +11,8 @@
     <div
       v-for="[key, singleData] of data.entries()"
       :key="'popup-map-data-' + key"
-      @click="copyToClipboard(key)"
       class="m-list-element f-popup"
+      @click="copyToClipboard(key)"
     >
       <a-icon
         class="a-icon f-list"
@@ -17,8 +20,8 @@
         size="20"
       />
       <div
-        class="f-flex-1 f-pl-1 f-py-1"
         :ref="setItemRef"
+        class="f-flex-1 f-pl-1 f-py-1"
       >
         {{ singleData.value }}
       </div>
@@ -26,8 +29,8 @@
     <div
       v-for="[key, button] of buttons.entries()"
       :key="'popup-map-button-' + key"
-      @click="button.method(data.entries())"
       class="m-list-element f-popup"
+      @click="button.method(data.entries())"
     >
       <a-icon
         class="a-icon f-list"
@@ -89,6 +92,12 @@ export default {
       return this.checkIsNotLimited() ? buttons : [];
     },
   },
+  beforeUnmount () {
+    this.popup.destroy();
+  },
+  beforeUpdate () {
+    this.itemRefs = [];
+  },
   methods: {
     setItemRef (el) {
       if (el) {
@@ -106,12 +115,6 @@ export default {
       communicates.showSuccessTemporary(this.$t('general.copied'));
       this.popup.hide();
     },
-  },
-  beforeUnmount () {
-    this.popup.destroy();
-  },
-  beforeUpdate () {
-    this.itemRefs = [];
   },
 };
 </script>

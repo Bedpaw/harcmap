@@ -1,6 +1,6 @@
 <template>
   <button class="a-button f-icon">
-    <slot/>
+    <slot />
   </button>
 </template>
 

@@ -8,24 +8,16 @@
 
 export default {
   name: 'm-countdown-timer',
-  data: () => ({
-    minutes: 0,
-    seconds: 0,
-  }),
   props: {
     timeGap: {
       type: Number,
       default: 60,
     },
   },
-  mounted () {
-    this.setStartTime();
-    this.updateDateTime();
-    this.$options.interval = setInterval(this.updateDateTime, 1000);
-  },
-  beforeUnmount () {
-    clearInterval(this.$options.interval);
-  },
+  data: () => ({
+    minutes: 0,
+    seconds: 0,
+  }),
   computed: {
     getSeconds () {
       if (this.seconds < 0) return '00';
@@ -40,6 +32,14 @@ export default {
     timeGapInMinutes () {
       return this.timeGap / 60;
     },
+  },
+  mounted () {
+    this.setStartTime();
+    this.updateDateTime();
+    this.$options.interval = setInterval(this.updateDateTime, 1000);
+  },
+  beforeUnmount () {
+    clearInterval(this.$options.interval);
   },
   methods: {
     updateDateTime () {

@@ -1,6 +1,6 @@
 <template>
   <div class="o-float-container">
-    <slot/>
+    <slot />
   </div>
 </template>
 

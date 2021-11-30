@@ -17,6 +17,12 @@ export default {
   data: () => ({
     defaultValues: {},
   }),
+  computed: {
+    ...mapGetters('event', [
+      'event',
+      'eventBasicInformation',
+    ]),
+  },
   created () {
     this.defaultValues.eventName = this.event.eventName;
     this.defaultValues.eventId = this.event.eventId;
@@ -27,12 +33,6 @@ export default {
     this.defaultValues.mapLongitude = this.event.mapDefaultLongitude;
     this.defaultValues.mapZoom = this.event.mapDefaultZoom;
     this.defaultValues.eventRules = this.event.eventRules;
-  },
-  computed: {
-    ...mapGetters('event', [
-      'event',
-      'eventBasicInformation',
-    ]),
   },
   methods: {
     updateEvent (event) {

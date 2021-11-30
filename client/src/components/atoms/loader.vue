@@ -5,7 +5,7 @@
       :class="addClass"
       :src="img"
       alt="logo"
-    />
+    >
   </span>
 </template>
 

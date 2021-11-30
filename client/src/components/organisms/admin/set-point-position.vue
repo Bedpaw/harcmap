@@ -1,13 +1,18 @@
 <template>
-  <o-map ref="oMap" :point-options="false">
+  <o-map
+    ref="oMap"
+    :point-options="false"
+  >
     <m-banner-map
       ref="banner"
       @actionTriggered="onSavePosition"
       @cancel="$emit('cancel')"
     >
-      <template v-slot:text>{{ $t('page.admin.setPointPosition.content') }}</template>
+      <template #text>
+        {{ $t('page.admin.setPointPosition.content') }}
+      </template>
     </m-banner-map>
-    <m-pointer-map ref="map-pointer"/>
+    <m-pointer-map ref="map-pointer" />
   </o-map>
 </template>
 
@@ -32,12 +37,17 @@ export default {
       required: true,
     },
   },
+  emits: ['cancel', 'save'],
   mounted () {
     this.$store.commit('event/setHidePoint', this.point);
     map.updateMapFeatures();
     if (pointUtils.hasSetPosition(this.point)) {
       map.panToPointLocationOnMap(this.point, { goToMap: false, zoom: mapConfig.settings.maxZoom });
     }
+  },
+  beforeUnmount () {
+    this.$store.commit('event/clearHidePoint');
+    map.updateMapFeatures();
   },
   methods: {
     onSavePosition () {
@@ -51,10 +61,6 @@ export default {
         pointLatitude: mapPosition.mapLatitude,
       };
     },
-  },
-  beforeUnmount () {
-    this.$store.commit('event/clearHidePoint');
-    map.updateMapFeatures();
   },
 };
 </script>
