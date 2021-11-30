@@ -1,5 +1,7 @@
 import { MACROS } from 'utils/macros';
-import { ICONS } from '@dbetka/vue-material-icons';
+import { materialIcons } from '@dbetka/vue-material-icons';
+
+const ICONS = materialIcons.names;
 
 const { timePeriods: { isPast, isFuture, isCurrent } } = MACROS;
 

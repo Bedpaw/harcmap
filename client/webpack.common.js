@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const { VueLoaderPlugin } = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpackUtils = require('./webpack/utils');
@@ -15,6 +15,10 @@ module.exports = {
   mode: 'development',
   entry: {
     main: 'src/index.js',
+  },
+  stats: {
+    builtAt: true,
+    assets: false,
   },
   optimization: {
     splitChunks: {
@@ -39,17 +43,19 @@ module.exports = {
   },
   resolve: {
     alias: {
-      vue: 'vue/dist/vue.esm.js',
       src: resolve('src'),
+      components: resolve('src/components'),
       api: resolve('src/api'),
       map: resolve('src/map'),
       store: resolve('src/store'),
       utils: resolve('src/utils'),
+      dictionary: resolve('src/dictionary'),
       vendors: resolve('../vendors'),
       validateCodes: resolve('../lib/validateCodes.js'),
       config: resolve('src/config'),
       models: resolve('src/models'),
 
+      plugins: resolve('src/components/plugins'),
       atoms: resolve('src/components/atoms'),
       extends: resolve('src/components/extends'),
       mixins: resolve('src/components/mixins'),
@@ -62,16 +68,12 @@ module.exports = {
   },
   plugins: [
     new ESLintPlugin({
-      extensions: ['js', 'vue'],
+      extensions: ['js', 'vue', 'ts'],
       formatter: require.resolve('eslint-friendly-formatter'),
       eslintPath: require.resolve('eslint'),
       useEslintrc: true,
     }),
     new VueLoaderPlugin(),
-    new HtmlWebpackPlugin({
-      template: resolve('src/index.html'),
-      filename: 'index.html',
-    }),
     new CopyPlugin({
       patterns: [
         {

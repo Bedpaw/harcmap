@@ -1,6 +1,6 @@
 <template>
   <t-start>
-    <template slot="buttons">
+    <template v-slot:buttons>
       <template v-if="userUtils.can.seeAdminStartView()">
         <a-button-fill-primary
           @click="$router.push(ROUTES.scoreboard.path)"

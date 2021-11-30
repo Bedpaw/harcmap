@@ -11,7 +11,7 @@
       <slot name="details" :isOpen="isOpen"/>
       <a-icon
         v-if="hasDetails"
-        :name="isOpen ? ICONS.arrow_drop_up : ICONS.arrow_drop_down"
+        :name="isOpen ? $icons.names.arrow_drop_up : $icons.names.arrow_drop_down"
       />
     </div>
   </div>

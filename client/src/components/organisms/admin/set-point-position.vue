@@ -5,8 +5,7 @@
       @actionTriggered="onSavePosition"
       @cancel="$emit('cancel')"
     >
-      <template slot="text">{{ $t('page.admin.setPointPosition.content') }}</template>
-      <template slot="button-name">{{ $t('form.button.choose') }}</template>
+      <template v-slot:text>{{ $t('page.admin.setPointPosition.content') }}</template>
     </m-banner-map>
     <m-pointer-map ref="map-pointer"/>
   </o-map>
@@ -53,7 +52,7 @@ export default {
       };
     },
   },
-  beforeDestroy () {
+  beforeUnmount () {
     this.$store.commit('event/clearHidePoint');
     map.updateMapFeatures();
   },

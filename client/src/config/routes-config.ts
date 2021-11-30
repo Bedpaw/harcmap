@@ -1,8 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { ICONS } from '@dbetka/vue-material-icons';
 import { AppRoute } from '../router/utils';
-import { EnterPermission } from '../models/routes';
+import { EnterPermission } from 'models/routes';
+import { materialIcons } from '@dbetka/vue-material-icons';
+
+const ICONS = materialIcons.names;
 
 const enterPermissions: Record<string, EnterPermission> = {
   alwaysAllowed: {},
@@ -84,6 +86,10 @@ const authRoutes = {
     icon: ICONS.map,
     hasShortLabel: true,
   },
+  teamView: {
+    name: 'teamView',
+    icon: ICONS.people,
+  },
 };
 
 const adminObserverRoutes = {
@@ -144,7 +150,7 @@ const choseEventRoutes = {
 
 const alwaysAllowedRoutes = {
   error: {
-    path: '*',
+    path: '/:pathMatch(.*)',
     name: 'error',
   },
   about: {

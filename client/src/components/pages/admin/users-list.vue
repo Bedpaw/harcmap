@@ -11,11 +11,11 @@
           v-for="user of filteredUsers"
           :key="user.user"
         >
-          <a-icon :type="ICONS_TYPES.outlined" :name=getUserIcon(user) />
+          <a-icon :type="$icons.types.outlined" :name=getUserIcon(user) />
           <div class="f-pl-1 f-py-1 f-line-24 f-overflow-hidden">{{ user.userTeam }}</div>
           <div class="f-pl-1 f-py-1 f-text-subtext f-text-14 f-line-24 f-overflow-hidden">{{ user.user }}</div>
           <a-button-icon @click="openDetails(user)">
-            <a-icon :name="ICONS.more_vert"/>
+            <a-icon :name="$icons.names.more_vert"/>
           </a-button-icon>
         </div>
         <o-popup-user-details ref="popup" v-if="user" :user="user"/>

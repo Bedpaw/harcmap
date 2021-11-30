@@ -7,4 +7,4 @@ export interface AppRouteParams {
     hasShortLabel?: boolean
 
 }
-export type EnterPermission = Record<string, Boolean>
+export type EnterPermission = Record<string, boolean>
