@@ -19,7 +19,10 @@
           HARCMAP
         </div>
       </template>
-      <div v-else class="a-logo f-big">
+      <div
+        v-else
+        class="a-logo f-big"
+      >
         HARCMAP
       </div>
     </div>

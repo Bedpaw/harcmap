@@ -4,8 +4,9 @@
     :add-class="['f-fill', addClass]"
     :loading="loading"
     :disabled="disabled"
+    @click="$emit('click', $event)"
   >
-    <slot/> {{ text }}
+    <slot /> {{ text }}
   </a-button-secondary>
 </template>
 
@@ -37,5 +38,6 @@ export default {
       default: '',
     },
   },
+  emits: ['click'],
 };
 </script>

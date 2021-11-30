@@ -36,7 +36,7 @@ export const pl = {
     },
   },
   general: {
-    showMore: 'pokaż&nbsp;więcej...',
+    showMore: 'pokaż\xa0więcej...',
     showMore2: 'Pokaź więcej...',
     pointUnit: 'pkt',
     pointCategoryLevel: 'poziom',
@@ -144,10 +144,9 @@ export const pl = {
     },
     error: {
       title: 'Błąd 404',
-      content: `Cześć! <br>
-        Wygląda na to, że znajdujesz się nie tam gdzie trzeba... <br>
-        <br>
-        Poszukaj innej drogi! :)`,
+      content1: 'Cześć!',
+      content2: 'Wygląda na to, że znajdujesz się nie tam gdzie trzeba...',
+      content3: 'Poszukaj innej drogi! :)',
     },
     collectedPoints: {
       sumTitle: 'Suma punktów wg kategorii',

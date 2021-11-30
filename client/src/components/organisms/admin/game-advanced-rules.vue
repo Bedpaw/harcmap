@@ -1,9 +1,9 @@
 <template>
   <section>
     <component
+      :is="inputTypeComponent(rule.ruleType)"
       v-for="rule of advancedGameRules"
       :key="rule.ruleId"
-      :is="inputTypeComponent(rule.ruleType)"
       v-model="rule.ruleValue"
       :disabled="blockForm"
       :assist="gameRulesUtils.getDescription(rule)"
@@ -23,9 +23,6 @@ import { InputTypeEnum } from 'models/game-rules';
 
 export default {
   name: 'o-game-advanced-rules',
-  data: () => ({
-    gameRulesUtils,
-  }),
   components: {
     ACheckbox,
     MSelect,
@@ -39,6 +36,9 @@ export default {
       type: Boolean,
     },
   },
+  data: () => ({
+    gameRulesUtils,
+  }),
   methods: {
     inputTypeComponent (ruleType) {
       return {

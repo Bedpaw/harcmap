@@ -4,7 +4,7 @@
       :is-send="formSend"
       :on-submit="signUp"
     >
-      <template v-slot:form>
+      <template #form>
         <m-field-email
           v-model="values.user"
           :disabled="blockForm"
@@ -14,16 +14,16 @@
           :disabled="blockForm"
         />
         <m-field-text
+          v-model.trim="values.userTeam"
           :label="$t('form.field.userTeam')"
           :rules="validationRules.userTeam"
-          v-model.trim="values.userTeam"
           :disabled="blockForm"
           :assist="$t('form.assist.userTeam')"
         />
         <m-field-text
+          v-model="values.eventId"
           :label="$t('form.field.eventId')"
           :rules="validationRules.eventId"
-          v-model="values.eventId"
           :disabled="blockForm"
         />
         <a-button-submit
@@ -32,9 +32,11 @@
         />
       </template>
 
-      <template v-slot:response>
+      <template #response>
         <div class="f-py-2">
-          <div class="f-pb-2 f-bold">{{ $t('page.signUp.registrationDone') }}</div>
+          <div class="f-pb-2 f-bold">
+            {{ $t('page.signUp.registrationDone') }}
+          </div>
           {{ $t('page.signUp.linkHasBeenSent') }}
           <span class="f-bold">{{ values.user }}</span>
         </div>

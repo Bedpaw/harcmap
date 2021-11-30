@@ -1,6 +1,6 @@
 <template>
   <t-point-form
-    :defaultValues="defaultValues"
+    :default-values="defaultValues"
     :on-save="editPoint"
   />
 </template>

@@ -7,7 +7,7 @@
     :type="type"
     loading-img="/img/zhp-52.png"
   >
-    <slot/>
+    <slot />
   </a-button>
 </template>
 

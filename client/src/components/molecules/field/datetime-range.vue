@@ -1,15 +1,15 @@
 <template>
   <m-input
-    type="datetime-local"
     v-model="firstModel"
+    type="datetime-local"
     :disabled="disabled"
     :placeholder="label[0]"
     :error="first.error.value"
     :assist="first.message.value || assist[0]"
   />
   <m-input
-    type="datetime-local"
     v-model="nextModel"
+    type="datetime-local"
     :disabled="disabled"
     :placeholder="label[1]"
     :error="next.error.value"
@@ -52,9 +52,15 @@ export default {
     },
     firstDate: {
       type: Object,
+      default () {
+        return {};
+      },
     },
     nextDate: {
       type: Object,
+      default () {
+        return {};
+      },
     },
   },
   setup: (props, context) => {

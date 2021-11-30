@@ -1,6 +1,6 @@
 <template>
   <t-page>
-    <o-events-list/>
+    <o-events-list />
   </t-page>
 </template>
 

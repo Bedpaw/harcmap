@@ -1,7 +1,7 @@
 <template>
   <div class="m-banner-timer">
     <span>{{ $t('features.timer.toUpdate') }}</span>
-    <m-countdown-timer :time-gap="eventBasicInformation.mapRefreshTime"/>
+    <m-countdown-timer :time-gap="eventBasicInformation.mapRefreshTime" />
   </div>
 </template>
 

@@ -2,14 +2,16 @@
   <t-page class="f-flex f-flex-col">
     <div>
       <m-field-text
+        v-model="phrase"
         :label="$t('general.search')"
         :assist="searchAssist"
-        v-model="phrase"
       />
     </div>
-    <slot name="result-list" :filteredElements="filteredElements"></slot>
+    <slot
+      name="result-list"
+      :filteredElements="filteredElements"
+    />
   </t-page>
-
 </template>
 
 <script>
@@ -22,12 +24,6 @@ export default {
   components: {
     TPage,
     MFieldText,
-  },
-  data () {
-    return {
-      phrase: '',
-      searcher: new JsSearch.Search(this.searchKeys[0]),
-    };
   },
   props: {
     elements: {
@@ -43,8 +39,11 @@ export default {
       default: '',
     },
   },
-  mounted () {
-    this.defineSearcher();
+  data () {
+    return {
+      phrase: '',
+      searcher: new JsSearch.Search(this.searchKeys[0]),
+    };
   },
   computed: {
     filteredElements () {
@@ -52,15 +51,18 @@ export default {
       return this.phrase === '' ? this.elements : searched;
     },
   },
+  watch: {
+    elements () {
+      this.defineSearcher();
+    },
+  },
+  mounted () {
+    this.defineSearcher();
+  },
   methods: {
     defineSearcher () {
       this.searchKeys.map(key => this.searcher.addIndex(key));
       this.searcher.addDocuments(this.elements);
-    },
-  },
-  watch: {
-    elements () {
-      this.defineSearcher();
     },
   },
 };

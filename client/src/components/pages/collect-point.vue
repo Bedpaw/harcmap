@@ -5,9 +5,9 @@
     </div>
     <o-form :on-submit="collectPoint">
       <m-field-text
+        v-model="collectedPointId"
         :label="$t('form.field.pointId')"
         :rules="validationRules.pointId"
-        v-model="collectedPointId"
         :disabled="blockForm"
       />
       <a-button-submit

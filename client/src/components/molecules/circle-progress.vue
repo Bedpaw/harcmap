@@ -3,17 +3,18 @@
     :progress="progress"
     :angle="-90"
     :color="color"
-    :emptyColor="`${color}55`"
+    :empty-color="`${color}55`"
     :size="size"
     thickness="7%"
-    lineMode="in-over"
-    emptyThickness="12%"
+    line-mode="in-over"
+    empty-thickness="12%"
     animation="reverse 1000 700"
-    :noData="false"
-    :hideLegend="false"
+    :no-data="false"
+    :hide-legend="false"
     :half="false"
     :gap="10"
-    fontSize="16px">
+    font-size="16px"
+  >
     <span>{{ numberOfCompleted }}/{{ maxRange }}</span>
   </ve-progress>
 </template>
