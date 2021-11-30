@@ -1,7 +1,13 @@
 <template>
-  <div class="f-relative f-height-100" v-touch:swipe.stop>
-    <slot/>
-    <div class="o-map" id="o-map"></div>
+  <div
+    v-touch:swipe.stop
+    class="f-relative f-height-100"
+  >
+    <slot />
+    <div
+      id="o-map"
+      class="o-map"
+    />
     <o-popup-map
       v-if="checkIsAdmin() && pointOptions"
       ref="mapPopup"
@@ -50,6 +56,9 @@ export default {
 
     map.realMap.on('moveend', this.saveLastMapPositionToCookies);
   },
+  beforeUnmount () {
+    map.realMap.un('moveend', this.saveLastMapPositionToCookies);
+  },
   methods: {
     ...mapMutations('event', [
       'setMapPosition',
@@ -81,9 +90,6 @@ export default {
       Cookies.remove('mapPosition');
       Cookies.set('mapPosition', dataForCookies, { expires: 7 });
     },
-  },
-  beforeUnmount () {
-    map.realMap.un('moveend', this.saveLastMapPositionToCookies);
   },
 };
 </script>

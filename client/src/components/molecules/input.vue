@@ -2,12 +2,12 @@
   <div class="m-input">
     <input
       :id="id"
+      v-model="vModel"
       class="a-field"
       :class="additionalClasses"
       :type="getType"
       :disabled="disabled"
-      v-model="vModel"
-    />
+    >
     <label
       class="a-label f-field"
       :class="{ 'f-correct': correct, 'f-error': error }"
@@ -16,25 +16,25 @@
       {{ placeholder }}
     </label>
     <a-icon
-      :name="$icons.names.visibility"
       v-if="isPassword && showPassword === false"
+      :name="$icons.names.visibility"
       class="f-input"
       @click="showPassword = true"
     />
     <a-icon
-      :name="$icons.names.visibility_off"
       v-if="isPassword && showPassword"
+      :name="$icons.names.visibility_off"
       class="f-input"
       @click="showPassword = false"
     />
     <a-icon
-      :name="$icons.names.warning"
       v-if="error && isPassword === false"
+      :name="$icons.names.warning"
       class="f-input f-error"
     />
     <a-icon
-      :name="$icons.names.check"
       v-if="correct && isPassword === false && error === false"
+      :name="$icons.names.check"
       class="f-input f-correct"
     />
     <div
@@ -53,7 +53,7 @@ import { fieldUidGenerator } from 'plugins/uid-generators';
 
 export default {
   name: 'm-input',
-  emits: ['blur'],
+  mixins: [modelValueMixin],
   props: {
     disabled: {
       type: Boolean,
@@ -80,7 +80,7 @@ export default {
       default: '',
     },
   },
-  mixins: [modelValueMixin],
+  emits: ['blur'],
   setup (props, context) {
     const { vModel } = useModelValue(props, context);
     const { error, correct, disabled, type } = toRefs(props);

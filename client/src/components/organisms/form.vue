@@ -3,9 +3,15 @@
     class="f-flex f-flex-col f-pb-1 f-text-left"
     @submit.prevent="handleSubmit()"
   >
-    <slot v-if="isSend === false"/>
-    <slot name="form" v-if="isSend === false"/>
-    <slot v-else name="response"/>
+    <slot v-if="isSend === false" />
+    <slot
+      v-if="isSend === false"
+      name="form"
+    />
+    <slot
+      v-else
+      name="response"
+    />
   </form>
 </template>
 

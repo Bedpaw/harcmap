@@ -6,7 +6,7 @@
     :loading-img="loadingImg"
     :disabled="disabled"
   >
-    <slot/>
+    <slot />
   </a-button>
 </template>
 

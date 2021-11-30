@@ -2,23 +2,34 @@
   <t-search
     :search-assist="$t('form.assist.searchUser')"
     :elements="users"
-    :searchKeys="['user', 'userTeam']"
+    :search-keys="['user', 'userTeam']"
   >
-    <template v-slot:result-list="{ filteredElements: filteredUsers }">
-      <div class="f-flex-1 f-scroll-default f-mt--2" >
+    <template #result-list="{ filteredElements: filteredUsers }">
+      <div class="f-flex-1 f-scroll-default f-mt--2">
         <div
-          class="m-grid f-search-user"
           v-for="user of filteredUsers"
           :key="user.user"
+          class="m-grid f-search-user"
         >
-          <a-icon :type="$icons.types.outlined" :name=getUserIcon(user) />
-          <div class="f-pl-1 f-py-1 f-line-24 f-overflow-hidden">{{ user.userTeam }}</div>
-          <div class="f-pl-1 f-py-1 f-text-subtext f-text-14 f-line-24 f-overflow-hidden">{{ user.user }}</div>
+          <a-icon
+            :type="$icons.types.outlined"
+            :name="getUserIcon(user)"
+          />
+          <div class="f-pl-1 f-py-1 f-line-24 f-overflow-hidden">
+            {{ user.userTeam }}
+          </div>
+          <div class="f-pl-1 f-py-1 f-text-subtext f-text-14 f-line-24 f-overflow-hidden">
+            {{ user.user }}
+          </div>
           <a-button-icon @click="openDetails(user)">
-            <a-icon :name="$icons.names.more_vert"/>
+            <a-icon :name="$icons.names.more_vert" />
           </a-button-icon>
         </div>
-        <o-popup-user-details ref="popup" v-if="user" :user="user"/>
+        <o-popup-user-details
+          v-if="selectedUser"
+          ref="popup"
+          :user="selectedUser"
+        />
       </div>
     </template>
   </t-search>
@@ -39,7 +50,7 @@ export default {
     AButtonIcon,
   },
   data: () => ({
-    user: null,
+    selectedUser: null,
   }),
   computed: {
     ...mapGetters('allUsers', ['users']),
@@ -55,7 +66,7 @@ export default {
   },
   methods: {
     openDetails (user) {
-      this.user = user;
+      this.selectedUser = user;
       this.$nextTick(() => this.$refs.popup.toggle());
     },
     getUserIcon (user) {

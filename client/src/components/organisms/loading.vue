@@ -1,12 +1,15 @@
 <template>
   <transition name="long-fade">
-    <div class="o-loading" v-if="showLoading">
+    <div
+      v-if="showLoading"
+      class="o-loading"
+    >
       <svg
+        :id="elementId"
         xmlns="http://www.w3.org/2000/svg"
         width="190.5mm"
         height="190.5mm"
         viewBox="0 0 190.5 190.5"
-        :id="elementId"
         data-llp-composed="true"
         class="a-logo f-animated lazy-line-painter"
       >
@@ -37,34 +40,6 @@ export default {
     elementId: 'harcmap-animated-logo',
     showLoading: true,
   }),
-  mounted () {
-    const svgElement = document.querySelector('#' + this.elementId);
-    const animation = new LazyLinePainter(svgElement, {
-      ease: 'easeInCubic',
-      strokeWidth: 3.75,
-      strokeOpacity: 1,
-      strokeColor: '#FFFFFF',
-      strokeCap: 'butt',
-    });
-
-    animation.on('complete', () => {
-      svgElement.classList.remove('f-after-hiding');
-      svgElement.classList.add('f-hide');
-
-      promise.timeout(1300)
-        .then(() => { if (this.appIsLoading === false) throw new Error(); })
-        .then(() => promise.timeout(500))
-        .then(() => {
-          animation.erase();
-          svgElement.classList.add('f-after-hiding');
-          svgElement.classList.remove('f-hide');
-        })
-        .then(() => promise.timeout(300))
-        .then(() => animation.paint())
-        .catch(() => (this.showLoading = false));
-    });
-    animation.paint();
-  },
   computed: {
     ...mapGetters({
       appIsLoading: 'isLoading',
@@ -128,6 +103,34 @@ export default {
         },
       ];
     },
+  },
+  mounted () {
+    const svgElement = document.querySelector('#' + this.elementId);
+    const animation = new LazyLinePainter(svgElement, {
+      ease: 'easeInCubic',
+      strokeWidth: 3.75,
+      strokeOpacity: 1,
+      strokeColor: '#FFFFFF',
+      strokeCap: 'butt',
+    });
+
+    animation.on('complete', () => {
+      svgElement.classList.remove('f-after-hiding');
+      svgElement.classList.add('f-hide');
+
+      promise.timeout(1300)
+        .then(() => { if (this.appIsLoading === false) throw new Error(); })
+        .then(() => promise.timeout(500))
+        .then(() => {
+          animation.erase();
+          svgElement.classList.add('f-after-hiding');
+          svgElement.classList.remove('f-hide');
+        })
+        .then(() => promise.timeout(300))
+        .then(() => animation.paint())
+        .catch(() => (this.showLoading = false));
+    });
+    animation.paint();
   },
 };
 </script>

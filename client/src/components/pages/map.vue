@@ -1,7 +1,10 @@
 <template>
-  <t-page class="f-map" :let-swipe-menu="false">
-    <o-map/>
-    <m-banner-timer/>
+  <t-page
+    class="f-map"
+    :let-swipe-menu="false"
+  >
+    <o-map />
+    <m-banner-timer />
   </t-page>
 </template>
 

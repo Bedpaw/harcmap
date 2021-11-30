@@ -1,26 +1,29 @@
 <template>
   <div>
-    <label :for="id" :class="labelClass">
+    <label
+      :for="id"
+      :class="labelClass"
+    >
       <input
+        :id="id"
+        v-model="vModel"
         class="a-checkbox"
         type="checkbox"
-        v-model="vModel"
+        :disabled="isDisabled"
         @focus="hasFocus = true"
         @blur="hasFocus = false"
-        :id="id"
-        :disabled="isDisabled"
-      />
+      >
       <a-icon
         :name="iconName"
         outlined
         :class="{'f-text-primary': hasFocus}"
       />
       <span class="f-pl-1 f-line-28">
-        <slot/>
+        <slot />
       </span>
     </label>
     <div class="a-assist">
-      {{assist}}
+      {{ assist }}
     </div>
   </div>
 </template>
@@ -32,6 +35,7 @@ import { useIcons } from '@dbetka/vue-material-icons';
 
 export default {
   name: 'a-checkbox',
+  mixins: [modelValueMixin],
   props: {
     id: {
       type: [String, Number],
@@ -46,7 +50,6 @@ export default {
       default: '',
     },
   },
-  mixins: [modelValueMixin],
   setup (props, context) {
     const { vModel } = useModelValue(props, context);
     const { isDisabled } = toRefs(props);

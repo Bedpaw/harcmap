@@ -4,9 +4,12 @@
     class="m-cover f-popup"
     @click="toggle"
   >
-    <div :class="['o-popup f-empty', addClass]" @click.stop>
-      <a-icon-close-popup @click="toggle"/>
-      <slot></slot>
+    <div
+      :class="['o-popup f-empty', addClass]"
+      @click.stop
+    >
+      <a-icon-close-popup @click="toggle" />
+      <slot />
     </div>
   </div>
 </template>
@@ -20,6 +23,7 @@ export default {
   props: {
     addClass: {
       type: String,
+      default: 'class',
     },
   },
   data: () => ({

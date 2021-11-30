@@ -2,9 +2,9 @@
   <t-page :back-route="ROUTES.eventsList">
     <o-form :on-submit="toggleDetails">
       <m-input
+        v-model="eventCode"
         :disabled="blockForm"
         :placeholder="$t('form.field.eventId')"
-        v-model="eventCode"
         :assist="$t('form.assist.joinEventCode')"
       />
       <a-button-submit
@@ -12,7 +12,10 @@
         :is-sending="isSending"
       />
     </o-form>
-    <o-popup-event-confirmation ref="popupScore" :event="event"/>
+    <o-popup-event-confirmation
+      ref="popupScore"
+      :event="event"
+    />
   </t-page>
 </template>
 

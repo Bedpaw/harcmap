@@ -1,7 +1,7 @@
 <template>
   <m-input
-    type="date"
     v-model="vModel"
+    type="date"
     :disabled="disabled"
     :placeholder="label"
     :error="isError"
@@ -27,6 +27,7 @@ import { computed, toRefs } from 'vue';
 export default {
   name: 'm-field-date',
   components: { MInput },
+  mixins: [fieldValidationMixin],
   props: {
     disabled: Boolean,
     label: {
@@ -38,7 +39,6 @@ export default {
       default: '',
     },
   },
-  mixins: [fieldValidationMixin],
   setup: (props, context) => {
     const { modelValue } = toRefs(props);
 
