@@ -1,6 +1,6 @@
 <template>
   <div class="m-grid f-team-view f-mb-1">
-    <a-icon :type="ICONS_TYPES.outlined" :name=getUserIcon(user) />
+    <a-icon outlined :name=getUserIcon(user) />
     <div>{{user.nickname}}</div>
     <div>{{user.email}}</div>
   </div>

@@ -16,6 +16,10 @@ module.exports = {
   entry: {
     main: 'src/index.js',
   },
+  stats: {
+    builtAt: true,
+    assets: false,
+  },
   optimization: {
     splitChunks: {
       cacheGroups: {
@@ -70,10 +74,6 @@ module.exports = {
       useEslintrc: true,
     }),
     new VueLoaderPlugin(),
-    new HtmlWebpackPlugin({
-      template: resolve('src/index.html'),
-      filename: 'index.html',
-    }),
     new CopyPlugin({
       patterns: [
         {

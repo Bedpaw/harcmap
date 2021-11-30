@@ -9,7 +9,7 @@ import { WarnMessage } from 'utils/warn-message';
 import { HttpService } from '@dbetka/wdk/lib/http-service';
 
 export const httpService = HttpService.getInstance({
-  apiUrl: '',
+  apiUrl: API_URL, // from webpack configuration
   defaultRequestConfig: {
     headers: {
       'Content-Type': 'application/json',
