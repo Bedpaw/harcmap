@@ -45,6 +45,7 @@
     "babel-loader": "^8.2.2",
     "babel-plugin-transform-builtin-extend": "^1.1.2",
     "chalk": "^4.1.2",
+    "console-table-printer": "^2.10.0",
     "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^6.2.0",
     "glob": "^7.1.6",

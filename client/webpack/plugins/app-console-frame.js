@@ -1,6 +1,7 @@
 const chalk = require('chalk');
 const dayjs = require('dayjs');
 dayjs.extend(require('dayjs/plugin/duration'));
+const { Table } = require('console-table-printer');
 
 class AppConsoleFramePlugin {
   constructor (config = { appName, appVersion, target }) {
@@ -8,6 +9,7 @@ class AppConsoleFramePlugin {
   }
 
   apply (compiler) {
+    const pluginName = AppConsoleFramePlugin.name;
     const { appName, appVersion, target } = this.config;
     const mode = this.capitalizeFirstChar(compiler.options.mode);
     const targetText = this.capitalizeFirstChar(target);
@@ -25,19 +27,16 @@ class AppConsoleFramePlugin {
     };
 
     if (compiler.options.watch) {
-      compiler.hooks.watchRun.tapAsync(
-        'AppLogoPlugin',
+      compiler.hooks.watchRun.tapAsync(pluginName,
         makeLogo,
       );
     } else {
-      compiler.hooks.beforeRun.tapAsync(
-        'AppLogoPlugin',
+      compiler.hooks.beforeRun.tapAsync(pluginName,
         makeLogo,
       );
     }
 
-    compiler.hooks.done.tapAsync(
-      'AppLogoPlugin',
+    compiler.hooks.done.tapAsync(pluginName,
       (stats, callback) => {
         callback();
         const time = Math.abs(dayjs(stats.startTime).diff(stats.endTime, 'second', true));
@@ -63,30 +62,41 @@ class AppConsoleFramePlugin {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  writeAssetsSizes (stats) {
-    for (const assetName in stats.compilation.assets) {
-      const asset = stats.compilation.assets[assetName];
-      const assetExt = assetName.split('.').pop();
-      const assetSize = (Math.round(asset._size / 1024)) + ' KB';
-      const isOverSizeLimit = asset._size > stats.compilation.compiler.options.performance.maxAssetSize;
-      const writeWithColor = chalk.bold[isOverSizeLimit ? 'yellow' : 'green'];
-
-      if (['js'].includes(assetExt)) {
-        this.write('  ' + assetName + ' ' + String(writeWithColor(assetSize)));
-        this.newLine();
-      }
-    }
-  }
-
   writeLogo (text, length) {
     const oneSideLength = (length - text.length) / 2;
     this.write(
-      chalk.bgGreen.bold(
+      chalk.reset.bgGreen.bold(
         ' '.repeat(oneSideLength) +
         text +
         ' '.repeat(oneSideLength),
       ),
     );
+  }
+
+  writeAssetsSizes (stats) {
+    const table = new Table(this.tableConfig());
+    const availableExt = ['js'];
+    const isProductionMode = stats.compilation.compiler.options.mode === 'production';
+    const maxAssetSize = stats.compilation.compiler.options.performance.maxAssetSize;
+
+    for (const assetName in stats.compilation.assets) {
+      const asset = stats.compilation.assets[assetName];
+      const assetExt = assetName.split('.').pop();
+      const assetSize = (Math.round(asset._size / 1024)) + ' KB';
+
+      const firstAssetNamePart = assetName.split('.')[0];
+      const secondAssetNamePart = assetName.split('.').splice(1).join('.');
+      const styledAssetName = chalk.reset.bold(firstAssetNamePart) + chalk.gray('.' + secondAssetNamePart);
+
+      const isOverSizeLimit = asset._size > maxAssetSize;
+      const writeWithColor = chalk.bold[isOverSizeLimit && isProductionMode ? 'yellow' : 'green'];
+
+      if (availableExt.includes(assetExt)) {
+        table.addRow({ file: styledAssetName, size: writeWithColor(assetSize) });
+      }
+    }
+    const tableWithoutHeader = table.render().split('\n').splice(3).join('\n');
+    this.write(tableWithoutHeader);
   }
 
   write (text) {
@@ -99,6 +109,39 @@ class AppConsoleFramePlugin {
 
   clear () {
     console.clear();
+  }
+
+  tableConfig () {
+    return {
+      columns: [{ name: 'file', alignment: 'left' }],
+      style: {
+        headerTop: {
+          left: '',
+          mid: '',
+          right: '',
+          other: '',
+        },
+        headerBottom: {
+          left: '',
+          mid: '',
+          right: '',
+          other: '',
+        },
+        tableBottom: {
+          left: '',
+          mid: '',
+          right: '',
+          other: '',
+        },
+        vertical: ' ',
+        rowSeparator: {
+          left: '',
+          mid: '',
+          right: '',
+          other: '',
+        },
+      },
+    };
   }
 }
 
