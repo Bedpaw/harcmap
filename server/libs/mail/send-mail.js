@@ -34,8 +34,8 @@ async function sendMail (to, config) {
 
   // sending message
   await mailServer.sendMail({
-    from: `HarcMap ${email}`,
-    to: to,
+    from: `HarcMap ${MAIL_SERVER_EMAIL}`,
+    to,
     subject,
     html: content,
   });

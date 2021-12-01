@@ -37,6 +37,7 @@ const errors = {
   // OTHER
   UNDEFINED_ERROR: 9900,
   RAW_ERROR: 9901,
+  CANNOT_SEND_MAIL: 9902,
 };
 
 module.exports = errors;

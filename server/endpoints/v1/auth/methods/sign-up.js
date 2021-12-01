@@ -1,14 +1,18 @@
 const { getSHA } = require('../../../../libs/utils');
+const { AppError, errorCodes } = require('../../../../libs/errors');
 const { generateRandomString } = require('../../../../../vendors/random');
 const Users = require('../../../../models/users');
+const { sendActivationMail } = require('../../../../libs/mail');
 
 // registration
 async function signUp (userObject) {
+  const activationKey = getSHA(generateRandomString(10));
+
   Object.assign(userObject, {
     password: getSHA(userObject.password),
     accountActivation: {
       isActive: false,
-      key: getSHA(generateRandomString(10)),
+      key: activationKey,
     },
     passwordReset: {
       key: null,
@@ -23,6 +27,8 @@ async function signUp (userObject) {
     error,
     errorDetails,
   } = await Users.create(userObject);
+
+  await sendActivationMail('kosz@henouser.pl', activationKey);
 
   return {
     success,
