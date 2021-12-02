@@ -88,8 +88,13 @@ function createSecuredEndpoints (app, config) {
     const pathToLowerCase = path.toLowerCase();
 
     // static files
-    const staticFilesExtensions = /\.(css|js|png|map|ico|jpg|jpeg|html)$/;
-    if (staticFilesExtensions.test(pathToLowerCase)) {
+    // const staticFilesExtensions = /\.(css|js|png|map|ico|jpg|jpeg|html)$/;
+    // if (staticFilesExtensions.test(pathToLowerCase)) {
+    //   request.PASS = true;
+    // }
+
+    // if path don't refers to server api
+    if (!(/^\/api\/.*/.test(pathToLowerCase))) {
       request.PASS = true;
     }
 

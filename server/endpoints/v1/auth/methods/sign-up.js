@@ -1,5 +1,4 @@
 const { getSHA } = require('../../../../libs/utils');
-const { AppError, errorCodes } = require('../../../../libs/errors');
 const { generateRandomString } = require('../../../../../vendors/random');
 const Users = require('../../../../models/users');
 const { sendActivationMail } = require('../../../../libs/mail');

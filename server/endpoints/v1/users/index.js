@@ -1,5 +1,11 @@
 const { Router } = require('express');
-const { usersRequestSchema, userRequestSchema } = require('./request-schema');
+const {
+  usersRequestSchema,
+  userRequestSchema,
+  resetPasswordSchema,
+  activateAccountSchema,
+  resetPasswordKeySchema,
+} = require('./request-schema');
 const { addEndpointValidation } = require('../../../libs/validation');
 const getUsers = require('./methods/get-users');
 const activateUser = require('./methods/activate-user');
@@ -11,7 +17,10 @@ const updateUser = require('./methods/update-user');
 const router = Router();
 
 addEndpointValidation('/api/v1/users', usersRequestSchema);
+addEndpointValidation('/api/v1/users/reset-password', resetPasswordSchema);
+addEndpointValidation('/api/v1/users/reset-password/:key', resetPasswordKeySchema);
 addEndpointValidation('/api/v1/users/:id', userRequestSchema);
+addEndpointValidation('/api/v1/users/account-activation/:key', activateAccountSchema);
 
 router.route('/')
   .get(async (request, response) => {
@@ -21,11 +30,12 @@ router.route('/')
     response.send(users);
   });
 
-// TODO
 router.route('/account-activation/:key')
-  .get(activateUser);
+  .get(async (request, response) => {
+    const { key } = request.params;
+    await activateUser(response, key);
+  });
 
-// TODO
 router.route('/reset-password')
   .post(async (request, response) => {
     const { email } = request.body;
@@ -37,10 +47,6 @@ router.route('/reset-password')
 
 // TODO
 router.route('/reset-password/:key')
-  .get(async (request, response) => {
-
-    response.send('here will be HTML page');
-  })
   .post(async (request, response) => {
     const { key } = request.params;
     const { password } = request.body;

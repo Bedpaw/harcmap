@@ -89,7 +89,6 @@ paths:
   #                $ref: '#/components/responses/401'
   /users/account-activation/:key:
     get:
-      deprecated: true
       summary: 'Activate user account with "key"'
       tags:
         - Users
@@ -104,7 +103,6 @@ paths:
                 $ref: '#/components/responses/400'
   /users/reset-password:
     post:
-      deprecated: true
       summary: 'Send request for generate password-reset-key'
       tags:
         - Users
@@ -135,22 +133,7 @@ paths:
               schema:
                 $ref: '#/components/responses/400'
   /users/reset-password/:key:
-    get:
-      deprecated: true
-      summary: 'Navigate to password reset form'
-      tags:
-        - Users
-      responses:
-        200:
-          description: 'HTML site'
-        400:
-          description: 'Validation error - wrong key param'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/400'
     post:
-      deprecated: true
       summary: 'Reset password for user with passwordReset "key"'
       tags:
         - Users

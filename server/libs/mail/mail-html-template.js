@@ -13,12 +13,12 @@ const {
 module.exports = (resetPassword, key) => {
   let title = 'Kliknij w poniższy link, aby aktywować konto';
   let linkTitle = 'AKTYWUJ KONTO';
-  let link = `${SERVER_ADDRESS}/users/account-activation/${key}`;
+  let link = `${SERVER_ADDRESS}/api/v1/users/account-activation/${key}`;
 
   if (resetPassword) {
     title = 'Kliknij w poniższy link, aby zresetować hasło';
     linkTitle = 'ZRESETUJ HASŁO';
-    link = `${SERVER_ADDRESS}/users/reset-password/${key}`;
+    link = `${SERVER_ADDRESS}/reset-password?key=${key}`;
   }
 
   return `<div>
