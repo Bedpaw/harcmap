@@ -20,8 +20,8 @@
 ## Installation
 
 ### Requirements
-- node v10.15.3 or higher
-- npm v6.13.7 or higher
+- node v14.x
+- npm v8.x
 
 ### How to prepare Intellij IDE (Webstorm) for front-end development
 1. You have to get into `Settings/Languages & Frameworks/JavaScript/Webpack` and set `client/webpack/config.common.js` as a config file.
