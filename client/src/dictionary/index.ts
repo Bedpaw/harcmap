@@ -1,10 +1,11 @@
 import { createI18n } from 'vue-i18n';
-import { pl } from 'src/dictionary/language/pl';
+import { plPL } from 'src/dictionary/language/plPL';
+export type MessageSchema = typeof plPL
 
-const i18n = createI18n({
-  locale: 'pl',
+const i18n = createI18n<MessageSchema, 'plPL'>({
+  locale: 'plPL',
   messages: {
-    pl,
+    plPL,
   },
 });
 

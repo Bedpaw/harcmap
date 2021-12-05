@@ -2,16 +2,11 @@ import { api } from 'api';
 import { store } from 'store';
 import { ACCOUNT_TYPES } from 'utils/permissions';
 import { ErrorMessage } from 'utils/error-message';
+import { ADMIN_LOGIN_DATA, USER_LOGIN_DATA } from 'config/app-env';
 
 const users = Object.freeze({
-  common: {
-    user: USER,
-    password: PASSWORD,
-  },
-  admin: {
-    user: ADMIN_USER,
-    password: ADMIN_PASSWORD,
-  },
+  common: USER_LOGIN_DATA,
+  admin: ADMIN_LOGIN_DATA,
 });
 
 function login (values) {
