@@ -144,12 +144,12 @@ components:
       properties:
         startDate:
           description: 'Time when point start to be available. If null, point exist from start of event'
-          type: string
+          type: number
           default: null
           nullable: true
         endDate:
           description: 'Time when point end to be available. If null, point exist to end of event'
-          type: string
+          type: number
           default: null
           nullable: true
     categoryId:

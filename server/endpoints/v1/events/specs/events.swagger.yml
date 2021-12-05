@@ -1,5 +1,5 @@
 paths:
-  /events:
+  /api/v1/events:
     post:
       deprecated: true
       summary: 'Create event with (SECURED)'
@@ -48,7 +48,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
-  /events/:eventId:
+  /api/v1/events/:eventId:
     get:
       summary: 'Get event with :eventId (SECURED)'
       description: 'Special privilege required'
@@ -127,7 +127,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
-  /events/check:
+  /api/v1/events/check:
     post:
       summary: 'Allow user to check event, role, team that code'
       tags:
@@ -162,7 +162,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/400'
-  /events/join:
+  /api/v1/events/join:
     post:
       summary: 'Allow user to join event (SECURED)'
       description: 'Special privilege required'

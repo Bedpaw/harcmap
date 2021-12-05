@@ -1,5 +1,5 @@
 paths:
-  /events/:eventId/teams:
+  /api/v1/events/:eventId/teams:
     get:
       summary: 'Get list of teams in event with eventId (SECURED)'
       description: 'Special privilege required'
@@ -35,7 +35,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
-  /events/:eventId/teams/:teamId:
+  /api/v1/events/:eventId/teams/:teamId:
     get:
       summary: 'Get team with teamId from event with eventId (SECURED)'
       description: 'Special privilege required'

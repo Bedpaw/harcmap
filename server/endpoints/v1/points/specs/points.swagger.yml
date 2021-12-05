@@ -1,5 +1,5 @@
 paths:
-  /events/:eventId/points:
+  /api/v1/events/:eventId/points:
     get:
       summary: 'Get list of points in event with eventId (SECURED)'
       description: 'Special privilege required'
@@ -96,7 +96,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
-  /events/:eventId/points/collect:
+  /api/v1/events/:eventId/points/collect:
     post:
       summary: 'Collect point in event with eventId (SECURED)'
       description: 'Special privilege required'
@@ -134,7 +134,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
-  /events/:eventId/points/:pointId:
+  /api/v1/events/:eventId/points/:pointId:
     put:
       summary: 'Update point with pointId from event with eventId (SECURED)'
       description: 'Special privilege required'
