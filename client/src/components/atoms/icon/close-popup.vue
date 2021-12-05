@@ -2,9 +2,8 @@
   <a-icon
     class="a-icon f-close-popup"
     :class="addClass"
-    :name="ICONS.close"
+    :name="$icons.names.close"
     :size="size"
-    @click="$emit('click')"
   />
 </template>
 
@@ -14,8 +13,8 @@ export default {
   name: 'a-icon-close-popup',
   props: {
     size: {
-      type: [Number, String],
-      default: 32,
+      type: String,
+      default: '32',
     },
     addClass: {
       type: [String, Array],

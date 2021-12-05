@@ -2,15 +2,15 @@
   <t-page class="f-flex f-flex-col">
     <o-form :on-submit="signIn">
       <m-input
+        v-model.trim="values.user"
         :disabled="blockForm"
         :placeholder="$t('form.field.email')"
-        v-model="values.user"
       />
       <m-input
+        v-model="values.password"
         :disabled="blockForm"
         :placeholder="$t('form.field.password')"
         type="password"
-        v-model="values.password"
       />
       <a-button-submit
         :disabled="blockForm"
@@ -18,8 +18,8 @@
       />
     </o-form>
     <a-button-secondary
-      @click="$router.push(ROUTES.remindPassword.path)"
       :disabled="blockForm"
+      @click="router.push(ROUTES.remindPassword.path)"
     >
       {{ ROUTES.remindPassword.label }}
     </a-button-secondary>
@@ -30,7 +30,6 @@
 import TPage from 'templates/page';
 import AButtonSecondary from 'atoms/button/secondary';
 import { api } from 'api';
-import { mixins } from 'mixins/base';
 import { ROUTES } from 'config/routes-config';
 import { uPromise } from '@dbetka/utils';
 import MInput from 'molecules/input';
@@ -39,10 +38,13 @@ import OForm from 'organisms/form';
 import { ERRORS } from 'utils/macros/errors';
 import { ErrorMessage } from 'utils/error-message';
 import { DEV_USERS_LIST } from 'utils/dev-mode/auto-login';
+import { onMounted, reactive } from 'vue';
+import { useForm } from 'plugins/form';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'p-sign-in',
-  mixins: [mixins.form],
   components: {
     AButtonSecondary,
     TPage,
@@ -50,45 +52,56 @@ export default {
     AButtonSubmit,
     MInput,
   },
-  data: () => ({
-    values: {
+  setup () {
+    const store = useStore();
+    const router = useRouter();
+    const form = useForm();
+    const { isSending, blockForm, onErrorOccurs } = form;
+
+    const values = reactive({
       user: '',
       password: '',
-    },
-    blockForm: false,
-    isSending: false,
-  }),
-  mounted () {
-    if (PRODUCTION === false) {
-      this.signInAutomatically();
-    }
-  },
-  methods: {
-    onSignIn (data) {
-      this.$store.dispatch('user/signIn', data)
+    });
+
+    function onSignIn (data) {
+      store.dispatch('user/signIn', data)
         .then(() => {
-          this.$store.getters['user/firstLogin'] && this.$store.commit('guide/open');
-          this.$router.push(ROUTES.eventsList.path);
-          this.isSending = false;
-          this.blockForm = false;
+          store.getters['user/firstLogin'] && store.commit('guide/open');
+          router.push(ROUTES.eventsList.path);
+          isSending.value = false;
+          blockForm.value = false;
         })
-        .catch(() => this.onErrorOccurs(new ErrorMessage(ERRORS.dataAfterSignIn, { hard: true })));
-    },
-    signIn () {
-      this.isSending = true;
-      this.blockForm = true;
-      api.signIn(this.values)
-        .then(this.onSignIn)
-        .catch(this.onErrorOccurs);
-    },
-    signInAutomatically () {
-      this.isSending = true;
-      this.blockForm = true;
-      this.values.user = DEV_USERS_LIST.common.user;
-      this.values.password = DEV_USERS_LIST.common.password;
+        .catch(() => onErrorOccurs(new ErrorMessage(ERRORS.dataAfterSignIn, { hard: true })));
+    }
+    function signIn () {
+      isSending.value = true;
+      blockForm.value = true;
+      api.signIn(values)
+        .then(onSignIn)
+        .catch(onErrorOccurs);
+    }
+    function signInAutomatically () {
+      isSending.value = true;
+      blockForm.value = true;
+      values.user = DEV_USERS_LIST.common.user;
+      values.password = DEV_USERS_LIST.common.password;
       uPromise.timeout(500)
-        .then(() => this.signIn());
-    },
+        .then(() => signIn());
+    }
+
+    onMounted(() => {
+      if (PRODUCTION === false) {
+        signInAutomatically();
+      }
+    });
+
+    return {
+      ...form,
+      router,
+      ROUTES,
+      values,
+      signIn,
+    };
   },
 };
 </script>

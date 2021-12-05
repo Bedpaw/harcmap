@@ -1,5 +1,8 @@
 <template>
-  <a-icon :name="ICONS.stop_circle" :class="categoryStyleById(categoryId)"/>
+  <a-icon
+    :name="$icons.names.stop_circle"
+    :class="categoryStyleById(categoryId)"
+  />
 </template>
 
 <script>

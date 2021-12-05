@@ -1,18 +1,26 @@
 <template>
   <div
+    v-touch:swipe.right="close"
     class="o-menu"
     :class="isOpen ? 'f-open' : ''"
-    v-touch:swipe.right="close"
   >
-    <div class="a-text f-title f-menu">{{ $t('general.hello') }}, {{ $store.getters['user/userTeam'] }}</div>
+    <div class="a-text f-title f-menu">
+      {{ $t('general.hello') }}, {{ $store.getters['user/userTeam'] }}
+    </div>
 
-    <div v-if="checkIsCommon()" class="a-text f-subtitle f-menu">
+    <div
+      v-if="checkIsCommon()"
+      class="a-text f-subtitle f-menu"
+    >
       {{ $t('general.alreadyCollectedShort') }}
       <span class="f-text-primary-contrast">
         {{ $store.getters['user/sumOfCollectedPoints'] }} {{ $t('general.pointUnit') }}
       </span>
     </div>
-    <div v-else class="a-text f-subtitle f-menu">
+    <div
+      v-else
+      class="a-text f-subtitle f-menu"
+    >
       {{ checkIsNotLimited() ? $t('general.fullAdmin') : $t('general.limitedAdmin') }}
     </div>
 
@@ -20,37 +28,42 @@
       v-for="(route, key) in links"
       :key="key"
       :to="route.path"
-      @click.native="close()"
       class="a-link f-menu"
       :class="{ 'f-selected': isActualPath(route) }"
+      @click="close()"
     >
       <a-icon
         :name="route.icon"
         class="f-menu"
       />
-      <div class="f-flex-1 f-pl-3">{{ route.label }}</div>
+      <div class="f-flex-1 f-pl-3">
+        {{ route.label }}
+      </div>
     </router-link>
 
     <a-link-menu
       v-if="checkIsCommon()"
-      @click="openGuide()"
-      :icon="ICONS.help"
+      :icon="$icons.names.help"
       :text="$t('features.guide.howAppWorks')"
+      @click="openGuide()"
     />
 
     <a-link-menu
-      @click="toggleTheme()"
-      :icon="ICONS.brightness_4"
+      :icon="$icons.names.brightness_4"
       :text="themeName === THEMES.light ? $t('general.darkTheme') : $t('general.lightTheme')"
+      @click="toggleTheme()"
     />
 
     <a-link-menu
-      @click="signOut()"
-      :icon="ICONS.logout"
+      :icon="$icons.names.logout"
       :text="$t('general.logout')"
+      @click="signOut()"
     />
 
-    <div v-if="isOpen" class="a-version">
+    <div
+      v-if="isOpen"
+      class="a-version"
+    >
       v{{ VERSION }}
     </div>
   </div>
@@ -90,6 +103,7 @@ export default {
         ROUTES.map,
         isCommon ? ROUTES.about : undefined,
         ROUTES.eventsList,
+        ROUTES.teamView,
       ];
       return links.filter(route => uCheck.isUndefined(route) === false);
     },

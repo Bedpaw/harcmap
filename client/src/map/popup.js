@@ -4,7 +4,9 @@ import { fromLonLat } from 'ol/proj';
 import { map } from 'src/map/index';
 import { DATE_FORMATS, displayDate } from 'utils/date';
 import { pointUtils } from 'utils/point';
-import { ICONS } from '@dbetka/vue-material-icons';
+import { materialIcons } from '@dbetka/vue-material-icons';
+
+const ICONS = materialIcons.names;
 
 export class Popup {
   constructor ({ container }) {

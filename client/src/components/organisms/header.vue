@@ -5,8 +5,8 @@
       :class="{ 'f-hidden': isMainPage }"
     >
       <a-icon
-        :name="ICONS.arrow_back"
-        :size="28"
+        :name="$icons.names.arrow_back"
+        size="28"
         @click="$router.push(pathBackButton)"
       />
     </div>
@@ -19,7 +19,10 @@
           HARCMAP
         </div>
       </template>
-      <div v-else class="a-logo f-big">
+      <div
+        v-else
+        class="a-logo f-big"
+      >
         HARCMAP
       </div>
     </div>
@@ -28,7 +31,7 @@
     >
       <a-icon
         :name="ROUTES.collectedPoints.icon"
-        :size="28"
+        size="28"
         class="f-header"
         :class="{ 'f-hidden': isLogin === false }"
         @click="redirectToCollectedPointsOrScoreboard"

@@ -1,12 +1,18 @@
 <template>
   <div class="m-panel f-page">
-    <div class="a-img f-panel" :style="style">
-      <div v-if="title !== ''" class="m-banner f-panel">
+    <div
+      class="a-img f-panel"
+      :style="style"
+    >
+      <div
+        v-if="title !== ''"
+        class="m-banner f-panel"
+      >
         {{ title }}
       </div>
     </div>
     <div class="m-box f-panel">
-      <slot/>
+      <slot />
     </div>
   </div>
 </template>

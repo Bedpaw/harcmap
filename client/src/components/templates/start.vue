@@ -11,7 +11,7 @@
     </m-panel>
 
     <div class="m-collection f-button f-px-2">
-      <slot name="buttons"/>
+      <slot name="buttons" />
     </div>
   </t-page>
 </template>
@@ -33,10 +33,6 @@ export default {
   data: () => ({
     mainMessage: '',
   }),
-  mounted () {
-    this.updateMainMessage();
-    this.$options.interval = setInterval(this.updateMainMessage, 1000 * 60);
-  },
   computed: {
     ...mapGetters('event', [
       'eventName',
@@ -56,6 +52,13 @@ export default {
       styles[THEMES.light] = 'background-size: auto 100%';
       return styles;
     },
+  },
+  mounted () {
+    this.updateMainMessage();
+    this.$options.interval = setInterval(this.updateMainMessage, 1000 * 60);
+  },
+  beforeUnmount () {
+    clearInterval(this.$options.interval);
   },
   methods: {
     updateMainMessage () {
@@ -77,9 +80,6 @@ export default {
       }
       return this.$t('page.start.eventIsOutOfDate');
     },
-  },
-  beforeDestroy () {
-    clearInterval(this.$options.interval);
   },
 };
 </script>

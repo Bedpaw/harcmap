@@ -1,6 +1,6 @@
 <template>
   <div class="f-relative f-z-index-6">
-    <div class="m-pointer"></div>
+    <div class="m-pointer" />
   </div>
 </template>
 

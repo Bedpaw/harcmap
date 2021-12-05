@@ -1,6 +1,5 @@
 <template>
   <a-button
-    @click="$emit('click')"
     :add-class="['f-primary', addClass]"
     :add-area-class="[addAreaClass]"
     :loading="loading"
@@ -8,7 +7,7 @@
     :type="type"
     loading-img="/img/zhp-52.png"
   >
-    <slot/>
+    <slot />
   </a-button>
 </template>
 

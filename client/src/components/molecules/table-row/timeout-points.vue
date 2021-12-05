@@ -2,19 +2,23 @@
   <div class="m-grid f-timeout-points">
     <a-icon
       :name="timerIcon"
-      :size="24"
+      size="24"
       :class="classForTimer"
     />
 
     <div>
-      <div class="f-text-left">{{ point.pointName }}</div>
-      <div class="f-text-14"> {{ availabilityTimeAsString }}</div>
+      <div class="f-text-left">
+        {{ point.pointName }}
+      </div>
+      <div class="f-text-14">
+        {{ availabilityTimeAsString }}
+      </div>
     </div>
 
     <a-icon
       v-show="shouldShowPanToIcon"
-      :name="ICONS.map"
-      :size="24"
+      :name="$icons.names.map"
+      size="24"
       :class="classForMap"
       @click="panTo(point)"
     />
@@ -33,6 +37,7 @@ export default {
       type: Object,
     },
   },
+  emits: ['panTo'],
   computed: {
     timerIcon () {
       return pointUtils.getTimeIcon(this.point);

@@ -1,7 +1,7 @@
 <template>
   <div
-    class="o-footer"
     v-if="isLogin"
+    class="o-footer"
   >
     <a-button-icon-footer
       v-for="shortcut of getShortcuts()"
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters } from 'vuex';
 import AButtonIconFooter from 'atoms/button/icon-footer';
 import { logical } from 'vendors/logical';
 import { ROUTES } from 'config/routes-config';
@@ -32,9 +32,6 @@ export default {
     ]),
   },
   methods: {
-    ...mapMutations('menu', [
-      'toggle',
-    ]),
     isActualPath ({ path = '' }) {
       if (this.$store.getters['menu/isOpen']) {
         return path === '';
@@ -66,9 +63,10 @@ export default {
         centralButton,
         ROUTES.map,
         {
+          label: 'Menu',
           shortLabel: 'Menu',
-          icon: this.$store.getters['menu/isOpen'] ? this.ICONS.arrow_forward : this.ICONS.menu,
-          method: this.toggle,
+          icon: this.$store.getters['menu/isOpen'] ? this.$icons.names.arrow_forward : this.$icons.names.menu,
+          method: () => this.$store.commit('menu/toggle'),
         },
       ];
     },

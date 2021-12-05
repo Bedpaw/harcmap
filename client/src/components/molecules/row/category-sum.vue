@@ -1,7 +1,7 @@
 <template>
   <div class="m-grid f-category-sum">
     <div>
-      <a-icon-category :category-id="category.categoryId"/>
+      <a-icon-category :category-id="category.categoryId" />
     </div>
     <div>{{ getCollectedPointsLengthById(category.categoryId) }}</div>
     <div>{{ getCollectedPointsValueById(category.categoryId) }} {{ $t('general.pointUnit') }}</div>

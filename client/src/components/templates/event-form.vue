@@ -2,36 +2,43 @@
   <t-page class="f-flex f-flex-col">
     <o-form :on-submit="onSubmit">
       <m-field-text
+        v-model.trim="values.eventName"
         :label="$t('form.field.eventName')"
-        v-model="values.eventName"
-        rules="max:45"
+        :rules="validationRules.eventName"
         :disabled="blockForm"
       />
       <m-field-text
+        v-model="values.eventId"
         disabled
         :label="$t('form.field.eventId')"
-        v-model="values.eventId"
         :assist="$t('form.assist.eventId')"
       />
       <m-select
+        v-model="values.mapRefreshTime"
         :options="options"
         :placeholder="$t('form.field.mapRefreshTime')"
-        v-model="values.mapRefreshTime"
         :disabled="blockForm"
       />
-      <m-field-datetime
-        :label="$t('form.field.eventStartDate')"
-        v-model="values.eventStartDate"
-        :rules="rules.date"
+      <m-field-datetime-range
+        v-model:first-date="values.eventStartDate"
+        v-model:next-date="values.eventEndDate"
+        :label="[$t('form.field.eventStartDate'), $t('form.field.eventEndDate')]"
         :disabled="blockForm"
       />
-      <m-field-datetime
-        :label="$t('form.field.eventEndDate')"
-        v-model="values.eventEndDate"
-        :rules="rules.date"
-        :disabled="blockForm"
-      />
-
+      <transition name="fade">
+        <o-game-advanced-rules
+          v-if="showAdvancedOptions"
+          :advanced-game-rules="values.eventRules"
+          :block-form="blockForm"
+        />
+      </transition>
+      <a-button
+        add-class="f-clear"
+        add-area-class="f-mt-0"
+        @click="showAdvancedOptions = !showAdvancedOptions"
+      >
+        {{ showAdvancedOptions ? $t('page.admin.eventForm.hideAdvancedOptions'): $t('page.admin.eventForm.showAdvancedOptions') }}
+      </a-button>
       <a-button-secondary
         :disabled="blockForm"
         class="f-text-center f-mt-0"
@@ -39,7 +46,7 @@
         @click="eventPositionIsSetting = true"
       >
         <a-icon
-          :name="hasSetPosition ? ICONS.check_box : ICONS.check_box_outline_blank"
+          :name="hasSetPosition ? $icons.names.check_box : $icons.names.check_box_outline_blank"
           class="f-mr-1"
         />
         <div>{{ $t('form.button.setDefaultMapPositionAndZoom') }}</div>
@@ -67,47 +74,34 @@ import OForm from 'organisms/form';
 import MSelect from 'molecules/select';
 import AButtonSecondary from 'atoms/button/secondary';
 import AButtonSubmit from 'atoms/button/submit';
-import { mixins } from 'mixins/base';
-import MFieldDatetime from 'molecules/field/datetime';
 import MFieldText from 'molecules/field/text';
-import { ErrorMessage } from 'utils/error-message';
 import OFloatContainer from 'organisms/float-container';
 import OAdminSetMapPosition from 'organisms/admin/set-map-position';
+import AButton from 'atoms/button';
+import OGameAdvancedRules from 'organisms/admin/game-advanced-rules';
+import MFieldDatetimeRange from 'molecules/field/datetime-range';
+import { ErrorMessage } from 'utils/error-message';
 import { DEFAULT_EVENT_CONFIG } from 'config/event-config';
 import { idUtils } from 'utils/id';
 import { eventUtils } from 'utils/event';
+import { computed, ref, onMounted, toRefs } from 'vue';
+import { useForm } from 'plugins/form';
+import { translator } from 'dictionary';
 
 export default {
   name: 't-event-form',
-  mixins: [mixins.form, mixins.validation],
   components: {
+    OGameAdvancedRules,
+    MFieldDatetimeRange,
     OAdminSetMapPosition,
     OFloatContainer,
     MFieldText,
-    MFieldDatetime,
     TPage,
     MSelect,
     OForm,
     AButtonSecondary,
     AButtonSubmit,
-  },
-  data () {
-    return {
-      values: {
-        eventName: '',
-        eventId: idUtils.generateNewId(),
-        mapRefreshTime: DEFAULT_EVENT_CONFIG.mapRefreshTime,
-        eventStartDate: null,
-        eventEndDate: null,
-        mapLatitude: null,
-        mapLongitude: null,
-      },
-      options: DEFAULT_EVENT_CONFIG.mapRefreshTimeOptions,
-      eventPositionIsSetting: false,
-      blockForm: false,
-      isSending: false,
-      isServerError: false,
-    };
+    AButton,
   },
   props: {
     defaultValues: {
@@ -119,29 +113,57 @@ export default {
       required: true,
     },
   },
-  mounted () {
-    Object.assign(this.values, this.defaultValues);
-  },
-  computed: {
-    hasSetPosition () {
-      return eventUtils.hasSetPosition(this.values);
-    },
-  },
-  methods: {
-    saveNewPosition (newPosition) {
-      Object.assign(this.values, newPosition);
-      this.eventPositionIsSetting = false;
-    },
-    onSubmit () {
-      if (this.hasSetPosition === false) {
-        this.onErrorOccurs(new ErrorMessage(this.$t('communicate.editEvent.positionIsRequired')));
+  setup (props) {
+    const { defaultValues, onSave } = toRefs(props);
+
+    const values = ref({
+      eventName: '',
+      eventId: idUtils.generateNewId(),
+      mapRefreshTime: DEFAULT_EVENT_CONFIG.mapRefreshTime,
+      eventStartDate: null,
+      eventEndDate: null,
+      mapLatitude: null,
+      mapLongitude: null,
+      mapZoom: null,
+      eventRules: DEFAULT_EVENT_CONFIG.gameRules,
+    });
+
+    const options = ref(DEFAULT_EVENT_CONFIG.mapRefreshTimeOptions);
+    const eventPositionIsSetting = ref(false);
+    const showAdvancedOptions = ref(false);
+
+    const form = useForm();
+    const { onErrorOccurs, onSuccessOccurs } = form;
+
+    const hasSetPosition = computed(() => eventUtils.hasSetPosition(values.value));
+
+    function saveNewPosition (newPosition) {
+      Object.assign(values.value, newPosition);
+      eventPositionIsSetting.value = false;
+    }
+
+    function onSubmit () {
+      if (hasSetPosition.value === false) {
+        onErrorOccurs(new ErrorMessage(translator.t('communicate.editEvent.positionIsRequired')));
         return;
       }
-      this.onSave(this.values)
-        .then(this.onSuccessOccurs)
-        .catch(this.onErrorOccurs);
-    },
-  },
+      onSave.value(eventUtils.convertEventToSend(values.value))
+        .then(onSuccessOccurs)
+        .catch(onErrorOccurs);
+    }
 
+    onMounted(() => Object.assign(values.value, eventUtils.convertEventToForm(defaultValues.value)));
+
+    return {
+      values,
+      saveNewPosition,
+      onSubmit,
+      ...form,
+      options,
+      eventPositionIsSetting,
+      hasSetPosition,
+      showAdvancedOptions,
+    };
+  },
 };
 </script>

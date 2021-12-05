@@ -1,29 +1,40 @@
 <template>
   <div>
     <transition name="fade">
-      <div v-if="showSuccessMessage === false" class="m-banner-map">
+      <div
+        v-if="showSuccessMessage === false"
+        class="m-banner-map"
+      >
         <div class="f-flex-1">
-          <slot name="text"></slot>
+          <slot name="text" />
         </div>
-        <a-button-icon class="f-size-36" @click="$emit('cancel')">
+        <a-button-icon
+          class="f-size-36"
+          @click="$emit('cancel')"
+        >
           <a-icon
             class="f-text-danger"
-            :name="ICONS.cancel"
+            :name="$icons.names.cancel"
             size="36"
           />
         </a-button-icon>
-        <a-button-icon class="f-size-36" @click="$emit('actionTriggered')">
+        <a-button-icon
+          class="f-size-36"
+          @click="$emit('actionTriggered')"
+        >
           <a-icon
             class="f-text-primary"
-            :name="ICONS.check_circle"
+            :name="$icons.names.check_circle"
             size="36"
           />
         </a-button-icon>
       </div>
     </transition>
     <transition name="fade">
-      <div v-if="showSuccessMessage"
-           class="m-banner-map f-message-success">
+      <div
+        v-if="showSuccessMessage"
+        class="m-banner-map f-message-success"
+      >
         <span class="f-text-center f-min-100">
           <slot name="success-message">
             {{ defaultSuccessMessage }}
@@ -40,16 +51,17 @@ import AButtonIcon from 'atoms/button/icon';
 export default {
   name: 'm-banner-map',
   components: { AButtonIcon },
-  data: () => ({
-    showSuccessMessage: false,
-    defaultSuccessMessage: translator.t('features.bannerMap.defaultSuccessMessage'),
-  }),
   props: {
     successMessageDuration: {
       type: Number,
       default: 2000,
     },
   },
+  emits: ['actionTriggered', 'cancel'],
+  data: () => ({
+    showSuccessMessage: false,
+    defaultSuccessMessage: translator.t('features.bannerMap.defaultSuccessMessage'),
+  }),
   methods: {
     emitSuccessMessage () {
       return new Promise(resolve => {

@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
 import menu from './menu';
 import theme from './theme';
 import event from './event';
@@ -11,9 +10,7 @@ import mapPopup from './map-popup';
 import snackbar from './snackbar';
 import guide from './guide';
 
-Vue.use(Vuex);
-
-export const store = new Vuex.Store({
+export const store = createStore({
   modules: {
     menu,
     theme,

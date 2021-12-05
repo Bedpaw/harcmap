@@ -68,6 +68,11 @@ It only differs with env variables defined in `.env` file
 
 ### Development kit
 
+#### Vue.js devtools
+1. Remove or disable Vue.js devtools
+2. Install beta version from: https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg
+3. Close and reopen chrome devtools (press F12 twice).
+
 #### Dev Tools
 In development mode check window.devTools object to use some internal app tools for example:
 - autoLogin - switching between account types

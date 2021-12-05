@@ -1,34 +1,33 @@
 <template>
   <t-start>
-    <template slot="buttons">
+    <template #buttons>
       <template v-if="userUtils.can.seeAdminStartView()">
         <a-button-fill-primary
-          @click="$router.push(ROUTES.scoreboard.path)"
           :text="$t('page.admin.start.checkScoreboard')"
+          @click="$router.push(ROUTES.scoreboard.path)"
         />
         <a-button-fill-secondary
           v-if="checkIsNotLimited()"
-          @click="$router.push(ROUTES.editEvent.path)"
           :text="$t('page.admin.start.editEvent')"
+          @click="$router.push(ROUTES.editEvent.path)"
         />
         <a-button-fill-secondary
           v-else
-          @click="$router.push(ROUTES.searchPoint.path)"
           :text="ROUTES.searchPoint.label"
+          @click="$router.push(ROUTES.searchPoint.path)"
         />
       </template>
 
       <template v-else>
         <a-button-fill-primary
-          @click="$router.push(ROUTES.map.path)"
           :text="$t('page.start.search')"
+          @click="$router.push(ROUTES.map.path)"
         />
         <a-button-fill-secondary
-          @click="$router.push(ROUTES.collectedPoints.path)"
           :text="$t('page.start.checkResults')"
+          @click="$router.push(ROUTES.collectedPoints.path)"
         />
       </template>
-
     </template>
   </t-start>
 </template>
@@ -41,13 +40,13 @@ import { userUtils } from 'config/users-config';
 
 export default {
   name: 'p-start',
-  data: () => ({
-    userUtils,
-  }),
   components: {
     TStart,
     AButtonFillPrimary,
     AButtonFillSecondary,
   },
+  data: () => ({
+    userUtils,
+  }),
 };
 </script>

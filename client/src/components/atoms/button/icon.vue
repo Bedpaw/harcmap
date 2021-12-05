@@ -1,6 +1,6 @@
 <template>
-  <button @click="$emit('click')" class="a-button f-icon">
-    <slot/>
+  <button class="a-button f-icon">
+    <slot />
   </button>
 </template>
 

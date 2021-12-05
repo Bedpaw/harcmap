@@ -1,14 +1,22 @@
 <template>
-  <div class="m-area f-button" :class="addAreaClass" @click="emitClick($event)">
+  <div
+    class="m-area f-button"
+    :class="addAreaClass"
+    @click.stop="emitClick($event)"
+  >
     <button
+      ref="button"
       class="a-button"
       :class="getClass"
-      ref="button"
       :type="type"
       :disabled="disabled"
     >
-      <slot v-if="loading === false"/>
-      <a-loader v-if="loading" :add-class="addClass" :img="loadingImg"/>
+      <slot v-if="loading === false" />
+      <a-loader
+        v-if="loading"
+        :add-class="addClass"
+        :img="loadingImg"
+      />
     </button>
   </div>
 </template>
@@ -46,6 +54,7 @@ export default {
       default: 'button',
     },
   },
+  emits: ['click'],
   computed: {
     getClass () {
       const classes = [this.addClass];

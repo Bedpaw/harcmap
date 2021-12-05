@@ -1,37 +1,35 @@
 <template>
-  <validation-observer>
-    <validation-provider
-      :name="label.toLowerCase()"
-      :rules="rules"
-      v-slot="{ errors }"
-    >
-      <m-input
-        type="text"
-        v-model="vModel"
-        :disabled="disabled"
-        :placeholder="label"
-        :error="errors.length > 0"
-        :assist="errors[0] || assist"
-      />
-    </validation-provider>
-  </validation-observer>
+  <m-input
+    v-model="vModel"
+    type="text"
+    :disabled="disabled"
+    :placeholder="label"
+    :error="isError"
+    :assist="errorMessage || assist"
+  />
 </template>
+
+<!-- USAGE EXAMPLE
+  <m-field-text
+    :label="$t('form.field.userTeam')"
+    :rules="validationRules.userTeam"
+    v-model.trim="values.userTeam"
+    :disabled="blockForm"
+    :assist="$t('form.assist.userTeam')"
+  />
+-->
 
 <script>
 import MInput from 'molecules/input';
-import { mixins } from 'mixins/base';
+import { fieldValidationMixin, useFieldValidation } from 'plugins/validation/field';
 
 export default {
   name: 'm-field-text',
-  mixins: [mixins.vModel],
   components: { MInput },
+  mixins: [fieldValidationMixin],
   props: {
     disabled: Boolean,
     label: {
-      type: String,
-      default: '',
-    },
-    rules: {
       type: String,
       default: '',
     },
@@ -40,5 +38,8 @@ export default {
       default: '',
     },
   },
+  setup: (props, context) => ({
+    ...useFieldValidation(props, context),
+  }),
 };
 </script>

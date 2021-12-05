@@ -7,10 +7,10 @@
       :is-send="formSend"
       :on-submit="remindPassword"
     >
-      <template slot="form">
+      <template #form>
         <m-field-email
-          :disabled="blockForm"
           v-model="user"
+          :disabled="blockForm"
         />
         <a-button-submit
           :disabled="blockForm"
@@ -18,11 +18,11 @@
         />
       </template>
 
-      <template slot="response">
+      <template #response>
         <div class="f-py-2 f-text-bold">
           {{ $t('page.remindPassword.success') }}
         </div>
-        <a-button-primary @click="$router.push(ROUTES.welcome.path)">
+        <a-button-primary @click="router.push(ROUTES.welcome.path)">
           {{ $t('general.backToStart') }}
         </a-button-primary>
       </template>
@@ -33,16 +33,17 @@
 <script>
 import TPage from 'templates/page';
 import AButtonSubmit from 'atoms/button/submit';
-import { api } from 'api';
-import { mixins } from 'mixins/base';
 import OForm from 'organisms/form';
 import MFieldEmail from 'molecules/field/email';
 import AButtonPrimary from 'atoms/button/primary';
+import { api } from 'api';
 import validateCodes from 'validateCodes';
+import { ref } from 'vue';
+import { useForm } from 'plugins/form';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'p-remind-password',
-  mixins: [mixins.form],
   components: {
     TPage,
     AButtonPrimary,
@@ -50,30 +51,37 @@ export default {
     OForm,
     AButtonSubmit,
   },
-  data: () => ({
-    user: '',
-    blockForm: false,
-    isSending: false,
-    formSend: false,
-  }),
-  methods: {
-    remindPassword () {
-      this.isSending = true;
-      this.blockForm = true;
-      api.remindPassword({ user: this.user })
-        .then(this.onRemindPassword)
+  setup () {
+    const user = ref('');
+    const form = useForm();
+    const { formSend, isSending, blockForm, onErrorOccurs } = form;
+    const router = useRouter();
+
+    function onRemindPassword () {
+      formSend.value = true;
+      isSending.value = false;
+    }
+
+    function remindPassword () {
+      isSending.value = true;
+      blockForm.value = true;
+      api.remindPassword({ user: user.value })
+        .then(onRemindPassword)
         .catch(error => {
           if (error.code !== validateCodes.DATABASE_NO_RESULT_ERROR) {
-            this.onErrorOccurs(error);
+            onErrorOccurs(error);
           } else {
-            this.onRemindPassword();
+            onRemindPassword();
           }
         });
-    },
-    onRemindPassword () {
-      this.formSend = true;
-      this.isSending = false;
-    },
+    }
+
+    return {
+      ...form,
+      router,
+      user,
+      remindPassword,
+    };
   },
 };
 </script>

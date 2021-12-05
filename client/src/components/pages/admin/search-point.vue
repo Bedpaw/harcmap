@@ -2,22 +2,26 @@
   <t-search
     :search-assist="$t('form.assist.searchPoint')"
     :elements="points"
-    :searchKeys="['pointId', 'pointName']"
+    :search-keys="['pointId', 'pointName']"
   >
-    <template v-slot:result-list="{ filteredElements: filteredPoints }">
-      <div class="f-flex-1 f-scroll-default f-mr--2" >
+    <template #result-list="{ filteredElements: filteredPoints }">
+      <div class="f-flex-1 f-scroll-default f-mr--2">
         <div
-          class="m-grid f-search-point f-mr-2"
           v-for="point of filteredPoints"
           :key="point.pointId"
+          class="m-grid f-search-point f-mr-2"
         >
           <a-button-icon class="f-minimal">
-            <a-icon-category :category-id="point.pointCategory"/>
+            <a-icon-category :category-id="point.pointCategory" />
           </a-button-icon>
-          <div class="f-py-2 f-overflow-hidden">{{ point.pointId }}</div>
-          <div class="f-pl-1 f-py-2 f-overflow-hidden f-text-subtext f-text-14">{{ point.pointName }}</div>
+          <div class="f-py-2 f-overflow-hidden">
+            {{ point.pointId }}
+          </div>
+          <div class="f-pl-1 f-py-2 f-overflow-hidden f-text-subtext f-text-14">
+            {{ point.pointName }}
+          </div>
           <a-button-icon @click="panToMap(point)">
-            <a-icon :name="ICONS.map"/>
+            <a-icon :name="$icons.names.map" />
           </a-button-icon>
         </div>
       </div>

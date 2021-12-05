@@ -1,41 +1,46 @@
 <template>
-  <validation-observer>
-    <validation-provider
-      :name="label.toLowerCase()"
-      :rules="rules.password"
-      v-slot="{ errors }"
-      vid="password"
-    >
-      <m-input
-        type="password"
-        v-model="vModel"
-        :disabled="disabled"
-        :placeholder="label"
-        :error="errors.length > 0"
-        :assist="errors[0] || assist"
-      />
-    </validation-provider>
-  </validation-observer>
+  <m-input
+    v-model="vModel"
+    type="password"
+    :disabled="disabled"
+    :placeholder="label"
+    :error="isError"
+    :assist="errorMessage || assist"
+  />
 </template>
+
+<!-- USAGE EXAMPLE
+  <m-field-password
+    v-model="date"
+    :disabled="blockForm"
+  />
+-->
 
 <script>
 import MInput from 'molecules/input';
-import { mixins } from 'mixins/base';
+import { translator } from 'src/dictionary';
+import { fieldValidationMixin, useFieldValidation } from 'plugins/validation/field';
+import { validationRules } from 'plugins/validation/rules';
 
 export default {
   name: 'm-field-password',
-  mixins: [mixins.vModel, mixins.validation],
   components: { MInput },
   props: {
     disabled: Boolean,
     label: {
       type: String,
-      default: 'E-mail',
+      default: translator.t('form.field.password'),
     },
     assist: {
       type: String,
       default: '',
     },
   },
+  mixins: [fieldValidationMixin],
+  setup: (props, context) => ({
+    ...useFieldValidation(props, context, {
+      defaultRules: validationRules.password,
+    }),
+  }),
 };
 </script>

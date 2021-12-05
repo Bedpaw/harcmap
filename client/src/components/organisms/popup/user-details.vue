@@ -1,40 +1,50 @@
 <template>
   <o-popup-empty ref="popup">
     <article class="f-flex f-flex-col f-flex-al-start f-text-16 f-text-normal">
-      <div class="f-pb-2 f-text-bold f-text-18" >{{user.userTeam}}</div>
-      <div class="f-pb-2 f-text-16">{{user.user}}</div>
+      <div class="f-pb-2 f-text-bold f-text-18">
+        {{ user.userTeam }}
+      </div>
+      <div class="f-pb-2 f-text-16">
+        {{ user.user }}
+      </div>
       <a-checkbox
-        class="f-pb-1"
         :id="'isActive-' + user.user"
         v-model="accountIsActive"
+        class="f-pb-1"
         :is-disabled="isOrganizer"
       >
-        {{$t('page.admin.userList.accountIsActive')}}
+        {{ $t('page.admin.userList.accountIsActive') }}
       </a-checkbox>
 
-      <span class="f-text-bold f-text-18 f-py-1">{{$t('accountTypes.accountType')}}:</span>
+      <span class="f-text-bold f-text-18 f-py-1">{{ $t('accountTypes.accountType') }}:</span>
 
       <a-radio
-        class="f-pb-1"
         v-for="(accountInfo, key) in USERS_DEFAULT_CONFIG.accountTypeInfo"
-        :key="key" :id="key" :value="key"
+        :id="key"
+        :key="key"
         v-model="accountType"
-        :is-disabled="key === USERS_DEFAULT_CONFIG.accountTypes.organizer">
-        {{$t(accountInfo.nameKey)}}
+        class="f-pb-1"
+        :value="key"
+        :is-disabled="key === USERS_DEFAULT_CONFIG.accountTypes.organizer"
+      >
+        {{ $t(accountInfo.nameKey) }}
       </a-radio>
 
       <a-button-secondary
-        add-area-class="f-100 f-mb-0" add-class="f-100"
+        add-area-class="f-100 f-mb-0"
+        add-class="f-100"
         :disabled="isOrganizer"
-        @click="sendResetPasswordCode">
-        {{$t('form.button.sendResetPasswordToEmail')}}
+        @click="sendResetPasswordCode"
+      >
+        {{ $t('form.button.sendResetPasswordToEmail') }}
       </a-button-secondary>
 
       <a-button-secondary
         add-area-class="f-mt-0"
         :disabled="isOrganizer"
-        @click="blockUser">
-        {{$t('form.button.blockAccount')}}
+        @click="blockUser"
+      >
+        {{ $t('form.button.blockAccount') }}
       </a-button-secondary>
     </article>
   </o-popup-empty>

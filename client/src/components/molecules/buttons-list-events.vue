@@ -1,13 +1,18 @@
 <template>
-  <section v-if="buttonsDetails.length > 0" class="f-text-left" >
-    <span>{{title}}</span>
-    <component  v-for="button in buttonsDetailsPaginated" :key="button.id"
-                :is="buttonTypeComponent"
-                v-bind="{
-                  addAreaClass: 'f-small-area',
-                  addClass: button.secondLineText ? 'f-two-lines' : '',
-                }"
-                @click="button.onClick(button.id ? button.id : null)"
+  <section
+    v-if="buttonsDetails.length > 0"
+    class="f-text-left"
+  >
+    <span>{{ title }}</span>
+    <component
+      v-bind="{
+        addAreaClass: 'f-small-area',
+        addClass: button.secondLineText ? 'f-two-lines' : '',
+      }"
+      :is="buttonTypeComponent"
+      v-for="button in buttonsDetailsPaginated"
+      :key="button.id"
+      @click="button.onClick(button.id ? button.id : null)"
     >
       <a-icon
         v-if="button.iconLeftProps"
@@ -15,8 +20,11 @@
         class="a-icon f-left"
       />
       <span>{{ button.text }}</span>
-      <span v-if="button.secondLineText" class="f-text-gray f-mt-half">
-        {{button.secondLineText}}
+      <span
+        v-if="button.secondLineText"
+        class="f-text-gray f-mt-half"
+      >
+        {{ button.secondLineText }}
       </span>
       <a-icon
         v-if="button.iconRightProps"
@@ -26,10 +34,11 @@
     </component>
     <a-button
       v-if="buttonsDetails.length > buttonsLimit"
-      @click="numberOfTimesButtonsLimitIncreased++;"
       add-class="f-clear"
-      add-area-class="f-mt--1 f-relative-center">
-      {{$t('general.showMore2')}}
+      add-area-class="f-mt--1 f-relative-center"
+      @click="numberOfTimesButtonsLimitIncreased++;"
+    >
+      {{ $t('general.showMore2') }}
     </a-button>
   </section>
 </template>
@@ -47,9 +56,6 @@ export default {
     AButtonFillPrimary,
     AButton,
   },
-  data: () => ({
-    numberOfTimesButtonsLimitIncreased: 1,
-  }),
   props: {
     buttonsDetails: {
       type: Array,
@@ -57,6 +63,7 @@ export default {
     },
     title: {
       type: String,
+      default: '',
     },
     buttonLimitStep: {
       type: Number,
@@ -67,6 +74,9 @@ export default {
       default: false,
     },
   },
+  data: () => ({
+    numberOfTimesButtonsLimitIncreased: 1,
+  }),
   computed: {
     buttonsLimit () {
       return this.buttonLimitStep * this.numberOfTimesButtonsLimitIncreased;

@@ -1,9 +1,22 @@
 <template>
   <section>
-    <m-buttons-list-events primary :buttons-details="primaryButtons" :title="$t('page.eventsList.new')"></m-buttons-list-events>
-    <m-buttons-list-events :buttons-details="currentEvents" :title="$t('page.eventsList.current')"></m-buttons-list-events>
-    <m-buttons-list-events :buttons-details="futureEvents" :title="$t('page.eventsList.upcoming')"></m-buttons-list-events>
-    <m-buttons-list-events :buttons-details="pastEvents" :title="$t('page.eventsList.finished')"></m-buttons-list-events>
+    <m-buttons-list-events
+      primary
+      :buttons-details="primaryButtons"
+      :title="$t('page.eventsList.new')"
+    />
+    <m-buttons-list-events
+      :buttons-details="currentEvents"
+      :title="$t('page.eventsList.current')"
+    />
+    <m-buttons-list-events
+      :buttons-details="futureEvents"
+      :title="$t('page.eventsList.upcoming')"
+    />
+    <m-buttons-list-events
+      :buttons-details="pastEvents"
+      :title="$t('page.eventsList.finished')"
+    />
   </section>
 </template>
 
@@ -11,11 +24,13 @@
 import MButtonsListEvents from 'molecules/buttons-list-events';
 import { MACROS } from 'utils/macros';
 import { DATE_FORMATS, displayDate } from 'utils/date';
-import { ICONS_TYPES } from '@dbetka/vue-material-icons';
 import { generalConfigUtils } from 'config/general-config';
 import { eventsListMock } from 'organisms/events-list-mock';
 import { userUtils } from 'config/users-config';
 import { eventUtils } from 'utils/event';
+import { materialIcons } from '@dbetka/vue-material-icons';
+
+const ICONS_TYPES = materialIcons.types;
 
 export default {
   name: 'o-events-list',
@@ -28,6 +43,37 @@ export default {
     currentEvents: [],
     pastEvents: [],
   }),
+  computed: {
+    primaryButtons () {
+      return [
+        {
+          onClick: this.navigateToJoinEvent.bind(this),
+          text: this.$t('page.eventsList.joinEvent'),
+          iconLeftProps: {
+            name: this.$icons.names.check,
+          },
+        },
+        {
+          onClick: this.navigateToCreateEvent.bind(this),
+          text: this.$t('page.eventsList.createEvent'),
+          iconLeftProps: {
+            name: this.$icons.names.add,
+          },
+        },
+      ];
+    },
+  },
+  watch: {
+    events: function (events) {
+      const [past, current, future] = eventUtils.splitEventsByTimePeriods(events);
+      this.pastEvents = past.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isPast));
+      this.currentEvents = current.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isCurrent));
+      this.futureEvents = future.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isFuture));
+    },
+  },
+  mounted () {
+    this.events = eventsListMock;
+  },
   methods: {
     prepareButtonsDetails (event, timePeriod = MACROS.timePeriods.isCurrent) {
       const {
@@ -66,37 +112,6 @@ export default {
     },
     navigateToJoinEvent () {
       this.$router.push(this.ROUTES.joinEvent.path);
-    },
-  },
-  mounted () {
-    this.events = eventsListMock;
-  },
-  watch: {
-    events: function (events) {
-      const [past, current, future] = eventUtils.splitEventsByTimePeriods(events);
-      this.pastEvents = past.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isPast));
-      this.currentEvents = current.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isCurrent));
-      this.futureEvents = future.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isFuture));
-    },
-  },
-  computed: {
-    primaryButtons () {
-      return [
-        {
-          onClick: this.navigateToJoinEvent.bind(this),
-          text: this.$t('page.eventsList.joinEvent'),
-          iconLeftProps: {
-            name: this.ICONS.check,
-          },
-        },
-        {
-          onClick: this.navigateToCreateEvent.bind(this),
-          text: this.$t('page.eventsList.createEvent'),
-          iconLeftProps: {
-            name: this.ICONS.add,
-          },
-        },
-      ];
     },
   },
 };

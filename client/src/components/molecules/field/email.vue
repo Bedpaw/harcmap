@@ -1,31 +1,31 @@
 <template>
-  <validation-observer>
-    <validation-provider
-      :name="label.toLowerCase()"
-      :rules="rules.email"
-      v-slot="{ errors }"
-    >
-      <m-input
-        type="email"
-        v-model.trim="vModel"
-        :disabled="disabled"
-        :placeholder="label"
-        :error="errors.length > 0"
-        :assist="errors[0] || assist"
-      />
-    </validation-provider>
-  </validation-observer>
+  <m-input
+    v-model.trim="vModel"
+    type="email"
+    :disabled="disabled"
+    :placeholder="label"
+    :error="isError"
+    :assist="errorMessage || assist"
+  />
 </template>
+
+<!-- USAGE EXAMPLE
+  <m-field-email
+    v-model="values.user"
+    :disabled="blockForm"
+  />
+-->
 
 <script>
 import MInput from 'molecules/input';
-import { mixins } from 'mixins/base';
 import { translator } from 'src/dictionary';
+import { validationRules } from 'plugins/validation/rules';
+import { fieldValidationMixin, useFieldValidation } from 'plugins/validation/field';
 
 export default {
   name: 'm-field-email',
-  mixins: [mixins.vModel, mixins.validation],
   components: { MInput },
+  mixins: [fieldValidationMixin],
   props: {
     disabled: Boolean,
     label: {
@@ -37,5 +37,10 @@ export default {
       default: '',
     },
   },
+  setup: (props, context) => ({
+    ...useFieldValidation(props, context, {
+      defaultRules: validationRules.email,
+    }),
+  }),
 };
 </script>

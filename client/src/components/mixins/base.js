@@ -1,51 +1,20 @@
-import { vueModel, vueModelCheckbox } from 'extends/base';
-import { formMixin as form } from './form';
-import { validationMixin as validation } from './validation';
-
 const vModel = {
   props: {
-    value: {},
+    modelValue: {},
   },
   computed: {
-    vModel: vueModel,
-  },
-};
-const vModelCheckbox = {
-  model: {
-    prop: 'checked',
-    event: 'change',
-  },
-  props: {
-    checked: {},
-  },
-  computed: {
-    vModel: vueModelCheckbox,
-  },
-};
-
-const vModelRadio = {
-  model: {
-    prop: 'modelValue',
-    event: 'change',
-  },
-  props: {
-    modelValue: { default: '' },
-    value: {
-      type: String,
-      default: undefined,
+    vModel: {
+      get () {
+        return this.modelValue;
+      },
+      set (value) {
+        this.$emit('update:modelValue', value);
+      },
     },
   },
-  computed: {
-    isChecked () {
-      return this.modelValue === this.value;
-    },
-  },
+  emits: ['update:modelValue'],
 };
 
 export const mixins = {
   vModel,
-  vModelRadio,
-  vModelCheckbox,
-  form,
-  validation,
 };
