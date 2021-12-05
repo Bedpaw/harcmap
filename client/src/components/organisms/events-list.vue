@@ -112,7 +112,7 @@ export default {
       };
     },
     signInToEvent (eventId) {
-      console.log(`Signing in to event with id ${eventId}`);
+      // this.
     },
     navigateToCreateEvent () {
       this.$router.push(this.ROUTES.newEvent.path);

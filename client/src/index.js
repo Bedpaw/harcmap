@@ -22,7 +22,7 @@ app.mixin({
   methods: {
     checkPermissions: permissions.checkPermissions,
     checkIsAdmin: permissions.checkIsAdmin,
-    checkIsCommon: permissions.checkIsCommon,
+    checkIsCommon: permissions.checkIsTeamLeader,
     checkIsLimited: permissions.checkIsLimited,
     checkIsNotLimited: permissions.checkIsNotLimited,
     checkLimitingForRoute: permissions.checkLimitingForRoute,

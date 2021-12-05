@@ -78,8 +78,8 @@ export default {
     function signInAutomatically () {
       isSending.value = true;
       blockForm.value = true;
-      values.email = DEV_USERS_LIST.common.user;
-      values.password = DEV_USERS_LIST.common.password;
+      values.email = DEV_USERS_LIST.teamLeader.user;
+      values.password = DEV_USERS_LIST.teamLeader.password;
       uPromise.timeout(500)
         .then(() => signIn());
     }

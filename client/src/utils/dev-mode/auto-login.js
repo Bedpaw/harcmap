@@ -22,10 +22,10 @@ function login (values) {
 export const autoLogin = {
   switch () {
     const accountType = store.getters['user/accountType'];
-    if (accountType === ACCOUNT_TYPES.admin) this.common();
+    if (accountType === ACCOUNT_TYPES.admin) this.teamLeader();
     else this.admin();
   },
-  common: () => login(users.common),
+  teamLeader: () => login(users.teamLeader),
   admin: () => login(users.admin),
 };
 

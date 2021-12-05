@@ -49,7 +49,7 @@ export const permissions = {
     const isNotLimited = this.checkIsNotLimited();
     return (unlimitedOnly && isNotLimited) || unlimitedOnly === false;
   },
-  checkIsteamLeader () {
+  checkIsTeamLeader () {
     return this.checkPermissions(ACCOUNT_TYPES.teamLeader);
   },
   promiseCheckIsAdmin () {

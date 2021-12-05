@@ -6,7 +6,7 @@ import { ROUTES } from 'config/routes-config';
 import { translator } from 'src/dictionary';
 import { ErrorMessage } from 'utils/error-message';
 import { WarnMessage } from 'utils/warn-message';
-import { HttpService } from '@dbetka/wdk/lib/http-service';
+import { HttpService } from '../../../../wdk/src/http-service';
 import { API_URL } from 'config/app-env';
 
 export const httpService = HttpService.getInstance({

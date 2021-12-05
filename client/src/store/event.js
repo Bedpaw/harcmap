@@ -68,7 +68,7 @@ export default {
           .then(categories => (event.categories = categories))
           .then(() => {
             const IsBeforeStart = eventUtils.isBeforeStart(event);
-            const IsCommonUser = permissions.checkIsCommon();
+            const IsCommonUser = permissions.checkIsTeamLeader();
             if (IsBeforeStart && IsCommonUser) return [];
             else return api.getPointsByEventId(event);
           })
