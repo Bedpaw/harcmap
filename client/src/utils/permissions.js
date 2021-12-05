@@ -5,11 +5,11 @@ import { routes } from 'src/router/routes';
 
 // ACCOUNT_TYPES is available in vue templates
 export const ACCOUNT_TYPES = {
-  common: 'common',
+  teamLeader: 'teamLeader',
   admin: 'admin',
   observer: 'observer',
-  userObserver: 'userObserver',
-  organizer: 'organizer',
+  teamMember: 'teamMember',
+  creator: 'creator',
 };
 
 export const permissions = {
@@ -49,14 +49,14 @@ export const permissions = {
     const isNotLimited = this.checkIsNotLimited();
     return (unlimitedOnly && isNotLimited) || unlimitedOnly === false;
   },
-  checkIsCommon () {
-    return this.checkPermissions(ACCOUNT_TYPES.common);
+  checkIsteamLeader () {
+    return this.checkPermissions(ACCOUNT_TYPES.teamLeader);
   },
   promiseCheckIsAdmin () {
     return this.promiseCheckPermissions(ACCOUNT_TYPES.admin);
   },
   promiseCheckIsCommon () {
-    return this.promiseCheckPermissions(ACCOUNT_TYPES.common);
+    return this.promiseCheckPermissions(ACCOUNT_TYPES.teamLeader);
   },
 };
 

@@ -54,7 +54,7 @@ export default {
         email: 'andrew@demo.com',
         nickname: 'nie',
         userId: '2',
-        accountType: 'common',
+        accountType: 'teamLeader',
       },
       {
         email: 'andrew@demo.com',

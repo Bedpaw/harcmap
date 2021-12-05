@@ -29,6 +29,8 @@ import { eventsListMock } from 'organisms/events-list-mock';
 import { userUtils } from 'config/users-config';
 import { eventUtils } from 'utils/event';
 import { materialIcons } from '@dbetka/vue-material-icons';
+import { api } from 'api';
+import dayjs from 'dayjs';
 
 const ICONS_TYPES = materialIcons.types;
 
@@ -65,27 +67,32 @@ export default {
   },
   watch: {
     events: function (events) {
-      const [past, current, future] = eventUtils.splitEventsByTimePeriods(events);
+      const [past, current, future] = eventUtils.splitEventsByTimePeriodsNew(events);
       this.pastEvents = past.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isPast));
       this.currentEvents = current.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isCurrent));
       this.futureEvents = future.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isFuture));
     },
   },
   mounted () {
-    this.events = eventsListMock;
+    this.events = this.$store.getters['user/userEvents'].map(event => {
+      event.eventDuration = {
+        startDate: dayjs(),
+        endDate: dayjs().add(1, 'day'),
+      };
+      return event;
+    });
   },
   methods: {
     prepareButtonsDetails (event, timePeriod = MACROS.timePeriods.isCurrent) {
       const {
-        eventStartDate,
-        eventEndDate,
+        eventDuration,
         eventName,
         eventId,
       } = event;
 
       const secondLineText = displayDate.timeRange(
-        displayDate.inFormat(eventStartDate, DATE_FORMATS.DDMMYYYY),
-        displayDate.inFormat(eventEndDate, DATE_FORMATS.DDMMYYYY),
+        displayDate.inFormat(eventDuration.startDate, DATE_FORMATS.DDMMYYYY),
+        displayDate.inFormat(eventDuration.endDate, DATE_FORMATS.DDMMYYYY),
       );
 
       return {

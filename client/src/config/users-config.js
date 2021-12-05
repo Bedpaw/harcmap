@@ -3,16 +3,16 @@ import { materialIcons } from '@dbetka/vue-material-icons';
 
 const ICONS = materialIcons.names;
 
-const { organizer, admin, userObserver, common, observer } = ACCOUNT_TYPES;
+const { creator, admin, userObserver, teamLeader, observer } = ACCOUNT_TYPES;
 
 const accountTypeInfo = {
   [admin]: {
     icon: ICONS.shield,
     nameKey: 'accountTypes.admin',
   },
-  [common]: {
+  [teamLeader]: {
     icon: ICONS.person,
-    nameKey: 'accountTypes.common',
+    nameKey: 'accountTypes.teamLeader',
   },
   [observer]: {
     icon: ICONS.policy,
@@ -22,16 +22,16 @@ const accountTypeInfo = {
     icon: ICONS.person_search,
     nameKey: 'accountTypes.userObserver',
   },
-  [organizer]: {
+  [creator]: {
     icon: ICONS.shield,
     nameKey: 'accountTypes.organizer',
   },
 };
 
 const availabilities = {
-  seeAllPointsOnMap: [organizer, admin],
-  seeAllTimeOutPoints: [organizer, admin],
-  seeAdminStartView: [organizer, admin],
+  seeAllPointsOnMap: [creator, admin],
+  seeAllTimeOutPoints: [creator, admin],
+  seeAdminStartView: [creator, admin],
 };
 
 const checkIfCan = (permittedRoles) => permittedRoles
@@ -44,9 +44,12 @@ export const userUtils = {
     commonUsers.unshift(leaderUser);
     return commonUsers;
   },
-  getIcon: ({ accountType }) => accountTypeInfo[accountType].icon,
-  getNameKey: ({ accountType }) => accountTypeInfo[accountType].nameKey,
-  isOrganizer: (user) => user.accountType === organizer,
+  getIcon: (event) => {
+    console.log(event, accountTypeInfo);
+    return accountTypeInfo[event.role].icon;
+  },
+  getNameKey: ({ role }) => accountTypeInfo[role].nameKey,
+  isOrganizer: (user) => user.accountType === creator,
   can: {
     seeAllPointsOnMap: () => checkIfCan(availabilities.seeAllPointsOnMap),
     seeAllTimeOutPoints: () => checkIfCan(availabilities.seeAllTimeOutPoints),

@@ -23,28 +23,28 @@ export const userController = {
           'accountIsActive': true,
           'accountCreated': 1614779590555,
           'collectedPointsIds': ['cMLY', 'UZ7X', '31ty', 'uWAj', 'rk7p', 'n9jC', 'GrbI', 'Q5Qe'],
-          'accountType': ACCOUNT_TYPES.common,
+          'accountType': ACCOUNT_TYPES.teamLeader,
         }, {
           'user': 'demo2@demo.com',
           'userTeam': 'Zastęp Demo2',
           'accountIsActive': true,
           'accountCreated': 1614779590556,
           'collectedPointsIds': ['rEIq', 'FD8Q', 'SOz8', 'qj7Q', 'Ssij', '373z', 'NeIB'],
-          'accountType': ACCOUNT_TYPES.common,
+          'accountType': ACCOUNT_TYPES.teamLeader,
         }, {
           'user': 'demo3@demo.com',
           'userTeam': 'Zastęp Demo3',
           'accountIsActive': true,
           'accountCreated': 1614779590556,
           'collectedPointsIds': ['rEIq', 'FD8Q', 'SOz8', 'qj7Q', 'Ssij', '373z', 'NeIB'],
-          'accountType': ACCOUNT_TYPES.common,
+          'accountType': ACCOUNT_TYPES.teamLeader,
         }, {
           'user': 'demo4@demo.com',
           'userTeam': 'Zastęp Demo4',
           'accountIsActive': true,
           'accountCreated': 1614779590556,
           'collectedPointsIds': ['rEIq', 'FD8Q', 'SOz8', 'qj7Q', 'Ssij', '373z', 'NeIB'],
-          'accountType': ACCOUNT_TYPES.common,
+          'accountType': ACCOUNT_TYPES.teamLeader,
         },
       ],
     }));
@@ -59,7 +59,7 @@ export const userController = {
       collectedPointsIds: ['1', '2', '5'],
       userTeam: 'HARC',
       user,
-      accountType: ACCOUNT_TYPES.common,
+      accountType: ACCOUNT_TYPES.teamLeader,
     }));
   },
   signUp ({

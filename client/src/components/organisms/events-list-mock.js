@@ -64,7 +64,7 @@ export const eventsListMock = [{
   mapLongitude: 18.4735,
   mapRefreshTime: 900,
   mapZoom: 11,
-  accountType: ACCOUNT_TYPES.common,
+  accountType: ACCOUNT_TYPES.teamLeader,
 },
 {
   eventEndDate: 1616857200000,
@@ -75,7 +75,7 @@ export const eventsListMock = [{
   mapLongitude: 18.4735,
   mapRefreshTime: 900,
   mapZoom: 11,
-  accountType: ACCOUNT_TYPES.common,
+  accountType: ACCOUNT_TYPES.teamLeader,
 },
 {
   eventEndDate: 1616857200000,
@@ -86,7 +86,7 @@ export const eventsListMock = [{
   mapLongitude: 18.4735,
   mapRefreshTime: 900,
   mapZoom: 11,
-  accountType: ACCOUNT_TYPES.common,
+  accountType: ACCOUNT_TYPES.teamLeader,
 },
 {
   eventEndDate: 1616857200000,
@@ -97,7 +97,7 @@ export const eventsListMock = [{
   mapLongitude: 18.4735,
   mapRefreshTime: 900,
   mapZoom: 11,
-  accountType: ACCOUNT_TYPES.common,
+  accountType: ACCOUNT_TYPES.teamLeader,
 },
 {
   eventEndDate: 1616857200000,
@@ -108,7 +108,7 @@ export const eventsListMock = [{
   mapLongitude: 18.4735,
   mapRefreshTime: 900,
   mapZoom: 11,
-  accountType: ACCOUNT_TYPES.common,
+  accountType: ACCOUNT_TYPES.teamLeader,
 },
 {
   eventEndDate: 1616857200000,
@@ -119,7 +119,7 @@ export const eventsListMock = [{
   mapLongitude: 18.4735,
   mapRefreshTime: 900,
   mapZoom: 11,
-  accountType: ACCOUNT_TYPES.common,
+  accountType: ACCOUNT_TYPES.teamLeader,
 },
 {
   eventEndDate: 1616857200000,
@@ -130,7 +130,7 @@ export const eventsListMock = [{
   mapLongitude: 18.4735,
   mapRefreshTime: 900,
   mapZoom: 11,
-  accountType: ACCOUNT_TYPES.common,
+  accountType: ACCOUNT_TYPES.teamLeader,
 },
 {
   eventEndDate: 1616857200000,
@@ -141,7 +141,7 @@ export const eventsListMock = [{
   mapLongitude: 18.4735,
   mapRefreshTime: 900,
   mapZoom: 11,
-  accountType: ACCOUNT_TYPES.common,
+  accountType: ACCOUNT_TYPES.teamLeader,
 },
 {
   eventEndDate: 1616857200000,
@@ -152,7 +152,7 @@ export const eventsListMock = [{
   mapLongitude: 18.4735,
   mapRefreshTime: 900,
   mapZoom: 11,
-  accountType: ACCOUNT_TYPES.common,
+  accountType: ACCOUNT_TYPES.teamLeader,
 },
 {
   eventEndDate: 1616857200000,
@@ -163,6 +163,6 @@ export const eventsListMock = [{
   mapLongitude: 18.4735,
   mapRefreshTime: 900,
   mapZoom: 11,
-  accountType: ACCOUNT_TYPES.common,
+  accountType: ACCOUNT_TYPES.teamLeader,
 },
 ];

@@ -8,7 +8,7 @@ import { pointUtils } from 'utils/point';
 export default {
   namespaced: true,
   state: {
-    eventId: '',
+    eventId: null,
     eventName: '',
     eventStartDate: null,
     eventEndDate: null,

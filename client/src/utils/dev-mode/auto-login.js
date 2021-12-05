@@ -5,7 +5,7 @@ import { ErrorMessage } from 'utils/error-message';
 import { ADMIN_LOGIN_DATA, USER_LOGIN_DATA } from 'config/app-env';
 
 const users = Object.freeze({
-  common: USER_LOGIN_DATA,
+  teamLeader: USER_LOGIN_DATA,
   admin: ADMIN_LOGIN_DATA,
 });
 

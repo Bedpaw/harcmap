@@ -326,7 +326,7 @@ export const plPL = {
   },
   accountTypes: {
     admin: 'Administrator',
-    common: 'Użytkownik',
+    teamLeader: 'Użytkownik',
     observer: 'Obserwator',
     userObserver: 'Obserwator użytkownika',
     organizer: 'Organizator',

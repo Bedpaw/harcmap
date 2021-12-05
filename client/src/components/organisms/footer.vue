@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="isLogin"
+    v-if="eventId"
     class="o-footer"
   >
     <a-button-icon-footer
@@ -27,8 +27,8 @@ export default {
     AButtonIconFooter,
   },
   computed: {
-    ...mapGetters('user', [
-      'isLogin',
+    ...mapGetters('event', [
+      'eventId',
     ]),
   },
   methods: {
