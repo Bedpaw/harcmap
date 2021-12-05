@@ -24,7 +24,7 @@
       "dictionary/*": ["src/dictionary/*"],
       "types/*": ["src/types/*"],
       "vendors/*": ["../vendors/*"],
-      "validateCodes": ["../lib/validateCodes.js"],
+      "validateCodes": ["../server/libs/errors/codes.js"],
 
       "plugins/*": ["src/components/plugins/*"],
       "atoms/*": ["src/components/atoms/*"],
