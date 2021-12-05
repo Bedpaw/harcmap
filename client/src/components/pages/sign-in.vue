@@ -42,6 +42,7 @@ import { onMounted, reactive } from 'vue';
 import { useForm } from 'plugins/form';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import { DEVELOPMENT_MODE } from 'config/app-env';
 
 export default {
   name: 'p-sign-in',
@@ -90,7 +91,7 @@ export default {
     }
 
     onMounted(() => {
-      if (PRODUCTION === false) {
+      if (DEVELOPMENT_MODE) {
         signInAutomatically();
       }
     });

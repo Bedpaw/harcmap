@@ -7,9 +7,10 @@ import { translator } from 'src/dictionary';
 import { ErrorMessage } from 'utils/error-message';
 import { WarnMessage } from 'utils/warn-message';
 import { HttpService } from '@dbetka/wdk/lib/http-service';
+import { API_URL } from 'config/app-env';
 
 export const httpService = HttpService.getInstance({
-  apiUrl: API_URL, // from webpack configuration
+  apiUrl: API_URL,
   defaultRequestConfig: {
     headers: {
       'Content-Type': 'application/json',

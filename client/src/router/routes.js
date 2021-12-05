@@ -1,35 +1,45 @@
 import { ROUTES } from 'config/routes-config';
 import PWelcome from 'pages/welcome';
 import PError from 'pages/error';
+import PAbout from 'pages/about';
+import PSignIn from 'pages/sign-in';
+import PSignUp from 'pages/sign-up';
+import PActivationDone from 'pages/activation-done';
+import PActivationWrong from 'pages/activation-wrong';
+import PRemindPassword from 'pages/remind-password';
+import PChangePassword from 'pages/change-password';
 import { AppRoute } from 'src/router/utils';
 
 export const routes = [
+  // before login
   [ROUTES.error, PError],
   [ROUTES.welcome, PWelcome],
-  [ROUTES.about, () => import('pages/about.vue')],
-  [ROUTES.signIn, () => import('pages/sign-in.vue')],
-  [ROUTES.signUp, () => import('pages/sign-up.vue')],
-  [ROUTES.activationDone, () => import('pages/activation-done.vue')],
-  [ROUTES.activationWrong, () => import('pages/activation-wrong.vue')],
-  [ROUTES.remindPassword, () => import('pages/remind-password.vue')],
-  [ROUTES.changePassword, () => import('pages/change-password.vue')],
-  [ROUTES.start, () => import('pages/start.vue')],
-  [ROUTES.timeoutPoints, () => import('pages/timeout-points.vue')],
-  [ROUTES.collectPoint, () => import('pages/collect-point.vue')],
-  [ROUTES.collectedPoints, () => import('pages/collected-points.vue')],
-  [ROUTES.map, () => import('pages/map.vue')],
-  [ROUTES.adminPanel, () => import('pages/admin/panel.vue')],
-  [ROUTES.spectatorPanel, () => import('pages/admin/panel.vue')],
-  [ROUTES.editEvent, () => import('pages/admin/edit-event.vue')],
-  [ROUTES.newPoint, () => import('pages/admin/new-point.vue')],
-  [ROUTES.editPoint, () => import('pages/admin/edit-point.vue')],
-  [ROUTES.scoreboard, () => import('pages/admin/scoreboard.vue')],
-  [ROUTES.searchPoint, () => import('pages/admin/search-point.vue')],
-  [ROUTES.newEvent, () => import('pages/add-event.vue')],
-  [ROUTES.eventsList, () => import('pages/events-list.vue')],
-  [ROUTES.joinEvent, () => import('pages/join-event.vue')],
-  [ROUTES.usersList, () => import('pages/admin/users-list.vue')],
-  [ROUTES.teamView, () => import('pages/team-view.vue')],
+  [ROUTES.about, PAbout],
+  [ROUTES.signIn, PSignIn],
+  [ROUTES.signUp, PSignUp],
+  [ROUTES.activationDone, PActivationDone],
+  [ROUTES.activationWrong, PActivationWrong],
+  [ROUTES.remindPassword, PRemindPassword],
+  [ROUTES.changePassword, PChangePassword],
+
+  // after login
+  [ROUTES.start, () => import(/* webpackChunkName: "async-pages" */ 'pages/start.vue')],
+  [ROUTES.timeoutPoints, () => import(/* webpackChunkName: "async-pages" */ 'pages/timeout-points.vue')],
+  [ROUTES.collectPoint, () => import(/* webpackChunkName: "async-pages" */ 'pages/collect-point.vue')],
+  [ROUTES.collectedPoints, () => import(/* webpackChunkName: "async-pages" */ 'pages/collected-points.vue')],
+  [ROUTES.map, () => import(/* webpackChunkName: "async-pages" */ 'pages/map.vue')],
+  [ROUTES.adminPanel, () => import(/* webpackChunkName: "async-pages" */ 'pages/admin/panel.vue')],
+  [ROUTES.spectatorPanel, () => import(/* webpackChunkName: "async-pages" */ 'pages/admin/panel.vue')],
+  [ROUTES.editEvent, () => import(/* webpackChunkName: "async-pages" */ 'pages/admin/edit-event.vue')],
+  [ROUTES.newPoint, () => import(/* webpackChunkName: "async-pages" */ 'pages/admin/new-point.vue')],
+  [ROUTES.editPoint, () => import(/* webpackChunkName: "async-pages" */ 'pages/admin/edit-point.vue')],
+  [ROUTES.scoreboard, () => import(/* webpackChunkName: "async-pages" */ 'pages/admin/scoreboard.vue')],
+  [ROUTES.searchPoint, () => import(/* webpackChunkName: "async-pages" */ 'pages/admin/search-point.vue')],
+  [ROUTES.newEvent, () => import(/* webpackChunkName: "async-pages" */ 'pages/add-event.vue')],
+  [ROUTES.eventsList, () => import(/* webpackChunkName: "async-pages" */ 'pages/events-list.vue')],
+  [ROUTES.joinEvent, () => import(/* webpackChunkName: "async-pages" */ 'pages/join-event.vue')],
+  [ROUTES.usersList, () => import(/* webpackChunkName: "async-pages" */ 'pages/admin/users-list.vue')],
+  [ROUTES.teamView, () => import(/* webpackChunkName: "async-pages" */ 'pages/team-view.vue')],
 ]
   .map(([route, component]) => ({
     ...AppRoute.getDataForRouter(route),
