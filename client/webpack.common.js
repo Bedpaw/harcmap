@@ -51,7 +51,7 @@ module.exports = {
       utils: resolve('src/utils'),
       dictionary: resolve('src/dictionary'),
       vendors: resolve('../vendors'),
-      validateCodes: resolve('../lib/validateCodes.js'),
+      validateCodes: resolve('../server/libs/errors/codes.js'),
       config: resolve('src/config'),
       models: resolve('src/models'),
 
