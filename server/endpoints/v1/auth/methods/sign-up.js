@@ -27,7 +27,7 @@ async function signUp (userObject) {
     errorDetails,
   } = await Users.create(userObject);
 
-  await sendActivationMail('kosz@henouser.pl', activationKey);
+  await sendActivationMail(userObject.email, activationKey);
 
   return {
     success,

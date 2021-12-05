@@ -26,7 +26,7 @@ async function requestResetPassword (email) {
       });
     }
 
-    await sendResetPasswordMail('kosz@henouser.pl', resetPasswordKey);
+    await sendResetPasswordMail(email, resetPasswordKey);
 
   }
 }
