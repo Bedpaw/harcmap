@@ -33,7 +33,7 @@ const email = Joi.string()
 const password = Joi.string()
   .pattern(/^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,24}$/);
 const role = Joi.string()
-  .equal('creator', 'admin', 'teamLeader', 'teamMember');
+  .equal('creator', 'admin', 'observer', 'teamLeader', 'teamMember');
 
 /**
  * Teams props
