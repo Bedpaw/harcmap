@@ -1,6 +1,7 @@
 import { MACROS } from 'utils/macros';
 import * as dayjs from 'dayjs';
 import { DateType } from 'src/models/date';
+import { UserEvent } from 'models/dtos/user';
 
 const { secondsInMinute, msInSeconds, minutesInHour } = MACROS.time;
 
@@ -102,14 +103,13 @@ export const splitObjectsListByTime = <T extends Record<string, DateType>, Key e
   return [isPast, isCurrent, isFuture];
 };
 
-export const splitEventsListByTimeNew = <T extends Record<string, DateType>, Key extends keyof T>(objectsList: T[], startDateKey: Key, endDateKey: Key) => {
-  const isPast: T[] = [];
-  const isCurrent: T[] = [];
-  const isFuture: T[] = [];
+export const splitEventsListByTimeNew = (objectsList: UserEvent[]) => {
+  const isPast: UserEvent[] = [];
+  const isCurrent: UserEvent[] = [];
+  const isFuture: UserEvent[] = [];
 
   objectsList.forEach(obj => {
-    const startDate = obj.eventDuration[startDateKey];
-    const endDate = obj.eventDuration[endDateKey];
+    const { startDate, endDate } = obj.eventDuration;
     if (compareDate.isActual(startDate, endDate)) {
       isCurrent.push(obj);
     } else if (compareDate.isFuture(startDate)) {
