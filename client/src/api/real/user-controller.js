@@ -1,10 +1,18 @@
-import { API_ERRORS, API_WARNS } from 'utils/macros/errors';
+import { API_ERRORS } from 'utils/macros/errors';
 import { httpService } from 'config/http-service';
 
+const urls = {
+  getUsers: '/users',
+  resetPassword: '/users/reset-password',
+  user: (id) => '/users/' + id,
+  activateAccount: (key) => 'account-activation/' + key,
+};
+
 export const userController = {
-  allUsers () {
+  allUsers ({ eventId }) {
     return httpService.get({
-      url: '/user/all',
+      url: urls.getUsers,
+      queryObject: { eventId },
       responseConfig: {
         errorConfig: {
           ...API_ERRORS.all,
@@ -12,51 +20,43 @@ export const userController = {
       },
     });
   },
-  signIn ({ user, password }) {
-    return httpService.post({
-      url: '/user/login',
-      body: { user, password },
+  activateUser ({ key }) {
+    return httpService.get({
+      url: urls.activateAccount(key),
       responseConfig: {
         errorConfig: {
-          ...API_ERRORS.signIn,
-        },
-        warnConfig: {
-          ...API_WARNS.signIn,
+          ...API_ERRORS.all,
         },
       },
     });
   },
-  checkYourLoginSession () {
-    return httpService.post({
-      url: '/user/login',
-      responseConfig: {
-        errorConfig: {
-          ...API_ERRORS.checkYourLoginSession,
-        },
-      },
-    });
-  },
-  signUp ({ user, password, userTeam, eventId }) {
-    return httpService.post({
-      url: '/user',
-      body: {
-        user,
-        password,
-        userTeam,
-        eventId,
-      },
-      responseConfig: {
-        errorConfig: {
-          ...API_ERRORS.signUp,
 
+  getUser ({ userId }) {
+    return httpService.get({
+      url: urls.user(userId),
+      responseConfig: {
+        errorConfig: {
+          ...API_ERRORS.all,
         },
       },
     });
   },
-  remindPassword ({ user }) {
+
+  updateUser ({ userId }) {
+    return httpService.put({
+      url: urls.user(userId),
+      responseConfig: {
+        errorConfig: {
+          ...API_ERRORS.all,
+        },
+      },
+    });
+  },
+
+  sendResetPassword ({ email }) {
     return httpService.post({
-      url: '/user/remind',
-      body: { user },
+      url: urls.resetPassword,
+      body: { email },
       responseConfig: {
         errorConfig: {
           ...API_ERRORS.remindPassword,
@@ -64,20 +64,10 @@ export const userController = {
       },
     });
   },
-  signOut ({ user }) {
-    return httpService.delete({
-      url: '/user/login',
-      body: { user },
-      responseConfig: {
-        errorConfig: {
-          ...API_ERRORS.signOut,
-        },
-      },
-    });
-  },
+
   changePassword ({ password, key }) {
     return httpService.put({
-      url: `/user/remind/${key}`,
+      url: `${urls.resetPassword}/${key}`,
       body: { password },
       responseConfig: {
         errorConfig: {
