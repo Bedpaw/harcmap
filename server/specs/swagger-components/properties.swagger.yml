@@ -1,5 +1,23 @@
 components:
   props:
+    appName:
+      description: 'App name'
+      type: string
+    author:
+      description: 'App author'
+      type: string
+    version:
+      description: 'App version'
+      type: string
+      example: '1.2.3'
+    appClientVersion:
+      description: 'Frontend service version'
+      type: string
+      example: '2.1.15'
+    appServerVersion:
+      description: 'Backend service version'
+      type: string
+      example: '2.0.1'
     id:
       description: 'Document unique id from database'
       type: string
@@ -8,12 +26,13 @@ components:
       type: string
       format: email
       maxLength: 24
+      example: '1.2.3'
     password:
       description: 'User password'
       type: string
       format: password
-      minLength: 8
-      maxLength: 24
+      pattern: /^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,24}$/
+      example: 'Password1'
     isActive:
       description: 'User account is active (in creating user, default: false)'
       type: boolean
@@ -27,11 +46,13 @@ components:
         type: object
         properties:
           eventId:
-            $ref: '#/components/props/eventId'
+            $ref: '#/components/props/id'
           eventName:
             $ref: '#/components/props/eventName'
+          eventDuration:
+            $ref: '#/components/props/eventDuration'
           teamId:
-            $ref: '#/components/props/teamId'
+            $ref: '#/components/props/id'
           teamName:
             $ref: '#/components/props/teamName'
           role:
@@ -42,65 +63,81 @@ components:
       description: 'Error code name'
       type: number
       length: 4
+      example: 1300
     message:
       description: 'Error text name'
       type: string
+      example: 'point not exist'
     errorDetails:
-      description: 'Validation details'
+      description: 'Validation details. PROBABLY WILL BE REMOVED'
       type: object
     success:
-      description: 'Field describe status of operation'
+      description: 'Field describe status of operation. In most endpoints always return TRUE'
       type: boolean
       nullable: false
+      example: true
     role:
       description: 'Describe permissions in app'
       type: string
-    eventId:
-      description: 'Event id'
-      type: string
+      example: 'teamLeader'
     eventName:
       description: 'Event name'
       type: string
+      example: 'Rajd szarej lilijki'
+      minLength: 3
+      maxLength: 50
     eventKey:
       description: 'Event access key'
       type: string
+      length: 4
+      example: 'hw4p'
     eventDuration:
       type: object
       properties:
         startDate:
           description: 'Time when event start'
           type: number
-          nullable: true
+          example: 1638714036373
+          maximum: 8640000000000000
         endDate:
           description: 'Time when event end'
           type: number
-          nullable: true
+          example: 1638714036373
+          maximum: 8640000000000000
     mapProperties:
       type: object
       properties:
         zoom:
           description: 'Default map zoom for user'
           type: number
+          example: 30
+          maximum: 10000000000
         longitude:
           description: 'Default map longitude for user'
           type: number
+          minimum: -180
+          maximum: 180
         latitude:
           description: 'Default map latitude for user'
           type: number
+          minimum: -90
+          maximum: 90
     eventRefreshTime:
       description: 'Refresh time(in seconds) of map with points'
       type: number
-    teamId:
-      description: 'Team id'
-      type: string
+      example: 60
+      maximum: 10000000000
     teamName:
       description: 'Team name'
       type: string
+      example: 'Włóczykije'
+      minLength: 3
+      maxLength: 24
     collectedPoints:
       description: 'List of collected points (pointsId)'
       type: array
       items:
-        type: string
+        $ref: '#/components/props/id'
     teamMembers:
       description: 'List of members in team'
       type: array
@@ -112,32 +149,39 @@ components:
           userId:
             $ref: '#/components/props/id'
           role:
-            $ref: '#/components/props/role'  
-    teamLeader:
-      description: 'Id of user that have to be leader of team'
-      type: string
-    pointId:
-      description: 'Point id'
-      type: string
+            $ref: '#/components/props/role'
     pointKey:
       description: 'Point key to collect. Nullable if user have no permission to key'
       type: string
       nullable: true
+      length: 4
+      example: 'hw4p'
     pointName:
       description: 'Point name'
       type: string
+      minLength: 3
+      maxLength: 24
+      example: 'Kukułka'
     pointCollectedDate:
       description: 'Date when point was collected. Can be null'
-      type: string
+      type: number
       nullable: true
+      example: 1638714036373
+      maximum: 8640000000000000
     pointPosition:
       description: 'Point position on map'
       type: object
       properties:
         longitude:
           type: number
+          minimum: -180
+          maximum: 180
+          example: 140.62
         latitude:
           type: number
+          minimum: -90
+          maximum: 90
+          example: -14.15132424
     pointDuration:
       description: 'Start and end time when point is available'
       type: object
@@ -145,29 +189,35 @@ components:
         startDate:
           description: 'Time when point start to be available. If null, point exist from start of event'
           type: number
+          example: 1638714036373
+          maximum: 8640000000000000
           default: null
           nullable: true
         endDate:
           description: 'Time when point end to be available. If null, point exist to end of event'
           type: number
+          example: 1638714036373
+          maximum: 8640000000000000
           default: null
           nullable: true
-    categoryId:
-      description: 'Category id'
-      type: string
     categoryName:
       description: 'Category name'
       type: string
+      minLength: 3
+      maxLength: 24
+      example: 'Czerwone'
     pointType:
       description: 'Point type'
       type: string
+      example: 'permanent'
     pointValue:
       description: 'Point category value'
       type: number
+      minimum: 0
+      maximum: 9999999999
+      example: 5
     pointShape:
       description: 'Point category shape'
       type: string
-    team:
-      type: string
-      nullable: true  
-        
+      minLength: 3
+      maxLength: 24

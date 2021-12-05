@@ -151,11 +151,11 @@ paths:
                 type: object
                 properties:
                   eventId:
-                    $ref: '#/components/props/eventId'
+                    $ref: '#/components/props/id'
                   role:
                     $ref: '#/components/props/role'
                   teamId:
-                    $ref: '#/components/props/teamId'
+                    $ref: '#/components/props/id'
         400:
           description: 'Validation error or none exist eventKey'
           content:

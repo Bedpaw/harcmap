@@ -59,9 +59,9 @@ paths:
   #                isActive:
   #                  $ref: '#/components/props/isActive'
   #                eventId:
-  #                  $ref: '#/components/props/eventId'
+  #                  $ref: '#/components/props/id'
   #                teamId:
-  #                  $ref: '#/components/props/teamId'
+  #                  $ref: '#/components/props/id'
   #              required:
   #                - email
   #                - password
@@ -226,7 +226,7 @@ paths:
                       type: object
                       properties:
                         teamId:
-                          $ref: '#/components/props/teamId'
+                          $ref: '#/components/props/id'
                         role:
                           $ref: '#/components/props/role'
                         isBanned:
