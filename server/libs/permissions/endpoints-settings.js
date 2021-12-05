@@ -21,6 +21,45 @@ const allUsers = admins.concat([users.leader, users.member]);
 //
 // WARNING! ORDER HAVE MATTERS
 //
+// const endpointsAccessConfig = {
+//   // common endpoints
+//   '/api-docs': users.guest,
+//   '/api/v1/about': users.guest,
+//   // auth endpoints
+//   '/api/v1/auth/sign-in': users.guest,
+//   '/api/v1/auth/sign-up': users.guest,
+//   '/api/v1/auth/sign-out': users.guest,
+//   // users endpoints
+//   '/api/v1/users': admins,
+//   '/api/v1/users/:userId': admins,
+//   '/api/v1/users/account-activation/:key': {
+//     GET: users.guest,
+//   },
+//   '/api/v1/users/reset-password': {
+//     POST: users.guest,
+//   },
+//   '/api/v1/users/reset-password/:key': {
+//     POST: users.guest,
+//   },
+//   // events endpoints
+//   '/api/v1/events': users.authenticated,
+//   '/api/v1/events/:eventId': admins,
+//   '/api/v1/events/check': users.authenticated,
+//   '/api/v1/events/join': users.authenticated,
+//   // categories
+//   '/api/v1/events/:eventId/categories': admins,
+//   // teams
+//   '/api/v1/events/:eventId/teams': admins,
+//   '/api/v1/events/:eventId/teams/:teamId': allUsers,
+//   // points
+//   '/api/v1/events/:eventId/points': {
+//     GET: allUsers,
+//     POST: admins,
+//   },
+//   '/api/v1/events/:eventId/points/:pointId': admins,
+//   '/api/v1/events/:eventId/points/collect': [users.creator, users.admin, users.observer, users.leader],
+// };
+
 const endpointsAccessConfig = {
   // common endpoints
   '/api-docs': users.guest,
@@ -30,34 +69,25 @@ const endpointsAccessConfig = {
   '/api/v1/auth/sign-up': users.guest,
   '/api/v1/auth/sign-out': users.guest,
   // users endpoints
-  '/api/v1/users': admins,
-  '/api/v1/users/:userId': admins,
-  '/api/v1/users/account-activation/:key': {
-    GET: users.guest,
-  },
-  '/api/v1/users/reset-password': {
-    POST: users.guest,
-  },
-  '/api/v1/users/reset-password/:key': {
-    POST: users.guest,
-  },
+  '/api/v1/users': users.guest,
+  '/api/v1/users/:userId': users.guest,
+  '/api/v1/users/account-activation/:key': users.guest,
+  '/api/v1/users/reset-password': users.guest,
+  '/api/v1/users/reset-password/:key': users.guest,
   // events endpoints
-  '/api/v1/events': users.authenticated,
-  '/api/v1/events/:eventId': admins,
-  '/api/v1/events/check': users.authenticated,
-  '/api/v1/events/join': users.authenticated,
+  '/api/v1/events': users.guest,
+  '/api/v1/events/:eventId': users.guest,
+  '/api/v1/events/check': users.guest,
+  '/api/v1/events/join': users.guest,
   // categories
-  '/api/v1/events/:eventId/categories': admins,
+  '/api/v1/events/:eventId/categories': users.guest,
   // teams
-  '/api/v1/events/:eventId/teams': admins,
-  '/api/v1/events/:eventId/teams/:teamId': allUsers,
+  '/api/v1/events/:eventId/teams': users.guest,
+  '/api/v1/events/:eventId/teams/:teamId': users.guest,
   // points
-  '/api/v1/events/:eventId/points': {
-    GET: allUsers,
-    POST: admins,
-  },
-  '/api/v1/events/:eventId/points/:pointId': admins,
-  '/api/v1/events/:eventId/points/collect': [users.creator, users.admin, users.observer, users.leader],
+  '/api/v1/events/:eventId/points': users.guest,
+  '/api/v1/events/:eventId/points/:pointId': users.guest,
+  '/api/v1/events/:eventId/points/collect': users.guest,
 };
 
 module.exports = endpointsAccessConfig;
