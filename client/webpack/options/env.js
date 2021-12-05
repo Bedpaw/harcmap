@@ -2,12 +2,12 @@
 const getDevGlobals = () => ({
   '__APP_PRODUCTION_MODE__': JSON.stringify(false),
   '__APP_USER_LOGIN_DATA__': JSON.stringify({
-    user: 'demo@demo.com',
-    password: 'HarcMap1',
+    user: 'example@domain.com',
+    password: 'Password1',
   }),
   '__APP_ADMIN_LOGIN_DATA__': JSON.stringify({
-    user: 'admin@demo.com',
-    password: 'HarcMap1',
+    user: 'admin@harcmap.com',
+    password: 'Password1',
   }),
   '__VUE_OPTIONS_API__': true,
   '__VUE_PROD_DEVTOOLS__': true,
