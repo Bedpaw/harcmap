@@ -20,9 +20,7 @@
     <!-- o-guide `v-if` and `transition` must be here because of async dependencies -->
     <o-guide v-if="guideIsOpen" />
   </transition>
-  <transition name="fade">
-    <o-loading v-show="isLoading" />
-  </transition>
+  <o-loading />
 </template>
 
 <script>
@@ -47,7 +45,6 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'isLoading',
       'routerId',
     ]),
     ...mapGetters('menu', {
