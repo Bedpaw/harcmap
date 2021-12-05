@@ -92,6 +92,11 @@ apiv1.use('/auth', auth);
 apiv1.use('/about', about);
 app.use('/api/v1', apiv1);
 
+// index rewrite
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../public/index.html'));
+});
+
 // common endpoints
 
 if (SWAGGER_DOC === 'true') {
