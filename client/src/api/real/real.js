@@ -8,7 +8,7 @@ export const realApi = {
   ...eventController,
   information () {
     return httpService.get({
-      url: '/information',
+      url: '/about',
       responseConfig: {
         errorConfig: {
           ...API_ERRORS.information,
