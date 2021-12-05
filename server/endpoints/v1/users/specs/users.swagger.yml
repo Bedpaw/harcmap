@@ -1,5 +1,5 @@
 paths:
-  /users:
+  /api/v1/users:
     get:
       summary: 'Get list of users (SECURED)'
       description: 'Special privilege required'
@@ -87,7 +87,7 @@ paths:
   #            application/json:
   #              schema:
   #                $ref: '#/components/responses/401'
-  /users/account-activation/:key:
+  /api/v1/users/account-activation/:key:
     get:
       summary: 'Activate user account with "key"'
       tags:
@@ -101,7 +101,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/400'
-  /users/reset-password:
+  /api/v1/users/reset-password:
     post:
       summary: 'Send request for generate password-reset-key'
       tags:
@@ -132,7 +132,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/400'
-  /users/reset-password/:key:
+  /api/v1/users/reset-password/:key:
     post:
       summary: 'Reset password for user with passwordReset "key"'
       tags:
@@ -163,7 +163,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/400'
-  /users/:userId:
+  /api/v1/users/:userId:
     get:
       summary: 'Get user with :userId (SECURED)'
       description: 'Special privilege required'

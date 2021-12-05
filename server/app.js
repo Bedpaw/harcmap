@@ -90,9 +90,9 @@ apiv1.use('/events', points);
 apiv1.use('/events', events);
 apiv1.use('/auth', auth);
 app.use('/api/v1', apiv1);
+app.use('/api/about', about);
 
 // common endpoints
-app.use('/about', about);
 
 if (SWAGGER_DOC === 'true') {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));

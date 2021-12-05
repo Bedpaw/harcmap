@@ -1,5 +1,5 @@
 paths:
-  /events/:eventId/categories:
+  /api/v1/events/:eventId/categories:
     get:
       summary: 'Get list of categories in event with eventId (SECURED)'
       description: 'Special privilege required'
