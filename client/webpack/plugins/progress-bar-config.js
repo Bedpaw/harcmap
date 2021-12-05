@@ -4,7 +4,7 @@ const chalk = require('chalk');
 class ProgressBarConfig {
   constructor () {
     return new ProgressBarWebpackPlugin({
-      format: '  Build ' + chalk.bgGray(':bar') + ' ' + chalk.green.bold(':percent') + ' ',
+      format: `  Build ${chalk.bgGray(':bar')} ${chalk.green.bold(':percent')} `,
       renderThrottle: 100,
       total: 200,
       width: 30,
