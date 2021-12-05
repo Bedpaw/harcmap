@@ -3,6 +3,7 @@ const passport = require('passport');
 const expressSession = require('express-session');
 const swaggerUi = require('swagger-ui-express');
 const MongoStore = require('connect-mongo');
+const path = require('path');
 const specs = require('./swagger.config');
 
 const { connectionString } = require('./libs/mongodb');
@@ -92,16 +93,15 @@ apiv1.use('/auth', auth);
 apiv1.use('/about', about);
 app.use('/api/v1', apiv1);
 
+// common endpoints
+if (SWAGGER_DOC === 'true') {
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+}
+
 // index rewrite
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../public/index.html'));
 });
-
-// common endpoints
-
-if (SWAGGER_DOC === 'true') {
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
-}
 
 // catch error
 app.use(handleErrors);
