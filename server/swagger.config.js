@@ -37,6 +37,9 @@ const options = {
     }, {
       name: 'Categories',
       description: 'Endpoint do obsługi kategorii punktów wydarzenia',
+    }, {
+      name: 'Teams',
+      description: 'Endpoint do obsługi zespołów wydarzenia',
     }],
   },
 };
