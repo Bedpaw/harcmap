@@ -6,6 +6,6 @@ export const api = {
   ...realApi,
 };
 
-// if (PRODUCTION === false) {
+// if (DEVELOPMENT_MODE) {
 window.api = api;
 // }

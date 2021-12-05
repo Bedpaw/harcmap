@@ -1,4 +1,4 @@
-export const pl = {
+export const plPL = {
   title: {
     error: 'Błąd 404',
     welcome: 'Strona powitalna',
