@@ -31,6 +31,12 @@ async function resetPassword (key, password) {
     password: getSHA(password),
   });
 
+  if (!updatedUser.success) {
+    throw new AppError(errorCodes.CANNOT_UPDATE_USER_RESET_PASSWORD, {
+      httpStatus: 500,
+    });
+  }
+
   return {
     success: updatedUser.success,
   };
