@@ -1,4 +1,4 @@
-const testEndpoint = require('../../tests/utils/test-endpoint');
+const testEndpoint = require('../../../../tests/utils/test-endpoint');
 const endpoint = '/about';
 
 // mock server package.json

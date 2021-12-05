@@ -1,9 +1,9 @@
 const { Router } = require('express');
 const requestSchema = require('./request-schema');
-const { addEndpointValidation } = require('../libs/validation');
-const serverpj = require('../package.json');
-const clientpj = require('../../client/package.json');
-const mainpj = require('../../package.json');
+const { addEndpointValidation } = require('../../../libs/validation');
+const serverpj = require('../../../package.json');
+const clientpj = require('../../../../client/package.json');
+const mainpj = require('../../../../package.json');
 
 const router = Router();
 

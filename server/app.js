@@ -24,13 +24,13 @@ const cookieMaxAge = parseInt(COOKIE_MAX_AGE, 10);
 const cookieSecure = COOKIE_SECURE !== 'false';
 
 // Endpoints sources
-const about = require('./endpoints/about');
-const users = require('./endpoints/v1/users/index');
-const events = require('./endpoints/v1/events/index');
-const teams = require('./endpoints/v1/teams/index');
-const auth = require('./endpoints/v1/auth/index');
-const points = require('./endpoints/v1/points/index');
-const categories = require('./endpoints/v1/categories/index');
+const about = require('./endpoints/v1/about');
+const users = require('./endpoints/v1/users');
+const events = require('./endpoints/v1/events');
+const teams = require('./endpoints/v1/teams');
+const auth = require('./endpoints/v1/auth');
+const points = require('./endpoints/v1/points');
+const categories = require('./endpoints/v1/categories');
 
 // App instance
 const app = express();
@@ -89,8 +89,8 @@ apiv1.use('/events', categories);
 apiv1.use('/events', points);
 apiv1.use('/events', events);
 apiv1.use('/auth', auth);
+apiv1.use('/about', about);
 app.use('/api/v1', apiv1);
-app.use('/api/about', about);
 
 // common endpoints
 

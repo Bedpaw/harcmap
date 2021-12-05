@@ -23,8 +23,8 @@ const allUsers = admins.concat([users.leader, users.member]);
 //
 const endpointsAccessConfig = {
   // common endpoints
-  '/about': users.guest,
   '/api-docs': users.guest,
+  '/api/v1/about': users.guest,
   // auth endpoints
   '/api/v1/auth/sign-in': users.guest,
   '/api/v1/auth/sign-up': users.guest,

@@ -1,5 +1,5 @@
 paths:
-  /api/about:
+  /api/v1/about:
     get:
       summary: Get general information about app, project
       tags:
