@@ -1,13 +1,20 @@
 import { AppEvent } from 'src/structures/app-event';
 import { API_ERRORS } from 'utils/macros/errors';
-import { MapPoint } from 'src/structures/map-point';
 import { httpService } from 'config/http-service';
+import { Mapper } from 'models/utils/mapper';
+
+const urls = {
+  getEvent: (eventId) => `events/${eventId}`,
+  addEvent: (eventId) => `events/${eventId}`,
+  updateEvent: (eventId) => `events/${eventId}`,
+  checkEvent: 'events/check',
+  joinEvent: 'events/join',
+};
 
 export const eventController = {
   getEventById ({ eventId }) {
     return httpService.get({
-      url: '/event',
-      queryObject: { eventId },
+      url: urls.getEvent(eventId),
       responseConfig: {
         successCallback: data => new AppEvent(data),
         errorConfig: {
@@ -16,108 +23,34 @@ export const eventController = {
       },
     });
   },
-  getPointsByEventId ({ eventId }) {
-    return httpService.get({
-      url: '/event/points',
-      queryObject: { eventId },
-      responseConfig: {
-        successCallback: data => data.points.map(point => new MapPoint(point)),
-        errorConfig: {
-          ...API_ERRORS.getPointsByEventId,
-        },
-      },
-    });
-  },
-  getCategoriesByEventId ({ eventId }) {
-    return httpService.get({
-      url: '/event/point/categories',
-      queryObject: { eventId },
-      responseConfig: {
-        successCallback: data => data.categories,
-        errorConfig: {
-          ...API_ERRORS.getCategoriesByEventId,
-        },
-      },
-    });
-  },
-  collectPoint ({ user, eventId, pointId }) {
+  updateEvent (event) {
     return httpService.put({
-      url: '/event/point/collect',
-      body: {
-        user,
-        eventId,
-        pointId,
-      },
+      url: urls.updateEvent(event.eventId),
+      body: Mapper.mapEventOut(event),
       responseConfig: {
         errorConfig: {
-          ...API_ERRORS.collectPoint,
+          ...API_ERRORS.updateEvent,
         },
       },
     });
   },
-  removePoint ({ eventId, pointId }) {
-    return httpService.delete({
-      url: '/event/point',
-      body: {
-        pointId,
-        eventId,
-      },
-      responseConfig: {
-        errorConfig: {
-          ...API_ERRORS.removePoint,
-        },
-      },
-    });
-  },
-  addPoint ({ point, eventId }) {
+  checkEvent ({ eventKey }) {
     return httpService.post({
-      url: '/event/point',
-      body: {
-        point,
-        eventId,
-      },
+      url: urls.checkEvent(eventKey),
       responseConfig: {
         errorConfig: {
-          ...API_ERRORS.addPoint,
+          ...API_ERRORS.updateEvent,
         },
       },
     });
   },
-  editPoint ({ point, eventId }) {
-    return httpService.put({
-      url: '/event/point',
+  joinEvent ({ userId, eventId, teamName }) {
+    return httpService.post({
+      url: urls.joinEvent,
       body: {
-        point,
+        userId,
         eventId,
-      },
-      responseConfig: {
-        errorConfig: {
-          ...API_ERRORS.editPoint,
-        },
-      },
-    });
-  },
-  updateEvent ({
-    eventId,
-    eventName,
-    eventStartDate,
-    eventEndDate,
-    mapLongitude,
-    mapLatitude,
-    mapZoom,
-    mapRefreshTime,
-  }) {
-    return httpService.put({
-      url: '/event',
-      body: {
-        eventId,
-        eventName,
-        eventStartDate,
-        eventEndDate,
-        mapLongitude,
-        mapLatitude,
-        mapZoom,
-        mapRefreshTime,
+        teamName,
       },
       responseConfig: {
         errorConfig: {
@@ -126,28 +59,10 @@ export const eventController = {
       },
     });
   },
-  addEvent ({
-    eventId,
-    eventName,
-    mapLongitude,
-    mapLatitude,
-    mapZoom,
-    mapRefreshTime,
-    eventStartDate,
-    eventEndDate,
-  }) {
+  addEvent (event) {
     return httpService.post({
-      url: '/event',
-      body: {
-        eventId,
-        eventName,
-        eventStartDate,
-        eventEndDate,
-        mapLongitude,
-        mapLatitude,
-        mapZoom,
-        mapRefreshTime,
-      },
+      url: urls.addEvent(event),
+      body: Mapper.mapEventOut(event),
       responseConfig: {
         errorConfig: {
           ...API_ERRORS.addEvent,

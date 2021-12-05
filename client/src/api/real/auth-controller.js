@@ -32,7 +32,7 @@ export const authController = {
       },
     });
   },
-  signUp ({ user: email, password }) {
+  signUp ({ email, password }) {
     return httpService.post({
       url: urls.signUp,
       body: {
@@ -48,7 +48,7 @@ export const authController = {
     });
   },
   signOut () {
-    return httpService.delete({
+    return httpService.post({
       url: urls.signOut,
       responseConfig: {
         errorConfig: {

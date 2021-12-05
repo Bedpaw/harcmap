@@ -1,5 +1,6 @@
 export interface Event {
   eventId: string;
+  eventKey: string;
   eventName: string;
   eventStartDate: number;
   eventEndDate: number;
