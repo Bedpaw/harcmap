@@ -63,8 +63,8 @@ export default {
       return new Promise((resolve, reject) => {
         let event;
         api.getEventById({ eventId })
-          .then(data => (event = data))
-          .then(api.getCategoriesByEventId)
+          .then(data => (event = { ...data, eventId }))
+          .then(() => api.getCategoriesByEventId(event))
           .then(categories => (event.categories = categories))
           .then(() => {
             const IsBeforeStart = eventUtils.isBeforeStart(event);

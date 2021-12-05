@@ -3,8 +3,8 @@ import { API_ERRORS } from 'utils/macros/errors';
 import { Mapper } from 'models/utils/mapper';
 
 const urls = {
-  getCategoriesByEventId: (eventId) => '/events/' + eventId + '/points',
-  addPointCategory: (eventId) => '/events/' + eventId + '/points',
+  getCategoriesByEventId: (eventId) => '/events/' + eventId + '/categories',
+  addPointCategory: (eventId) => '/events/' + eventId + '/categories',
 };
 
 export const pointCategoryController = {
@@ -12,7 +12,6 @@ export const pointCategoryController = {
     return httpService.get({
       url: urls.getCategoriesByEventId(eventId),
       responseConfig: {
-        successCallback: data => data.categories.map(category => Mapper.mapPointIn(category)),
         errorConfig: {
           ...API_ERRORS.getCategoriesByEventId,
         },

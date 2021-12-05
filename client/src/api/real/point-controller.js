@@ -1,5 +1,4 @@
 import { httpService } from 'config/http-service';
-import { MapPoint } from 'src/structures/map-point';
 import { API_ERRORS } from 'utils/macros/errors';
 import { Mapper } from 'models/utils/mapper';
 
@@ -16,7 +15,7 @@ export const pointController = {
     return httpService.get({
       url: urls.getPointsByEventId(eventId),
       responseConfig: {
-        successCallback: data => data.points.map(point => Mapper.mapPointIn(point)),
+        successCallback: data => data.map(point => Mapper.mapPointIn(point)),
         errorConfig: {
           ...API_ERRORS.getPointsByEventId,
         },

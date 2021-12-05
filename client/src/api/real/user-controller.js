@@ -5,7 +5,7 @@ const urls = {
   getUsers: '/users',
   resetPassword: '/users/reset-password',
   user: (id) => '/users/' + id,
-  activateAccount: (key) => 'account-activation/' + key,
+  activateAccount: (key) => '/account-activation/' + key,
 };
 
 export const userController = {

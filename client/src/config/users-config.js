@@ -44,10 +44,7 @@ export const userUtils = {
     commonUsers.unshift(leaderUser);
     return commonUsers;
   },
-  getIcon: (event) => {
-    console.log(event, accountTypeInfo);
-    return accountTypeInfo[event.role].icon;
-  },
+  getIcon: (event) => accountTypeInfo[event.role].icon,
   getNameKey: ({ role }) => accountTypeInfo[role].nameKey,
   isOrganizer: (user) => user.accountType === creator,
   can: {

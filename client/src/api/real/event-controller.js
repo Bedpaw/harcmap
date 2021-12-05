@@ -1,14 +1,13 @@
-import { AppEvent } from 'src/structures/app-event';
 import { API_ERRORS } from 'utils/macros/errors';
 import { httpService } from 'config/http-service';
 import { Mapper } from 'models/utils/mapper';
 
 const urls = {
-  getEvent: (eventId) => `events/${eventId}`,
-  addEvent: (eventId) => `events/${eventId}`,
-  updateEvent: (eventId) => `events/${eventId}`,
-  checkEvent: 'events/check',
-  joinEvent: 'events/join',
+  getEvent: (eventId) => `/events/${eventId}`,
+  addEvent: (eventId) => `/events/${eventId}`,
+  updateEvent: (eventId) => `/events/${eventId}`,
+  checkEvent: '/events/check',
+  joinEvent: '/events/join',
 };
 
 export const eventController = {
@@ -16,7 +15,7 @@ export const eventController = {
     return httpService.get({
       url: urls.getEvent(eventId),
       responseConfig: {
-        successCallback: data => new AppEvent(data),
+        successCallback: data => Mapper.mapEventIn(data),
         errorConfig: {
           ...API_ERRORS.getEventById,
         },

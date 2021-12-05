@@ -25,12 +25,12 @@ import MButtonsListEvents from 'molecules/buttons-list-events';
 import { MACROS } from 'utils/macros';
 import { DATE_FORMATS, displayDate } from 'utils/date';
 import { generalConfigUtils } from 'config/general-config';
-import { eventsListMock } from 'organisms/events-list-mock';
 import { userUtils } from 'config/users-config';
 import { eventUtils } from 'utils/event';
 import { materialIcons } from '@dbetka/vue-material-icons';
-import { api } from 'api';
 import dayjs from 'dayjs';
+import { autoUpdate } from 'utils/auto-update';
+import { ROUTES } from 'config/routes-config';
 
 const ICONS_TYPES = materialIcons.types;
 
@@ -112,7 +112,14 @@ export default {
       };
     },
     signInToEvent (eventId) {
-      // this.
+      this.$store.dispatch('event/download', eventId)
+        .then(() => {
+          autoUpdate.run();
+          this.$router.push(ROUTES.start.path);
+        })
+        .catch(() => {
+          this.$store.dispatch('user/signOut').catch(() => undefined);
+        });
     },
     navigateToCreateEvent () {
       this.$router.push(this.ROUTES.newEvent.path);

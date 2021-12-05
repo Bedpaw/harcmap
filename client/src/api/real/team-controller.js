@@ -1,5 +1,4 @@
 import { httpService } from 'config/http-service';
-import { MapPoint } from 'src/structures/map-point';
 import { API_ERRORS } from 'utils/macros/errors';
 import { Mapper } from 'models/utils/mapper';
 
