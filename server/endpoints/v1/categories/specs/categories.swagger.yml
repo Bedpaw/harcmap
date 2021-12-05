@@ -16,7 +16,7 @@ paths:
                   type: object
                   properties:
                     categoryId:
-                      $ref: '#/components/props/categoryId'
+                      $ref: '#/components/props/id'
                     categoryName:
                       $ref: '#/components/props/categoryName'
                     pointValue:
@@ -181,4 +181,4 @@ paths:
 #          content:
 #            application/json:
 #              schema:
-#                $ref: '#/components/responses/401'                  
+#                $ref: '#/components/responses/401'

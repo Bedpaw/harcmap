@@ -53,6 +53,7 @@ function getUserAggregation (query) {
           $push: {
             eventId: '$event._id',
             eventName: '$event.eventName',
+            eventDuration: '$event.eventDuration',
             teamId: '$team._id',
             teamName: '$team.teamName',
             role: '$userEvents.role',

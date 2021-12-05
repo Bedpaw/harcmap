@@ -10,7 +10,7 @@ const date = Joi.number()
   .integer()
   .unsafe() // Date.now() max value is greater then js MAX_SAFE_INTEGER
   .max(8640000000000000); // that's the max value of Date.now()
-const dateWithNull = Joi.number().allow(null);
+const dateWithNull = date.allow(null);
 const keys = Joi.string()
   .pattern(/^[ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz123456789]{4}$/); // all characters except [O0Il]
 const longitude = Joi.number()
@@ -34,14 +34,14 @@ const password = Joi.string()
   .pattern(/^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,24}$/);
 const role = Joi.string()
   .equal('creator', 'admin', 'teamLeader', 'teamMember');
-const teamName = Joi.string()
-  .min(3)
-  .max(24)
-  .trim();
 
 /**
  * Teams props
  */
+const teamName = Joi.string()
+  .min(3)
+  .max(24)
+  .trim();
 const collectedPoints = Joi.array()
   .items(objectIdInRequest);
 

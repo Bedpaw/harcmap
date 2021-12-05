@@ -19,6 +19,8 @@ components:
           $ref: '#/components/props/error'
         message:
           $ref: '#/components/props/message'
+        errorDetails:
+          $ref: '#/components/props/errorDetails'
       required:
         - error
-        - message  
+        - message

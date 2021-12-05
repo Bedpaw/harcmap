@@ -16,9 +16,9 @@ paths:
                   type: object
                   properties:
                     pointId:
-                      $ref: '#/components/props/pointId'
+                      $ref: '#/components/props/id'
                     pointKey:
-                      $ref: '#/components/props/pointKey'  
+                      $ref: '#/components/props/pointKey'
                     pointName:
                       $ref: '#/components/props/pointName'
                     pointType:
@@ -30,7 +30,7 @@ paths:
                     pointPosition:
                       $ref: '#/components/props/pointPosition'
                     pointCategoryId:
-                      $ref: '#/components/props/categoryId'
+                      $ref: '#/components/props/id'
         400:
           description: 'Validation error'
           content:
@@ -55,11 +55,11 @@ paths:
               type: object
               properties:
                 pointId:
-                  $ref: '#/components/props/pointId'
+                  $ref: '#/components/props/id'
                 pointName:
                   $ref: '#/components/props/pointName'
                 pointKey:
-                  $ref: '#/components/props/pointKey'  
+                  $ref: '#/components/props/pointKey'
                 pointType:
                   $ref: '#/components/props/pointType'
                 pointDuration:
@@ -67,7 +67,7 @@ paths:
                 pointPosition:
                   $ref: '#/components/props/pointPosition'
                 pointCategoryId:
-                  $ref: '#/components/props/categoryId'
+                  $ref: '#/components/props/id'
               required:
                 - pointKey
                 - pointName
@@ -157,7 +157,7 @@ paths:
                 pointPosition:
                   $ref: '#/components/props/pointPosition'
                 pointCategory:
-                  $ref: '#/components/props/categoryId'
+                  $ref: '#/components/props/id'
       responses:
         200:
           description: 'Result of operation'
@@ -206,4 +206,4 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/responses/401'                  
+                $ref: '#/components/responses/401'

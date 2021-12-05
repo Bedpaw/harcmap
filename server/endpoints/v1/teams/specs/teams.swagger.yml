@@ -16,7 +16,7 @@ paths:
                   type: object
                   properties:
                     teamId:
-                      $ref: '#/components/props/teamId'
+                      $ref: '#/components/props/id'
                     teamName:
                       $ref: '#/components/props/teamName'
                     collectedPoints:
@@ -83,7 +83,7 @@ paths:
 #                teamKey:
 #                  $ref: '#/components/props/teamKey'
 #                teamLeader:
-#                  $ref: '#/components/props/teamLeader'
+#                  $ref: '#/components/props/id'
 #                teamMembers:
 #                  $ref: '#/components/props/teamMembers'
 #      responses:
@@ -120,7 +120,7 @@ paths:
 #              type: object
 #              properties:
 #                teamId:
-#                  $ref: '#/components/props/teamId'
+#                  $ref: '#/components/props/id'
 #              required:
 #                - teamId
 #      responses:
@@ -144,4 +144,4 @@ paths:
 #          content:
 #            application/json:
 #              schema:
-#                $ref: '#/components/responses/401'            
+#                $ref: '#/components/responses/401'
