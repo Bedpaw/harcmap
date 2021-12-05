@@ -8,7 +8,7 @@ const urls = {
 };
 
 export const authController = {
-  signIn ({ user: email, password }) {
+  signIn ({ email, password }) {
     return httpService.post({
       url: urls.signIn,
       body: { email, password },

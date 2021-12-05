@@ -1,10 +1,10 @@
-import { userController } from 'api/real/user-controller';
 import { eventController } from 'api/real/event-controller';
 import { API_ERRORS } from 'utils/macros/errors';
 import { httpService } from 'config/http-service';
+import { authController } from 'api/real/auth-controller';
 
 export const realApi = {
-  ...userController,
+  ...authController,
   ...eventController,
   information () {
     return httpService.get({

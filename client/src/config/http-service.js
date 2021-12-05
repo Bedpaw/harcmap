@@ -40,7 +40,7 @@ export const httpService = HttpService.getInstance({
       }
     }
 
-    if (error === validateCodes.UNAUTHORIZED_ACCESS) {
+    if (error === validateCodes.NO_PERMISSION_TO_RESOURCE) {
       store.commit('user/signOut');
       router.push(ROUTES.welcome.path);
       errorMessage = translator.t('apiError.general.unauthorizedAccess');
@@ -52,15 +52,17 @@ export const httpService = HttpService.getInstance({
   },
   defaultWarnCallback: (warn, defaultWarn, warns) => {
     let warnMessage = defaultWarn;
-    for (const [codes, message] of warns) {
-      for (const singleCode of codes) {
-        if (warn === singleCode) {
-          warnMessage = message;
-          break;
+    if (warns) {
+      for (const [codes, message] of warns) {
+        for (const singleCode of codes) {
+          if (warn === singleCode) {
+            warnMessage = message;
+            break;
+          }
         }
       }
+      (new WarnMessage(warnMessage)).showMessage();
     }
-    (new WarnMessage(warnMessage)).showMessage();
   },
 
 });

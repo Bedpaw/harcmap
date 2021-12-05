@@ -2,7 +2,7 @@ import { createStore } from 'vuex';
 import menu from './menu';
 import theme from './theme';
 import event from './event';
-import user from './user';
+import { user } from './user';
 import allUsers from './all-users';
 import header from './header';
 import popup from './popup';
