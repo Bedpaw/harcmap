@@ -1,6 +1,7 @@
 import validateCodes from 'validateCodes';
 import { translator } from 'src/dictionary';
 import { apiErrorTranslationFactory } from 'utils/translations';
+import { ApiErrors } from 'models/errors';
 
 const T = {
   general: apiErrorTranslationFactory('general'),
@@ -42,7 +43,7 @@ export const API_WARNS = {
   },
 };
 
-const EVENT_API_ERRORS = {
+const EVENT_API_ERRORS: ApiErrors = {
   getEventById: {
     defaultError: T.event('getEventById'),
   },
@@ -79,7 +80,7 @@ const EVENT_API_ERRORS = {
     ],
   },
 };
-const POINT_API_ERRORS = {
+const POINT_API_ERRORS: ApiErrors = {
   collectPoint: {
     defaultError: T.point('collectPoint'),
     errors: [
@@ -120,7 +121,7 @@ const POINT_API_ERRORS = {
     ],
   },
 };
-const USERS_API_ERRORS = {
+const USERS_API_ERRORS: ApiErrors = {
   all: {
     defaultError: T.users('all'),
     errors: [
@@ -131,7 +132,7 @@ const USERS_API_ERRORS = {
     ],
   },
 };
-const AUTH_API_ERRORS = {
+const AUTH_API_ERRORS: ApiErrors = {
   signIn: {
     defaultError: T.auth('signIn'),
     errors: [
@@ -167,7 +168,7 @@ const AUTH_API_ERRORS = {
     defaultError: T.auth('signOut'),
   },
 };
-const REGISTER_AND_ACCOUNT_API_ERRORS = {
+const REGISTER_AND_ACCOUNT_API_ERRORS: ApiErrors = {
   signUp: {
     defaultError: T.registerAndAccount('signUp'),
     errors: [
@@ -190,7 +191,7 @@ const REGISTER_AND_ACCOUNT_API_ERRORS = {
   },
 };
 
-export const API_ERRORS = {
+export const API_ERRORS: ApiErrors = {
   undefined: {
     defaultError: T.general('undefined'),
   },

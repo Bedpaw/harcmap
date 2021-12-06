@@ -13,43 +13,27 @@ export const userController = {
     return httpService.get({
       url: urls.getUsers,
       queryObject: { eventId },
-      responseConfig: {
-        errorConfig: {
-          ...API_ERRORS.all,
-        },
-      },
+      errorOptions: API_ERRORS.all,
     });
   },
   activateUser ({ key }) {
     return httpService.get({
       url: urls.activateAccount(key),
-      responseConfig: {
-        errorConfig: {
-          ...API_ERRORS.all,
-        },
-      },
+      errorOptions: API_ERRORS.all,
     });
   },
 
   getUser ({ userId }) {
     return httpService.get({
       url: urls.user(userId),
-      responseConfig: {
-        errorConfig: {
-          ...API_ERRORS.all,
-        },
-      },
+      errorOptions: API_ERRORS.all,
     });
   },
 
   updateUser ({ userId }) {
     return httpService.put({
       url: urls.user(userId),
-      responseConfig: {
-        errorConfig: {
-          ...API_ERRORS.all,
-        },
-      },
+      errorOptions: API_ERRORS.all,
     });
   },
 
@@ -57,11 +41,7 @@ export const userController = {
     return httpService.post({
       url: urls.resetPassword,
       body: { email },
-      responseConfig: {
-        errorConfig: {
-          ...API_ERRORS.remindPassword,
-        },
-      },
+      errorOptions: API_ERRORS.remindPassword,
     });
   },
 
@@ -69,11 +49,7 @@ export const userController = {
     return httpService.put({
       url: `${urls.resetPassword}/${key}`,
       body: { password },
-      responseConfig: {
-        errorConfig: {
-          ...API_ERRORS.changePassword,
-        },
-      },
+      errorOptions: API_ERRORS.changePassword,
     });
   },
 };

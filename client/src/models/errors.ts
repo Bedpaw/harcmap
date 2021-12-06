@@ -1,11 +1,14 @@
-export interface ApiErrors {
-  [key: string]: {
-    defaultError: string,
-    errors?: [number[], string][]}
+export interface ApiError {
+  defaultError: string,
+  errors?: [number[], string][]
 }
 
-export interface ApiWarns {
-  [key: string]: {
-    defaultWarn: string,
-    warns?: [number[], string][]}
+export interface ApiErrors {
+  [key: string]: ApiError
+}
+
+export interface BackendError {
+  error: number;
+  message: string;
+  errorDetails: string[]
 }

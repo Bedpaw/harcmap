@@ -1,6 +1,5 @@
 import { httpService } from 'config/http-service';
 import { API_ERRORS } from 'utils/macros/errors';
-import { Mapper } from 'models/utils/mapper';
 
 const urls = {
   getAllTeamsByEventId: (eventId) => '/events/' + eventId + '/teams',
@@ -11,23 +10,13 @@ export const teamController = {
   getAllTeamsByEventId ({ eventId }) {
     return httpService.get({
       url: urls.getAllTeamsByEventId(eventId),
-      responseConfig: {
-        successCallback: data => data.teams.map(teams => Mapper.mapPointIn(teams)),
-        errorConfig: {
-          ...API_ERRORS.getPointsByEventId,
-        },
-      },
+      errorOptions: API_ERRORS.getPointsByEventId,
     });
   },
   getTeamByEventId ({ eventId, teamId }) {
     return httpService.get({
       url: urls.getTeamByEventId(eventId, teamId),
-      responseConfig: {
-        successCallback: data => data.team.map(team => Mapper.mapPointIn(team)),
-        errorConfig: {
-          ...API_ERRORS.getPointsByEventId,
-        },
-      },
+      errorOptions: API_ERRORS.getPointsByEventId,
     });
   },
 
