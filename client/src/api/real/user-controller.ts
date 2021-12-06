@@ -4,40 +4,40 @@ import { httpService } from 'config/http-service';
 const urls = {
   getUsers: '/users',
   resetPassword: '/users/reset-password',
-  user: (id) => '/users/' + id,
-  activateAccount: (key) => '/account-activation/' + key,
+  user: (id: string) => '/users/' + id,
+  activateAccount: (key: string) => '/account-activation/' + key,
 };
 
 export const userController = {
-  allUsers ({ eventId }) {
+  allUsers (eventId: string) {
     return httpService.get({
       url: urls.getUsers,
       queryObject: { eventId },
       errorOptions: API_ERRORS.all,
     });
   },
-  activateUser ({ key }) {
+  activateUser (key: string) {
     return httpService.get({
       url: urls.activateAccount(key),
       errorOptions: API_ERRORS.all,
     });
   },
 
-  getUser ({ userId }) {
+  getUser (userId: string) {
     return httpService.get({
       url: urls.user(userId),
       errorOptions: API_ERRORS.all,
     });
   },
 
-  updateUser ({ userId }) {
+  updateUser (userId: string) {
     return httpService.put({
       url: urls.user(userId),
       errorOptions: API_ERRORS.all,
     });
   },
 
-  sendResetPassword ({ email }) {
+  sendResetPassword (email: string) {
     return httpService.post({
       url: urls.resetPassword,
       body: { email },
@@ -45,7 +45,7 @@ export const userController = {
     });
   },
 
-  changePassword ({ password, key }) {
+  changePassword (password: string, key: string) {
     return httpService.put({
       url: `${urls.resetPassword}/${key}`,
       body: { password },

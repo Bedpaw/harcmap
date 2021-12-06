@@ -70,10 +70,10 @@ export default {
     function changePassword () {
       isSending.value = true;
       blockForm.value = true;
-      api.changePassword({
-        password: password.value,
-        key: router.currentRoute.value.params.key,
-      })
+      api.changePassword(
+        password.value,
+        router.currentRoute.value.params.key,
+      )
         .then(onChangePassword)
         .catch(onErrorOccurs);
     }

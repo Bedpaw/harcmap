@@ -46,9 +46,11 @@ export const API_WARNS = {
 const EVENT_API_ERRORS: ApiErrors = {
   getEventById: {
     defaultError: T.event('getEventById'),
+    errors: [],
   },
   getPointsByEventId: {
     defaultError: T.event('getPointsByEventId'),
+    errors: [],
   },
   getCategoriesByEventId: {
     defaultError: T.event('getCategoriesByEventId'),
@@ -107,9 +109,11 @@ const POINT_API_ERRORS: ApiErrors = {
   },
   addPoint: {
     defaultError: T.point('addPoint'),
+    errors: [],
   },
   editPoint: {
     defaultError: T.point('editPoint'),
+    errors: [],
   },
   removePoint: {
     defaultError: T.point('removePoint'),
@@ -163,9 +167,12 @@ const AUTH_API_ERRORS: ApiErrors = {
   },
   checkYourLoginSession: {
     defaultError: T.auth('checkYourLoginSession'),
+    errors: [],
   },
   signOut: {
     defaultError: T.auth('signOut'),
+    errors: [],
+
   },
 };
 const REGISTER_AND_ACCOUNT_API_ERRORS: ApiErrors = {
@@ -184,10 +191,13 @@ const REGISTER_AND_ACCOUNT_API_ERRORS: ApiErrors = {
   },
   remindPassword: {
     defaultError: T.registerAndAccount('remindPassword'),
+    errors: [],
+
   },
 
   changePassword: {
     defaultError: T.registerAndAccount('changePassword'),
+    errors: [],
   },
 };
 
