@@ -7,7 +7,7 @@ export interface ApiErrors {
   [key: string]: ApiError
 }
 
-export interface BackendError {
+export interface ServerError {
   error: number;
   message: string;
   errorDetails: string[]
