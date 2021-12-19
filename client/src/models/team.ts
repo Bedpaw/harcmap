@@ -1,3 +1,13 @@
-// import { TeamDTO } from 'models/dtos/team';
+export interface TeamMember {
+  userId: string;
+  email: string;
+  role: string;
+  nickname: string;
+}
 
-// export type Team = TeamDTO;
+export interface Team {
+  teamId: string;
+  teamName: string;
+  collectedPoints: string[]
+  teamMembers: TeamMember[]
+}

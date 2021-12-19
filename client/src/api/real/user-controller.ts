@@ -1,5 +1,8 @@
 import { API_ERRORS } from 'utils/macros/errors';
 import { httpService } from 'config/http-service';
+import { UserDTO } from 'models/dtos/user';
+import { UserInEvent } from 'models/user';
+import { Mapper } from 'models/utils/mapper';
 
 const urls = {
   getUsers: '/users',
@@ -9,11 +12,19 @@ const urls = {
 };
 
 export const userController = {
-  allUsers (eventId: string) {
-    return httpService.get({
+  getAllUsersByEventId (eventId: string) {
+    return httpService.get<UserDTO[], UserInEvent[]>({
       url: urls.getUsers,
       queryObject: { eventId },
       errorOptions: API_ERRORS.all,
+      successCallback: data => data.map(user => {
+        // TODO Remove add fields, should be from backend
+        user.userEvents[0].eventDuration = {
+          endDate: Number(new Date()),
+          startDate: Number(new Date()),
+        };
+        return Mapper.mapUserInEvent(user);
+      }),
     });
   },
   activateUser (key: string) {
@@ -23,10 +34,12 @@ export const userController = {
     });
   },
 
-  getUser (userId: string) {
-    return httpService.get({
+  getUser (userId: string, eventId: string) {
+    return httpService.get<UserDTO, UserInEvent>({
       url: urls.user(userId),
       errorOptions: API_ERRORS.all,
+      queryObject: { eventId },
+      successCallback: user => Mapper.mapUserInEvent(user),
     });
   },
 

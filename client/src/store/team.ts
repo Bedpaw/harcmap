@@ -23,10 +23,10 @@ export const team:Module<TeamDTO, object> = {
       return collectedPoints;
     },
     sumOfCollectedPoints (state, getters, rootState, rootGetters) {
-      return getters.collectedPoints.map(point => {
+      return getters.collectedPoints.map((point: PointType) => {
         return rootGetters['event/getCategoryById'](point.pointCategory).pointValue;
       })
-        .reduce((a, b) => a + b, 0);
+        .reduce((a: number, b: number) => a + b, 0);
     },
   },
   mutations: {

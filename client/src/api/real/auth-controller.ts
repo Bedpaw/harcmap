@@ -1,5 +1,8 @@
 import { API_ERRORS } from 'src/utils/macros/errors';
 import { httpService } from 'config/http-service';
+import { Mapper } from 'models/utils/mapper';
+import { UserDTO } from 'models/dtos/user';
+import { User } from 'models/user';
 
 type Credentials = { email: string, password: string }
 const urls = {
@@ -10,9 +13,16 @@ const urls = {
 
 export const authController = {
   signIn (credentials: Credentials) {
-    return httpService.post({
+    // TODO, why there is user field, somewhere in autologin
+    if (credentials.user) {
+      credentials.email = credentials.user;
+      delete credentials.user;
+    }
+
+    return httpService.post<UserDTO, User>({
       url: urls.signIn,
       body: credentials,
+      successCallback: (data) => Mapper.mapUserIn(data),
       errorOptions: API_ERRORS.signIn,
     });
   },

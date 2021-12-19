@@ -33,17 +33,17 @@
         v-text="errorMessage"
       />
       <div
-        v-else-if="commonUsers.length === 0"
+        v-else-if="teams.length === 0"
         class="a-message f-table"
         v-text="$t('page.collectedPoints.noPoints')"
       />
       <m-row-score
-        v-for="[key, {user, userScore}] of sortedUsers.entries()"
-        :key="user.pointId"
+        v-for="[key, {team, teamScore}] of sortedTeams.entries()"
+        :key="team.pointId"
         class="f-text-subtext"
         :class="{ 'f-text-standard': key < 3 }"
-        :user="user"
-        :user-score="userScore"
+        :team="team"
+        :team-score="teamScore"
       />
     </div>
   </t-page>
@@ -66,9 +66,9 @@ export default {
     errorMessage: '',
   }),
   computed: {
-    ...mapGetters('allUsers', [
-      'commonUsers',
-      'scoreByUser',
+    ...mapGetters('groups', [
+      'teams',
+      'scoreByTeam',
     ]),
     ...mapGetters('event', [
       'permanentCategories',
@@ -80,17 +80,17 @@ export default {
     ...mapGetters('theme', [
       'categoryColorById',
     ]),
-    sortedUsers () {
-      return this.commonUsers
-        .map(user => ({
-          user,
-          userScore: this.scoreByUser(user),
+    sortedTeams () {
+      return this.teams
+        .map(team => ({
+          team,
+          teamScore: this.scoreByTeam(team),
         }))
-        .sort((a, b) => b.userScore - a.userScore);
+        .sort((a, b) => b.teamScore - a.teamScore);
     },
   },
   mounted () {
-    this.$store.dispatch('allUsers/download', this.eventId)
+    this.$store.dispatch('groups/downloadTeams', this.eventId)
       .then(() => {
         this.errorMessage = '';
       })

@@ -27,8 +27,8 @@ export const plPL = {
     usersList: 'Użytkownicy',
     teamView: 'Drużyna',
     short: {
-      start: 'start',
-      map: 'mapa',
+      start: 'Start',
+      map: 'Mapa',
       timeoutPoints: 'Czasowe',
       adminPanel: 'Admin',
       spectatorPanel: 'Panel',

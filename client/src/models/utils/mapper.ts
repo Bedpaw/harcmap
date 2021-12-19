@@ -2,8 +2,8 @@ import { PointDTO, PointDTOCreate, PointDTOUpdate } from 'models/dtos/point';
 import { PointType } from 'models/point';
 import { EventDTO } from 'models/dtos/event';
 import { Event } from 'models/event';
-import { SignInResponseDTO } from 'models/dtos/auth';
-import { SignInResponse } from 'models/auth';
+import { UserDTO } from 'models/dtos/user';
+import { User, UserInEvent } from 'models/user';
 
 export class Mapper {
 
@@ -84,14 +84,41 @@ export class Mapper {
     };
   }
 
-  public static mapEventSignIn (response: SignInResponseDTO): SignInResponse {
+  public static mapUserIn (user: UserDTO): User {
+    // When user have many userEvents -> ex. signIn response
     return {
-      ...response,
-      userEvents: response.userEvents.map(event => ({
+      ...user,
+      userEvents: user.userEvents.map(event => ({
         ...event,
         eventEndDate: event.eventDuration.endDate,
         eventStartDate: event.eventDuration.startDate,
       })),
+    };
+  }
+
+  public static mapUserInEvent (user: UserDTO): UserInEvent {
+    // When user have only 1 userEvent => ex. get all users in current event
+    const { userId, isActive, email } = user;
+    const {
+      eventId, eventName, teamName, teamId, isBanned, role,
+      eventDuration: {
+        endDate: eventEndDate,
+        startDate: eventStartDate,
+      },
+    } = user.userEvents[0];
+
+    return {
+      eventEndDate,
+      eventId,
+      eventName,
+      eventStartDate,
+      isActive,
+      isBanned,
+      role,
+      teamId,
+      teamName,
+      userId,
+      email,
     };
   }
 }

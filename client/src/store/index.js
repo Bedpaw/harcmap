@@ -3,7 +3,7 @@ import menu from './menu';
 import theme from './theme';
 import event from './event';
 import { user } from './user';
-import allUsers from './all-users';
+import groups from './groups';
 import header from './header';
 import popup from './popup';
 import mapPopup from './map-popup';
@@ -17,7 +17,7 @@ export const store = createStore({
     theme,
     event,
     user,
-    allUsers,
+    groups,
     header,
     popup,
     mapPopup,

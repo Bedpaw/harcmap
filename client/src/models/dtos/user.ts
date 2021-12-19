@@ -1,10 +1,9 @@
-export interface UserEvent {
+import { EventDuration } from 'models/dtos/event';
+
+export interface UserEventDTO {
   eventId: string
   eventName: string
-  eventDuration: {
-    startDate: number,
-    endDate: number,
-  },
+  eventDuration: EventDuration
   teamId: string
   teamName: string
   role: string
@@ -15,5 +14,5 @@ export interface UserDTO {
   email: string
   isActive: boolean
   userId: string
-  userEvents: UserEvent[]
+  userEvents: UserEventDTO[]
 }

@@ -3,9 +3,9 @@ import { ERRORS } from 'utils/macros/errors';
 import { api } from 'api';
 import { autoUpdate } from 'utils/auto-update';
 import { Module } from 'vuex';
-import { UserDTO } from 'models/dtos/user';
+import { User } from 'models/user';
 
-interface UserType extends UserDTO {
+interface UserType extends User {
   firstLogin: boolean
 }
 
@@ -13,6 +13,8 @@ export const user:Module<UserType, object> = {
   namespaced: true,
   state: {
     email: '',
+    isActive: false,
+    userId: '',
     firstLogin: false,
     userEvents: [],
   },
@@ -27,7 +29,6 @@ export const user:Module<UserType, object> = {
       state.email = email;
       state.userEvents = userEvents;
     },
-    // addCollectedPointId: (state, payload) => (state.collectedPointsIds.push(payload)),
     signOut: state => {
       state.email = '';
       state.firstLogin = true;
@@ -40,22 +41,6 @@ export const user:Module<UserType, object> = {
       return new Promise((resolve) => {
         context.commit('setUser', data);
         resolve(true);
-        // context.commit('event/setId', eventId, { root: true });
-        // context.commit('setUserTeam', userTeam);
-        // context.commit('setAccountType', accountType);
-        // context.commit('setFirstLogin', firstLogin.state);
-        // firstLogin.setCookie();
-        // context.commit('setLimitedPermissions', limitedPermissions);
-        // context.commit('setCollectedPointsIds', collectedPointsIds);
-        // context.dispatch('event/download', undefined, { root: true })
-        //   .then(() => {
-        //     autoUpdate.run();
-        //     resolve();
-        //   })
-        //   .catch(() => {
-        //     context.dispatch('signOut').catch(() => undefined);
-        //     reject(new ErrorMessage(ERRORS.signIn, { hard: true }));
-        //   });
       });
     },
     signOut (context) {

@@ -7,7 +7,7 @@ import { ACCOUNT_TYPES } from 'utils/permissions';
 let globalUser = '';
 
 export const userController = {
-  allUsers () {
+  getAllUsersByEventId () {
     return makeDelayFakeAnswer(() => ({
       'users': [
         {
