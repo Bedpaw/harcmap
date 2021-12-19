@@ -25,7 +25,6 @@ router.beforeEach((to, from, next) => {
   } else {
     promise = Promise.resolve();
   }
-
   promise
     .catch((error) => {
       if (error instanceof ErrorMessage) error.showMessage();
@@ -58,17 +57,16 @@ function makeFirstRun () {
 function redirectIfNotAuth (to, from, next) {
   const {
     checkGuards, getRedirectPath, guards: {
-      isTheSameRoute, isLoginGuard, isAdminGuard, isAdminObserverGuard,
+      isTheSameRoute, isLoginGuard, isAdminGuard, isObserverGuard, isEventChooseGuard,
     },
   } = guardsUtils;
-  const blockRedirectGuards = [isTheSameRoute];
-  const redirectSomewhereElseGuards = [isAdminObserverGuard, isAdminGuard, isLoginGuard];
+  const redirectSomewhereElseGuards = [isObserverGuard, isAdminGuard, isLoginGuard, isEventChooseGuard];
 
-  if (checkGuards(blockRedirectGuards, to, from)) {
+  if (isTheSameRoute(from, to)) {
     next(false);
     return;
   }
-  if (checkGuards(redirectSomewhereElseGuards, to, from)) {
+  if (checkGuards(redirectSomewhereElseGuards, to.meta)) {
     next(getRedirectPath());
     return;
   }

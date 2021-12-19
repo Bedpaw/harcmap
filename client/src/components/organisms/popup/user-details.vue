@@ -2,13 +2,13 @@
   <o-popup-empty ref="popup">
     <article class="f-flex f-flex-col f-flex-al-start f-text-16 f-text-normal">
       <div class="f-pb-2 f-text-bold f-text-18">
-        {{ user.userTeam }}
+        {{ user.email }}
       </div>
       <div class="f-pb-2 f-text-16">
-        {{ user.user }}
+        {{ user.role }}
       </div>
       <a-checkbox
-        :id="'isActive-' + user.user"
+        :id="'isActive-' + user.email"
         v-model="accountIsActive"
         class="f-pb-1"
         :is-disabled="isOrganizer"
@@ -22,7 +22,7 @@
         v-for="(accountInfo, key) in USERS_DEFAULT_CONFIG.accountTypeInfo"
         :id="key"
         :key="key"
-        v-model="accountType"
+        v-model="role"
         class="f-pb-1"
         :value="key"
         :is-disabled="key === USERS_DEFAULT_CONFIG.accountTypes.organizer"
@@ -68,7 +68,7 @@ export default {
   },
   data: () => ({
     USERS_DEFAULT_CONFIG,
-    accountType: null,
+    role: null,
     accountIsActive: false,
   }),
   computed: {
@@ -78,7 +78,7 @@ export default {
   },
   mounted () {
     this.accountIsActive = this.user.accountIsActive;
-    this.accountType = this.user.accountType;
+    this.role = this.user.role;
   },
   methods: {
     toggle () {

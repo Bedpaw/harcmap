@@ -75,6 +75,7 @@ export default {
       'numberOfCollectedPointsByCategoryId',
       'numberOfPointsByCategoryId',
       'percentageProgressByCategoryId',
+      'eventId',
     ]),
     ...mapGetters('theme', [
       'categoryColorById',
@@ -89,7 +90,7 @@ export default {
     },
   },
   mounted () {
-    this.$store.dispatch('allUsers/download')
+    this.$store.dispatch('allUsers/download', this.eventId)
       .then(() => {
         this.errorMessage = '';
       })

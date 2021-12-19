@@ -71,7 +71,7 @@ export default {
         },
         {
           label: 'accountTypes.accountType',
-          data: this.$t(userUtils.getNameKey({ accountType })),
+          data: this.$t(userUtils.getNameKey(accountType)),
         },
       ];
     },

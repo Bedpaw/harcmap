@@ -33,6 +33,7 @@ export const plPL = {
       adminPanel: 'Admin',
       spectatorPanel: 'Panel',
       collectPoint: 'Zbierz pkt',
+      collectedPoints: 'Punkty',
     },
   },
   general: {

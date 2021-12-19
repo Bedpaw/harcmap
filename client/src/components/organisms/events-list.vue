@@ -28,7 +28,6 @@ import { generalConfigUtils } from 'config/general-config';
 import { userUtils } from 'config/users-config';
 import { eventUtils } from 'utils/event';
 import { materialIcons } from '@dbetka/vue-material-icons';
-import dayjs from 'dayjs';
 import { autoUpdate } from 'utils/auto-update';
 import { ROUTES } from 'config/routes-config';
 
@@ -67,32 +66,27 @@ export default {
   },
   watch: {
     events: function (events) {
-      const [past, current, future] = eventUtils.splitEventsByTimePeriodsNew(events);
+      const [past, current, future] = eventUtils.splitEventsByTimePeriods(events);
       this.pastEvents = past.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isPast));
       this.currentEvents = current.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isCurrent));
       this.futureEvents = future.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isFuture));
     },
   },
   mounted () {
-    this.events = this.$store.getters['user/userEvents'].map(event => {
-      event.eventDuration = {
-        startDate: dayjs(),
-        endDate: dayjs().add(1, 'day'),
-      };
-      return event;
-    });
+    this.events = this.$store.getters['user/userEvents'];
   },
   methods: {
     prepareButtonsDetails (event, timePeriod = MACROS.timePeriods.isCurrent) {
       const {
-        eventDuration,
+        eventStartDate,
+        eventEndDate,
         eventName,
         eventId,
       } = event;
 
       const secondLineText = displayDate.timeRange(
-        displayDate.inFormat(eventDuration.startDate, DATE_FORMATS.DDMMYYYY),
-        displayDate.inFormat(eventDuration.endDate, DATE_FORMATS.DDMMYYYY),
+        displayDate.inFormat(eventStartDate, DATE_FORMATS.DDMMYYYY),
+        displayDate.inFormat(eventEndDate, DATE_FORMATS.DDMMYYYY),
       );
 
       return {
@@ -112,7 +106,9 @@ export default {
       };
     },
     signInToEvent (eventId) {
-      this.$store.dispatch('event/download', eventId)
+      const teamId = this.events.find(event => event.eventId === eventId).teamId;
+      const role = this.events.find(event => event.eventId === eventId).role;
+      this.$store.dispatch('event/download', { eventId, teamId, role })
         .then(() => {
           autoUpdate.run();
           this.$router.push(ROUTES.start.path);

@@ -102,21 +102,3 @@ export const splitObjectsListByTime = <T extends Record<string, DateType>, Key e
   });
   return [isPast, isCurrent, isFuture];
 };
-
-export const splitEventsListByTimeNew = (objectsList: UserEvent[]) => {
-  const isPast: UserEvent[] = [];
-  const isCurrent: UserEvent[] = [];
-  const isFuture: UserEvent[] = [];
-
-  objectsList.forEach(obj => {
-    const { startDate, endDate } = obj.eventDuration;
-    if (compareDate.isActual(startDate, endDate)) {
-      isCurrent.push(obj);
-    } else if (compareDate.isFuture(startDate)) {
-      isFuture.push(obj);
-    } else {
-      isPast.push(obj);
-    }
-  });
-  return [isPast, isCurrent, isFuture];
-};

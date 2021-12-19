@@ -12,19 +12,19 @@ function getColor (color) {
 }
 
 export const MAP_POINTS = {
-  0: () => ({
+  '60e7046eaa95cc33d7c4672b': () => ({
     strokeColor: getColor(availableColors.stroke),
     fillColor: getColor(availableColors.info),
   }),
-  1: () => ({
+  '1': () => ({
     strokeColor: getColor(availableColors.stroke),
     fillColor: getColor(availableColors.info),
   }),
-  2: () => ({
+  '2': () => ({
     strokeColor: getColor(availableColors.stroke),
     fillColor: getColor(availableColors.warning),
   }),
-  3: () => ({
+  '3': () => ({
     strokeColor: getColor(availableColors.stroke),
     fillColor: getColor(availableColors.danger),
   }),

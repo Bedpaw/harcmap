@@ -21,24 +21,6 @@ export const user:Module<UserType, object> = {
     isLogin: state => state.email !== '',
     firstLogin: state => state.firstLogin,
     userEvents: state => state.userEvents,
-    // collectedPointsIds: state => state.collectedPointsIds,
-    // collectedPoints (state, getters, rootState, rootGetters) {
-    //   const collectedPoints = [];
-    //
-    //   for (const pointId of getters.collectedPointsIds) {
-    //     const point = rootGetters['event/getPointById'](pointId);
-    //
-    //     uCheck.isDefined(point) ? collectedPoints.push(point) : undefined;
-    //   }
-    //   return collectedPoints;
-    // },
-    // sumOfCollectedPoints (state, getters, rootState, rootGetters) {
-    //   return getters.collectedPoints
-    //     .map(point => {
-    //       return rootGetters['event/getCategoryById'](point.pointCategory).pointValue;
-    //     })
-    //     .reduce((a, b) => a + b, 0);
-    // },
   },
   mutations: {
     setUser: (state, { email, userEvents }) => {
@@ -81,6 +63,7 @@ export const user:Module<UserType, object> = {
         api.signOut()
           .finally(() => {
             context.commit('signOut');
+            context.commit('event/setId', null, { root: true });
             resolve(true);
           })
           .catch(() => {

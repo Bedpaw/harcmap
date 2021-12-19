@@ -7,7 +7,7 @@
           @click="$router.push(ROUTES.scoreboard.path)"
         />
         <a-button-fill-secondary
-          v-if="checkIsNotLimited()"
+          v-if="checkIsAdmin()"
           :text="$t('page.admin.start.editEvent')"
           @click="$router.push(ROUTES.editEvent.path)"
         />

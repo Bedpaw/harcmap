@@ -35,7 +35,7 @@ export default {
         .filter(link => {
           const routeIsDefined = uCheck.isDefined(link.route);
           const routeIsUndefined = uCheck.isUndefined(link.route);
-          return routeIsUndefined || (routeIsDefined && this.checkLimitingForRoute(link.route));
+          return routeIsUndefined || (routeIsDefined && this.checkIsAdmin());
         });
     },
   },

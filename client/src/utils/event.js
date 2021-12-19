@@ -1,4 +1,4 @@
-import { compareDate, displayDate, getDate, splitEventsListByTimeNew, splitObjectsListByTime } from 'utils/date';
+import { compareDate, displayDate, getDate, splitObjectsListByTime } from 'utils/date';
 
 const { isToday, isActual, isFuture, isPast } = compareDate;
 
@@ -19,7 +19,6 @@ const stateUtils = {
 
 const listUtils = {
   splitEventsByTimePeriods: (eventsList) => splitObjectsListByTime(eventsList, 'eventStartDate', 'eventEndDate'),
-  splitEventsByTimePeriodsNew: (eventsList) => splitEventsListByTimeNew(eventsList, 'startDate', 'endDate'),
 };
 
 const conversions = {

@@ -1,6 +1,5 @@
-import { ACCOUNT_TYPES } from 'utils/permissions';
 import { uCheck } from '@dbetka/utils';
-import { mockApi } from 'api/mock/mock';
+import { api } from 'api';
 
 export default {
   namespaced: true,
@@ -9,11 +8,13 @@ export default {
   },
   getters: {
     users: state => state.users,
-    commonUsers: (state, getters) => getters.users
-      .filter(user => user.accountType === ACCOUNT_TYPES.common),
+    usersNotTeams: state => state.users.reduce((prev, curr) => {
+      return [...prev, ...curr.teamMembers];
+    }, []),
+    commonUsers: state => state.users,
     collectedPointsByUser: (state, getters, rootState, rootGetters) => user => {
       const collectedPoints = [];
-      for (const pointId of user.collectedPointsIds) {
+      for (const pointId of user.collectedPoints) {
         const point = rootGetters['event/getPointById'](pointId);
 
         uCheck.isDefined(point) ? collectedPoints.push(point) : undefined;
@@ -30,12 +31,12 @@ export default {
     setUsers: (state, payload) => (state.users = payload),
   },
   actions: {
-    download (context) {
+    download (context, eventId) {
       return new Promise((resolve, reject) => {
-        mockApi.allUsers()
-          .then(({ users }) => {
-            context.commit('setUsers', users);
-            resolve(users);
+        api.getAllTeamsByEventId(eventId)
+          .then((teams) => {
+            context.commit('setUsers', teams);
+            resolve(teams);
           })
           .catch(reject);
       });

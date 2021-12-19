@@ -2,10 +2,26 @@ import { PointDTO, PointDTOCreate, PointDTOUpdate } from 'models/dtos/point';
 import { PointType } from 'models/point';
 import { EventDTO } from 'models/dtos/event';
 import { Event } from 'models/event';
+import { SignInResponseDTO } from 'models/dtos/auth';
+import { SignInResponse } from 'models/auth';
 
 export class Mapper {
 
   public static mapPointIn (pointIn: PointDTO): PointType {
+    return {
+      pointAppearanceTime: pointIn.pointDuration.startDate,
+      pointCategory: pointIn.pointCategoryId,
+      pointCollectionTime: pointIn.pointCollectedDate,
+      pointExpirationTime: pointIn.pointDuration.endDate,
+      pointId: pointIn.pointId,
+      pointLatitude: pointIn.pointPosition.latitude,
+      pointLongitude: pointIn.pointPosition.longitude,
+      pointName: pointIn.pointName,
+      pointType: pointIn.pointType,
+    };
+  }
+
+  public static mapPointCategoryIn (pointIn: PointDTO): PointType {
     return {
       pointAppearanceTime: pointIn.pointDuration.startDate,
       pointCategory: pointIn.pointCategoryId,
@@ -68,4 +84,14 @@ export class Mapper {
     };
   }
 
+  public static mapEventSignIn (response: SignInResponseDTO): SignInResponse {
+    return {
+      ...response,
+      userEvents: response.userEvents.map(event => ({
+        ...event,
+        eventEndDate: event.eventDuration.endDate,
+        eventStartDate: event.eventDuration.startDate,
+      })),
+    };
+  }
 }

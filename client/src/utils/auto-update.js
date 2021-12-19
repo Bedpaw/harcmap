@@ -27,6 +27,7 @@ export const autoUpdate = {
       .then(map.updateMapFeatures)
       .catch(error => {
         if (error instanceof ErrorMessage) {
+          console.log(error);
           error.showMessage();
         } else {
           (new ErrorMessage(error)).showMessage();

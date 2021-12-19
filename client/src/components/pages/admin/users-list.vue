@@ -1,14 +1,14 @@
 <template>
   <t-search
     :search-assist="$t('form.assist.searchUser')"
-    :elements="users"
+    :elements="usersNotTeams"
     :search-keys="['user', 'userTeam']"
   >
     <template #result-list="{ filteredElements: filteredUsers }">
       <div class="f-flex-1 f-scroll-default f-mt--2">
         <div
           v-for="user of filteredUsers"
-          :key="user.user"
+          :key="user.email"
           class="m-grid f-search-user"
         >
           <a-icon
@@ -16,10 +16,10 @@
             :name="getUserIcon(user)"
           />
           <div class="f-pl-1 f-py-1 f-line-24 f-overflow-hidden">
-            {{ user.userTeam }}
+            {{ user.role }}
           </div>
           <div class="f-pl-1 f-py-1 f-text-subtext f-text-14 f-line-24 f-overflow-hidden">
-            {{ user.user }}
+            {{ user.email }}
           </div>
           <a-button-icon @click="openDetails(user)">
             <a-icon :name="$icons.names.more_vert" />
@@ -53,10 +53,11 @@ export default {
     selectedUser: null,
   }),
   computed: {
-    ...mapGetters('allUsers', ['users']),
+    ...mapGetters('allUsers', ['usersNotTeams']),
+    ...mapGetters('event', ['eventId']),
   },
   mounted () {
-    this.$store.dispatch('allUsers/download')
+    this.$store.dispatch('allUsers/download', this.eventId)
       .then(() => {
         this.errorMessage = '';
       })

@@ -13,5 +13,7 @@ export interface UserEvent {
 
 export interface UserDTO {
   email: string
+  isActive: boolean
+  userId: string
   userEvents: UserEvent[]
 }

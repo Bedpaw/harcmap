@@ -49,6 +49,8 @@ export default {
   computed: {
     ...mapGetters('user', [
       'isLogin',
+    ]),
+    ...mapGetters('team', [
       'collectedPointsIds',
     ]),
     ...mapGetters('header', [
@@ -66,7 +68,7 @@ export default {
     },
     pathBackButton () {
       const isAdmin = this.checkIsAdmin();
-      const IsLimitedAdmin = isAdmin && this.checkIsLimited();
+      const IsLimitedAdmin = this.checkIsObserver();
       if (this.backRouteName.params) return this.backRouteName;
       if (this.backRouteName.name) return ROUTES[this.backRouteName.name].path;
       if (IsLimitedAdmin) return ROUTES.spectatorPanel.path;

@@ -1,4 +1,4 @@
-import { MACROS } from 'utils/macros';
+import { MACROS } from 'src/utils/macros';
 import { materialIcons } from '@dbetka/vue-material-icons';
 
 const ICONS = materialIcons.names;
