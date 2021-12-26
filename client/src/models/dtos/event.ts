@@ -1,4 +1,4 @@
-interface EventDuration {
+export interface EventDuration {
   startDate: number;
   endDate: number;
 }

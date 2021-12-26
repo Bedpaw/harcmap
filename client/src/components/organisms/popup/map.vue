@@ -89,7 +89,7 @@ export default {
           },
         },
       ];
-      return this.checkIsNotLimited() ? buttons : [];
+      return this.checkIsAdmin ? buttons : [];
     },
   },
   beforeUnmount () {

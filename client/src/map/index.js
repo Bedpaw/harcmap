@@ -56,7 +56,10 @@ export const map = {
     };
   },
   updateMapFeatures () {
-    const promise = store.dispatch('event/download');
+    const eventId = store.getters['event/eventId'];
+    const teamId = store.getters['team/teamId'];
+    const role = store.getters['event/userRole'];
+    const promise = store.dispatch('event/download', { eventId, teamId, role });
     promise.then(() => {
       if (uCheck.isObject(map.realMap)) {
         map.points.create({

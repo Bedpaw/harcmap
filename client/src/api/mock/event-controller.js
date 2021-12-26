@@ -4,7 +4,7 @@ import { makeDelayFakeAnswer } from 'api/mock/mock';
 import { ErrorMessage } from 'utils/error-message';
 import { ERRORS } from 'utils/macros/errors';
 import { getPointsByEventIdMock } from 'api/mock/mockMethods/get-points';
-import { MapPoint } from 'src/structures/map-point';
+// import { MapPoint } from 'src/structures/map-point';
 
 export const eventController = {
   getEventById ({ eventId }) {
@@ -16,7 +16,7 @@ export const eventController = {
   },
   getPointsByEventId ({ eventId }) {
     if (eventId) {
-      return makeDelayFakeAnswer(() => getPointsByEventIdMock(eventId).points.map(point => new MapPoint(point)));
+      return makeDelayFakeAnswer(() => getPointsByEventIdMock(eventId).points.map(point => point));
     } else {
       return Promise.reject(new ErrorMessage(ERRORS.eventIdIsRequired));
     }

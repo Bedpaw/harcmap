@@ -1,21 +1,21 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { materialIcons } from '@dbetka/vue-material-icons';
-import { AppRouteParams, EnterPermission } from '../models/routes';
-import { translator } from '../dictionary';
+import { AppRouteParams, EnterPermissionOptions } from 'models/routes';
+import { translator } from 'dictionary';
 
 const ICONS = materialIcons.names;
 
 export class AppRoute {
   public name: string; // !!!camelCase!!!
   public path = '';
-  public meta: EnterPermission;
+  public meta: EnterPermissionOptions;
   public icon = ICONS.success as string;
   public label: string | null = null;
   public shortLabel: string | null = null;
 
   constructor (config: AppRouteParams) {
-    const { name, path = '', icon = '', enterPermissions, dynamicParam = null, hasShortLabel = false } = config;
+    const { name, path = '', icon = '', enterPermissions = {}, dynamicParam = null, hasShortLabel = false } = config;
     this.name = name;
     this.setPath(path, dynamicParam);
     this.setLabel();
@@ -43,7 +43,7 @@ export class AppRoute {
     this.shortLabel = typeof shortLabel === 'string' ? shortLabel : '';
   }
 
-  static getDataForRouter (route: AppRoute): { path: string, name: string, meta: EnterPermission } {
+  static getDataForRouter (route: AppRoute): { path: string, name: string, meta: EnterPermissionOptions } {
     return {
       path: route.path,
       name: route.name,
@@ -53,7 +53,7 @@ export class AppRoute {
 
   static createRoutes <RouteNameKey extends string> (
     routesObject: Record<string, AppRouteParams>,
-    enterPermissions: EnterPermission)
+    enterPermissions: EnterPermissionOptions)
       : Record<RouteNameKey, AppRoute> {
     for (const [key, routeDetails] of Object.entries(routesObject)) {
       routeDetails.enterPermissions = enterPermissions;

@@ -2,7 +2,7 @@
   <t-page class="f-flex f-flex-col">
     <o-form :on-submit="signIn">
       <m-input
-        v-model.trim="values.user"
+        v-model.trim="values.email"
         :disabled="blockForm"
         :placeholder="$t('form.field.email')"
       />
@@ -35,8 +35,6 @@ import { uPromise } from '@dbetka/utils';
 import MInput from 'molecules/input';
 import AButtonSubmit from 'atoms/button/submit';
 import OForm from 'organisms/form';
-import { ERRORS } from 'utils/macros/errors';
-import { ErrorMessage } from 'utils/error-message';
 import { DEV_USERS_LIST } from 'utils/dev-mode/auto-login';
 import { onMounted, reactive } from 'vue';
 import { useForm } from 'plugins/form';
@@ -60,32 +58,28 @@ export default {
     const { isSending, blockForm, onErrorOccurs } = form;
 
     const values = reactive({
-      user: '',
+      email: '',
       password: '',
     });
 
-    function onSignIn (data) {
-      store.dispatch('user/signIn', data)
-        .then(() => {
-          store.getters['user/firstLogin'] && store.commit('guide/open');
-          router.push(ROUTES.eventsList.path);
-          isSending.value = false;
-          blockForm.value = false;
-        })
-        .catch(() => onErrorOccurs(new ErrorMessage(ERRORS.dataAfterSignIn, { hard: true })));
-    }
     function signIn () {
       isSending.value = true;
       blockForm.value = true;
       api.signIn(values)
-        .then(onSignIn)
+        .then(data => store.dispatch('user/signIn', data))
+        .then(() => {
+          // store.getters['user/firstLogin'] && store.commit('guide/open');
+          router.push(ROUTES.eventsList.path);
+          isSending.value = false;
+          blockForm.value = false;
+        })
         .catch(onErrorOccurs);
     }
     function signInAutomatically () {
       isSending.value = true;
       blockForm.value = true;
-      values.user = DEV_USERS_LIST.common.user;
-      values.password = DEV_USERS_LIST.common.password;
+      values.email = DEV_USERS_LIST.teamLeader.user;
+      values.password = DEV_USERS_LIST.teamLeader.password;
       uPromise.timeout(500)
         .then(() => signIn());
     }

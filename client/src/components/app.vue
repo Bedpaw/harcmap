@@ -7,7 +7,7 @@
     v-touch:swipe.left="openMenuIfLogin"
     v-touch:swipe.right="closeMenu"
   />
-  <o-menu />
+  <o-menu v-if="eventId" />
   <div
     v-touch:swipe.right="closeMenu"
     class="a-cover f-menu"
@@ -53,6 +53,9 @@ export default {
     ...mapGetters('guide', {
       guideIsOpen: 'isOpen',
     }),
+    ...mapGetters('event', [
+      'eventId',
+    ]),
   },
   mounted () {
     // Mobile browsers calculate viewport height in wrong way - setVH is correction for it.

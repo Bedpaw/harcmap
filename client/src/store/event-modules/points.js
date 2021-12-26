@@ -61,7 +61,7 @@ export default {
     },
     addPoint (context, { point, eventId = context.getters.eventId }) {
       return new Promise((resolve, reject) => {
-        api.addPoint({ point, eventId })
+        api.addPoint(point, eventId)
           .then(() => map.updateMapFeatures())
           .then(() => resolve())
           .catch(reject);

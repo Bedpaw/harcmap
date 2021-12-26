@@ -25,10 +25,11 @@ import MButtonsListEvents from 'molecules/buttons-list-events';
 import { MACROS } from 'utils/macros';
 import { DATE_FORMATS, displayDate } from 'utils/date';
 import { generalConfigUtils } from 'config/general-config';
-import { eventsListMock } from 'organisms/events-list-mock';
 import { userUtils } from 'config/users-config';
 import { eventUtils } from 'utils/event';
 import { materialIcons } from '@dbetka/vue-material-icons';
+import { autoUpdate } from 'utils/auto-update';
+import { ROUTES } from 'config/routes-config';
 
 const ICONS_TYPES = materialIcons.types;
 
@@ -72,7 +73,7 @@ export default {
     },
   },
   mounted () {
-    this.events = eventsListMock;
+    this.events = this.$store.getters['user/userEvents'];
   },
   methods: {
     prepareButtonsDetails (event, timePeriod = MACROS.timePeriods.isCurrent) {
@@ -105,7 +106,16 @@ export default {
       };
     },
     signInToEvent (eventId) {
-      console.log(`Signing in to event with id ${eventId}`);
+      const teamId = this.events.find(event => event.eventId === eventId).teamId;
+      const role = this.events.find(event => event.eventId === eventId).role;
+      this.$store.dispatch('event/download', { eventId, teamId, role })
+        .then(() => {
+          autoUpdate.run();
+          this.$router.push(ROUTES.start.path);
+        })
+        .catch(() => {
+          this.$store.dispatch('user/signOut').catch(() => undefined);
+        });
     },
     navigateToCreateEvent () {
       this.$router.push(this.ROUTES.newEvent.path);

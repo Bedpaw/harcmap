@@ -9,7 +9,7 @@
     </div>
 
     <div
-      v-if="checkIsCommon()"
+      v-if="checkIsTeamLeader() || checkIsTeamMember()"
       class="a-text f-subtitle f-menu"
     >
       {{ $t('general.alreadyCollectedShort') }}
@@ -21,7 +21,7 @@
       v-else
       class="a-text f-subtitle f-menu"
     >
-      {{ checkIsNotLimited() ? $t('general.fullAdmin') : $t('general.limitedAdmin') }}
+      {{ checkIsAdmin() ? $t('general.fullAdmin') : $t('general.limitedAdmin') }}
     </div>
 
     <router-link
@@ -42,7 +42,7 @@
     </router-link>
 
     <a-link-menu
-      v-if="checkIsCommon()"
+      v-if="checkIsCommonUser()"
       :icon="$icons.names.help"
       :text="$t('features.guide.howAppWorks')"
       @click="openGuide()"
@@ -74,9 +74,9 @@ import { mapGetters, mapMutations } from 'vuex';
 import { THEMES } from 'utils/style-manager';
 import { ROUTES } from 'config/routes-config';
 import router from 'src/router';
-import { uCheck } from '@dbetka/utils';
 import ALinkMenu from 'atoms/link-menu';
 import { APP_VERSION } from 'config/app-env';
+import { userUtils } from 'config/users-config';
 
 export default {
   name: 'o-menu',
@@ -91,22 +91,13 @@ export default {
       'isOpen',
     ]),
     links () {
-      const isAdmin = this.checkIsAdmin();
-      const isUnlimited = isAdmin && this.checkIsNotLimited();
-      const isCommon = this.checkIsCommon();
-      const links = [
+      const commonMenuLinks = [
         ROUTES.start,
         ROUTES.timeoutPoints,
-        isCommon ? ROUTES.collectPoint : undefined,
-        isAdmin ? ROUTES.scoreboard : ROUTES.collectedPoints,
-        isUnlimited ? ROUTES.editEvent : undefined,
-        isUnlimited ? ROUTES.newPoint : undefined,
         ROUTES.map,
-        isCommon ? ROUTES.about : undefined,
         ROUTES.eventsList,
-        ROUTES.teamView,
       ];
-      return links.filter(route => uCheck.isUndefined(route) === false);
+      return [...commonMenuLinks, ...userUtils.getMenuLinks()];
     },
     themeName () {
       return this.$store.getters['theme/name'];
@@ -133,9 +124,7 @@ export default {
         setTimeout(() => {
           this.canToggleTheme = true;
         }, 500);
-
       }
-
     },
     signOut () {
       this.$store.dispatch('user/signOut')

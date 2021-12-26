@@ -27,12 +27,13 @@ export const plPL = {
     usersList: 'Użytkownicy',
     teamView: 'Drużyna',
     short: {
-      start: 'start',
-      map: 'mapa',
+      start: 'Start',
+      map: 'Mapa',
       timeoutPoints: 'Czasowe',
       adminPanel: 'Admin',
       spectatorPanel: 'Panel',
       collectPoint: 'Zbierz pkt',
+      collectedPoints: 'Punkty',
     },
   },
   general: {
@@ -326,7 +327,7 @@ export const plPL = {
   },
   accountTypes: {
     admin: 'Administrator',
-    common: 'Użytkownik',
+    teamLeader: 'Użytkownik',
     observer: 'Obserwator',
     userObserver: 'Obserwator użytkownika',
     organizer: 'Organizator',

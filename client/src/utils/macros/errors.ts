@@ -1,6 +1,7 @@
 import validateCodes from 'validateCodes';
 import { translator } from 'src/dictionary';
 import { apiErrorTranslationFactory } from 'utils/translations';
+import { ApiErrors } from 'models/errors';
 
 const T = {
   general: apiErrorTranslationFactory('general'),
@@ -42,12 +43,14 @@ export const API_WARNS = {
   },
 };
 
-const EVENT_API_ERRORS = {
+const EVENT_API_ERRORS: ApiErrors = {
   getEventById: {
     defaultError: T.event('getEventById'),
+    errors: [],
   },
   getPointsByEventId: {
     defaultError: T.event('getPointsByEventId'),
+    errors: [],
   },
   getCategoriesByEventId: {
     defaultError: T.event('getCategoriesByEventId'),
@@ -79,7 +82,7 @@ const EVENT_API_ERRORS = {
     ],
   },
 };
-const POINT_API_ERRORS = {
+const POINT_API_ERRORS: ApiErrors = {
   collectPoint: {
     defaultError: T.point('collectPoint'),
     errors: [
@@ -106,9 +109,11 @@ const POINT_API_ERRORS = {
   },
   addPoint: {
     defaultError: T.point('addPoint'),
+    errors: [],
   },
   editPoint: {
     defaultError: T.point('editPoint'),
+    errors: [],
   },
   removePoint: {
     defaultError: T.point('removePoint'),
@@ -120,7 +125,7 @@ const POINT_API_ERRORS = {
     ],
   },
 };
-const USERS_API_ERRORS = {
+const USERS_API_ERRORS: ApiErrors = {
   all: {
     defaultError: T.users('all'),
     errors: [
@@ -131,7 +136,7 @@ const USERS_API_ERRORS = {
     ],
   },
 };
-const AUTH_API_ERRORS = {
+const AUTH_API_ERRORS: ApiErrors = {
   signIn: {
     defaultError: T.auth('signIn'),
     errors: [
@@ -162,12 +167,15 @@ const AUTH_API_ERRORS = {
   },
   checkYourLoginSession: {
     defaultError: T.auth('checkYourLoginSession'),
+    errors: [],
   },
   signOut: {
     defaultError: T.auth('signOut'),
+    errors: [],
+
   },
 };
-const REGISTER_AND_ACCOUNT_API_ERRORS = {
+const REGISTER_AND_ACCOUNT_API_ERRORS: ApiErrors = {
   signUp: {
     defaultError: T.registerAndAccount('signUp'),
     errors: [
@@ -183,14 +191,17 @@ const REGISTER_AND_ACCOUNT_API_ERRORS = {
   },
   remindPassword: {
     defaultError: T.registerAndAccount('remindPassword'),
+    errors: [],
+
   },
 
   changePassword: {
     defaultError: T.registerAndAccount('changePassword'),
+    errors: [],
   },
 };
 
-export const API_ERRORS = {
+export const API_ERRORS: ApiErrors = {
   undefined: {
     defaultError: T.general('undefined'),
   },

@@ -1,30 +1,38 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { AppRoute } from '../router/utils';
-import { EnterPermission } from 'models/routes';
+import { EnterPermissionGroup } from 'models/routes';
 import { materialIcons } from '@dbetka/vue-material-icons';
 
 const ICONS = materialIcons.names;
 
-const enterPermissions: Record<string, EnterPermission> = {
+const enterPermissions: EnterPermissionGroup = {
   alwaysAllowed: {},
   beforeLogin: {
-    onlyBeforeLogin: true,
+    beforeLogin: true,
   },
-  eventChose: {
-    requiredAuth: true,
+  afterLogin: {
+    afterLogin: true,
   },
-  auth: {
-    requiredAuth: true,
+  afterEventChosen: {
+    afterLogin: true,
+    afterEventChosen: true,
+  },
+  teamLeader: {
+    afterLogin: true,
+    afterEventChosen: true,
+    teamLeader: true,
   },
   adminObserver: {
-    requiredAuth: true,
-    adminOnly: true,
+    afterLogin: true,
+    afterEventChosen: true,
+    observer: true,
   },
   admin: {
-    requiredAuth: true,
-    adminOnly: true,
-    unlimitedOnly: true,
+    afterLogin: true,
+    afterEventChosen: true,
+    observer: true,
+    admin: true,
   },
 };
 
@@ -61,7 +69,7 @@ const beforeLoginRoutes = {
     icon: ICONS.create,
   },
 };
-const authRoutes = {
+const choseEventRoutes = {
   start: {
     name: 'start',
     icon: ICONS.home,
@@ -72,14 +80,10 @@ const authRoutes = {
     icon: ICONS.watch_later,
     hasShortLabel: true,
   },
-  collectPoint: {
-    name: 'collectPoint',
-    icon: ICONS.add,
-    hasShortLabel: true,
-  },
   collectedPoints: {
     name: 'collectedPoints',
     icon: ICONS.bar_chart,
+    hasShortLabel: true,
   },
   map: {
     name: 'map',
@@ -89,6 +93,14 @@ const authRoutes = {
   teamView: {
     name: 'teamView',
     icon: ICONS.people,
+  },
+};
+
+const teamLeaderRoutes = {
+  collectPoint: {
+    name: 'collectPoint',
+    icon: ICONS.add,
+    hasShortLabel: true,
   },
 };
 
@@ -133,7 +145,7 @@ const adminRoutes = {
   },
 };
 
-const choseEventRoutes = {
+const authRoutes = {
   newEvent: {
     name: 'newEvent',
     icon: ICONS.event,
@@ -162,8 +174,9 @@ const alwaysAllowedRoutes = {
 export const ROUTES = {
   ...AppRoute.createRoutes<keyof typeof alwaysAllowedRoutes>(alwaysAllowedRoutes, enterPermissions.alwaysAllowed),
   ...AppRoute.createRoutes<keyof typeof beforeLoginRoutes>(beforeLoginRoutes, enterPermissions.beforeLogin),
-  ...AppRoute.createRoutes<keyof typeof choseEventRoutes>(choseEventRoutes, enterPermissions.eventChose),
-  ...AppRoute.createRoutes<keyof typeof authRoutes>(authRoutes, enterPermissions.auth),
+  ...AppRoute.createRoutes<keyof typeof choseEventRoutes>(choseEventRoutes, enterPermissions.afterEventChosen),
+  ...AppRoute.createRoutes<keyof typeof authRoutes>(authRoutes, enterPermissions.afterLogin),
+  ...AppRoute.createRoutes<keyof typeof teamLeaderRoutes>(teamLeaderRoutes, enterPermissions.teamLeader),
   ...AppRoute.createRoutes<keyof typeof adminObserverRoutes>(adminObserverRoutes, enterPermissions.adminObserver),
   ...AppRoute.createRoutes<keyof typeof adminRoutes>(adminRoutes, enterPermissions.admin),
 };

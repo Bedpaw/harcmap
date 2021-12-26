@@ -16,7 +16,7 @@ export default {
     TPage,
   },
   computed: {
-    ...mapGetters('user', ['collectedPoints']),
+    ...mapGetters('team', ['collectedPoints']),
   },
 };
 </script>

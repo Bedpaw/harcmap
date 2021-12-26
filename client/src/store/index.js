@@ -2,13 +2,14 @@ import { createStore } from 'vuex';
 import menu from './menu';
 import theme from './theme';
 import event from './event';
-import user from './user';
-import allUsers from './all-users';
+import { user } from './user';
+import groups from './groups';
 import header from './header';
 import popup from './popup';
 import mapPopup from './map-popup';
 import snackbar from './snackbar';
 import guide from './guide';
+import { team } from 'store/team';
 
 export const store = createStore({
   modules: {
@@ -16,12 +17,13 @@ export const store = createStore({
     theme,
     event,
     user,
-    allUsers,
+    groups,
     header,
     popup,
     mapPopup,
     snackbar,
     guide,
+    team,
   },
   state: {
     isLoading: true,

@@ -2,9 +2,9 @@
   <div>
     <div class="m-grid f-score">
       <div class="f-text-left">
-        {{ user.userTeam }}
+        {{ team.teamName }}
       </div>
-      <div>{{ userScore }} {{ $t('general.pointUnit') }}</div>
+      <div>{{ teamScore }} {{ $t('general.pointUnit') }}</div>
       <div>
         <a-icon
           :name="$icons.names.more_vert"
@@ -14,7 +14,7 @@
     </div>
     <o-popup-score
       ref="popupScore"
-      :user="user"
+      :team="team"
     />
   </div>
 </template>
@@ -28,11 +28,11 @@ export default {
     OPopupScore,
   },
   props: {
-    user: {
+    team: {
       type: Object,
       required: true,
     },
-    userScore: {
+    teamScore: {
       type: Number,
       required: true,
     },

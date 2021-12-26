@@ -1,10 +1,10 @@
 interface PointDuration {
-  startDate: string | null;
-  endDate: string | null;
+  startDate: number | null;
+  endDate: number | null;
 }
 interface PointPosition {
-  longitude: number;
-  latitude: number;
+  longitude: number | null;
+  latitude: number | null;
 }
 
 export interface PointDTOCreate {
@@ -19,7 +19,7 @@ export interface PointDTOCreate {
 
 export interface PointDTO extends PointDTOCreate{
   pointId: string;
-  pointCollectedDate: string;
+  pointCollectedDate: number;
 }
 
 export type PointDTOUpdate = PointDTOCreate

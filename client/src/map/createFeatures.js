@@ -11,6 +11,7 @@ import { uCheck } from '@dbetka/utils';
 import { mapConfig } from 'map/config';
 import { colorsUtils } from 'utils/colors';
 import { ErrorMessage } from 'utils/error-message';
+import { permissions } from 'utils/permissions';
 
 export function createFeatures ({ list = [] }) {
   const mapIsNotDefined = uCheck.isNotObject(map.realMap);
@@ -56,7 +57,7 @@ export function createFeatures ({ list = [] }) {
 
 const shouldBeShownAsCollected = (point) => {
   const pointIsCollected = point.pointCollectionTime !== null;
-  const collectedPointsIds = store.getters['user/collectedPointsIds'];
+  const collectedPointsIds = store.getters['team/collectedPointsIds'];
   const collectedByLoginUser = collectedPointsIds.includes(point.pointId);
   const isAdmin = permissions.checkIsAdmin();
   return pointIsCollected && (collectedByLoginUser || isAdmin);

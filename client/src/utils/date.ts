@@ -1,6 +1,7 @@
 import { MACROS } from 'utils/macros';
 import * as dayjs from 'dayjs';
 import { DateType } from 'src/models/date';
+import { UserEvent } from 'models/dtos/user';
 
 const { secondsInMinute, msInSeconds, minutesInHour } = MACROS.time;
 

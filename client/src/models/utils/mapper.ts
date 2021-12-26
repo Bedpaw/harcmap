@@ -2,10 +2,26 @@ import { PointDTO, PointDTOCreate, PointDTOUpdate } from 'models/dtos/point';
 import { PointType } from 'models/point';
 import { EventDTO } from 'models/dtos/event';
 import { Event } from 'models/event';
+import { UserDTO } from 'models/dtos/user';
+import { User, UserInEvent } from 'models/user';
 
 export class Mapper {
 
   public static mapPointIn (pointIn: PointDTO): PointType {
+    return {
+      pointAppearanceTime: pointIn.pointDuration.startDate,
+      pointCategory: pointIn.pointCategoryId,
+      pointCollectionTime: pointIn.pointCollectedDate,
+      pointExpirationTime: pointIn.pointDuration.endDate,
+      pointId: pointIn.pointId,
+      pointLatitude: pointIn.pointPosition.latitude,
+      pointLongitude: pointIn.pointPosition.longitude,
+      pointName: pointIn.pointName,
+      pointType: pointIn.pointType,
+    };
+  }
+
+  public static mapPointCategoryIn (pointIn: PointDTO): PointType {
     return {
       pointAppearanceTime: pointIn.pointDuration.startDate,
       pointCategory: pointIn.pointCategoryId,
@@ -68,4 +84,41 @@ export class Mapper {
     };
   }
 
+  public static mapUserIn (user: UserDTO): User {
+    // When user have many userEvents -> ex. signIn response
+    return {
+      ...user,
+      userEvents: user.userEvents.map(event => ({
+        ...event,
+        eventEndDate: event.eventDuration.endDate,
+        eventStartDate: event.eventDuration.startDate,
+      })),
+    };
+  }
+
+  public static mapUserInEvent (user: UserDTO): UserInEvent {
+    // When user have only 1 userEvent => ex. get all users in current event
+    const { userId, isActive, email } = user;
+    const {
+      eventId, eventName, teamName, teamId, isBanned, role,
+      eventDuration: {
+        endDate: eventEndDate,
+        startDate: eventStartDate,
+      },
+    } = user.userEvents[0];
+
+    return {
+      eventEndDate,
+      eventId,
+      eventName,
+      eventStartDate,
+      isActive,
+      isBanned,
+      role,
+      teamId,
+      teamName,
+      userId,
+      email,
+    };
+  }
 }
