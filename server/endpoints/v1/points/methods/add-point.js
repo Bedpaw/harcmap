@@ -8,6 +8,7 @@ async function addPoint (eventIdString, data) {
 
   delete data.pointCategoryId;
 
+  // TODO validate if pointKey doesnt exist
   const dataToInsert = {
     ...data,
     eventId,

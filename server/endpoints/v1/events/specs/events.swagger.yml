@@ -48,12 +48,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
-  /api/v1/events/:eventId:
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
+  /api/v1/events/{eventId}:
     get:
       summary: 'Get event with :eventId (SECURED)'
       description: 'Special privilege required'
       tags:
         - Events
+      parameters:
+        - in: "path"
+          name: eventId
+          description: "Id of looking event"
+          example: '60e6cc2eaa95cc33d7c46701'
+          default: undefined
+          required: true
       responses:
         200:
           description: 'Event data'
@@ -72,6 +85,8 @@ paths:
                     $ref: '#/components/props/mapProperties'
                   eventRefreshTime:
                     $ref: '#/components/props/eventRefreshTime'
+                  inviteKeys:
+                    $ref: '#/components/props/inviteKeysNullable'
         400:
           description: 'Validation error'
           content:
@@ -84,11 +99,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
     put:
       summary: 'Update event with :id (SECURED)'
       description: 'Special privilege required'
       tags:
         - Events
+      parameters:
+        - in: "path"
+          name: eventId
+          description: "Id of updating event"
+          example: '6074ab410b6c6887ac32adbb'
+          default: undefined
+          required: true
       requestBody:
         content:
           application/json:
@@ -127,6 +155,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
   /api/v1/events/check:
     post:
       summary: 'Allow user to check event, role, team that code'
@@ -162,6 +196,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/400'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
   /api/v1/events/join:
     post:
       summary: 'Allow user to join event (SECURED)'
@@ -205,3 +245,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'

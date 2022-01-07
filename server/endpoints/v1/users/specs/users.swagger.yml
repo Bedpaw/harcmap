@@ -9,6 +9,7 @@ paths:
         - in: "query"
           name: "eventId"
           description: "Return information about users participle in specific event (eventId) and return only one item in userEvents"
+          example: '60e6cc2eaa95cc33d7c46701'
           default: undefined
           required: true
       responses:
@@ -41,57 +42,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
-  #    post:
-  #      summary: 'Add user (SECURED)'
-  #      description: 'Special privilege required'
-  #      tags:
-  #        - Users
-  #      requestBody:
-  #        content:
-  #          application/json:
-  #            schema:
-  #              type: object
-  #              properties:
-  #                email:
-  #                  $ref: '#/components/props/email'
-  #                password:
-  #                  $ref: '#/components/props/password'
-  #                isActive:
-  #                  $ref: '#/components/props/isActive'
-  #                eventId:
-  #                  $ref: '#/components/props/id'
-  #                teamId:
-  #                  $ref: '#/components/props/id'
-  #              required:
-  #                - email
-  #                - password
-  #      responses:
-  #        200:
-  #          description: 'User data'
-  #          content:
-  #            application/json:
-  #              schema:
-  #                type: object
-  #                properties:
-  #                  success:
-  #                    $ref: '#/components/props/success'
-  #        400:
-  #          description: 'Validation error'
-  #          content:
-  #            application/json:
-  #              schema:
-  #                $ref: '#/components/responses/400'
-  #        401:
-  #          description: 'No permissions'
-  #          content:
-  #            application/json:
-  #              schema:
-  #                $ref: '#/components/responses/401'
-  /api/v1/users/account-activation/:key:
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
+  /api/v1/users/account-activation/{key}:
     get:
       summary: 'Activate user account with "key"'
       tags:
         - Users
+      parameters:
+        - in: "path"
+          name: key
+          description: "Unique activation key"
+          example: '6074ab410b6c6887ac32adbb'
+          default: undefined
+          required: true
       responses:
         302:
           description: 'Activation success. Redirect to login form'
@@ -101,6 +69,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/400'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
   /api/v1/users/reset-password:
     post:
       summary: 'Send request for generate password-reset-key'
@@ -132,11 +106,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/400'
-  /api/v1/users/reset-password/:key:
+  /api/v1/users/reset-password/{key}:
     post:
       summary: 'Reset password for user with passwordReset "key"'
       tags:
         - Users
+      parameters:
+        - in: "path"
+          name: key
+          description: "Unique reset password key"
+          example: '6074ab410b6c6887ac32adbb'
+          default: undefined
+          required: true
       requestBody:
         content:
           application/json:
@@ -163,16 +144,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/400'
-  /api/v1/users/:userId:
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
+  /api/v1/users/{userId}:
     get:
       summary: 'Get user with :userId (SECURED)'
       description: 'Special privilege required'
       tags:
         - Users
       parameters:
-        - in: "query"
-          name: "eventId"
-          description: "Return information about user in specific event (eventId) - return only one item in userEvents"
+        - in: "path"
+          name: userId
+          description: "Id of looking user"
+          example: '6074ab410b6c6887ac32adbb'
           default: undefined
           required: true
       responses:
@@ -201,11 +189,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
     put:
       summary: 'Update user with :id (SECURED)'
       description: 'Special privilege required'
       tags:
         - Users
+      parameters:
+        - in: "path"
+          name: userId
+          description: "Id of updating user"
+          example: '6074ab410b6c6887ac32adbb'
+          default: undefined
+          required: true
       requestBody:
         content:
           application/json:
@@ -253,3 +254,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'

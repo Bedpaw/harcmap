@@ -1,7 +1,6 @@
 components:
   responses:
     400:
-      message: 'Client error'
       type: object
       properties:
         error:
@@ -14,7 +13,6 @@ components:
         - error
         - message
     401:
-      message: 'Security error'
       type: object
       properties:
         error:
@@ -27,7 +25,6 @@ components:
         - error
         - message
     500:
-      message: 'Server error. Can have difference structure for uncached error'
       type: object
       properties:
         error:

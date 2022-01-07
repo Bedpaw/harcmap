@@ -1,10 +1,17 @@
 paths:
-  /api/v1/events/:eventId/points:
+  /api/v1/events/{eventId}/points:
     get:
       summary: 'Get list of points in event with eventId (SECURED)'
       description: 'Special privilege required'
       tags:
         - Points
+      parameters:
+        - in: "path"
+          name: eventId
+          description: "Event id for looking points"
+          example: '6074ab410b6c6887ac32adbb'
+          default: undefined
+          required: true
       responses:
         200:
           description: 'Return list of points'
@@ -18,7 +25,7 @@ paths:
                     pointId:
                       $ref: '#/components/props/id'
                     pointKey:
-                      $ref: '#/components/props/pointKey'
+                      $ref: '#/components/props/pointKeyNullable'
                     pointName:
                       $ref: '#/components/props/pointName'
                     pointType:
@@ -43,23 +50,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
     post:
       summary: 'Add point (SECURED)'
       description: 'Special privilege required'
       tags:
         - Points
+      parameters:
+        - in: "path"
+          name: eventId
+          description: "Event id for adding point"
+          example: '6074ab410b6c6887ac32adbb'
+          default: undefined
+          required: true
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                pointId:
-                  $ref: '#/components/props/id'
                 pointName:
                   $ref: '#/components/props/pointName'
-                pointKey:
-                  $ref: '#/components/props/pointKey'
                 pointType:
                   $ref: '#/components/props/pointType'
                 pointDuration:
@@ -69,10 +85,10 @@ paths:
                 pointCategoryId:
                   $ref: '#/components/props/id'
               required:
-                - pointKey
                 - pointName
                 - pointType
                 - pointPosition
+                - pointDuration
                 - pointCategoryId
       responses:
         200:
@@ -82,8 +98,22 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    $ref: '#/components/props/success'
+                  pointId:
+                    $ref: '#/components/props/id'
+                  pointKey:
+                    $ref: '#/components/props/pointKey'
+                  pointName:
+                    $ref: '#/components/props/pointName'
+                  pointType:
+                    $ref: '#/components/props/pointType'
+                  pointCollectedDate:
+                    $ref: '#/components/props/pointCollectedDate'
+                  pointDuration:
+                    $ref: '#/components/props/pointDuration'
+                  pointPosition:
+                    $ref: '#/components/props/pointPosition'
+                  pointCategoryId:
+                    $ref: '#/components/props/id'
         400:
           description: 'Validation error'
           content:
@@ -96,12 +126,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
-  /api/v1/events/:eventId/points/collect:
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
+  /api/v1/events/{eventId}/points/collect:
     post:
       summary: 'Collect point in event with eventId (SECURED)'
       description: 'Special privilege required'
       tags:
         - Points
+      parameters:
+        - in: "path"
+          name: eventId
+          description: "Event id"
+          example: '6074ab410b6c6887ac32adbb'
+          default: undefined
+          required: true
       requestBody:
         content:
           application/json:
@@ -134,12 +177,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
-  /api/v1/events/:eventId/points/:pointId:
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
+  /api/v1/events/{eventId}/points/{pointId}:
     put:
       summary: 'Update point with pointId from event with eventId (SECURED)'
       description: 'Special privilege required'
       tags:
         - Points
+      parameters:
+        - in: "path"
+          name: eventId
+          description: "Event id for looking points"
+          example: '6074ab410b6c6887ac32adbb'
+          default: undefined
+          required: true
+        - in: "path"
+          name: pointId
+          description: "Id of looking point"
+          example: '6074ab410b6c6887ac32adbb'
+          default: undefined
+          required: true
       requestBody:
         content:
           application/json:
@@ -180,11 +242,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
     delete:
       summary: 'Delete point with pointId from event with eventId (SECURED)'
       description: 'Special privilege required'
       tags:
         - Points
+      parameters:
+        - in: "path"
+          name: eventId
+          description: "Event id for looking points"
+          example: '6074ab410b6c6887ac32adbb'
+          default: undefined
+          required: true
+        - in: "path"
+          name: pointId
+          description: "Id of deleting point"
+          example: '6074ab410b6c6887ac32adbb'
+          default: undefined
+          required: true
       responses:
         200:
           description: 'Result of operation'
@@ -207,3 +288,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'

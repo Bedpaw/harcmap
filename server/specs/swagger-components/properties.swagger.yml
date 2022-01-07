@@ -67,7 +67,7 @@ components:
     message:
       description: 'Error text name'
       type: string
-      example: 'point not exist'
+      example: 'error text name'
     errorDetails:
       description: 'Validation details. PROBABLY WILL BE REMOVED'
       type: object
@@ -80,6 +80,11 @@ components:
       description: 'Describe permissions in app'
       type: string
       example: 'teamLeader'
+    roleNullable:
+      description: 'Describe permissions in app'
+      type: string
+      example: 'teamLeader'
+      nullable: true
     eventName:
       description: 'Event name'
       type: string
@@ -90,7 +95,7 @@ components:
       description: 'Event access key'
       type: string
       length: 4
-      example: 'hw4p'
+      example: 'ev23'
     eventDuration:
       type: object
       properties:
@@ -151,6 +156,11 @@ components:
           role:
             $ref: '#/components/props/role'
     pointKey:
+      description: 'Point key to collect. Nullable if user have no permission to key'
+      type: string
+      length: 4
+      example: 'hw4p'
+    pointKeyNullable:
       description: 'Point key to collect. Nullable if user have no permission to key'
       type: string
       nullable: true
@@ -221,3 +231,28 @@ components:
       type: string
       minLength: 3
       maxLength: 24
+    inviteKeys:
+      description: 'List of keys to join to event, team'
+      type: array
+      items:
+        type: object
+        properties:
+          keyId:
+            $ref: '#/components/props/id'
+          role:
+            $ref: '#/components/props/roleNullable'
+          key:
+            $ref: '#/components/props/eventKey'
+    inviteKeysNullable:
+      description: 'List of keys to join to event, team'
+      type: array
+      nullable: true
+      items:
+        type: object
+        properties:
+          keyId:
+            $ref: '#/components/props/id'
+          role:
+            $ref: '#/components/props/roleNullable'
+          key:
+            $ref: '#/components/props/eventKey'

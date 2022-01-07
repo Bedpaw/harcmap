@@ -1,10 +1,17 @@
 paths:
-  /api/v1/events/:eventId/categories:
+  /api/v1/events/{eventId}/categories:
     get:
       summary: 'Get list of categories in event with eventId (SECURED)'
       description: 'Special privilege required'
       tags:
         - Categories
+      parameters:
+        - in: "path"
+          name: eventId
+          description: "Event id for looking categories"
+          example: '60e6cc2eaa95cc33d7c46701'
+          default: undefined
+          required: true
       responses:
         200:
           description: 'Return list of categories'
@@ -35,11 +42,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
     post:
       summary: 'Add points category (SECURED)'
       description: 'Special privilege required'
       tags:
         - Categories
+      parameters:
+        - in: "path"
+          name: eventId
+          description: "Event id for looking categories"
+          example: '6074ab410b6c6887ac32adbb'
+          default: undefined
+          required: true
       requestBody:
         content:
           application/json:
@@ -84,101 +104,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
-#  /events/:eventId/categories/:categoryId:
-#    get:
-#      summary: 'Get category with categoryId from event with eventId (SECURED)'
-#      description: 'Special privilege required'
-#      tags:
-#        - Categories
-#      responses:
-#        200:
-#          description: 'Points category data'
-#          content:
-#            application/json:
-#              schema:
-#                type: object
-#                properties:
-#                  categoryName:
-#                    $ref: '#/components/props/categoryName'
-#                  pointValue:
-#                    $ref: '#/components/props/pointValue'
-#                  pointShape:
-#                    $ref: '#/components/props/pointShape'
-#        400:
-#          description: 'Validation error'
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/responses/400'
-#        401:
-#          description: 'No permissions'
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/responses/401'
-#    put:
-#      summary: 'Update category with categoryId from event with eventId (SECURED)'
-#      description: 'Special privilege required'
-#      tags:
-#        - Categories
-#      requestBody:
-#        content:
-#          application/json:
-#            schema:
-#              type: object
-#              properties:
-#                categoryName:
-#                  $ref: '#/components/props/categoryName'
-#                pointValue:
-#                  $ref: '#/components/props/pointValue'
-#                pointShape:
-#                  $ref: '#/components/props/pointShape'
-#      responses:
-#        200:
-#          description: 'Result of operation'
-#          content:
-#            application/json:
-#              schema:
-#                type: object
-#                properties:
-#                  success:
-#                    $ref: '#/components/props/success'
-#        400:
-#          description: 'Validation error'
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/responses/400'
-#        401:
-#          description: 'No permissions'
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/responses/401'
-#    delete:
-#      summary: 'Delete category with categoryId from event with eventId (SECURED)'
-#      description: 'Special privilege required'
-#      tags:
-#        - Categories
-#      responses:
-#        200:
-#          description: 'Result of operation'
-#          content:
-#            application/json:
-#              schema:
-#                type: object
-#                properties:
-#                  success:
-#                    $ref: '#/components/props/success'
-#        400:
-#          description: 'Validation error'
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/responses/400'
-#        401:
-#          description: 'No permissions'
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'

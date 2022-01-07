@@ -1,10 +1,17 @@
 paths:
-  /api/v1/events/:eventId/teams:
+  /api/v1/events/{eventId}/teams:
     get:
       summary: 'Get list of teams in event with eventId (SECURED)'
       description: 'Special privilege required'
       tags:
         - Teams
+      parameters:
+        - in: "path"
+          name: eventId
+          description: "Event id for looking teams"
+          example: '60e6cc2eaa95cc33d7c46701'
+          default: undefined
+          required: true
       responses:
         200:
           description: 'Return list of teams'
@@ -23,6 +30,8 @@ paths:
                       $ref: '#/components/props/collectedPoints'
                     teamMembers:
                       $ref: '#/components/props/teamMembers'
+                    inviteKeys:
+                      $ref: '#/components/props/inviteKeys'
         400:
           description: 'Validation error'
           content:
@@ -35,12 +44,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
-  /api/v1/events/:eventId/teams/:teamId:
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
+  /api/v1/events/{eventId}/teams/{teamId}:
     get:
       summary: 'Get team with teamId from event with eventId (SECURED)'
       description: 'Special privilege required'
       tags:
         - Teams
+      parameters:
+        - in: "path"
+          name: eventId
+          description: "Event id for looking teams"
+          example: '6074ab410b6c6887ac32adbb'
+          default: undefined
+          required: true
+        - in: "path"
+          name: pointId
+          description: "Id of looking team"
+          example: '6074ab410b6c6887ac32adbb'
+          default: undefined
+          required: true
       responses:
         200:
           description: 'Team data'
@@ -55,6 +83,8 @@ paths:
                     $ref: '#/components/props/collectedPoints'
                   teamMembers:
                     $ref: '#/components/props/teamMembers'
+                  inviteKeys:
+                    $ref: '#/components/props/inviteKeysNullable'
         400:
           description: 'Validation error'
           content:
@@ -67,81 +97,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/401'
-#    put:
-#      summary: 'Update team with teamId from event with eventId (SECURED)'
-#      description: 'Special privilege required'
-#      tags:
-#        - Teams
-#      requestBody:
-#        content:
-#          application/json:
-#            schema:
-#              type: object
-#              properties:
-#                teamName:
-#                  $ref: '#/components/props/teamName'
-#                teamKey:
-#                  $ref: '#/components/props/teamKey'
-#                teamLeader:
-#                  $ref: '#/components/props/id'
-#                teamMembers:
-#                  $ref: '#/components/props/teamMembers'
-#      responses:
-#        200:
-#          description: 'Result of operation'
-#          content:
-#            application/json:
-#              schema:
-#                type: object
-#                properties:
-#                  success:
-#                    $ref: '#/components/props/success'
-#        400:
-#          description: 'Validation error'
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/responses/400'
-#        401:
-#          description: 'No permissions'
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/responses/401'
-#    delete:
-#      summary: 'Delete team with teamId from event with eventId (SECURED)'
-#      description: 'Special privilege required'
-#      tags:
-#        - Teams
-#      requestBody:
-#        content:
-#          application/json:
-#            schema:
-#              type: object
-#              properties:
-#                teamId:
-#                  $ref: '#/components/props/id'
-#              required:
-#                - teamId
-#      responses:
-#        200:
-#          description: 'Result of operation'
-#          content:
-#            application/json:
-#              schema:
-#                type: object
-#                properties:
-#                  success:
-#                    $ref: '#/components/props/success'
-#        400:
-#          description: 'Validation error'
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/responses/400'
-#        401:
-#          description: 'No permissions'
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
