@@ -39,6 +39,8 @@ class AppConsoleFramePlugin {
     compiler.hooks.done.tapAsync(pluginName,
       (stats, callback) => {
         callback();
+        return;
+
         const time = Math.abs(dayjs(stats.startTime).diff(stats.endTime, 'second', true));
 
         process.stderr.cursorTo(0, 6, () => {
@@ -74,6 +76,8 @@ class AppConsoleFramePlugin {
   }
 
   writeAssetsSizes (stats) {
+    return;
+
     const table = new Table(this.tableConfig());
     const availableExt = ['js'];
     const isProductionMode = stats.compilation.compiler.options.mode === 'production';
