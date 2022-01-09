@@ -9,7 +9,7 @@
     >
       <template #form>
         <m-field-email
-          v-model="user"
+          v-model="email"
           :disabled="blockForm"
         />
         <a-button-submit
@@ -52,7 +52,7 @@ export default {
     AButtonSubmit,
   },
   setup () {
-    const user = ref('');
+    const email = ref('');
     const form = useForm();
     const { formSend, isSending, blockForm, onErrorOccurs } = form;
     const router = useRouter();
@@ -65,7 +65,7 @@ export default {
     function remindPassword () {
       isSending.value = true;
       blockForm.value = true;
-      api.remindPassword({ user: user.value })
+      api.sendResetPassword({ email: email.value })
         .then(onRemindPassword)
         .catch(error => {
           if (error.code !== validateCodes.DATABASE_NO_RESULT_ERROR) {
@@ -79,7 +79,7 @@ export default {
     return {
       ...form,
       router,
-      user,
+      email,
       remindPassword,
     };
   },
