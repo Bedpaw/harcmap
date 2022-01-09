@@ -138,6 +138,10 @@ components:
       example: 'Włóczykije'
       minLength: 3
       maxLength: 24
+    teamColor:
+      description: 'Team color'
+      type: string
+      example: '#922eb4'
     collectedPoints:
       description: 'List of collected points (pointsId)'
       type: array
