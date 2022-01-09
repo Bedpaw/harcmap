@@ -237,6 +237,7 @@ export const plPL = {
     fakeErrorInMockApi: 'Fałszywy błąd mockApi',
     dataAfterSignIn: 'Logowanie nie powiodło się ze względu na problem z pobraniem danych dotyczących konta. Spróbuj ponownie.',
     correctForm: 'Wypełnij poprawnie formularz.',
+    changePasswordKeyIsWrong: 'Link do zmiany hasła jest niepoprawny. Skontaktuj się z administratorem.',
   },
   apiWarn: {
     undefined: 'Wystąpiło niezdefiniowane ostrzeżenie. Skontaktuj się z twórcą aplikacji.',
