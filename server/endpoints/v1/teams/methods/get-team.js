@@ -10,6 +10,7 @@ async function getTeam (request, eventId, teamId) {
   });
   const {
     teamName,
+    teamColor,
     teamMembers,
     inviteKeys,
     collectedPoints,
@@ -18,6 +19,7 @@ async function getTeam (request, eventId, teamId) {
 
   return {
     teamName,
+    teamColor,
     teamMembers,
     inviteKeys: secureField(parsedInviteKeys, eventId, request, rolesWithAccessToInviteKeys),
     collectedPoints: collectedPoints.map(id => id.toString()),
