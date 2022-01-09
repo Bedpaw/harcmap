@@ -6,24 +6,11 @@
     >
       <template #form>
         <m-field-email
-          v-model="values.user"
+          v-model="values.email"
           :disabled="blockForm"
         />
         <m-field-set-password
           v-model="values.password"
-          :disabled="blockForm"
-        />
-        <m-field-text
-          v-model.trim="values.userTeam"
-          :label="$t('form.field.userTeam')"
-          :rules="validationRules.userTeam"
-          :disabled="blockForm"
-          :assist="$t('form.assist.userTeam')"
-        />
-        <m-field-text
-          v-model="values.eventId"
-          :label="$t('form.field.eventId')"
-          :rules="validationRules.eventId"
           :disabled="blockForm"
         />
         <a-button-submit
@@ -38,7 +25,7 @@
             {{ $t('page.signUp.registrationDone') }}
           </div>
           {{ $t('page.signUp.linkHasBeenSent') }}
-          <span class="f-bold">{{ values.user }}</span>
+          <span class="f-bold">{{ values.email }}</span>
         </div>
         <a-button-primary @click="$router.push(ROUTES.signIn.path)">
           {{ $t('form.button.goToLogin') }}
@@ -53,7 +40,6 @@ import TPage from 'templates/page';
 import AButtonSubmit from 'atoms/button/submit';
 import MFieldEmail from 'molecules/field/email';
 import MFieldSetPassword from 'molecules/field/set-password';
-import MFieldText from 'molecules/field/text';
 import OForm from 'organisms/form';
 import AButtonPrimary from 'atoms/button/primary';
 import { api } from 'api';
@@ -66,17 +52,14 @@ export default {
     TPage,
     AButtonPrimary,
     OForm,
-    MFieldText,
     MFieldSetPassword,
     MFieldEmail,
     AButtonSubmit,
   },
   setup () {
     const values = reactive({
-      user: '',
+      email: '',
       password: '',
-      userTeam: '',
-      eventId: '',
     });
 
     const form = useForm();
