@@ -88,7 +88,7 @@ export class Popup {
   }
 
   getPermanentPointDetails (point) {
-    const { pointName, pointId } = point;
+    const { pointName, pointKey } = point;
     const detailsList = [];
     detailsList.push({
       icon: ICONS.place,
@@ -100,7 +100,7 @@ export class Popup {
     });
     detailsList.push({
       icon: ICONS.vpn_key,
-      value: pointId,
+      value: pointKey,
     });
     return detailsList;
   }

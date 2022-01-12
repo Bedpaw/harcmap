@@ -10,7 +10,6 @@ interface PointPosition {
 export interface PointDTOCreate {
   // pointId -> Remove
   pointName: string;
-  pointKey: string;
   pointType: string;
   pointDuration: PointDuration;
   pointPosition: PointPosition;
@@ -19,6 +18,7 @@ export interface PointDTOCreate {
 
 export interface PointDTO extends PointDTOCreate{
   pointId: string;
+  pointKey: string;
   pointCollectedDate: number;
 }
 
@@ -27,7 +27,8 @@ export type PointDTOUpdate = PointDTOCreate
 export interface PointCategoryDTOCreate {
   categoryName: string;
   pointValue: number;
-  pointShape: string;
+  strokeColor: string;
+  fillColor: string;
 }
 
 export interface PointCategoryDTO extends PointCategoryDTOCreate{

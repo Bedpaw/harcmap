@@ -1,5 +1,6 @@
 export type PointType = {
   pointId: string
+  pointKey: string | null
   pointName: string
   pointLongitude: number | null
   pointLatitude: number | null
@@ -8,4 +9,10 @@ export type PointType = {
   pointCollectionTime: number | null
   pointAppearanceTime: number | null
   pointExpirationTime: number | null
+}
+
+export interface PointCategory {
+  categoryId: string;
+  categoryName: string;
+  pointValue: number;
 }

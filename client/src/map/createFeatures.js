@@ -5,13 +5,13 @@ import Point from 'ol/geom/Point';
 import * as Projection from 'ol/proj';
 import { map } from 'src/map';
 import { Fill, RegularShape, Stroke, Style } from 'ol/style';
-import { MAP_POINTS } from 'utils/macros/map-point-types';
 import { store } from 'store';
 import { uCheck } from '@dbetka/utils';
 import { mapConfig } from 'map/config';
 import { colorsUtils } from 'utils/colors';
 import { ErrorMessage } from 'utils/error-message';
 import { permissions } from 'utils/permissions';
+import { pointCategoryUtils } from 'utils/point-category';
 
 export function createFeatures ({ list = [] }) {
   const mapIsNotDefined = uCheck.isNotObject(map.realMap);
@@ -27,18 +27,18 @@ export function createFeatures ({ list = [] }) {
   for (const point of list) {
     const lat = point.pointLatitude;
     const lon = point.pointLongitude;
-    const shape = point.pointCategory;
+    const appearance = pointCategoryUtils.getPointAppearance(point.pointCategory);
     const showCollected = shouldBeShownAsCollected(point);
 
-    const stroke = getStroke(shape, showCollected);
-    const fill = getFill(shape, showCollected);
+    const stroke = getStroke(appearance, showCollected);
+    const fill = getFill(appearance, showCollected);
 
     const position = Projection.fromLonLat([lon, lat]);
 
     const feature = new Feature({
       geometry: new Point(position),
     });
-    feature.setStyle(getFinalPoints(shape, fill, stroke));
+    feature.setStyle(getFinalPoints(appearance, fill, stroke));
 
     point.olUid = feature.ol_uid;
     listOfFeatures.push(feature);
@@ -56,6 +56,7 @@ export function createFeatures ({ list = [] }) {
 }
 
 const shouldBeShownAsCollected = (point) => {
+  // TODO duplicated with pointUtils
   const pointIsCollected = point.pointCollectionTime !== null;
   const collectedPointsIds = store.getters['team/collectedPointsIds'];
   const collectedByLoginUser = collectedPointsIds.includes(point.pointId);
@@ -63,31 +64,25 @@ const shouldBeShownAsCollected = (point) => {
   return pointIsCollected && (collectedByLoginUser || isAdmin);
 };
 
-const getStroke = (shape, isCollected, width = mapConfig.features.defaultWidth) => {
-  let appearance = MAP_POINTS[shape]() || {};
-  if (isCollected) {
-    const opacity = 0.3;
-    appearance = { ...appearance };
-    appearance.strokeColor = colorsUtils.hexOrRGBToRGB(appearance.strokeColor, opacity);
-  }
+const getStroke = (appearance, isCollected, width = mapConfig.features.defaultWidth) => {
   return new Stroke({
-    color: appearance.strokeColor,
+    color: getColorWithOpacity(appearance.strokeColor, isCollected),
     width,
   });
 };
 
-const getFill = (shape, isCollected) => {
-  let appearance = MAP_POINTS[shape]() || {};
-  if (isCollected) {
-    const opacity = 0.3;
-    appearance = { ...appearance };
-    appearance.fillColor = colorsUtils.hexOrRGBToRGB(appearance.fillColor, opacity);
-  }
-  return new Fill({ color: appearance.fillColor });
+const getFill = (appearance, isCollected) => {
+  return new Fill({ color: getColorWithOpacity(appearance.fillColor, isCollected) });
 };
 
-const getFinalPoints = (shape, fill, stroke) => {
-  const starShape = 0;
+const getColorWithOpacity = (color, isCollected) => {
+  if (isCollected) {
+    return colorsUtils.hexOrRGBToRGB(color, mapConfig.features.defaultCollectedPointOpacity);
+  }
+  return color;
+};
+
+const getFinalPoints = (appearance, fill, stroke) => {
   const pointValues = {
     fill,
     stroke,
@@ -95,7 +90,7 @@ const getFinalPoints = (shape, fill, stroke) => {
     radius: 10,
     angle: 20,
   };
-  if (shape === starShape) {
+  if (appearance.shape === pointCategoryUtils.availableShapes.star) {
     Object.assign(pointValues, {
       points: 5,
       radius: 12,
