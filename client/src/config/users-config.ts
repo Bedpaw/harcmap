@@ -2,7 +2,7 @@ import { ACCOUNT_TYPES } from 'utils/permissions';
 import { materialIcons } from '@dbetka/vue-material-icons';
 import { ROUTES } from 'config/routes-config';
 import { store } from 'store';
-import { TeamMember } from 'models/dtos/team';
+import { TeamMemberDTO as TeamMember } from 'models/dtos/team';
 
 const ICONS = materialIcons.names;
 

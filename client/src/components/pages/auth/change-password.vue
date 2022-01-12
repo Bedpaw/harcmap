@@ -45,6 +45,7 @@ import AButtonPrimary from 'atoms/button/primary';
 import { useForm } from 'plugins/form';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { ErrorMessage } from '@dbetka/wdk/lib/error-message';
 
 export default {
   name: 'p-change-password',
@@ -70,12 +71,19 @@ export default {
     function changePassword () {
       isSending.value = true;
       blockForm.value = true;
-      api.changePassword(
-        password.value,
-        router.currentRoute.value.params.key,
-      )
-        .then(onChangePassword)
-        .catch(onErrorOccurs);
+      const key = router.currentRoute.value.params.key;
+      if (key && typeof key === 'string') {
+        api.changePassword(
+          password.value,
+          key,
+        )
+          .then(onChangePassword)
+          .catch(onErrorOccurs);
+      } else {
+        const error = new ErrorMessage('error.changePasswordKeyIsWrong');
+        error.showMessage();
+        throw error;
+      }
     }
 
     return {
