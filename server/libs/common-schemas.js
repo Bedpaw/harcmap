@@ -64,7 +64,8 @@ const defaultMapZoom = Joi.number()
 const pointName = Joi.string()
   .min(3)
   .max(24)
-  .trim();
+  .trim()
+  .allow(null);
 const pointType = Joi.string()
   .equal('timeout', 'permanent');
 

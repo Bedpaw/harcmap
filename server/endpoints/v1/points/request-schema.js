@@ -2,7 +2,6 @@ const Joi = require('joi');
 const {
   pointName,
   pointType,
-  date,
   dateWithNull,
   longitude,
   latitude,
@@ -12,8 +11,8 @@ const {
 
 const onePoint = {
   PUT: Joi.object({
-    pointName: pointName,
-    pointType: pointType,
+    pointName,
+    pointType,
     pointDuration: {
       startDate: dateWithNull,
       endDate: dateWithNull,

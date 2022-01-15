@@ -12,6 +12,7 @@ async function addPoint (eventIdString, data) {
   const dataToInsert = {
     ...data,
     eventId,
+    pointName: data.pointName || null,
     pointCategoryId,
     pointCollectedDate: null,
     pointKey: generateRandomStringWithoutSimilarChars(4),
