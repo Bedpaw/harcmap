@@ -15,8 +15,8 @@ const onePoint = {
     pointName: pointName,
     pointType: pointType,
     pointDuration: {
-      startDate: date,
-      endDate: date,
+      startDate: dateWithNull,
+      endDate: dateWithNull,
     },
     pointPosition: {
       longitude,
