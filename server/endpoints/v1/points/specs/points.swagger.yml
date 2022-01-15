@@ -85,7 +85,6 @@ paths:
                 pointCategoryId:
                   $ref: '#/components/props/id'
               required:
-                - pointName
                 - pointType
                 - pointPosition
                 - pointDuration
@@ -218,7 +217,7 @@ paths:
                   $ref: '#/components/props/pointDuration'
                 pointPosition:
                   $ref: '#/components/props/pointPosition'
-                pointCategory:
+                pointCategoryId:
                   $ref: '#/components/props/id'
       responses:
         200:

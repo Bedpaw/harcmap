@@ -3,6 +3,10 @@
  */
 const mail = require('nodemailer');
 const {
+  AppError,
+  errorCodes,
+} = require('../errors');
+const {
   MAIL_SERVER_HOST,
   MAIL_SERVER_PORT,
   MAIL_SERVER_EMAIL,
@@ -22,23 +26,29 @@ async function sendMail (to, config) {
   } = config;
 
   // server configuration
-  const mailServer = mail.createTransport({
-    host: MAIL_SERVER_HOST,
-    port: MAIL_SERVER_PORT,
-    secure: true,
-    auth: {
-      user: MAIL_SERVER_EMAIL,
-      pass: MAIL_SERVER_PASSWORD,
-    },
-  });
+  try {
+    const mailServer = mail.createTransport({
+      host: MAIL_SERVER_HOST,
+      port: MAIL_SERVER_PORT,
+      secure: true,
+      auth: {
+        user: MAIL_SERVER_EMAIL,
+        pass: MAIL_SERVER_PASSWORD,
+      },
+    });
 
-  // sending message
-  await mailServer.sendMail({
-    from: `HarcMap ${MAIL_SERVER_EMAIL}`,
-    to,
-    subject,
-    html: content,
-  });
+    // sending message
+    await mailServer.sendMail({
+      from: `HarcMap ${MAIL_SERVER_EMAIL}`,
+      to,
+      subject,
+      html: content,
+    });
+  } catch (error) {
+    throw new AppError(errorCodes.MAIL_SERVICE_ERROR, {
+      details: error,
+    });
+  }
 }
 
 module.exports = sendMail;

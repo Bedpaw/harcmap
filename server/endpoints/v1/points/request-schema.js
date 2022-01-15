@@ -3,6 +3,7 @@ const {
   pointName,
   pointType,
   date,
+  dateWithNull,
   longitude,
   latitude,
   objectIdInRequest,
@@ -35,11 +36,11 @@ const collect = {
 const allPoints = {
   GET: Joi.object({}),
   POST: Joi.object({
-    pointName: pointName.required(),
+    pointName,
     pointType: pointType.required(),
     pointDuration: {
-      startDate: date.required(),
-      endDate: date.required(),
+      startDate: dateWithNull.required(),
+      endDate: dateWithNull.required(),
     },
     pointPosition: {
       longitude: longitude.required(),

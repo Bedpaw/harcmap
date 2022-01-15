@@ -36,7 +36,7 @@ const errors = {
   REQUIRE_TEAMNAME: 1403,
   THIS_USER_ID_DOESNT_BELONG_TO_YOU: 1404,
   // 15xx - 3rd part services
-  CANNOT_SEND_MAIL: 1500,
+  MAIL_SERVICE_ERROR: 1500,
   // 16xx - Account activation / Password reset
   INVALID_ACTIVATION_KEY: 1600,
   CANNOT_UPDATE_USER_ACTIVATION: 1601,
