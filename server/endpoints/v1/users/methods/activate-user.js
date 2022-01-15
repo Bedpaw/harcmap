@@ -1,13 +1,13 @@
 const Users = require('../../../../models/users');
-const { AppError, errorCodes } = require('../../../../libs/errors');
+const logger = require('../../../../libs/logger');
+const { errorCodes } = require('../../../../libs/errors');
 
 async function activateUser (response, key) {
   const user = await Users.get({ 'accountActivation.key': key });
 
   if (!user) {
-    throw new AppError(errorCodes.INVALID_ACTIVATION_KEY, {
-      httpStatus: 400,
-    });
+    logger.error(errorCodes.INVALID_ACTIVATION_KEY);
+    response.redirect('/activation-wrong');
   }
 
   const updatedUser = await Users.update({ _id: user._id }, {
@@ -18,13 +18,13 @@ async function activateUser (response, key) {
   });
 
   if (!updatedUser.success) {
-    throw new AppError(errorCodes.CANNOT_UPDATE_USER_ACTIVATION, {
-      httpStatus: 500,
+    logger.error(errorCodes.CANNOT_UPDATE_USER_ACTIVATION, {
       details: updatedUser.errorDetails,
     });
+    response.redirect('/activation-wrong');
+  } else {
+    response.redirect('/activation-done');
   }
-
-  response.redirect('/login?accountActivated');
 }
 
 module.exports = activateUser;
