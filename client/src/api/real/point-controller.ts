@@ -34,17 +34,19 @@ export const pointController = {
     });
   },
   addPoint (point: PointType, eventId: string) {
+    const test = Mapper.mapPointOut(point); // TODO
     return httpService.post({
       url: urls.addPoint(eventId),
       errorOptions: API_ERRORS.addPoint,
-      body: Mapper.mapPointOut(point),
+      body: test,
     });
   },
   editPoint (point: PointType, eventId: string) {
+    const test = Mapper.mapPointOut(point); // TODO
     return httpService.put({
       url: urls.editPoint(eventId, point.pointId),
       errorOptions: API_ERRORS.editPoint,
-      body: Mapper.mapPointOut(point),
+      body: test,
     });
   },
 };

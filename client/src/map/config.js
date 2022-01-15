@@ -14,6 +14,7 @@ export const mapConfig = {
   },
   features: {
     defaultWidth: 2,
+    defaultCollectedPointOpacity: 0.3,
     zIndex: 10,
   },
   lineConnectingPoints: {

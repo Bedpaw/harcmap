@@ -14,20 +14,7 @@ export class Mapper {
       pointCollectionTime: pointIn.pointCollectedDate,
       pointExpirationTime: pointIn.pointDuration.endDate,
       pointId: pointIn.pointId,
-      pointLatitude: pointIn.pointPosition.latitude,
-      pointLongitude: pointIn.pointPosition.longitude,
-      pointName: pointIn.pointName,
-      pointType: pointIn.pointType,
-    };
-  }
-
-  public static mapPointCategoryIn (pointIn: PointDTO): PointType {
-    return {
-      pointAppearanceTime: pointIn.pointDuration.startDate,
-      pointCategory: pointIn.pointCategoryId,
-      pointCollectionTime: pointIn.pointCollectedDate,
-      pointExpirationTime: pointIn.pointDuration.endDate,
-      pointId: pointIn.pointId,
+      pointKey: pointIn.pointKey ?? null,
       pointLatitude: pointIn.pointPosition.latitude,
       pointLongitude: pointIn.pointPosition.longitude,
       pointName: pointIn.pointName,
@@ -37,12 +24,11 @@ export class Mapper {
 
   public static mapPointOut (pointOut: PointType): PointDTOCreate | PointDTOUpdate {
     return {
-      pointCategoryId: pointOut.pointCategory,
+      pointCategoryId: '60e7046eaa95cc33d7c4672b', // for test TODO
       pointDuration: {
         startDate: pointOut.pointAppearanceTime,
         endDate: pointOut.pointExpirationTime,
       },
-      pointKey: 'XD',
       pointName: pointOut.pointName,
       pointPosition: {
         longitude: pointOut.pointLongitude,

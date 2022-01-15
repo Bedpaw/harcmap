@@ -13,12 +13,6 @@ const urls = {
 
 export const authController = {
   signIn (credentials: Credentials) {
-    // TODO, why there is user field, somewhere in autologin
-    if (credentials.user) {
-      credentials.email = credentials.user;
-      delete credentials.user;
-    }
-
     return httpService.post<UserDTO, User>({
       url: urls.signIn,
       body: credentials,
@@ -37,7 +31,6 @@ export const authController = {
       url: urls.signUp,
       body: credentials,
       errorOptions: API_ERRORS.signUp,
-
     });
   },
   signOut () {

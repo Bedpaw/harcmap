@@ -78,7 +78,7 @@ export default {
     function signInAutomatically () {
       isSending.value = true;
       blockForm.value = true;
-      values.email = DEV_USERS_LIST.teamLeader.user;
+      values.email = DEV_USERS_LIST.teamLeader.email;
       values.password = DEV_USERS_LIST.teamLeader.password;
       uPromise.timeout(500)
         .then(() => signIn());

@@ -2,12 +2,12 @@ import { ROUTES } from 'config/routes-config';
 import PWelcome from 'pages/welcome';
 import PError from 'pages/error';
 import PAbout from 'pages/about';
-import PSignIn from 'pages/sign-in';
-import PSignUp from 'pages/sign-up';
-import PActivationDone from 'pages/activation-done';
-import PActivationWrong from 'pages/activation-wrong';
-import PRemindPassword from 'pages/remind-password';
-import PChangePassword from 'pages/change-password';
+import PSignIn from 'pages/auth/sign-in';
+import PSignUp from 'pages/auth/sign-up';
+import PActivationDone from 'pages/auth/activation-done';
+import PActivationWrong from 'pages/auth/activation-wrong';
+import PRemindPassword from 'pages/auth/remind-password';
+import PChangePassword from 'pages/auth/change-password';
 import { AppRoute } from 'src/router/utils';
 
 export const routes = [

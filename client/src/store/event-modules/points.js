@@ -69,7 +69,7 @@ export default {
     },
     editPoint (context, { point, eventId = context.getters.eventId }) {
       return new Promise((resolve, reject) => {
-        api.editPoint({ point, eventId })
+        api.editPoint(point, eventId)
           .then(() => map.updateMapFeatures())
           .then(() => resolve())
           .catch(reject);

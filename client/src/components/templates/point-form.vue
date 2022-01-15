@@ -2,7 +2,8 @@
   <t-page class="f-flex f-flex-col">
     <o-form :on-submit="onSubmit">
       <m-field-text
-        v-model="values.pointId"
+        v-if="values.pointKey"
+        v-model="values.pointKey"
         disabled
         :label="$t('form.field.pointId')"
         :assist="$t('form.assist.pointId')"
@@ -37,7 +38,7 @@
       />
       <m-select
         v-if="isPermanent"
-        v-model="values.pointCategory"
+        v-model="values.pointCategoryId"
         :options="categoryOptions"
         :placeholder="$t('form.field.pointCategory')"
         :disabled="blockForm"
@@ -83,7 +84,6 @@ import MFieldText from 'molecules/field/text';
 import { ErrorMessage } from 'utils/error-message';
 import OFloatContainer from 'organisms/float-container';
 import OAdminSetNewPointPosition from 'organisms/admin/set-point-position';
-import { idUtils } from 'utils/id';
 import { pointUtils } from 'utils/point';
 import { computed, onMounted, ref, toRefs } from 'vue';
 import { useForm } from 'plugins/form';
@@ -117,7 +117,7 @@ export default {
     const { defaultValues, onSave } = toRefs(props);
 
     const generateDefaultValues = () => ({
-      pointId: idUtils.generateNewId(),
+      pointKey: null,
       pointName: '',
       pointCategory: MACROS.pointCategory[0].categoryId,
       pointType: MACROS.pointType.permanent,
@@ -168,7 +168,7 @@ export default {
     }
     function ensureValidDataByPointType () {
       if (values.value.pointType === MACROS.pointType.timeout) {
-        values.value.pointCategory = 0;
+        values.value.pointCategoryId = 0;
       }
       if (values.value.pointType === MACROS.pointType.permanent) {
         values.value.pointExpirationTime = null;
