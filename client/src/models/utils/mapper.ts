@@ -1,6 +1,6 @@
 import { PointDTO, PointDTOCreate, PointDTOUpdate } from 'models/dtos/point';
 import { PointType } from 'models/point';
-import { EventDTO } from 'models/dtos/event';
+import { EventDTO, EventDTOCreate, EventDTOUpdate } from 'models/dtos/event';
 import { Event } from 'models/event';
 import { UserDTO } from 'models/dtos/user';
 import { User, UserInEvent } from 'models/user';
@@ -52,13 +52,12 @@ export class Mapper {
     };
   }
 
-  public static mapEventOut (eventOut: Event): EventDTO {
+  public static mapEventOut (eventOut: Event): EventDTOCreate | EventDTOUpdate {
     return {
       eventDuration: {
         endDate: eventOut.eventEndDate,
         startDate: eventOut.eventStartDate,
       },
-      eventId: eventOut.eventId,
       eventKey: eventOut.eventKey,
       eventName: eventOut.eventName,
       eventRefreshTime: eventOut.mapRefreshTime,

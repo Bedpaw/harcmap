@@ -174,6 +174,9 @@ export default {
         values.value.pointExpirationTime = null;
         values.value.pointAppearanceTime = null;
       }
+      if (values.value.pointName === '') {
+        values.value.pointName = null;
+      }
     }
     function onSubmit () {
       blockForm.value = true;

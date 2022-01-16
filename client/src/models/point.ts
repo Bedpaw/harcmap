@@ -1,7 +1,7 @@
 export type PointType = {
   pointId: string
   pointKey: string | null
-  pointName: string
+  pointName: string | null
   pointLongitude: number | null
   pointLatitude: number | null
   pointType: string

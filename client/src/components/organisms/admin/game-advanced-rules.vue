@@ -1,5 +1,8 @@
 <template>
-  <section>
+  <section class="f-flex f-flex-col f-flex-al-center">
+    <h3 class="f-mt-0">
+      {{ $t('page.admin.eventForm.advancedOptions') }}
+    </h3>
     <component
       :is="inputTypeComponent(rule.ruleType)"
       v-for="rule of advancedGameRules"

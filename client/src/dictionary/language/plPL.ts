@@ -227,6 +227,7 @@ export const plPL = {
       eventForm: {
         showAdvancedOptions: 'Pokaż opcje zaawansowane',
         hideAdvancedOptions: 'Schowaj opcje zaawansowane',
+        advancedOptions: 'Opcje zaawansowane',
       },
     },
   },

@@ -8,8 +8,7 @@ interface PointPosition {
 }
 
 export interface PointDTOCreate {
-  // pointId -> Remove
-  pointName: string;
+  pointName: string | null;
   pointType: string;
   pointDuration: PointDuration;
   pointPosition: PointPosition;
