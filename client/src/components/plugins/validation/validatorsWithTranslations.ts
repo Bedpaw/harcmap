@@ -28,6 +28,7 @@ export const email = withI18nMessage(validators.email, { withArguments: true });
 export const minLength = (param:number) => withI18nMessage(validators.minLength(param));
 export const maxLength = (param:number) => withI18nMessage(validators.maxLength(param));
 export const sameAs = (ref:Ref) => withI18nMessage(validators.sameAs(ref));
+export const positiveNumber = (param:number) => withI18nMessage(validators.minValue(param));
 export const hasNumber = withI18nMessage(helpers.withParams({ type: 'hasNumber' }, ValidateTools.hasNumber));
 export const hasCapitalize = withI18nMessage(helpers.withParams({ type: 'hasCapitalize' },
   (value:string) => /[A-Z]/.test(value)),

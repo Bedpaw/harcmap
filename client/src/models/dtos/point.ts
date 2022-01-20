@@ -26,8 +26,9 @@ export type PointDTOUpdate = PointDTOCreate
 export interface PointCategoryDTOCreate {
   categoryName: string;
   pointValue: number;
-  strokeColor: string;
-  fillColor: string;
+  pointShape: string; // TODO wait for backend changes
+  // strokeColor: string;
+  // fillColor: string;
 }
 
 export interface PointCategoryDTO extends PointCategoryDTOCreate{

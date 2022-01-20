@@ -17,11 +17,10 @@
 
 <script>
 import { map } from 'map';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 import { toLonLat } from 'ol/proj';
 import OPopupMap from 'organisms/popup/map';
-import Cookies from 'js-cookie';
-import { api } from 'api';
+import { appStorage } from 'utils/storage';
 
 export default {
   name: 'o-map',
@@ -32,15 +31,21 @@ export default {
       default: true,
     },
   },
+  computed: {
+    ...mapGetters('event', [
+      'eventId',
+      'event',
+      'eventBasicInformation',
+    ]),
+  },
   mounted () {
-    const appEvent = this.$store.getters['event/event'];
-    const pointList = this.$store.getters['event/pointsVisibleOnMap'];
+    const pointList = this.$store.getters['event/points'];
 
     map.create({
       elementId: 'o-map',
-      lat: appEvent.mapLatitude,
-      lon: appEvent.mapLongitude,
-      zoom: appEvent.mapZoom,
+      lat: this.event.mapLatitude,
+      lon: this.event.mapLongitude,
+      zoom: this.event.mapZoom,
     });
 
     map.points.create({
@@ -54,41 +59,34 @@ export default {
     // Map popup have to define after map creating.
     this.$refs.mapPopup && this.$refs.mapPopup.definePopup();
 
-    map.realMap.on('moveend', this.saveLastMapPositionToCookies);
+    map.realMap.on('moveend', this.saveLastMapPositionToStorage);
   },
+
   beforeUnmount () {
-    map.realMap.un('moveend', this.saveLastMapPositionToCookies);
+    map.realMap.un('moveend', this.saveLastMapPositionToStorage);
   },
   methods: {
     ...mapMutations('event', [
       'setMapPosition',
       'setMapZoom',
     ]),
-    saveLastMapPositionToDatabase () {
+    saveLastMapPositionToStorage () {
       const mapView = map.realMap.getView();
       const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
+      const mapZoom = mapView.getZoom();
+
       this.setMapPosition({
         mapLatitude,
         mapLongitude,
       });
-      this.setMapZoom(mapView.getZoom());
-      api.updateEvent(this.$store.getters['event/eventBasicInformation']);
-    },
-    saveLastMapPositionToCookies () {
-      const mapView = map.realMap.getView();
-      const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
-      this.setMapPosition({
+      this.setMapZoom(mapZoom);
+
+      const dataForStorage = {
         mapLatitude,
         mapLongitude,
-      });
-      this.setMapZoom(mapView.getZoom());
-      const dataForCookies = {
-        mapLatitude,
-        mapLongitude,
-        mapZoom: mapView.getZoom(),
+        mapZoom,
       };
-      Cookies.remove('mapPosition');
-      Cookies.set('mapPosition', dataForCookies, { expires: 7 });
+      appStorage.setItem(appStorage.appKeys.mapPosition, dataForStorage, appStorage.getIds.eventIdAndEmail());
     },
   },
 };

@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory, RouteLocationNormalized } from 'vue-router';
 import { store } from 'store';
 import { api } from 'api';
 import { routes } from './routes';
@@ -8,6 +8,7 @@ import { session } from 'utils/session';
 import { promiseUtils } from 'utils/promise';
 import { guardsUtils } from 'src/router/guards';
 import { APP_BASE_URL } from 'config/app-env';
+import { autoUpdate } from 'utils/auto-update';
 
 let firstRun = true;
 
@@ -17,7 +18,15 @@ const router = createRouter({
   history: createWebHistory(),
 });
 
+const clearEventWhenLeaveEventRoutes = (to) => {
+  // TODO poor solution, it clears only eventId and should all data
+  if (!to.meta.afterEventChosen) {
+    autoUpdate.stop();
+    store.commit('event/setId', null);
+  }
+};
 router.beforeEach((to, from, next) => {
+  clearEventWhenLeaveEventRoutes(to);
   let promise;
   if (firstRun) {
     firstRun = false;

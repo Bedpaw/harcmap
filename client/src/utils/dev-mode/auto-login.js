@@ -20,8 +20,10 @@ function login (values) {
     .then(data => store.dispatch('user/signIn', data))
     .then(store.commit('event/setId', null, { root: true }))
     .then(store.commit('event/setUserRole', '', { root: true }))
-    .then(router.push(ROUTES.eventsList))
-    .then(() => router.hardReload())
+    .then(router.push({
+      name: ROUTES.eventsList.name,
+      query: { justLoggedIn: true },
+    }))
     .catch(error => {
       if (error instanceof ErrorMessage) error.showMessage();
       else console.log(error);

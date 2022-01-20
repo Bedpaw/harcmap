@@ -5,23 +5,17 @@ import { autoUpdate } from 'utils/auto-update';
 import { Module } from 'vuex';
 import { User } from 'models/user';
 
-interface UserType extends User {
-  firstLogin: boolean
-}
-
-export const user:Module<UserType, object> = {
+export const user:Module<User, object> = {
   namespaced: true,
   state: {
     email: '',
     isActive: false,
     userId: '',
-    firstLogin: false,
     userEvents: [],
   },
   getters: {
     email: state => state.email,
     isLogin: state => state.email !== '',
-    firstLogin: state => state.firstLogin,
     userEvents: state => state.userEvents,
   },
   mutations: {
@@ -31,7 +25,6 @@ export const user:Module<UserType, object> = {
     },
     signOut: state => {
       state.email = '';
-      state.firstLogin = true;
       state.userEvents = [];
       autoUpdate.stop();
     },

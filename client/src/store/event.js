@@ -1,10 +1,10 @@
-import Cookies from 'js-cookie';
 import { eventUtils } from 'utils/event';
 import { map } from 'map';
 import { eventStoreModules as Modules } from 'store/event-modules';
 import { api } from 'api';
 import { pointUtils } from 'utils/point';
 import { permissions } from 'utils/permissions';
+import { appStorage } from 'utils/storage';
 
 export default {
   namespaced: true,
@@ -33,15 +33,13 @@ export default {
       mapLatitude: state.mapLatitude,
       mapRefreshTime: state.mapRefreshTime,
     }),
-    pointsVisibleOnMap: (state, getters, rootState, rootGetters) =>
-      state.points.filter(
-        (point) => pointUtils.pointIsVisibleOnMap(point,
-          {
-            hiddenPointId: getters.hidePoint.pointId,
-            pointsCollectedByUser: rootGetters['team/collectedPointsIds'],
-            mapRefreshTime: state.mapRefreshTime,
-          },
-        )),
+    pointsVisibleOnMap: (state, getters) =>
+      state.points.filter((point) => pointUtils.pointIsVisibleOnMap(point, getters.hidePoint.pointId)),
+    pointsDisplayedAsCollected: (state, getters, rootState, rootGetters) =>
+      getters.pointsVisibleOnMap.filter(point => pointUtils.pointIsDisplayedAsCollected(point, {
+        pointsCollectedByTeam: rootGetters['team/collectedPointsIds'],
+        mapRefreshTime: state.mapRefreshTime,
+      })),
     ...Modules.getters,
   },
   mutations: {
@@ -51,12 +49,12 @@ export default {
       state.mapDefaultLongitude = data.mapLongitude;
       state.mapDefaultZoom = data.mapZoom;
       state.userRole = data.role;
-      const cookieJSON = Cookies.get('mapPosition');
-      if (cookieJSON) {
-        const cookie = JSON.parse(cookieJSON);
-        state.mapLatitude = cookie.mapLatitude;
-        state.mapLongitude = cookie.mapLongitude;
-        state.mapZoom = cookie.mapZoom;
+      const storageData = appStorage.getItem(appStorage.appKeys.mapPosition, appStorage.getIds.eventIdAndEmail());
+      if (storageData) {
+        const { mapLatitude, mapLongitude, mapZoom } = storageData;
+        state.mapLatitude = mapLatitude;
+        state.mapLongitude = mapLongitude;
+        state.mapZoom = mapZoom;
       }
     },
     setId: (state, payload) => (state.eventId = payload),

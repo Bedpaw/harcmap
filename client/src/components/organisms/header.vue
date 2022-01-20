@@ -30,10 +30,16 @@
       class="m-panel f-header f-side f-right"
     >
       <a-icon
+        v-if="$route.name === ROUTES.eventsList.name"
+        :name="$icons.names.logout"
+        size="28"
+        @click="signOut"
+      />
+      <a-icon
         :name="ROUTES.collectedPoints.icon"
         size="28"
         class="f-header"
-        :class="{ 'f-hidden': isLogin === false }"
+        :class="{ 'f-hidden': !eventId }"
         @click="redirectToCollectedPointsOrScoreboard"
       />
     </div>
@@ -47,6 +53,9 @@ import { ROUTES } from 'config/routes-config';
 export default {
   name: 'o-header',
   computed: {
+    ...mapGetters('event', [
+      'eventId',
+    ]),
     ...mapGetters('user', [
       'isLogin',
     ]),
@@ -63,7 +72,7 @@ export default {
         ROUTES.start.name,
         ROUTES.adminPanel.name,
         ROUTES.spectatorPanel.name,
-        ROUTES.eventsList,
+        ROUTES.eventsList.name,
       ].includes(this.$route.name);
     },
     pathBackButton () {
@@ -81,6 +90,13 @@ export default {
     redirectToCollectedPointsOrScoreboard () {
       const route = this.checkIsAdmin() ? ROUTES.scoreboard : ROUTES.collectedPoints;
       this.$router.push(route.path);
+    },
+    signOut () {
+      this.$store.dispatch('user/signOut')
+        .finally(() => this.onSignOut());
+    },
+    onSignOut () {
+      this.$router.push(ROUTES.welcome.path);
     },
   },
 };

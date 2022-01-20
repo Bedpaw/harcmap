@@ -43,6 +43,13 @@
         :placeholder="$t('form.field.pointCategory')"
         :disabled="blockForm"
       />
+      <a-button-secondary
+        :disabled="blockForm"
+        class="f-text-center f-mt-0"
+        @click="$router.push(ROUTES.newPointCategory)"
+      >
+        Dodaj nową kategorię
+      </a-button-secondary><!--TODO think about better solution or remove-->
 
       <a-button-secondary
         :disabled="blockForm"
@@ -87,8 +94,10 @@ import OAdminSetNewPointPosition from 'organisms/admin/set-point-position';
 import { pointUtils } from 'utils/point';
 import { computed, onMounted, ref, toRefs } from 'vue';
 import { useForm } from 'plugins/form';
+import { useStore } from 'vuex';
 import { translator } from 'dictionary';
 import MFieldDatetimeRange from 'molecules/field/datetime-range';
+import { pointCategoryUtils } from 'utils/point-category';
 
 export default {
   name: 't-point-form',
@@ -141,17 +150,8 @@ export default {
         value: MACROS.pointType.timeout,
       },
     ]);
-    function categoryLabelFactory (id, value) {
-      const level = translator.t('general.pointCategoryLevel');
-      const unit = translator.t('general.pointUnit');
-      return `${id} ${level} - ${value} ${unit}`;
-    }
-    const categoryOptions = computed(() => MACROS.pointCategory.map((category) =>
-      ({
-        label: categoryLabelFactory(category.categoryId, category.pointValue),
-        value: category.categoryId,
-      }),
-    ));
+    const availableCategories = useStore().getters['event/categories'];
+    const categoryOptions = computed(() => pointCategoryUtils.getCategoriesSelectOptions(availableCategories));
     const pointPositionIsSetting = ref(false);
 
     const form = useForm();

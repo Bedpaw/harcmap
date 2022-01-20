@@ -30,6 +30,7 @@ import { eventUtils } from 'utils/event';
 import { materialIcons } from '@dbetka/vue-material-icons';
 import { autoUpdate } from 'utils/auto-update';
 import { ROUTES } from 'config/routes-config';
+import { appStorage } from 'utils/storage';
 
 const ICONS_TYPES = materialIcons.types;
 
@@ -74,6 +75,7 @@ export default {
   },
   mounted () {
     this.events = this.$store.getters['user/userEvents'];
+    this.autoSignInToEventIfPossible();
   },
   methods: {
     prepareButtonsDetails (event, timePeriod = MACROS.timePeriods.isCurrent) {
@@ -111,11 +113,29 @@ export default {
       this.$store.dispatch('event/download', { eventId, teamId, role })
         .then(() => {
           autoUpdate.run();
-          this.$router.push(ROUTES.start.path);
+          this.$router.push(ROUTES.start.path).then(() => this.updateStorageAfterSuccessLogIn(eventId));
         })
         .catch(() => {
           this.$store.dispatch('user/signOut').catch(() => undefined);
         });
+    },
+    updateStorageAfterSuccessLogIn (eventId) {
+      appStorage.setItem(appStorage.appKeys.recentEvent, eventId, appStorage.getIds.email());
+      const isFirstLogIn = appStorage.getItem(appStorage.appKeys.firstLogin, appStorage.getIds.eventIdAndEmail()) === null;
+      if (isFirstLogIn) {
+        this.$store.commit('guide/open');
+        appStorage.setItem(appStorage.appKeys.firstLogin, true, appStorage.getIds.eventIdAndEmail());
+      }
+    },
+    autoSignInToEventIfPossible () {
+      const isJustLogged = this.$route.query.justLoggedIn;
+      const recentEventId = appStorage.getItem(appStorage.appKeys.recentEvent, appStorage.getIds.email());
+      if (isJustLogged && recentEventId) {
+        const isRecentEventAvailable = !!this.events.find(event => event.eventId === recentEventId);
+        if (isRecentEventAvailable) {
+          this.signInToEvent(recentEventId);
+        }
+      }
     },
     navigateToCreateEvent () {
       this.$router.push(this.ROUTES.newEvent.path);

@@ -1,17 +1,15 @@
-import Cookies from 'js-cookie';
+import { appStorage } from 'utils/storage';
 
 /**
  * @description
  * Sets "uuid"
  */
+// TODO what is this?
 function setUUID () {
-  const uuidCookieName = 'hm.u.u.i.d';
-  const uuidValue = Cookies.get(uuidCookieName);
+  const uuidValue = appStorage.getItem(appStorage.appKeys.uuid);
   if (!uuidValue) {
-    // "uuid" value
     const newRandomValue = Math.round(Math.random() * 10e5) + '_' + Date.now();
-    // expires after 9999 days
-    Cookies.set(uuidCookieName, newRandomValue, { expires: 9999 });
+    appStorage.setItem(appStorage.appKeys.uuid, newRandomValue);
   }
 }
 

@@ -1,5 +1,8 @@
 <template>
-  <t-page class="f-flex f-flex-col">
+  <t-page
+    class="f-flex f-flex-col"
+    :back-route="ROUTES.eventsList"
+  >
     <o-form :on-submit="onSubmit">
       <m-field-text
         v-model.trim="values.eventName"

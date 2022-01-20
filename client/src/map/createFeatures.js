@@ -10,7 +10,6 @@ import { uCheck } from '@dbetka/utils';
 import { mapConfig } from 'map/config';
 import { colorsUtils } from 'utils/colors';
 import { ErrorMessage } from 'utils/error-message';
-import { permissions } from 'utils/permissions';
 import { pointCategoryUtils } from 'utils/point-category';
 
 export function createFeatures ({ list = [] }) {
@@ -55,14 +54,8 @@ export function createFeatures ({ list = [] }) {
   map.points.layer = layer;
 }
 
-const shouldBeShownAsCollected = (point) => {
-  // TODO duplicated with pointUtils
-  const pointIsCollected = point.pointCollectionTime !== null;
-  const collectedPointsIds = store.getters['team/collectedPointsIds'];
-  const collectedByLoginUser = collectedPointsIds.includes(point.pointId);
-  const isAdmin = permissions.checkIsAdmin();
-  return pointIsCollected && (collectedByLoginUser || isAdmin);
-};
+const shouldBeShownAsCollected = (point) => store.getters['event/pointsDisplayedAsCollected']
+  .find(pointFromList => pointFromList.pointId === point.pointId);
 
 const getStroke = (appearance, isCollected, width = mapConfig.features.defaultWidth) => {
   return new Stroke({
