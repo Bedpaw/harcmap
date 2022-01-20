@@ -36,9 +36,10 @@ export const pointCategoryController = {
   },
 
   addPointCategory (category: PointCategoryDTOCreate, eventId: string) {
+    const x = { eventId, pointShape: 'XDD', categoryName: category.categoryName, pointValue: category.pointValue }; // TODO mock
     return httpService.post({
       url: urls.addPointCategory(eventId),
-      body: category,
+      body: x,
       errorOptions: API_ERRORS.addPoint,
     });
   },
