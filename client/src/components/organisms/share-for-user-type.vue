@@ -1,44 +1,45 @@
 <template>
-  <div class="f-pb-3 f-text-bold">
-    {{ description }}
-  </div>
-  <m-field-text
-    label="Kod do wydarzenia"
-    :model-value="eventShareCode"
-    disabled
-  />
-  <m-field-text
-    label="Link do wydarzenia"
-    :model-value="eventShareLink"
-    disabled
-  />
-  <div class="f-pb-3">
-    <a-button-primary
-      :disabled="isNotMobileDevice"
-      @click="shareEvent()"
-    >
-      Udostępnij poprzez aplikacje
-    </a-button-primary>
-
-    <span
-      v-if="isNotMobileDevice && sharingError === false"
-      class="a-assist"
-    >
-      Dostępne tylko dla urządzeń mobilnych
-    </span>
-
-    <span
-      v-if="sharingError"
-      class="a-assist f-error"
-    >
-      Wystąpił błąd podczas próby udostępnienia. <br>
-      Proszę skorzystać z linku powyżej.
-    </span>
-
-    <div v-if="thanksPopupOpened">
-      Thanks for sharing!
+  <div
+    class="f-pb-3 f-text-bold f-flex f-text-18"
+    @click="showDetails()"
+  >
+    <div class="f-flex-1">
+      {{ description }}
     </div>
+    <a-icon
+      :name="$icons.names.arrow_drop_down"
+      filled
+    />
   </div>
+  <template v-if="detailsVisible">
+    <m-field-text
+      label="Kod do wydarzenia"
+      :model-value="eventShareCode"
+      disabled
+    />
+    <m-field-text
+      label="Link do wydarzenia"
+      :model-value="eventShareLink"
+      disabled
+    />
+
+    <div class="f-pb-5">
+      <a-button-primary
+        add-area-class="f-mt-0"
+        :disabled="isNotMobileDevice"
+        @click="shareEvent()"
+      >
+        Udostępnij przez aplikacje
+      </a-button-primary>
+
+      <span
+        v-if="isNotMobileDevice"
+        class="a-assist"
+      >
+        Dostępne tylko na urządzeniach mobilnych
+      </span>
+    </div>
+  </template>
 </template>
 
 <script>
@@ -61,8 +62,7 @@ export default {
 
     const isMobileDevice = ref(false);
     const isNotMobileDevice = computed(() => isMobileDevice.value === false);
-    const sharingError = ref(false);
-    const thanksPopupOpened = ref(false);
+    const detailsVisible = ref(false);
 
     onMounted(() => {
       if (navigator.share) {
@@ -70,21 +70,24 @@ export default {
       }
     });
 
-    const shareEvent = () => {
+    function shareEvent () {
       const eventName = store.getters['event/eventName'];
 
       isMobileDevice.value && navigator.share({
         title: translator.t('page.admin.shareEvent.joinToEventMessage', { eventName }),
         url: props.eventShareLink,
       })
-        .then(() => (thanksPopupOpened.value = true))
-        .catch(() => (sharingError.value = true));
-    };
+        .catch(console.error);
+    }
+
+    function showDetails () {
+      detailsVisible.value = detailsVisible.value === false;
+    }
 
     return {
       isNotMobileDevice,
-      sharingError,
-      thanksPopupOpened,
+      detailsVisible,
+      showDetails,
       shareEvent,
     };
   },
