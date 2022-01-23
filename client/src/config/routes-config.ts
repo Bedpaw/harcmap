@@ -45,6 +45,7 @@ const beforeLoginRoutes = {
     icon: ICONS.login,
   },
   signUp: {
+    path: '/sign-up',
     name: 'signUp',
     icon: ICONS.how_to_reg,
   },
@@ -114,6 +115,11 @@ const adminObserverRoutes = {
   spectatorPanel: {
     name: 'spectatorPanel',
     icon: ICONS.settings,
+    hasShortLabel: true,
+  },
+  shareEvent: {
+    name: 'shareEvent',
+    icon: ICONS.share,
     hasShortLabel: true,
   },
 };

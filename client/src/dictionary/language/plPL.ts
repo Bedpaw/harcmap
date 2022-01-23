@@ -29,6 +29,7 @@ export const plPL = {
     editPointCategory: 'Edycja kategorii punktów',
     newPointCategory: 'Nowa kategoria punktów',
     pointCategoriesList: 'Kategorie punktów',
+    shareEvent: 'Udostępnij wydarzenie',
     short: {
       start: 'Start',
       map: 'Mapa',
@@ -37,6 +38,7 @@ export const plPL = {
       spectatorPanel: 'Panel',
       collectPoint: 'Zbierz pkt',
       collectedPoints: 'Punkty',
+      shareEvent: 'Udostępnij',
     },
   },
   general: {
@@ -247,6 +249,11 @@ export const plPL = {
         showAdvancedOptions: 'Pokaż opcje zaawansowane',
         hideAdvancedOptions: 'Schowaj opcje zaawansowane',
         advancedOptions: 'Opcje zaawansowane',
+      },
+      shareEvent: {
+        teamLeader: 'Zaproś nowego lidera zespołu!',
+        adminObserver: 'Zaproś nowego obserwatora administratora!',
+        joinToEventMessage: 'Dołącz do wydarzenia {eventName} na HarcMapie!',
       },
     },
   },

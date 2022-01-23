@@ -27,6 +27,7 @@ export default {
       return [
         { route: ROUTES.scoreboard },
         { route: ROUTES.editEvent },
+        { route: ROUTES.shareEvent },
         { route: ROUTES.newPoint },
         { url: '/point/all', label: this.$t('page.admin.adminPanel.downloadPointsList') },
         { route: ROUTES.searchPoint },
