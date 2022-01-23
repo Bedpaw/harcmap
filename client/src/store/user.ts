@@ -33,6 +33,7 @@ export const user:Module<User, object> = {
     signIn (context, data) {
       return new Promise((resolve) => {
         context.commit('setUser', data);
+        // TODO: Here should be download event if session say so
         resolve(true);
       });
     },
