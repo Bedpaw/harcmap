@@ -32,6 +32,7 @@ export const routes = [
   [ROUTES.spectatorPanel, () => import(/* webpackChunkName: "async-pages" */ 'pages/admin/panel.vue')],
   [ROUTES.editEvent, () => import(/* webpackChunkName: "async-pages" */ 'pages/admin/edit-event.vue')],
   [ROUTES.shareEvent, () => import(/* webpackChunkName: "async-pages" */ 'pages/admin/share-event.vue')],
+  [ROUTES.shareTeam, () => import(/* webpackChunkName: "async-pages" */ 'pages/share-team.vue')],
   [ROUTES.newPoint, () => import(/* webpackChunkName: "async-pages" */ 'pages/admin/new-point.vue')],
   [ROUTES.editPointCategory, () => import(/* webpackChunkName: "async-pages" */ 'pages/admin/edit-point-category')],
   [ROUTES.newPointCategory, () => import(/* webpackChunkName: "async-pages" */ 'pages/admin/new-point-category')],

@@ -30,6 +30,7 @@ export const plPL = {
     newPointCategory: 'Nowa kategoria punktów',
     pointCategoriesList: 'Kategorie punktów',
     shareEvent: 'Udostępnij wydarzenie',
+    shareTeam: 'Zaproszenie do zespołu',
     short: {
       start: 'Start',
       map: 'Mapa',
@@ -39,6 +40,7 @@ export const plPL = {
       collectPoint: 'Zbierz pkt',
       collectedPoints: 'Punkty',
       shareEvent: 'Udostępnij',
+      shareTeam: 'Zaproszenie',
     },
   },
   general: {
@@ -255,6 +257,9 @@ export const plPL = {
         adminObserver: 'Zaproszenie dla obserwatora administratora!',
         joinToEventMessage: 'Dołącz do wydarzenia {eventName} na HarcMapie!',
       },
+    },
+    shareEvent: {
+      teamMember: 'Zaproszenie do zespołu!',
     },
   },
   error: {

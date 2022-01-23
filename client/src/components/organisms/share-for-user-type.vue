@@ -7,6 +7,7 @@
       {{ description }}
     </div>
     <a-icon
+      v-if="rolledUp"
       :name="$icons.names.arrow_drop_down"
       filled
     />
@@ -53,6 +54,7 @@ export default {
   name: 'o-share-for-user-type',
   components: { AButtonPrimary, MFieldText },
   props: {
+    rolledUp: { type: Boolean, default: true },
     description: { type: String, required: true },
     eventShareCode: { type: String, required: true },
     eventShareLink: { type: String, required: true },
@@ -62,7 +64,7 @@ export default {
 
     const isMobileDevice = ref(false);
     const isNotMobileDevice = computed(() => isMobileDevice.value === false);
-    const detailsVisible = ref(false);
+    const detailsVisible = ref(props.rolledUp === false);
 
     onMounted(() => {
       if (navigator.share) {
@@ -81,7 +83,9 @@ export default {
     }
 
     function showDetails () {
-      detailsVisible.value = detailsVisible.value === false;
+      if (props.rolledUp) {
+        detailsVisible.value = detailsVisible.value === false;
+      }
     }
 
     return {

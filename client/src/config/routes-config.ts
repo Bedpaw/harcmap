@@ -101,6 +101,11 @@ const teamLeaderRoutes = {
     icon: ICONS.add,
     hasShortLabel: true,
   },
+  shareTeam: {
+    name: 'shareTeam',
+    icon: ICONS.share,
+    hasShortLabel: true,
+  },
 };
 
 const adminObserverRoutes = {

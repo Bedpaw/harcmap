@@ -48,6 +48,7 @@ const accountTypeInfo = {
       ROUTES.collectPoint,
       ROUTES.about,
       ROUTES.collectedPoints,
+      ROUTES.shareTeam,
     ],
     menuCentralButton: ROUTES.collectPoint,
 
