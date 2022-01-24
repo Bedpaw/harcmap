@@ -141,6 +141,7 @@ components:
     teamColor:
       description: 'Team color'
       type: string
+      pattern: /^#[a-fA-F0-9]{3,6}$/
       example: '#922eb4'
     collectedPoints:
       description: 'List of collected points (pointsId)'
