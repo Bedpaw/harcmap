@@ -81,7 +81,7 @@ function redirectIfNotAuth (to, from, next) {
     return;
   }
   if (to.meta.afterEventChosen) {
-    appStorage.setItem(appStorage.appKeys.lastRoute, to.path);
+    appStorage.setItem(appStorage.appKeys.lastRoute, to.path, appStorage.getIds.eventIdAndEmail());
   }
   next();
 }

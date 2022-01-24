@@ -128,7 +128,7 @@ export default {
     signInToEvent (eventId) {
       const teamId = this.events.find(event => event.eventId === eventId).teamId;
       const role = this.events.find(event => event.eventId === eventId).role;
-      const lastRoute = appStorage.getItem(appStorage.appKeys.lastRoute);
+      const lastRoute = appStorage.getItem(appStorage.appKeys.lastRoute, appStorage.getIds.eventIdAndEmail());
       this.$store.dispatch('event/download', { eventId, teamId, role })
         .then(() => {
           autoUpdate.run();
