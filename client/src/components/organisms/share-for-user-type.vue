@@ -1,6 +1,6 @@
 <template>
   <div
-    class="f-pb-3 f-text-bold f-flex f-text-18"
+    class="f-text-bold f-flex f-text-18"
     @click="showDetails()"
   >
     <div class="f-flex-1">
@@ -13,20 +13,19 @@
     />
   </div>
   <template v-if="detailsVisible">
-    <m-field-text
-      label="Kod do wydarzenia"
-      :model-value="eventShareCode"
-      disabled
+    <a-button-copy
+      :text-to-copy="eventShareCode"
+      :text="'Skopiuj kod wydarzenia'"
+      add-area-class="f-mt-1"
     />
-    <m-field-text
-      label="Link do wydarzenia"
-      :model-value="eventShareLink"
-      disabled
+    <a-button-copy
+      :text-to-copy="eventShareLink"
+      :text="'Skopiuj link do wydarzenia'"
+      add-area-class="f-mt-1"
     />
-
     <div class="f-pb-5">
       <a-button-primary
-        add-area-class="f-mt-0"
+        add-area-class="f-mt-1"
         :disabled="isNotMobileDevice"
         @click="shareEvent()"
       >
@@ -49,12 +48,13 @@ import AButtonPrimary from 'atoms/button/primary';
 import { translator } from 'dictionary';
 import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
+import AButtonCopy from 'atoms/button/copy';
 
 export default {
   name: 'o-share-for-user-type',
-  components: { AButtonPrimary, MFieldText },
+  components: { AButtonCopy, AButtonPrimary, MFieldText },
   props: {
-    rolledUp: { type: Boolean, default: true },
+    rolledUp: { type: Boolean, default: false },
     description: { type: String, required: true },
     eventShareCode: { type: String, required: true },
     eventShareLink: { type: String, required: true },
