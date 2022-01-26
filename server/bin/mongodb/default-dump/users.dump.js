@@ -18,7 +18,7 @@ const passwordReset = {
  */
 const user1 = {
   _id: ObjectId('100000000000000000000001'),
-  email: 'user1@harcmap.local',
+  email: 'user1@harcmap.pl',
   password,
   accountActivation,
   passwordReset,
@@ -31,7 +31,7 @@ const user1 = {
  */
 const user2 = {
   _id: ObjectId('100000000000000000000002'),
-  email: 'user2@harcmap.local',
+  email: 'user2@harcmap.pl',
   password,
   accountActivation: {
     isActive: false,
@@ -47,7 +47,7 @@ const user2 = {
  */
 const user3 = {
   _id: ObjectId('100000000000000000000003'),
-  email: 'user3@harcmap.local',
+  email: 'user3@harcmap.pl',
   password,
   accountActivation,
   passwordReset: {
@@ -64,7 +64,7 @@ const user3 = {
  */
 const user4 = {
   _id: ObjectId('100000000000000000000004'),
-  email: 'user4@harcmap.local',
+  email: 'user4@harcmap.pl',
   password,
   accountActivation,
   passwordReset,
@@ -77,7 +77,7 @@ const user4 = {
  */
 const user5 = {
   _id: ObjectId('100000000000000000000005'),
-  email: 'user5@harcmap.local',
+  email: 'user5@harcmap.pl',
   password,
   accountActivation,
   accountCreated,
@@ -89,7 +89,7 @@ const user5 = {
  */
 const user6 = {
   _id: ObjectId('100000000000000000000006'),
-  email: 'user6@harcmap.local',
+  email: 'user6@harcmap.pl',
   password,
   accountActivation,
   passwordReset,
@@ -102,7 +102,7 @@ const user6 = {
  */
 const user7 = {
   _id: ObjectId('100000000000000000000007'),
-  email: 'user7@harcmap.local',
+  email: 'user7@harcmap.pl',
   password,
   accountActivation,
   passwordReset,
@@ -115,7 +115,7 @@ const user7 = {
  */
 const user8 = {
   _id: ObjectId('100000000000000000000008'),
-  email: 'user7@harcmap.local',
+  email: 'user7@harcmap.pl',
   password,
   accountActivation,
   passwordReset,
