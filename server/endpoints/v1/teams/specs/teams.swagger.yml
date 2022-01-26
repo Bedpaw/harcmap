@@ -26,6 +26,8 @@ paths:
                       $ref: '#/components/props/id'
                     teamName:
                       $ref: '#/components/props/teamName'
+                    teamColor:
+                      $ref: '#/components/props/teamColor'
                     collectedPoints:
                       $ref: '#/components/props/collectedPoints'
                     teamMembers:
@@ -79,6 +81,8 @@ paths:
                 properties:
                   teamName:
                     $ref: '#/components/props/teamName'
+                  teamColor:
+                    $ref: '#/components/props/teamColor'
                   collectedPoints:
                     $ref: '#/components/props/collectedPoints'
                   teamMembers:

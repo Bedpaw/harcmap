@@ -42,6 +42,8 @@ const teamName = Joi.string()
   .min(3)
   .max(24)
   .trim();
+const teamColor = Joi.string()
+  .pattern(/^#[a-fA-F0-9]{3,6}$/); // hex color value
 const collectedPoints = Joi.array()
   .items(objectIdInRequest);
 
@@ -109,6 +111,7 @@ module.exports = {
   pointShape,
   eventRefreshTime,
   teamName,
+  teamColor,
   pointName,
   pointType,
   collectedPoints,

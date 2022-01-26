@@ -33,6 +33,9 @@ function getTeams (query) {
       teamName: {
         $first: '$teamName',
       },
+      teamColor: {
+        $first: '$teamColor',
+      },
       collectedPoints: {
         $first: '$collectedPoints',
       },
@@ -58,6 +61,9 @@ function getTeams (query) {
       _id: '$_id',
       teamName: {
         $first: '$teamName',
+      },
+      teamColor: {
+        $first: '$teamColor',
       },
       collectedPoints: {
         $first: '$collectedPoints',
