@@ -1,3 +1,5 @@
+const { ObjectId } = require('mongodb');
+
 /**
  * @description Aggregation using in mongodb
  * (https://docs.mongodb.com/manual/reference/aggregation/)
@@ -18,7 +20,10 @@ function getUserAggregation (query) {
         as: 'userEvents',
       },
     }, {
-      $unwind: '$userEvents',
+      $unwind: {
+        path: '$userEvents',
+        preserveNullAndEmptyArrays: true,
+      },
     }, {
       $lookup: {
         from: 'events',
@@ -27,7 +32,10 @@ function getUserAggregation (query) {
         as: 'event',
       },
     }, {
-      $unwind: '$event',
+      $unwind: {
+        path: '$event',
+        preserveNullAndEmptyArrays: true,
+      },
     }, {
       $lookup: {
         from: 'teams',
@@ -36,7 +44,10 @@ function getUserAggregation (query) {
         as: 'team',
       },
     }, {
-      $unwind: '$team',
+      $unwind: {
+        path: '$team',
+        preserveNullAndEmptyArrays: true,
+      },
     }, {
       $group: {
         _id: '$_id',
@@ -54,8 +65,8 @@ function getUserAggregation (query) {
             eventId: '$event._id',
             eventName: '$event.eventName',
             eventDuration: '$event.eventDuration',
-            teamId: '$team._id',
-            teamName: '$team.teamName',
+            teamId: { $ifNull: ['$team._id', null] },
+            teamName: { $ifNull: ['$team.teamName', null] },
             role: '$userEvents.role',
             isBanned: '$userEvents.isBanned',
           },

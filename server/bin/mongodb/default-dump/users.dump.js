@@ -80,6 +80,7 @@ const user5 = {
   email: 'user5@harcmap.pl',
   password,
   accountActivation,
+  passwordReset,
   accountCreated,
   userEvents: [ObjectId('200000000000000000000005')],
 };
@@ -115,7 +116,7 @@ const user7 = {
  */
 const user8 = {
   _id: ObjectId('100000000000000000000008'),
-  email: 'user7@harcmap.pl',
+  email: 'user8@harcmap.pl',
   password,
   accountActivation,
   passwordReset,

@@ -32,7 +32,10 @@ function getUsersAggregation (query) {
         as: 'team',
       },
     }, {
-      $unwind: '$team',
+      $unwind: {
+        path: '$team',
+        preserveNullAndEmptyArrays: true,
+      },
     }, {
       $match: query,
     }, {
@@ -49,8 +52,8 @@ function getUsersAggregation (query) {
             eventId: '$event._id',
             eventName: '$event.eventName',
             eventDuration: '$event.eventDuration',
-            teamId: '$team._id',
-            teamName: '$team.teamName',
+            teamId: { $ifNull: ['$team._id', null] },
+            teamName: { $ifNull: ['$team.teamName', null] },
             role: '$userEvents.role',
             isBanned: '$userEvents.isBanned',
           },

@@ -6,14 +6,12 @@ async function getUser (id) {
   const user = await Users.get({ _id: ObjectId(id) }, {
     aggregationPipeline: getUserAggregation,
   });
-  const {
-    email,
-    userEvents,
-  } = user;
+  const { email, userEvents } = user;
+  const noUserEvents = userEvents.length === 1 && !userEvents[0].eventId;
 
   return {
     email,
-    userEvents,
+    userEvents: noUserEvents ? [] : userEvents,
   };
 }
 
