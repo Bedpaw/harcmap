@@ -1,9 +1,8 @@
 const fs = require('fs');
 const { resolve } = require('path');
 
-const source = process.argv
-  .find(item => /source=.*/.test(item))
-  .replace('source=', '');
+const sourceArgv = process.argv.find(item => /source=.*/.test(item));
+const source = sourceArgv?.replace('source=', '');
 const dir = source || 'default-dump';
 
 console.log('load dumps from dir:', dir);
