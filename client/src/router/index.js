@@ -9,6 +9,7 @@ import { promiseUtils } from 'utils/promise';
 import { guardsUtils } from 'src/router/guards';
 import { APP_BASE_URL } from 'config/app-env';
 import { autoUpdate } from 'utils/auto-update';
+import { appStorage } from 'utils/storage';
 
 let firstRun = true;
 
@@ -78,6 +79,9 @@ function redirectIfNotAuth (to, from, next) {
   if (checkGuards(redirectSomewhereElseGuards, to.meta)) {
     next(getRedirectPath());
     return;
+  }
+  if (to.meta.afterEventChosen) {
+    appStorage.setItem(appStorage.appKeys.lastRoute, to.path, appStorage.getIds.eventIdAndEmail());
   }
   next();
 }

@@ -138,6 +138,11 @@ components:
       example: 'Włóczykije'
       minLength: 3
       maxLength: 24
+    teamColor:
+      description: 'Team color'
+      type: string
+      pattern: /^#[a-fA-F0-9]{3,6}$/
+      example: '#922eb4'
     collectedPoints:
       description: 'List of collected points (pointsId)'
       type: array
@@ -171,6 +176,7 @@ components:
       type: string
       minLength: 3
       maxLength: 24
+      nullable: true
       example: 'Kukułka'
     pointCollectedDate:
       description: 'Date when point was collected. Can be null'
@@ -226,11 +232,16 @@ components:
       minimum: 0
       maximum: 9999999999
       example: 5
-    pointShape:
-      description: 'Point category shape'
+    pointFillColor:
+      description: 'Point category fill color'
       type: string
-      minLength: 3
-      maxLength: 24
+      minLength: 4
+      maxLength: 7
+    pointStrokeColor:
+      description: 'Point category stroke color'
+      type: string
+      minLength: 4
+      maxLength: 7
     inviteKeys:
       description: 'List of keys to join to event, team'
       type: array

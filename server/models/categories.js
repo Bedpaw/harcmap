@@ -2,7 +2,7 @@ const {
   objectIdInDatabase,
   categoryName,
   pointValue,
-  pointShape,
+  color,
 } = require('../libs/common-schemas');
 const Model = require('../libs/model');
 
@@ -11,7 +11,8 @@ const userSchema = {
   eventId: objectIdInDatabase,
   categoryName,
   pointValue,
-  pointShape,
+  pointStrokeColor: color,
+  pointFillColor: color,
 };
 
 // Create model

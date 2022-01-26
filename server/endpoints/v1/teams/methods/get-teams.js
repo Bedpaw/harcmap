@@ -11,6 +11,7 @@ async function getTeams (eventId) {
     const {
       _id,
       teamName,
+      teamColor,
       teamMembers,
       inviteKeys,
       collectedPoints,
@@ -20,6 +21,7 @@ async function getTeams (eventId) {
     return {
       teamId: _id,
       teamName,
+      teamColor,
       teamMembers,
       inviteKeys: parsedInviteKeys,
       collectedPoints: collectedPoints.map(id => id.toString()),

@@ -54,6 +54,7 @@ describe('/api/v1/events/join', () => {
         '_id': ObjectId('60e6b02e0b6c6887accf6c03'),
         'eventId': ObjectId('605920002c60e426288b8971'),
         'teamName': 'team2',
+        'teamColor': '#2d8d9d',
         'collectedPoints': [],
       },
     }, {

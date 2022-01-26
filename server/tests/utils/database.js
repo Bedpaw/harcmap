@@ -2,7 +2,13 @@
  * @description Module using only for tests purposes
  */
 const { MongoClient } = require('mongodb');
-const insertDefaultData = require('../../bin/mongodb/default-dump.js');
+const users = require('../../bin/mongodb/default-dump/users.dump.js');
+const usersEvents = require('../../bin/mongodb/default-dump/usersEvents.dump.js');
+const events = require('../../bin/mongodb/default-dump/events.dump.js');
+const teams = require('../../bin/mongodb/default-dump/teams.dump.js');
+const keys = require('../../bin/mongodb/default-dump/keys.dump.js');
+const categories = require('../../bin/mongodb/default-dump/categories.dump.js');
+const points = require('../../bin/mongodb/default-dump/points.dump.js');
 const {
   MONGO_HOST,
   MONGO_USER,
@@ -58,7 +64,7 @@ async function add (options) {
 }
 
 /**
- * @description Add document to database
+ * @description Get document from database
  * @param collectionName {string}
  * @param query {object}
  * @return {Promise<void>}
@@ -67,6 +73,20 @@ async function find (collectionName, query) {
 
   const collection = await getCollection(collectionName);
   return await collection.findOne(query);
+}
+
+/**
+ * @description Insert data from default dump
+ * @param db {object} reference to database
+ */
+async function insertDefaultData (db) {
+  await db.collection('users').insertMany(users);
+  await db.collection('usersEvents').insertMany(usersEvents);
+  await db.collection('events').insertMany(events);
+  await db.collection('teams').insertMany(teams);
+  await db.collection('keys').insertMany(keys);
+  await db.collection('categories').insertMany(categories);
+  await db.collection('points').insertMany(points);
 }
 
 /**
