@@ -12,19 +12,19 @@ ___
 
 ### Chrome DevTools
 
-### Prepare device
+#### Prepare device
 1. Plug-in your phone to USB port.
 2. Go to `Developer options`.
 3. Check checkbox labeled `USB debugging`.
 
-### Forward ports
+#### Forward ports
 1. Open Chrome on desktop and put `chrome://inspect` as URL.
 2. Click on `Port forwarding...` option.
 3. Check checkbox labeled `Enable port forwarding`.
 4. Set new port to forward: `3030` to `localhost:3030` and click `Done`.
 5. Open Chrome on desktop and put `http://localhost:3030/` as URL.
 
-### Open DevTools
+#### Open DevTools
 1. Open Chrome on desktop and put `chrome://inspect` as URL.
 2. Find `Remote target` and phone name (e.g. `Mi 9T`).
 3. Find `Chrome` - there is list of chrome tabs below.
