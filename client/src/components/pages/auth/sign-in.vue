@@ -68,8 +68,10 @@ export default {
       api.signIn(values)
         .then(data => store.dispatch('user/signIn', data))
         .then(() => {
-          // store.getters['user/firstLogin'] && store.commit('guide/open');
-          router.push(ROUTES.eventsList.path);
+          router.push({
+            name: ROUTES.eventsList.name,
+            query: { justLoggedIn: true },
+          });
           isSending.value = false;
           blockForm.value = false;
         })

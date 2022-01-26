@@ -226,6 +226,7 @@ db.teams.insert({
   '_id': ObjectId('60e6ca2aaa95cc33d7c466f8'),
   'eventId': ObjectId('60e6cc2eaa95cc33d7c46701'),
   'teamName': 'team1',
+  'teamColor': '#6ea13a',
   'collectedPoints': [],
 });
 
@@ -233,6 +234,7 @@ db.teams.insert({
   '_id': ObjectId('60e6b02e0b6c6887accf6c03'),
   'eventId': ObjectId('605920002c60e426288b8971'),
   'teamName': 'team2',
+  'teamColor': '#2d8d9d',
   'collectedPoints': [],
 });
 
@@ -240,6 +242,7 @@ db.teams.insert({
   '_id': ObjectId('60e6b02e0b6c6887accf6c05'),
   'eventId': ObjectId('605920002c60e426288b8971'),
   'teamName': 'team3',
+  'teamColor': '#922eb4',
   'collectedPoints': [ObjectId('60e6d13faa95cc33d7c467aa')],
 });
 

@@ -1,4 +1,5 @@
 import { MACROS } from 'utils/macros';
+import { api } from 'api';
 export default {
   state: {
     categories: [],
@@ -14,5 +15,13 @@ export default {
       .filter(category => category.pointType === MACROS.pointType.timeout),
   },
   mutations: {},
-  actions: {},
+  actions: {
+    addPointCategory (context, { pointCategory, eventId = context.getters.eventId }) {
+      return new Promise((resolve, reject) => {
+        api.addPointCategory(pointCategory, eventId)
+          .then(() => resolve())
+          .catch(reject);
+      });
+    },
+  },
 };

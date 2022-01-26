@@ -17,6 +17,18 @@
       :buttons-details="pastEvents"
       :title="$t('page.eventsList.finished')"
     />
+    <!-- Do we want this? Provide translation if yes TODO-->
+    <span class="f-text-bold f-text-center">Ustawienia aplikacji:</span>
+    <a-checkbox
+      id="wantsAutoLoginToEvent"
+      v-model="wantsAutoLoginToEvent"
+      class="f-pt-1"
+      assist="Po zalogowaniu przejdź do ostatniego wydarzenia"
+    >
+      Automatyczne logowanie
+      {{ }}
+    </a-checkbox>
+    <!-- Do we want this? Provide translation if yes-->
   </section>
 </template>
 
@@ -30,12 +42,15 @@ import { eventUtils } from 'utils/event';
 import { materialIcons } from '@dbetka/vue-material-icons';
 import { autoUpdate } from 'utils/auto-update';
 import { ROUTES } from 'config/routes-config';
+import { appStorage } from 'utils/storage';
+import ACheckbox from 'atoms/checkbox';
 
 const ICONS_TYPES = materialIcons.types;
 
 export default {
   name: 'o-events-list',
   components: {
+    ACheckbox,
     MButtonsListEvents,
   },
   data: () => ({
@@ -43,6 +58,7 @@ export default {
     futureEvents: [],
     currentEvents: [],
     pastEvents: [],
+    wantsAutoLoginToEvent: true,
   }),
   computed: {
     primaryButtons () {
@@ -71,9 +87,13 @@ export default {
       this.currentEvents = current.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isCurrent));
       this.futureEvents = future.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isFuture));
     },
+    wantsAutoLoginToEvent: function (boolean) {
+      appStorage.setItem(appStorage.appKeys.wantsAutoLoginToEvent, boolean, appStorage.getIds.email());
+    },
   },
   mounted () {
     this.events = this.$store.getters['user/userEvents'];
+    this.autoSignInToEventIfPossible();
   },
   methods: {
     prepareButtonsDetails (event, timePeriod = MACROS.timePeriods.isCurrent) {
@@ -108,14 +128,34 @@ export default {
     signInToEvent (eventId) {
       const teamId = this.events.find(event => event.eventId === eventId).teamId;
       const role = this.events.find(event => event.eventId === eventId).role;
+      const lastRoute = appStorage.getItem(appStorage.appKeys.lastRoute, appStorage.getIds.eventIdAndEmail());
       this.$store.dispatch('event/download', { eventId, teamId, role })
         .then(() => {
           autoUpdate.run();
-          this.$router.push(ROUTES.start.path);
+          this.$router.push(lastRoute ?? ROUTES.start.path).then(() => this.updateStorageAfterSuccessLogIn(eventId));
         })
         .catch(() => {
           this.$store.dispatch('user/signOut').catch(() => undefined);
         });
+    },
+    updateStorageAfterSuccessLogIn (eventId) {
+      appStorage.setItem(appStorage.appKeys.recentEvent, eventId, appStorage.getIds.email());
+      const isFirstLogIn = appStorage.getItem(appStorage.appKeys.firstLogin, appStorage.getIds.eventIdAndEmail()) === null;
+      if (isFirstLogIn) {
+        this.$store.commit('guide/open');
+        appStorage.setItem(appStorage.appKeys.firstLogin, true, appStorage.getIds.eventIdAndEmail());
+      }
+    },
+    autoSignInToEventIfPossible () {
+      this.wantsAutoLoginToEvent = appStorage.getItem(appStorage.appKeys.wantsAutoLoginToEvent, appStorage.getIds.email());
+      const isJustLogged = this.$route.query.justLoggedIn;
+      const recentEventId = appStorage.getItem(appStorage.appKeys.recentEvent, appStorage.getIds.email());
+      if (isJustLogged && recentEventId && this.wantsAutoLoginToEvent) {
+        const isRecentEventAvailable = !!this.events.find(event => event.eventId === recentEventId);
+        if (isRecentEventAvailable) {
+          this.signInToEvent(recentEventId);
+        }
+      }
     },
     navigateToCreateEvent () {
       this.$router.push(this.ROUTES.newEvent.path);

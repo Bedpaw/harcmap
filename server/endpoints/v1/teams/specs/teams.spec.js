@@ -12,6 +12,7 @@ describe('/api/v1/events/:eventId/teams', () => {
       expect: [{
         teamId: '60e6b02e0b6c6887accf6c03',
         teamName: 'team2',
+        teamColor: '#2d8d9d',
         collectedPoints: [],
         teamMembers: [{
           email: 'example@domain.com',
@@ -30,6 +31,7 @@ describe('/api/v1/events/:eventId/teams', () => {
       }, {
         teamId: '60e6b02e0b6c6887accf6c05',
         teamName: 'team3',
+        teamColor: '#922eb4',
         collectedPoints: ['60e6d13faa95cc33d7c467aa'],
         teamMembers: [{
           email: 'member@harcmap.com',

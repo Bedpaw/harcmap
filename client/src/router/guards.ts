@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { store } from 'store';
 import { ROUTES } from 'config/routes-config';
 import { permissions } from 'utils/permissions';
@@ -42,7 +41,7 @@ const isEventChooseGuard = (enterPermissions: EnterPermissionOptions) => {
   return requireEventChosen && eventNotChosen;
 };
 
-const getRedirectPath = (): string => {
+const getRedirectPath = () => {
   const isNotLogIn = store.getters['user/isLogin'] === false;
   const eventNotChosen = store.getters['event/eventId'] === null;
 
@@ -50,7 +49,10 @@ const getRedirectPath = (): string => {
     return ROUTES.welcome.path;
   }
   if (eventNotChosen) {
-    return ROUTES.eventsList.path;
+    return {
+      name: ROUTES.eventsList.name,
+      query: { justLoggedIn: true },
+    };
   }
   return ROUTES.start.path;
 };

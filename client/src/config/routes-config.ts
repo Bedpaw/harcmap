@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import { AppRoute } from '../router/utils';
 import { EnterPermissionGroup } from 'models/routes';
 import { materialIcons } from '@dbetka/vue-material-icons';
@@ -138,6 +136,19 @@ const adminRoutes = {
   newPoint: {
     name: 'newPoint',
     icon: ICONS.add_location_alt,
+  },
+  newPointCategory: {
+    name: 'newPointCategory',
+    icon: ICONS.add,
+  },
+  editPointCategory: {
+    name: 'editPointCategory',
+    icon: ICONS.edit,
+    dynamicParam: 'pointCategoryId',
+  },
+  pointCategoriesList: {
+    name: 'pointCategoriesList',
+    icon: ICONS.list,
   },
   usersList: {
     name: 'usersList',

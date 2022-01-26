@@ -11,6 +11,7 @@ describe('/api/v1/events/:eventId/teams/:teamId', () => {
     body: {
       expect: {
         teamName: 'team3',
+        teamColor: '#922eb4',
         collectedPoints: ['60e6d13faa95cc33d7c467aa'],
         teamMembers: [{
           email: 'member@harcmap.com',

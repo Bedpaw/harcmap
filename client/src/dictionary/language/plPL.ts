@@ -26,6 +26,9 @@ export const plPL = {
     joinEvent: 'Dołącz do wydarzenia',
     usersList: 'Użytkownicy',
     teamView: 'Drużyna',
+    editPointCategory: 'Edycja kategorii punktów',
+    newPointCategory: 'Nowa kategoria punktów',
+    pointCategoriesList: 'Kategorie punktów',
     short: {
       start: 'Start',
       map: 'Mapa',
@@ -40,7 +43,6 @@ export const plPL = {
     showMore: 'pokaż\xa0więcej...',
     showMore2: 'Pokaź więcej...',
     pointUnit: 'pkt',
-    pointCategoryLevel: 'poziom',
     pointTimeout: 'Czasowy',
     pointPermanent: 'Do zebrania',
     backToStart: 'Przejdź do startowej',
@@ -63,6 +65,18 @@ export const plPL = {
     cords: 'Współrzędne',
     collectTime: 'Czas zebrania',
   },
+  colors: {
+    'purple': 'Fioletowy',
+    'blue': 'Niebieski',
+    'green': 'Zielony',
+    'gray': 'Szary',
+    'yellow': 'Żółty',
+    'red': 'Czerwony',
+    'black': 'Czarny',
+    'orange': 'Pomrańczowy',
+    'white': 'Biały',
+    'pink': 'Różowy',
+  },
   form: {
     field: {
       email: 'E-mail',
@@ -82,6 +96,10 @@ export const plPL = {
       mapRefreshTime: 'Odświeżanie punktów na mapie co',
       eventStartDate: 'Data i czas rozpoczęcia wydarzenia',
       eventEndDate: 'Data i czas zakończenia wydarzenia',
+      fillColor: 'Kolor wypełnienia',
+      strokeColor: 'Kolor konturu',
+      pointValue: 'Wartość punktu',
+      categoryName: 'Nazwa kategorii',
     },
     assist: {
       pointId: 'Kod punktu jest generowany automatycznie',
@@ -110,6 +128,7 @@ export const plPL = {
     minLength: 'Pole musi składać się z co najmniej {min} znaków.',
     maxLength: 'Pole musi składać się z nie więcej niż {max} znaków.',
     sameAs: 'Pole nie zgadza się z polem potwierdzającym {target}.',
+    positiveNumber: 'Pole powinno zawierać liczbę większą niż 0',
     hasNumber: 'Pole powinno zawierać co najmniej jedną cyfrę.',
     hasCapitalize: 'Pole powinno zawierać co najmniej jedną wielką literę.',
     futureDatetime: 'Data powinna być późniejsza niż teraz.',
@@ -227,6 +246,7 @@ export const plPL = {
       eventForm: {
         showAdvancedOptions: 'Pokaż opcje zaawansowane',
         hideAdvancedOptions: 'Schowaj opcje zaawansowane',
+        advancedOptions: 'Opcje zaawansowane',
       },
     },
   },

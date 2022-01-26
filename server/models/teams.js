@@ -1,6 +1,7 @@
 const {
   objectIdInDatabase,
   teamName,
+  teamColor,
   collectedPoints,
 } = require('../libs/common-schemas');
 const Model = require('../libs/model');
@@ -9,6 +10,7 @@ const Model = require('../libs/model');
 const modelSchema = {
   eventId: objectIdInDatabase,
   teamName,
+  teamColor,
   collectedPoints,
 };
 

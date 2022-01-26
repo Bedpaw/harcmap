@@ -72,33 +72,36 @@ export const pointUtils = {
     }
     return data;
   },
-  pointIsVisibleOnMap (point, {
-    hiddenPointId,
-    pointsCollectedByUser,
-    mapRefreshTime,
-  }) {
-    const {
-      pointId,
-      pointCollectionTime,
-    } = point;
-    // Hide if it's hide point
-    if (pointId === hiddenPointId) return false;
+  pointIsVisibleOnMap (point, hiddenPointId) {
+    // Hide if it's hide point (point edit mode)
+    if (point.pointId === hiddenPointId) return false;
 
     // Admin can see all points on map
     if (userUtils.can.seeAllPointsOnMap()) return true;
 
-    if (this.isPermanent(point)) {
-      // Point is not collected
-      if (this.pointIsNotCollected(point)) return true;
+    // Permanent points are always visible
+    if (this.isPermanent(point)) return true;
 
-      // Display points collected by user
-      if (this.isPointIdOnList(pointsCollectedByUser, point)) return true;
-
-      // Point is permanent and collected, but user don't know it to next gap time
-      // Gap time is last full time from mapRefreshTime counting from full hours
-      return isBeforeLastGapEndTime(mapRefreshTime, pointCollectionTime) === false;
-    }
+    // Timeout are only visible in their active time
     return this.isTimeoutActive(point);
+  },
+
+  pointIsDisplayedAsCollected (point, { pointsCollectedByTeam, mapRefreshTime }) {
+    // Timeout points always not collected
+    if (pointUtils.isTimeOut(point)) return false;
+
+    // Point is not collected
+    if (this.pointIsNotCollected(point)) return false;
+
+    // Admin can see all collected points on map without time delay
+    if (userUtils.can.seeAllPointsOnMap()) return true;
+
+    // Point collected by team and is displayed as collected immediately
+    if (this.isPointIdOnList(pointsCollectedByTeam, point)) return true;
+
+    // Point is permanent and collected, but team don't know it to next gap time
+    // Gap time is last full time from mapRefreshTime counting from full hours
+    return isBeforeLastGapEndTime(mapRefreshTime, point.pointCollectionTime) === true;
   },
 
 };

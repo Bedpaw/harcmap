@@ -1,5 +1,8 @@
 <template>
-  <t-page class="f-flex f-flex-col">
+  <t-page
+    class="f-flex f-flex-col"
+    :back-route="ROUTES.eventsList"
+  >
     <o-form :on-submit="onSubmit">
       <m-field-text
         v-model.trim="values.eventName"
@@ -7,15 +10,15 @@
         :rules="validationRules.eventName"
         :disabled="blockForm"
       />
-      <m-field-text
+      <!--      <m-field-text
         v-model="values.eventId"
         disabled
         :label="$t('form.field.eventId')"
         :assist="$t('form.assist.eventId')"
-      />
+      />-->
       <m-select
         v-model="values.mapRefreshTime"
-        :options="options"
+        :options="mapRefreshTimeOptions"
         :placeholder="$t('form.field.mapRefreshTime')"
         :disabled="blockForm"
       />
@@ -82,7 +85,6 @@ import OGameAdvancedRules from 'organisms/admin/game-advanced-rules';
 import MFieldDatetimeRange from 'molecules/field/datetime-range';
 import { ErrorMessage } from 'utils/error-message';
 import { DEFAULT_EVENT_CONFIG } from 'config/event-config';
-import { idUtils } from 'utils/id';
 import { eventUtils } from 'utils/event';
 import { computed, ref, onMounted, toRefs } from 'vue';
 import { useForm } from 'plugins/form';
@@ -118,7 +120,7 @@ export default {
 
     const values = ref({
       eventName: '',
-      eventId: idUtils.generateNewId(),
+      eventId: null,
       mapRefreshTime: DEFAULT_EVENT_CONFIG.mapRefreshTime,
       eventStartDate: null,
       eventEndDate: null,
@@ -127,8 +129,7 @@ export default {
       mapZoom: null,
       eventRules: DEFAULT_EVENT_CONFIG.gameRules,
     });
-
-    const options = ref(DEFAULT_EVENT_CONFIG.mapRefreshTimeOptions);
+    const mapRefreshTimeOptions = ref(DEFAULT_EVENT_CONFIG.mapRefreshTimeOptions);
     const eventPositionIsSetting = ref(false);
     const showAdvancedOptions = ref(false);
 
@@ -159,7 +160,7 @@ export default {
       saveNewPosition,
       onSubmit,
       ...form,
-      options,
+      mapRefreshTimeOptions,
       eventPositionIsSetting,
       hasSetPosition,
       showAdvancedOptions,
