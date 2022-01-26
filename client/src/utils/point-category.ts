@@ -4,8 +4,8 @@ import { translator } from 'dictionary';
 import { PointCategory } from 'models/point';
 
 export interface PointCategoryAppearance {
-  strokeColor: string,
-  fillColor: string,
+  pointStrokeColor: string,
+  pointFillColor: string,
   shape: string,
 }
 const availableColors = {
@@ -30,16 +30,11 @@ function getCategoriesSelectOptions (categories: PointCategory[]) {
   });
 }
 
-function getColor (color: string): string {
-  // TODO deprecated? Should we have themes for all colors?
-  return store.getters['theme/colors'][color];
-}
-
 function getPointAppearance (pointCategoryId: string, pointType = MACROS.pointType.permanent): PointCategoryAppearance {
   const pointCategory = store.getters['event/getCategoryById'](pointCategoryId);
   return {
-    strokeColor: getColor(pointCategory.strokeColor),
-    fillColor: getColor(pointCategory.fillColor),
+    pointFillColor: pointCategory.pointFillColor,
+    pointStrokeColor: pointCategory.pointStrokeColor,
     shape: pointType === MACROS.pointType.permanent ? availableShapes.dot : availableShapes.star,
   };
 }

@@ -26,7 +26,7 @@ export function createFeatures ({ list = [] }) {
   for (const point of list) {
     const lat = point.pointLatitude;
     const lon = point.pointLongitude;
-    const appearance = pointCategoryUtils.getPointAppearance(point.pointCategory);
+    const appearance = pointCategoryUtils.getPointAppearance(point.pointCategoryId, point.pointType);
     const showCollected = shouldBeShownAsCollected(point);
 
     const stroke = getStroke(appearance, showCollected);
@@ -59,13 +59,13 @@ const shouldBeShownAsCollected = (point) => store.getters['event/pointsDisplayed
 
 const getStroke = (appearance, isCollected, width = mapConfig.features.defaultWidth) => {
   return new Stroke({
-    color: getColorWithOpacity(appearance.strokeColor, isCollected),
+    color: getColorWithOpacity(appearance.pointStrokeColor, isCollected),
     width,
   });
 };
 
 const getFill = (appearance, isCollected) => {
-  return new Fill({ color: getColorWithOpacity(appearance.fillColor, isCollected) });
+  return new Fill({ color: getColorWithOpacity(appearance.pointFillColor, isCollected) });
 };
 
 const getColorWithOpacity = (color, isCollected) => {

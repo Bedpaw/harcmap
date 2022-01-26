@@ -13,8 +13,8 @@ export default {
     points: state => state.points,
     getPointById: state =>
       pointId => state.points.find(point => point.pointId === pointId),
-    pointValueByPointCategory: (state, getters, rootState, rootGetters) => pointCategory => {
-      const category = rootGetters['event/getCategoryById'](pointCategory);
+    pointValueByPointCategory: (state, getters, rootState, rootGetters) => pointCategoryId => {
+      const category = rootGetters['event/getCategoryById'](pointCategoryId);
       return (category || {}).pointValue;
     },
     getPointByOlUid: state => pointOlUid =>

@@ -13,33 +13,13 @@ export const pointCategoryController = {
     return httpService.get<PointCategoryDTO[], PointCategory[]>({
       url: urls.getCategoriesByEventId(eventId),
       errorOptions: API_ERRORS.getCategoriesByEventId,
-      successCallback: (pointsCategory) => {
-        // TODO it is mock callback
-        return [
-          {
-            categoryId: '60e7046eaa95cc33d7c4672b',
-            categoryName: 'Łatwe',
-            pointValue: 1,
-            strokeColor: 'stroke',
-            fillColor: 'danger',
-          },
-          {
-            categoryId: '60e7046eaa95cc33d7c4672b',
-            categoryName: 'Trudne',
-            pointValue: 3,
-            strokeColor: 'stroke',
-            fillColor: 'danger',
-          },
-        ];
-      },
     });
   },
 
   addPointCategory (category: PointCategoryDTOCreate, eventId: string) {
-    const x = { eventId, pointShape: 'XDD', categoryName: category.categoryName, pointValue: category.pointValue }; // TODO mock
     return httpService.post({
       url: urls.addPointCategory(eventId),
-      body: x,
+      body: { ...category, eventId }, // TODO remove eventId from body after backend change
       errorOptions: API_ERRORS.addPoint,
     });
   },

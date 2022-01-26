@@ -19,7 +19,7 @@ export default {
     },
     scoreByTeam: (state, getters, rootState, rootGetters) => team => {
       return getters.collectedPointsByTeam(team)
-        .map(point => rootGetters['event/pointValueByPointCategory'](point.pointCategory))
+        .map(point => rootGetters['event/pointValueByPointCategory'](point.pointCategoryId))
         .reduce((a, b) => (a + b), 0);
     },
   },

@@ -4,7 +4,7 @@ import { appStorage } from 'utils/storage';
  * @description
  * Sets "uuid"
  */
-// TODO what is this?
+// TODO Check if this is required and if it should be cookie?
 function setUUID () {
   const uuidValue = appStorage.getItem(appStorage.appKeys.uuid);
   if (!uuidValue) {

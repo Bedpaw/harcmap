@@ -19,9 +19,9 @@ export default {
     ]),
   },
   methods: {
-    createNewPointCategory (pointCategory) {
+    createNewPointCategory (pointCategoryId) {
       return this.$store.dispatch('event/addPointCategory', {
-        pointCategory,
+        pointCategoryId,
         eventId: this.eventId,
       });
     },

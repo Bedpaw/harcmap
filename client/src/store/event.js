@@ -62,15 +62,23 @@ export default {
     ...Modules.mutations,
   },
   actions: {
-    download (context, { eventId, teamId, role }) {
+    async download (context, { eventId, teamId, role }) {
       return new Promise((resolve, reject) => {
         let event;
         api.getEventById(eventId)
           .then(data => (event = { ...data, eventId }))
           .then(() => api.getCategoriesByEventId(eventId))
           .then(categories => (event.categories = categories))
-          .then(() => api.getTeamByEventId(eventId, teamId))
-          .then((data) => context.commit('team/setTeam', { ...data, teamId }, { root: true }))
+          .then(() => {
+            if (teamId) {
+              return api.getTeamByEventId(eventId, teamId);
+            }
+          })
+          .then((data) => {
+            if (data) {
+              return context.commit('team/setTeam', { ...data, teamId }, { root: true });
+            }
+          })
           .then(() => {
             const IsBeforeStart = eventUtils.isBeforeStart(event);
             const IsCommonUser = permissions.checkIsCommonUser();
@@ -79,7 +87,6 @@ export default {
           })
           .then(points => {
             event.points = points.map(point => ({ ...point }));
-            console.log('role', role);
             context.commit('setEvent', { ...event, role });
             context.commit('setId', eventId);
             resolve(event);
