@@ -20,7 +20,7 @@ async function checkKey (eventKey) {
 
   return {
     eventId: eventId.toString(),
-    teamId: teamId.toString(),
+    teamId: teamId ? teamId.toString() : null,
     role,
   };
 }

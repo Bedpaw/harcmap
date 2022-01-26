@@ -2,7 +2,7 @@ const Joi = require('joi');
 const {
   categoryName,
   pointValue,
-  pointShape,
+  color,
   objectIdInRequest,
 } = require('../../../libs/common-schemas');
 
@@ -12,7 +12,8 @@ const allCategories = {
     eventId: objectIdInRequest.required(),
     categoryName: categoryName.required(),
     pointValue: pointValue.required(),
-    pointShape: pointShape.required(),
+    pointStrokeColor: color.required(),
+    pointFillColor: color.required(),
   }),
 };
 

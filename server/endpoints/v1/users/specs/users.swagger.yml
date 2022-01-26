@@ -198,6 +198,7 @@ paths:
     put:
       summary: 'Update user with :id (SECURED)'
       description: 'Special privilege required'
+      deprecated: true
       tags:
         - Users
       parameters:

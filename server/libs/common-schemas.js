@@ -76,14 +76,12 @@ const pointValue = Joi.number()
   .integer()
   .min(0)
   .max(9999999999);
-const pointShape = Joi.string()
-  .min(3)
-  .max(24)
-  .trim();
 const categoryName = Joi.string()
   .min(3)
   .max(24)
   .trim();
+const color = Joi.string()
+  .pattern(/^#[a-fA-F0-9]{3,6}$/);
 
 /**
  * Keys props
@@ -106,7 +104,7 @@ module.exports = {
   latitude,
   categoryName,
   pointValue,
-  pointShape,
+  color,
   eventRefreshTime,
   teamName,
   pointName,

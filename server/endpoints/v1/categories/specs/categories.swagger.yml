@@ -28,8 +28,10 @@ paths:
                       $ref: '#/components/props/categoryName'
                     pointValue:
                       $ref: '#/components/props/pointValue'
-                    pointShape:
-                      $ref: '#/components/props/pointShape'
+                    pointStrokeColor:
+                      $ref: '#/components/props/pointStrokeColor'
+                    pointFillColor:
+                      $ref: '#/components/props/pointFillColor'
         400:
           description: 'Validation error'
           content:
@@ -70,12 +72,15 @@ paths:
                   $ref: '#/components/props/categoryName'
                 pointValue:
                   $ref: '#/components/props/pointValue'
-                pointShape:
-                  $ref: '#/components/props/pointShape'
+                pointStrokeColor:
+                  $ref: '#/components/props/pointStrokeColor'
+                pointFillColor:
+                  $ref: '#/components/props/pointFillColor'
               required:
                 - categoryName
                 - pointValue
-                - pointShape
+                - pointStrokeColor
+                - pointFillColor
       responses:
         200:
           description: 'Successfully add category'
@@ -90,8 +95,10 @@ paths:
                     $ref: '#/components/props/categoryName'
                   pointValue:
                     $ref: '#/components/props/pointValue'
-                  pointShape:
-                    $ref: '#/components/props/pointShape'
+                  pointStrokeColor:
+                    $ref: '#/components/props/pointStrokeColor'
+                  pointFillColor:
+                    $ref: '#/components/props/pointFillColor'
         400:
           description: 'Validation error'
           content:

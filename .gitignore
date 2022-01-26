@@ -11,6 +11,7 @@ server/node_modules
 server/package-lock.json
 server/pm2-prod.config.js
 server/bin/publish-staging.sh
+server/bin/mongodb/__mongo-dump.js
 
 client/node_modules
 client/package-lock.json

@@ -17,7 +17,7 @@ const passwordReset = {
  * USER1
  */
 const user1 = {
-  _id: ObjectId('100000000000000000000001'),
+  _id: ObjectId('100000000000000000000000'),
   email: 'user1@harcmap.local',
   password,
   accountActivation,

@@ -27,6 +27,7 @@
     "server:tests:watch": "cd server && npm run tests:watch",
     "mongo": "cd server && npm run mongo",
     "mongo:fresh": "cd server && npm run mongo:fresh",
+    "mongo:fresh:custom-dump": "cd server && npm run mongo:fresh:custom-dump",
     "mongo:windows": "cd server && npm run mongo:windows",
     "mongo:tests": "cd server && npm run mongo:tests"
   },
