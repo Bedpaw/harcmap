@@ -16,3 +16,5 @@ async function getUser (id) {
 }
 
 module.exports = getUser;
+
+// TODO: 2 endpointy: check i join

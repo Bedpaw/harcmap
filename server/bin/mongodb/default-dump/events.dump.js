@@ -1,8 +1,8 @@
 const { ObjectId } = require('mongodb');
 
 const eventDuration = {
-  startDate: new Date(2020, 0).getTime(),
-  endDate: new Date(2050, 0).getTime(),
+  startDate: new Date(2020, 0, 1, 10, 23, 59).getTime(),
+  endDate: new Date(2050, 4, 30, 23, 59, 59).getTime(),
 };
 
 const event1 = {

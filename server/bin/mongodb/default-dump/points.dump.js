@@ -29,10 +29,10 @@ const point2 = {
   pointKey: 'Poi2',
   pointName: null,
   pointType: 'timeout',
-  pointCollectedDate: new Date(2022, 0, 2).getTime(),
+  pointCollectedDate: new Date(2022, 0, 2, 5, 35, 45).getTime(),
   pointDuration: {
     startDate: Date.now(),
-    endDate: new Date(2050, 0).getTime(),
+    endDate: new Date(2050, 0, 14, 13, 32, 54).getTime(),
   },
   pointPosition: {
     longitude: 10,
@@ -48,7 +48,7 @@ const point3 = {
   pointKey: 'Poi3',
   pointName: null,
   pointType: 'permanent',
-  pointCollectedDate: new Date(2022, 0, 3).getTime(),
+  pointCollectedDate: new Date(2022, 0, 3, 3, 53, 24).getTime(),
   pointDuration,
   pointPosition: {
     longitude: 10,
@@ -64,7 +64,7 @@ const point4 = {
   pointKey: 'Poi4',
   pointName: 'Punkt 4',
   pointType: 'permanent',
-  pointCollectedDate: new Date(2022, 0, 2).getTime(),
+  pointCollectedDate: new Date(2022, 0, 2, 16, 49, 1).getTime(),
   pointDuration,
   pointPosition: {
     longitude: 10,
@@ -82,7 +82,7 @@ const point5 = {
   pointType: 'timeout',
   pointCollectedDate: null,
   pointDuration: {
-    startDate: new Date(2021, 0).getTime(),
+    startDate: new Date(2021, 0, 7, 17, 12, 42).getTime(),
     endDate: Date.now(),
   },
   pointPosition: {
@@ -118,7 +118,7 @@ const point7 = {
   pointCollectedDate: null,
   pointDuration: {
     startDate: Date.now(),
-    endDate: new Date(2050, 0).getTime(),
+    endDate: new Date(2050, 0, 1, 9, 1, 5).getTime(),
   },
   pointPosition: {
     longitude: 10,
@@ -166,9 +166,9 @@ const point10 = {
   pointKey: 'Po1i',
   pointName: null,
   pointType: 'timeout',
-  pointCollectedDate: new Date(2021, 11).getTime(),
+  pointCollectedDate: new Date(2021, 11, 1, 23, 1, 31).getTime(),
   pointDuration: {
-    startDate: new Date(2021, 10).getTime(),
+    startDate: new Date(2021, 9, 23, 15, 34, 23).getTime(),
     endDate: Date.now(),
   },
   pointPosition: {
@@ -185,7 +185,7 @@ const point11 = {
   pointKey: 'Po2i',
   pointName: null,
   pointType: 'permanent',
-  pointCollectedDate: new Date(2021, 10).getTime(),
+  pointCollectedDate: new Date(2021, 10, 25, 13, 4, 14).getTime(),
   pointDuration,
   pointPosition: {
     longitude: 10,
