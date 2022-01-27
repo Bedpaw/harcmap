@@ -70,13 +70,11 @@ export default {
   },
   actions: {
     resetState (context) {
-      console.log(context.state);
       context.commit('resetEventState');
       context.commit('resetPointsState');
       context.commit('resetPointsStatisticsState');
       context.commit('resetMapState');
       context.commit('resetCategoriesState');
-      console.log(context.state);
     },
     download (context, { eventId, teamId, role }) {
       return new Promise((resolve, reject) => {

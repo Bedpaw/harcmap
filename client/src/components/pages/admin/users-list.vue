@@ -2,7 +2,7 @@
   <t-search
     :search-assist="$t('form.assist.searchUser')"
     :elements="users"
-    :search-keys="['email', 'teamName']"
+    :search-keys="['email']"
   >
     <template #result-list="{ filteredElements: filteredUsers }">
       <div class="f-flex-1 f-scroll-default f-mt--2">
@@ -16,7 +16,7 @@
             :name="getUserIcon(user)"
           />
           <div class="f-pl-1 f-py-1 f-line-24 f-overflow-hidden">
-            {{ user.teamName }}
+            What here?<!--TODO what in this row?-->
           </div>
           <div class="f-pl-1 f-py-1 f-text-subtext f-text-14 f-line-24 f-overflow-hidden">
             {{ user.email }}

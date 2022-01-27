@@ -1,4 +1,3 @@
-import { MACROS } from 'utils/macros';
 import { api } from 'api';
 
 const initState = () => ({
@@ -14,9 +13,9 @@ export default {
     },
     categories: state => state.categories,
     permanentCategories: state => state.categories
-      .filter(category => category.pointType === MACROS.pointType.permanent),
+      .filter(category => category.pointValue !== 0), // TODO Rethink if points have categories
     timeoutCategories: state => state.categories
-      .filter(category => category.pointType === MACROS.pointType.timeout),
+      .filter(category => category.pointValue === 0),
   },
   mutations: {
     addCategory: (state, pointCategory) => {

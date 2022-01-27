@@ -4,16 +4,18 @@
       {{ $t('page.scoreboard.completionLevelOfTheGame') }}
     </div>
     <div class="f-pt-1">
-      <m-circle-progress
-        v-for="[key, {categoryId}] of permanentCategories.entries()"
-        :key="`circle-progress${key}`"
-        class="f-mr-1"
-        :class="{'f-ml-1': key === 0}"
-        :number-of-completed="numberOfCollectedPointsByCategoryId(categoryId)"
-        :progress="percentageProgressByCategoryId(categoryId)"
-        :max-range="numberOfPointsByCategoryId(categoryId)"
-        :color="categoryColorById(categoryId)"
-      />
+      <template v-for="[key, {categoryId, pointFillColor}] of permanentCategories.entries()">
+        <m-circle-progress
+          v-if="numberOfPointsByCategoryId(categoryId) > 0"
+          :key="`circle-progress${key}`"
+          class="f-mr-1"
+          :class="{'f-ml-1': key === 0}"
+          :number-of-completed="numberOfCollectedPointsByCategoryId(categoryId)"
+          :progress="percentageProgressByCategoryId(categoryId)"
+          :max-range="numberOfPointsByCategoryId(categoryId)"
+          :color="pointFillColor"
+        />
+      </template>
     </div>
     <div class="f-pt-1 f-pb-3 f-text-subtext f-text-14">
       {{ $t('page.scoreboard.completionLevelDetails') }}
