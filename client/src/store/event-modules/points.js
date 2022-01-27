@@ -2,11 +2,14 @@ import { map } from 'map';
 import { pointUtils } from 'utils/point';
 import { api } from 'api';
 const { pointIsCollected, isTimeOut, sortPointsAscending } = pointUtils;
+const initState = () => ({
+  points: [],
+  hidePoint: {},
+});
 
 export default {
   state: {
-    points: [],
-    hidePoint: {},
+    ...initState(),
   },
   getters: {
     hidePoint: state => state.hidePoint,
@@ -49,6 +52,9 @@ export default {
     },
     setHidePoint: (state, payload) => (state.hidePoint = payload),
     clearHidePoint: (state) => (state.hidePoint = {}),
+    resetPointsState: (state) => {
+      Object.assign(state, initState());
+    },
   },
   actions: {
     removePoint (context, pointId) {

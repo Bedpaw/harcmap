@@ -23,7 +23,7 @@ const clearEventWhenLeaveEventRoutes = (to) => {
   // TODO poor solution, it clears only eventId and should all data
   if (!to.meta.afterEventChosen) {
     autoUpdate.stop();
-    store.commit('event/setId', null);
+    store.dispatch('event/resetState').then();
   }
 };
 router.beforeEach((to, from, next) => {

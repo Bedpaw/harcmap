@@ -1,8 +1,12 @@
 import { MACROS } from 'utils/macros';
 import { api } from 'api';
+
+const initState = () => ({
+  categories: [],
+});
 export default {
   state: {
-    categories: [],
+    ...initState(),
   },
   getters: {
     getCategoryById: state => categoryId => {
@@ -17,6 +21,9 @@ export default {
   mutations: {
     addCategory: (state, pointCategory) => {
       state.categories.push(pointCategory);
+    },
+    resetCategoriesState: (state) => {
+      Object.assign(state, initState());
     },
   },
   actions: {

@@ -38,8 +38,8 @@ export const pointController = {
       errorOptions: API_ERRORS.getPointsByEventId,
     });
   },
-  collectPoint (pointKey: string, eventId: string) {
-    return httpService.put({
+  collectPoint (eventId: string, pointKey: string) {
+    return httpService.post({
       url: urls.collectPoint(eventId),
       errorOptions: API_ERRORS.collectPoint,
       body: { pointKey },

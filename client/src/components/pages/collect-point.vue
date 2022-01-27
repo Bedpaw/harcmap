@@ -65,8 +65,8 @@ export default {
     }
 
     function collectPoint () {
-      const pointId = collectedPointId.value;
-      store.dispatch('event/collectPoint', pointId)
+      const pointKey = collectedPointId.value;
+      store.dispatch('event/collectPoint', pointKey)
         .then(onCollectPoint)
         .catch(onErrorOccurs);
     }
