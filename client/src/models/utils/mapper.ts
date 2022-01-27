@@ -10,7 +10,7 @@ export class Mapper {
   public static mapPointIn (pointIn: PointDTO): PointType {
     return {
       pointAppearanceTime: pointIn.pointDuration.startDate,
-      pointCategory: pointIn.pointCategoryId,
+      pointCategoryId: pointIn.pointCategoryId,
       pointCollectionTime: pointIn.pointCollectedDate,
       pointExpirationTime: pointIn.pointDuration.endDate,
       pointId: pointIn.pointId,
@@ -24,7 +24,7 @@ export class Mapper {
 
   public static mapPointOut (pointOut: PointType): PointDTOCreate | PointDTOUpdate {
     return {
-      pointCategoryId: '60e7046eaa95cc33d7c4672b', // for test TODO
+      pointCategoryId: pointOut.pointCategoryId,
       pointDuration: {
         startDate: pointOut.pointAppearanceTime,
         endDate: pointOut.pointExpirationTime,

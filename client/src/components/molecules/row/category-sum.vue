@@ -35,10 +35,10 @@ export default {
   },
   methods: {
     getCollectedPointsLengthById (categoryId) {
-      return this.collectedPoints.filter(point => point.pointCategory === categoryId).length;
+      return this.collectedPoints.filter(point => point.pointCategoryId === categoryId).length;
     },
     getCollectedPointsValueById (categoryId) {
-      const length = this.collectedPoints.filter(point => point.pointCategory === categoryId).length;
+      const length = this.collectedPoints.filter(point => point.pointCategoryId === categoryId).length;
       return length * this.getCategoryById(categoryId).pointValue;
     },
   },

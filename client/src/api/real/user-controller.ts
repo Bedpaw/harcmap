@@ -17,14 +17,7 @@ export const userController = {
       url: urls.getUsers,
       queryObject: { eventId },
       errorOptions: API_ERRORS.all,
-      successCallback: data => data.map(user => {
-        // TODO Remove add fields, should be from backend
-        user.userEvents[0].eventDuration = {
-          endDate: Number(new Date()),
-          startDate: Number(new Date()),
-        };
-        return Mapper.mapUserInEvent(user);
-      }),
+      successCallback: data => data.map(user => Mapper.mapUserInEvent(user)),
     });
   },
   activateUser (key: string) {

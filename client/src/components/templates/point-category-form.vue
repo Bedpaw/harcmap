@@ -14,13 +14,13 @@
         :disabled="blockForm"
       />
       <m-select
-        v-model="values.categoryFillColor"
+        v-model="values.pointFillColor"
         :options="availableColors"
         :placeholder="$t('form.field.fillColor')"
         :disabled="blockForm"
       />
       <m-select
-        v-model="values.categoryStrokeColor"
+        v-model="values.pointStrokeColor"
         :options="availableColors"
         :placeholder="$t('form.field.strokeColor')"
         :disabled="blockForm"
@@ -75,17 +75,16 @@ export default {
     const { defaultValues, onSave } = toRefs(props);
     const values = ref({
       categoryName: '',
-      categoryId: null,
-      categoryFillColor: colorsUtils.appColors.purple,
-      categoryStrokeColor: colorsUtils.appColors.black,
+      pointFillColor: colorsUtils.appColors.purple,
+      pointStrokeColor: colorsUtils.appColors.black,
       pointValue: 1,
     });
 
     const form = useForm();
     const { onErrorOccurs, onSuccessOccurs } = form;
     const circleStyle = computed(() => ({
-      backgroundColor: values.value.categoryFillColor,
-      borderColor: values.value.categoryStrokeColor,
+      backgroundColor: values.value.pointFillColor,
+      borderColor: values.value.pointStrokeColor,
       width: '40px',
       height: '40px',
     }

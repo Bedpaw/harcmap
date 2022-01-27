@@ -24,7 +24,7 @@ export const team:Module<TeamDTO, object> = {
     },
     sumOfCollectedPoints (state, getters, rootState, rootGetters) {
       return getters.collectedPoints.map((point: PointType) => {
-        return rootGetters['event/getCategoryById'](point.pointCategory).pointValue;
+        return rootGetters['event/getCategoryById'](point.pointCategoryId).pointValue;
       })
         .reduce((a: number, b: number) => a + b, 0);
     },

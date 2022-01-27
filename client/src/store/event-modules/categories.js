@@ -14,11 +14,16 @@ export default {
     timeoutCategories: state => state.categories
       .filter(category => category.pointType === MACROS.pointType.timeout),
   },
-  mutations: {},
+  mutations: {
+    addCategory: (state, pointCategory) => {
+      state.categories.push(pointCategory);
+    },
+  },
   actions: {
-    addPointCategory (context, { pointCategory, eventId = context.getters.eventId }) {
+    addPointCategory (context, { pointCategoryId, eventId = context.getters.eventId }) {
       return new Promise((resolve, reject) => {
-        api.addPointCategory(pointCategory, eventId)
+        api.addPointCategory(pointCategoryId, eventId)
+          .then(pointCategory => context.commit('addCategory', pointCategory))
           .then(() => resolve())
           .catch(reject);
       });

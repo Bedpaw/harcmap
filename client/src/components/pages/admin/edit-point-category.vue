@@ -24,8 +24,8 @@ export default {
     },
   },
   methods: {
-    editPointCategory (pointCategory) {
-      console.log(pointCategory);
+    editPointCategory (pointCategoryId) {
+      console.log(pointCategoryId);
       // TODO api
     },
   },

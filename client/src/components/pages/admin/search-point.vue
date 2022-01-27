@@ -12,7 +12,7 @@
           class="m-grid f-search-point f-mr-2"
         >
           <a-button-icon class="f-minimal">
-            <a-icon-category :category-id="point.pointCategory" />
+            <a-icon-category :category-id="point.pointCategoryId" />
           </a-button-icon>
           <div class="f-py-2 f-overflow-hidden">
             {{ point.pointId }}
