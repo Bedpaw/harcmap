@@ -3,36 +3,28 @@
     :disabled="disabled"
     add-class="f-flex f-flex-just-center f-flex-al-center"
   >
-    <slot v-if="text === ''" />
-    {{ text }}
     <a-icon
-      class="f-ml-1"
+      class="f-mr-1"
       :name="$icons.names.copy_all"
       size="24"
       outlined
     />
+    <slot v-if="text === ''" />
+    {{ text }}
   </a-button-secondary>
 </template>
 
-<script>
-import AButtonSecondary from 'atoms/button/secondary';
+<script lang="ts">
+import AButtonSecondary from 'atoms/button/secondary.vue';
 
 export default {
   name: 'a-button-copy',
   components: { AButtonSecondary },
   props: {
-    textToCopy: {
-      type: String,
-      default: '',
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    text: {
-      type: String,
-      default: '',
-    },
+    full: { type: Boolean, default: false },
+    textToCopy: { type: String, default: '' },
+    disabled: { type: Boolean, default: false },
+    text: { type: String, default: '' },
   },
 };
 </script>

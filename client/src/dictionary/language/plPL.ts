@@ -253,8 +253,9 @@ export const plPL = {
         advancedOptions: 'Opcje zaawansowane',
       },
       shareEvent: {
-        teamLeader: 'Zaproszenie dla lidera zespołu!',
-        adminObserver: 'Zaproszenie dla obserwatora administratora!',
+        teamLeader: 'Zaproszenie dla lidera zespołu:',
+        observer: 'Zaproszenie dla obserwatora:',
+        admin: 'Zaproszenie dla administratora:',
         joinToEventMessage: 'Dołącz do wydarzenia {eventName} na HarcMapie!',
       },
     },

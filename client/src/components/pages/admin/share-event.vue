@@ -1,14 +1,22 @@
 <template>
   <t-page class="f-text-center">
     <o-share-for-user-type
+      type="admin"
+      :description="$t('page.admin.shareEvent.admin')"
+      :event-share-code="eventShareCodes.adminObserver"
+      :event-share-link="eventShareLinks.adminObserver"
+    />
+    <o-share-for-user-type
+      type="observer"
+      :description="$t('page.admin.shareEvent.observer')"
+      :event-share-code="eventShareCodes.adminObserver"
+      :event-share-link="eventShareLinks.adminObserver"
+    />
+    <o-share-for-user-type
+      type="teamLeader"
       :description="$t('page.admin.shareEvent.teamLeader')"
       :event-share-code="eventShareCodes.teamLeader"
       :event-share-link="eventShareLinks.teamLeader"
-    />
-    <o-share-for-user-type
-      :description="$t('page.admin.shareEvent.adminObserver')"
-      :event-share-code="eventShareCodes.adminObserver"
-      :event-share-link="eventShareLinks.adminObserver"
     />
   </t-page>
 </template>

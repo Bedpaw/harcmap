@@ -1,10 +1,15 @@
 <template>
   <div
-    class="f-text-bold f-flex f-text-18"
+    class="f-flex"
     @click="showDetails()"
   >
-    <div class="f-flex-1">
-      {{ description }}
+    <div class="f-flex-1 f-flex f-flex-al-center f-text-bold f-text-left">
+      <a-icon
+        :name="getCurrentIcon"
+        outlined
+        size="40"
+      />
+      <span class="f-flex-1 f-pl-2">{{ description }}</span>
     </div>
     <a-icon
       v-if="rolledUp"
@@ -15,49 +20,51 @@
   <template v-if="detailsVisible">
     <a-button-copy
       :text-to-copy="eventShareCode"
-      :text="'Skopiuj kod wydarzenia'"
-      add-area-class="f-mt-1"
+      :text="'Kod zaproszenia'"
+      add-area-class="f-mt-0"
     />
     <a-button-copy
       :text-to-copy="eventShareLink"
-      :text="'Skopiuj link do wydarzenia'"
-      add-area-class="f-mt-1"
+      :text="'Link zaproszenia'"
+      add-area-class="f-mt-0"
     />
-    <div class="f-pb-5">
+    <div class="f-pb-3">
       <a-button-primary
-        add-area-class="f-mt-1"
+        add-area-class="f-mt-0"
         :disabled="isNotMobileDevice"
         @click="shareEvent()"
       >
         Udostępnij przez aplikacje
       </a-button-primary>
 
-      <span
+      <div
         v-if="isNotMobileDevice"
-        class="a-assist"
+        class="a-assist f-button"
       >
         Dostępne tylko na urządzeniach mobilnych
-      </span>
+      </div>
     </div>
   </template>
 </template>
 
-<script>
-import MFieldText from 'molecules/field/text';
-import AButtonPrimary from 'atoms/button/primary';
+<script lang="ts">
+import AButtonPrimary from 'atoms/button/primary.vue';
 import { translator } from 'dictionary';
-import { computed, onMounted, ref } from 'vue';
+import { computed, defineComponent, onMounted, PropType, ref } from 'vue';
 import { useStore } from 'vuex';
-import AButtonCopy from 'atoms/button/copy';
+import AButtonCopy from 'atoms/button/copy.vue';
+import { USERS_DEFAULT_CONFIG } from 'config/users-config';
+import { AccountTypesStringType } from 'utils/permissions';
 
-export default {
+export default defineComponent({
   name: 'o-share-for-user-type',
-  components: { AButtonCopy, AButtonPrimary, MFieldText },
+  components: { AButtonCopy, AButtonPrimary },
   props: {
     rolledUp: { type: Boolean, default: false },
     description: { type: String, required: true },
     eventShareCode: { type: String, required: true },
     eventShareLink: { type: String, required: true },
+    type: { type: String as PropType<AccountTypesStringType>, required: true },
   },
   setup (props) {
     const store = useStore();
@@ -65,9 +72,14 @@ export default {
     const isMobileDevice = ref(false);
     const isNotMobileDevice = computed(() => isMobileDevice.value === false);
     const detailsVisible = ref(props.rolledUp === false);
+    const accountTypeInfo = USERS_DEFAULT_CONFIG.accountTypeInfo;
+
+    const getCurrentIcon = computed(() => {
+      return accountTypeInfo[props.type].icon;
+    });
 
     onMounted(() => {
-      if (navigator.share) {
+      if (navigator.share !== undefined) {
         isMobileDevice.value = true;
       }
     });
@@ -89,11 +101,12 @@ export default {
     }
 
     return {
+      getCurrentIcon,
       isNotMobileDevice,
       detailsVisible,
       showDetails,
       shareEvent,
     };
   },
-};
+});
 </script>
