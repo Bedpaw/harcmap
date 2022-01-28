@@ -1,5 +1,7 @@
 import { store } from 'store';
 
+export type AccountTypesStringType = 'teamLeader' | 'admin' | 'observer' | 'teamMember' | 'creator'
+
 // ACCOUNT_TYPES is available in vue templates
 export const ACCOUNT_TYPES = {
   teamLeader: 'teamLeader',
