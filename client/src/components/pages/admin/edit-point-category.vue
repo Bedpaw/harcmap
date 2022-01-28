@@ -19,7 +19,7 @@ export default {
       'eventId',
     ]),
     defaultValues () {
-      const pointCategoryId = this.$route.params.pointId;
+      const pointCategoryId = this.$route.params.pointCategoryId;
       return Object.assign({}, this.$store.getters['event/getCategoryById'](pointCategoryId));
     },
   },

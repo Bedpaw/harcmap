@@ -6,14 +6,18 @@ import { pointUtils } from 'utils/point';
 import { permissions } from 'utils/permissions';
 import { appStorage } from 'utils/storage';
 
+const initState = () => ({
+  eventId: null,
+  eventName: '',
+  eventStartDate: null,
+  eventEndDate: null,
+  userRole: '',
+});
+
 export default {
   namespaced: true,
   state: {
-    eventId: null,
-    eventName: '',
-    eventStartDate: null,
-    eventEndDate: null,
-    userRole: '',
+    ...initState(),
     ...Modules.state,
   },
   getters: {
@@ -60,9 +64,19 @@ export default {
     setId: (state, payload) => (state.eventId = payload),
     setUserRole: (state, payload) => (state.userRole = payload),
     ...Modules.mutations,
+    resetEventState: (state) => {
+      Object.assign(state, initState());
+    },
   },
   actions: {
-    async download (context, { eventId, teamId, role }) {
+    resetState (context) {
+      context.commit('resetEventState');
+      context.commit('resetPointsState');
+      context.commit('resetPointsStatisticsState');
+      context.commit('resetMapState');
+      context.commit('resetCategoriesState');
+    },
+    download (context, { eventId, teamId, role }) {
       return new Promise((resolve, reject) => {
         let event;
         api.getEventById(eventId)
@@ -94,19 +108,18 @@ export default {
           .catch(reject);
       });
     },
-    collectPoint (context, pointId) {
+    collectPoint (context, pointKey) {
       return new Promise((resolve, reject) => {
-        api.collectPoint({
-          eventId: context.getters.eventId,
-          user: context.rootGetters['user/user'],
-          pointId,
-        })
+        // Poi9 // TODO
+        console.log(context.getters.eventId);
+        api.collectPoint(context.getters.eventId, pointKey)
           .then(() => {
-            context.commit('updatePoint', {
-              pointId,
+            /*             context.commit('updatePoint', {
+              pointKey,
               pointCollectionTime: Date.now(),
             });
-            context.commit('user/addCollectedPointId', pointId, { root: true });
+            context.commit('user/addCollectedPointId', pointKey, { root: true }); */
+            // TODO with new backend data update teamCollected and point
             resolve();
           })
           .catch(error => {

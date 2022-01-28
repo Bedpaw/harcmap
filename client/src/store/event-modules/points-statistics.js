@@ -1,7 +1,10 @@
 import { uCheck } from '@dbetka/utils';
-
+const initState = () => ({
+});
 export default {
-  state: {},
+  state: {
+    ...initState(),
+  },
   getters: {
     numberOfCollectedPointsByCategoryId: (state, getters, rootState, rootGetters) => categoryId => {
       const listOfPoints = rootGetters['event/points'].filter(point => {
@@ -26,6 +29,10 @@ export default {
       return (category || {}).pointValue;
     },
   },
-  mutations: {},
+  mutations: {
+    resetPointsStatisticsState: (state) => {
+      Object.assign(state, initState());
+    },
+  },
   actions: {},
 };

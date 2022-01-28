@@ -1,12 +1,15 @@
+const initState = () => ({
+  mapLongitude: 0,
+  mapLatitude: 0,
+  mapDefaultLongitude: 0,
+  mapDefaultLatitude: 0,
+  mapZoom: 2,
+  mapDefaultZoom: 2,
+  mapRefreshTime: 60, // TODO check this magic numbers;
+});
 export default {
   state: {
-    mapLongitude: 0,
-    mapLatitude: 0,
-    mapDefaultLongitude: 0,
-    mapDefaultLatitude: 0,
-    mapZoom: 2,
-    mapDefaultZoom: 2,
-    mapRefreshTime: 60,
+    ...initState(),
   },
   getters: {
     mapRefreshTime: state => state.mapRefreshTime,
@@ -27,6 +30,9 @@ export default {
       state.mapLongitude = mapLongitude;
     },
     setMapZoom: (state, mapZoom) => (state.mapZoom = mapZoom),
+    resetMapState: (state) => {
+      Object.assign(state, initState());
+    },
   },
   actions: {},
 };
