@@ -4,7 +4,7 @@
       <m-input
         v-model="eventCode"
         :disabled="blockForm"
-        :placeholder="$t('form.field.eventId')"
+        :placeholder="$t('form.field.eventInvitation')"
         :assist="$t('form.assist.joinEventCode')"
       />
       <a-button-submit
