@@ -15,6 +15,14 @@ export const invitations:Module<InvitationKeys, object> = {
     forObserver: state => state.invitationKeys.filter(item => item.role === roles.observer),
     forTeamLeader: state => state.invitationKeys.filter(item => item.role === roles.teamLeader),
     forTeamMember: state => state.invitationKeys.filter(item => item.role === roles.teamMember),
+    forShareEvent: (state, getters) => ({
+      admin: getters.forAdmin.at(-1).key,
+      observer: getters.forObserver.at(-1).key,
+      teamLeader: getters.forTeamLeader.at(-1).key,
+    }),
+    forShareTeam: (state, getters) => ({
+      teamMember: getters.forTeamMember.at(-1).key, // .filter(item => item.teamKey === teamKey)?.key,
+    }),
   },
   mutations: {
     setInvitationKeys: (state, payload) => {

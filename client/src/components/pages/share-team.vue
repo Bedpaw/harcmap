@@ -3,17 +3,18 @@
     <o-share-for-user-type
       type="teamMember"
       :description="$t('page.admin.shareEvent.teamMember')"
-      :event-share-code="eventShareCodes.teamMember"
-      :event-share-link="eventShareLinks.teamMember"
+      :event-share-code="teamShareCodes.teamMember"
+      :event-share-link="teamShareLinks.teamMember"
     />
   </t-page>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive } from 'vue';
+import { computed, defineComponent } from 'vue';
 import TPage from 'templates/page.vue';
 import OShareForUserType from 'organisms/share-for-user-type.vue';
 import { ROUTES } from 'config/routes-config';
+import { useStore } from 'vuex';
 
 export default defineComponent({
   name: 'p-share-team',
@@ -22,18 +23,19 @@ export default defineComponent({
     TPage,
   },
   setup () {
-    const eventShareCodes = reactive({
-      teamMember: 'K8k4',
-    });
+    const store = useStore();
+
+    // Can't recognize invitation code for current team
+    const teamShareCodes = computed(() => store.getters['invitations/forShareTeam']);
     const linkBegin = document.location.origin + ROUTES.signUp.path + '/';
-    const eventShareLinks = computed(() => ({
-      teamMember: linkBegin + eventShareCodes.teamMember,
+    const teamShareLinks = computed(() => ({
+      teamMember: linkBegin + teamShareCodes.value.teamMember,
     }));
 
     return {
       ROUTES,
-      eventShareCodes,
-      eventShareLinks,
+      teamShareCodes,
+      teamShareLinks,
     };
   },
 });

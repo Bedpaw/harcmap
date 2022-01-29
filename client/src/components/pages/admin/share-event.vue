@@ -22,10 +22,11 @@
 </template>
 
 <script>
-import { computed, reactive } from 'vue';
+import { computed } from 'vue';
 import TPage from 'templates/page';
 import OShareForUserType from 'organisms/share-for-user-type';
 import { ROUTES } from 'config/routes-config';
+import { useStore } from 'vuex';
 
 export default {
   name: 'p-admin-share-event',
@@ -34,16 +35,13 @@ export default {
     TPage,
   },
   setup () {
-    const eventShareCodes = reactive({
-      admin: '7grG',
-      observer: 'Gde5',
-      teamLeader: 'dj4G',
-    });
+    const store = useStore();
+    const eventShareCodes = computed(() => store.getters['invitations/forShareEvent']);
     const linkBegin = document.location.origin + ROUTES.signUp.path + '/';
     const eventShareLinks = computed(() => ({
-      admin: linkBegin + eventShareCodes.admin,
-      observer: linkBegin + eventShareCodes.observer,
-      teamLeader: linkBegin + eventShareCodes.teamLeader,
+      admin: linkBegin + eventShareCodes.value.admin,
+      observer: linkBegin + eventShareCodes.value.observer,
+      teamLeader: linkBegin + eventShareCodes.value.teamLeader,
     }));
 
     return {
