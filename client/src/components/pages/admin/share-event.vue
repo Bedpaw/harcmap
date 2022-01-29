@@ -37,11 +37,13 @@ export default {
   setup () {
     const store = useStore();
     const eventShareCodes = computed(() => store.getters['invitations/forShareEvent']);
-    const linkBegin = document.location.origin + ROUTES.signUp.path + '/';
+    function generateLink (key) {
+      return document.location.origin + ROUTES.invitation.path.replace(':key', key);
+    }
     const eventShareLinks = computed(() => ({
-      admin: linkBegin + eventShareCodes.value.admin,
-      observer: linkBegin + eventShareCodes.value.observer,
-      teamLeader: linkBegin + eventShareCodes.value.teamLeader,
+      admin: generateLink(eventShareCodes.value.admin),
+      observer: generateLink(eventShareCodes.value.observer),
+      teamLeader: generateLink(eventShareCodes.value.teamLeader),
     }));
 
     return {

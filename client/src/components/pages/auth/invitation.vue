@@ -1,15 +1,13 @@
 <template>
-  <t-page title="">
-    <div class="a-img f-map-round" />
+  <t-page class="f-text-center">
+    <div>Cześć!</div>
+    <div>Zanim dołączysz do wydarzenia zaloguj się lub zarejestruj</div>
     <div class="m-collection f-button">
-      <a-button-primary @click="goTo(ROUTES.signIn.path)">
+      <a-button-primary @click="$router.push(ROUTES.signIn.path)">
         {{ ROUTES.signIn.label }}
       </a-button-primary>
-      <a-button-secondary @click="goTo(ROUTES.signUp.path)">
+      <a-button-secondary @click="$router.push(ROUTES.signUp.path)">
         {{ ROUTES.signUp.label }}
-      </a-button-secondary>
-      <a-button-secondary @click="goTo(ROUTES.about.path)">
-        {{ ROUTES.about.label }}
       </a-button-secondary>
     </div>
   </t-page>
@@ -19,7 +17,7 @@
 import TPage from 'templates/page.vue';
 import AButtonPrimary from 'atoms/button/primary.vue';
 import AButtonSecondary from 'atoms/button/secondary.vue';
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { ROUTES } from 'config/routes-config';
 
@@ -32,9 +30,16 @@ export default defineComponent({
   },
   setup () {
     const router = useRouter();
+    const invitationKey = router.currentRoute.value.params.key;
+
     function goTo (path:string) {
-      return router.push(path);
+      return router.push(path + '?invitationKey=' + invitationKey);
     }
+
+    onMounted(() => {
+      router.push(ROUTES.joinEvent.path + '?invitationKey=' + invitationKey);
+    });
+
     return {
       goTo,
       ROUTES,

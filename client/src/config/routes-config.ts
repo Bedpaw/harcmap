@@ -68,6 +68,7 @@ const beforeLoginRoutes = {
     icon: ICONS.create,
   },
 };
+
 const choseEventRoutes = {
   start: {
     name: 'start',
@@ -190,6 +191,11 @@ const alwaysAllowedRoutes = {
   about: {
     name: 'about',
     icon: ICONS.emoji_objects,
+  },
+  invitation: {
+    dynamicParam: 'key',
+    name: 'invitation',
+    icon: ICONS.email,
   },
 };
 
