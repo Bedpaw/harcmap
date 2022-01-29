@@ -4,7 +4,7 @@ import { USERS_DEFAULT_CONFIG } from 'config/users-config';
 
 const roles = USERS_DEFAULT_CONFIG.accountTypes;
 
-export const team:Module<InvitationKeys, object> = {
+export const invitations:Module<InvitationKeys, object> = {
   namespaced: true,
   state: {
     invitationKeys: [],

@@ -10,6 +10,7 @@ import mapPopup from './map-popup';
 import snackbar from './snackbar';
 import guide from './guide';
 import { team } from 'store/team';
+import { invitations } from 'store/invitations';
 
 export const store = createStore({
   modules: {
@@ -24,6 +25,7 @@ export const store = createStore({
     snackbar,
     guide,
     team,
+    invitations,
   },
   state: {
     isLoading: true,

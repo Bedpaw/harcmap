@@ -82,6 +82,7 @@ export default {
         api.getEventById(eventId)
           .then(data => (event = { ...data, eventId }))
           .then(() => api.getCategoriesByEventId(eventId))
+          .then(() => context.commit('invitations/setInvitationKeys', event.inviteKeys, { root: true }))
           .then(categories => (event.categories = categories))
           .then(() => {
             if (teamId) {

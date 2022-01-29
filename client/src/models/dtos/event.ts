@@ -1,3 +1,5 @@
+import { InvitationKeys } from 'models/invitations';
+
 export interface EventDuration {
   startDate: number;
   endDate: number;
@@ -13,6 +15,7 @@ export interface EventDTOCreate {
   eventKey: string;
   eventDuration: EventDuration;
   mapProperties: MapProperties;
+  inviteKeys: InvitationKeys;
   eventRefreshTime: number
 }
 
