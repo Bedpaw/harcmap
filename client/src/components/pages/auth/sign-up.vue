@@ -47,6 +47,7 @@ import { onMounted, reactive } from 'vue';
 import { useForm } from 'plugins/form';
 import { useRouter } from 'vue-router';
 import { ROUTES } from 'config/routes-config';
+import { urlUtils } from 'utils/url';
 
 export default {
   name: 'p-sign-up',
@@ -83,10 +84,7 @@ export default {
     }
 
     onMounted(() => {
-      if (window.location.search) {
-        const urlParams = new URLSearchParams(window.location.search);
-        invitationKey = urlParams.get('invitationKey');
-      }
+      invitationKey = urlUtils.getInvitationKey();
     });
 
     const router = useRouter();

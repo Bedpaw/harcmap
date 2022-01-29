@@ -28,6 +28,7 @@ import OPopupEventConfirmation from 'organisms/popup/event-confirmation';
 import { eventsListMock } from 'organisms/events-list-mock';
 import { onMounted, ref } from 'vue';
 import { useForm } from 'plugins/form';
+import { urlUtils } from 'utils/url';
 
 export default {
   name: 'p-join-event',
@@ -49,10 +50,7 @@ export default {
     }
 
     onMounted(() => {
-      if (window.location.search) {
-        const urlParams = new URLSearchParams(window.location.search);
-        eventCode.value = urlParams.get('invitationKey');
-      }
+      eventCode.value = urlUtils.getInvitationKey();
     });
 
     return {

@@ -41,6 +41,7 @@ import { useForm } from 'plugins/form';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { DEVELOPMENT_MODE } from 'config/app-env';
+import { urlUtils } from 'utils/url';
 
 export default {
   name: 'p-sign-in',
@@ -95,10 +96,7 @@ export default {
     }
 
     onMounted(() => {
-      if (window.location.search) {
-        const urlParams = new URLSearchParams(window.location.search);
-        invitationKey = urlParams.get('invitationKey');
-      }
+      invitationKey = urlUtils.getInvitationKey();
       if (DEVELOPMENT_MODE) {
         signInAutomatically();
       }
