@@ -3,10 +3,10 @@
     <div>Cześć!</div>
     <div>Zanim dołączysz do wydarzenia zaloguj się lub zarejestruj</div>
     <div class="m-collection f-button">
-      <a-button-primary @click="$router.push(ROUTES.signIn.path)">
+      <a-button-primary @click="goToByName(ROUTES.signIn.name)">
         {{ ROUTES.signIn.label }}
       </a-button-primary>
-      <a-button-secondary @click="$router.push(ROUTES.signUp.path)">
+      <a-button-secondary @click="goToByName(ROUTES.signUp.name)">
         {{ ROUTES.signUp.label }}
       </a-button-secondary>
     </div>
@@ -20,6 +20,7 @@ import AButtonSecondary from 'atoms/button/secondary.vue';
 import { defineComponent, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { ROUTES } from 'config/routes-config';
+import { useStore } from 'vuex';
 
 export default defineComponent({
   name: 'p-welcome',
@@ -32,16 +33,25 @@ export default defineComponent({
     const router = useRouter();
     const invitationKey = router.currentRoute.value.params.key;
 
-    function goTo (path:string) {
-      return router.push(path + '?invitationKey=' + invitationKey);
+    function goToByName (name:string) {
+      router.push({
+        name,
+        query: { invitationKey },
+      });
     }
 
     onMounted(() => {
-      router.push(ROUTES.joinEvent.path + '?invitationKey=' + invitationKey);
+      const store = useStore();
+      if (store.getters['user/isLogin']) {
+        router.push({
+          name: ROUTES.joinEvent.name,
+          query: { invitationKey },
+        });
+      }
     });
 
     return {
-      goTo,
+      goToByName,
       ROUTES,
     };
   },

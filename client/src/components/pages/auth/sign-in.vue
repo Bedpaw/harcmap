@@ -56,6 +56,7 @@ export default {
     const router = useRouter();
     const form = useForm();
     const { isSending, blockForm, onErrorOccurs } = form;
+    let invitationKey = '';
 
     const values = reactive({
       email: '',
@@ -68,10 +69,17 @@ export default {
       api.signIn(values)
         .then(data => store.dispatch('user/signIn', data))
         .then(() => {
-          router.push({
-            name: ROUTES.eventsList.name,
-            query: { justLoggedIn: true },
-          });
+          if (invitationKey) {
+            router.push({
+              name: ROUTES.joinEvent.name,
+              query: { invitationKey },
+            });
+          } else {
+            router.push({
+              name: ROUTES.eventsList.name,
+              query: { justLoggedIn: true },
+            });
+          }
           isSending.value = false;
           blockForm.value = false;
         })
@@ -87,6 +95,10 @@ export default {
     }
 
     onMounted(() => {
+      if (window.location.search) {
+        const urlParams = new URLSearchParams(window.location.search);
+        invitationKey = urlParams.get('invitationKey');
+      }
       if (DEVELOPMENT_MODE) {
         signInAutomatically();
       }
