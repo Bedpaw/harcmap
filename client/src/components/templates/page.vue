@@ -7,14 +7,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { ROUTES } from 'config/routes-config';
 import { useStore } from 'vuex';
 import { APP_NAME } from 'config/app-env';
-import { onMounted } from 'vue';
+import { defineComponent, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
-export default {
+export default defineComponent({
   name: 't-page',
   props: {
     backRoute: {
@@ -34,7 +34,8 @@ export default {
     const menuIsOpen = store.getters['menu/isOpen'];
 
     onMounted(() => {
-      const route = ROUTES[router.currentRoute.value.name] || {};
+      const currentRouteName = router.currentRoute.value.name;
+      const route = ROUTES[currentRouteName as keyof typeof ROUTES] || {};
       const title = route.label;
       store.commit('header/setPageTitle', title);
       store.commit('header/setBackRouteName', props.backRoute);
@@ -57,5 +58,5 @@ export default {
       openMenu,
     };
   },
-};
+});
 </script>

@@ -9,13 +9,13 @@
   </t-page>
 </template>
 
-<script>
-import { computed, reactive } from 'vue';
-import TPage from 'templates/page';
-import OShareForUserType from 'organisms/share-for-user-type';
+<script lang="ts">
+import { computed, defineComponent, reactive } from 'vue';
+import TPage from 'templates/page.vue';
+import OShareForUserType from 'organisms/share-for-user-type.vue';
 import { ROUTES } from 'config/routes-config';
 
-export default {
+export default defineComponent({
   name: 'p-share-team',
   components: {
     OShareForUserType,
@@ -36,5 +36,5 @@ export default {
       eventShareLinks,
     };
   },
-};
+});
 </script>
