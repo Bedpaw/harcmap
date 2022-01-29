@@ -42,7 +42,7 @@ const accountTypeInfo = {
     menuCentralButton: ROUTES.spectatorPanel,
   },
   [teamLeader]: {
-    icon: ICONS.group,
+    icon: ICONS.supervisor_account,
     nameKey: 'accountTypes.teamLeader',
     menuLinks: [
       ROUTES.teamView,

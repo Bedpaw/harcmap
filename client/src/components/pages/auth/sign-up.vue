@@ -27,7 +27,7 @@
           {{ $t('page.signUp.linkHasBeenSent') }}
           <span class="f-bold">{{ values.email }}</span>
         </div>
-        <a-button-primary @click="$router.push(ROUTES.signIn.path)">
+        <a-button-primary @click="goToSignIn()">
           {{ $t('form.button.goToLogin') }}
         </a-button-primary>
       </template>
@@ -43,8 +43,10 @@ import MFieldSetPassword from 'molecules/field/set-password';
 import OForm from 'organisms/form';
 import AButtonPrimary from 'atoms/button/primary';
 import { api } from 'api';
-import { reactive } from 'vue';
+import { onMounted, reactive } from 'vue';
 import { useForm } from 'plugins/form';
+import { useRouter } from 'vue-router';
+import { ROUTES } from 'config/routes-config';
 
 export default {
   name: 'p-sign-up',
@@ -61,6 +63,7 @@ export default {
       email: '',
       password: '',
     });
+    let invitationKey = '';
 
     const form = useForm();
     const { formSend, isSending, blockForm } = form;
@@ -79,9 +82,25 @@ export default {
         .catch(this.onErrorOccurs);
     }
 
+    onMounted(() => {
+      if (window.location.search) {
+        const urlParams = new URLSearchParams(window.location.search);
+        invitationKey = urlParams.get('invitationKey');
+      }
+    });
+
+    const router = useRouter();
+    function goToSignIn () {
+      router.push({
+        name: ROUTES.signIn.name,
+        query: { invitationKey },
+      });
+    }
+
     return {
       values,
       signUp,
+      goToSignIn,
       ...form,
     };
   },
