@@ -3,14 +3,14 @@
     <o-share-for-user-type
       type="admin"
       :description="$t('page.admin.shareEvent.admin')"
-      :event-share-code="eventShareCodes.adminObserver"
-      :event-share-link="eventShareLinks.adminObserver"
+      :event-share-code="eventShareCodes.admin"
+      :event-share-link="eventShareLinks.admin"
     />
     <o-share-for-user-type
       type="observer"
       :description="$t('page.admin.shareEvent.observer')"
-      :event-share-code="eventShareCodes.adminObserver"
-      :event-share-link="eventShareLinks.adminObserver"
+      :event-share-code="eventShareCodes.observer"
+      :event-share-link="eventShareLinks.observer"
     />
     <o-share-for-user-type
       type="teamLeader"
@@ -35,13 +35,15 @@ export default {
   },
   setup () {
     const eventShareCodes = reactive({
+      admin: '7grG',
+      observer: 'Gde5',
       teamLeader: 'dj4G',
-      adminObserver: 'Gde5',
     });
     const linkBegin = document.location.origin + ROUTES.signUp.path + '/';
     const eventShareLinks = computed(() => ({
+      admin: linkBegin + eventShareCodes.admin,
+      observer: linkBegin + eventShareCodes.observer,
       teamLeader: linkBegin + eventShareCodes.teamLeader,
-      adminObserver: linkBegin + eventShareCodes.adminObserver,
     }));
 
     return {
