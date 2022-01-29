@@ -25,6 +25,7 @@ const accountTypeInfo = {
     nameKey: 'accountTypes.admin',
     menuLinks: [
       ROUTES.scoreboard,
+      ROUTES.shareEvent,
       ROUTES.editEvent,
       ROUTES.newPoint,
       ROUTES.newPointCategory,
