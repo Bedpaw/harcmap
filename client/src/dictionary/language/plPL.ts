@@ -3,6 +3,7 @@ export const plPL = {
     error: 'Błąd 404',
     welcome: 'Strona powitalna',
     about: 'O nas',
+    invitation: 'Zaproszenie do wydarzenia',
     signIn: 'Logowanie',
     signUp: 'Rejestracja',
     activationDone: 'Poprawna aktywacja',
