@@ -1,7 +1,7 @@
 <template>
   <t-page class="f-text-center">
     <o-share-for-user-type
-      :rolled-up="false"
+      type="teamMember"
       :description="$t('page.admin.shareEvent.teamMember')"
       :event-share-code="eventShareCodes.teamMember"
       :event-share-link="eventShareLinks.teamMember"
@@ -16,14 +16,14 @@ import OShareForUserType from 'organisms/share-for-user-type';
 import { ROUTES } from 'config/routes-config';
 
 export default {
-  name: 'p-admin-share-event',
+  name: 'p-share-team',
   components: {
     OShareForUserType,
     TPage,
   },
   setup () {
     const eventShareCodes = reactive({
-      teamMember: 'dj4G',
+      teamMember: 'K8k4',
     });
     const linkBegin = document.location.origin + ROUTES.signUp.path + '/';
     const eventShareLinks = computed(() => ({

@@ -252,6 +252,7 @@ export const plPL = {
         advancedOptions: 'Opcje zaawansowane',
       },
       shareEvent: {
+        teamMember: 'Zaproszenie dla członka zespołu:',
         teamLeader: 'Zaproszenie dla lidera zespołu:',
         observer: 'Zaproszenie dla obserwatora:',
         admin: 'Zaproszenie dla administratora:',
