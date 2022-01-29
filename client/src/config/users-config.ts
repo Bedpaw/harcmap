@@ -9,7 +9,7 @@ const ICONS = materialIcons.names;
 const { teamMember, teamLeader, creator, admin, observer } = ACCOUNT_TYPES;
 const accountTypeInfo = {
   [creator]: {
-    icon: ICONS.shield, // TODO change to other icon
+    icon: ICONS.security,
     nameKey: 'accountTypes.organizer',
     menuLinks: [
       ROUTES.scoreboard,
@@ -42,7 +42,7 @@ const accountTypeInfo = {
     menuCentralButton: ROUTES.spectatorPanel,
   },
   [teamLeader]: {
-    icon: ICONS.person,
+    icon: ICONS.groups,
     nameKey: 'accountTypes.teamLeader',
     menuLinks: [
       ROUTES.teamView,
@@ -55,7 +55,7 @@ const accountTypeInfo = {
 
   },
   [teamMember]: {
-    icon: ICONS.person_search,
+    icon: ICONS.person,
     nameKey: 'accountTypes.userObserver',
     menuLinks: [
       ROUTES.teamView,
