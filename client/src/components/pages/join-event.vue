@@ -26,7 +26,7 @@ import MInput from 'molecules/input';
 import AButtonSubmit from 'atoms/button/submit';
 import OPopupEventConfirmation from 'organisms/popup/event-confirmation';
 import { eventsListMock } from 'organisms/events-list-mock';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useForm } from 'plugins/form';
 
 export default {
@@ -47,6 +47,13 @@ export default {
     function toggleDetails () {
       popupScore.value && popupScore.value.toggle();
     }
+
+    onMounted(() => {
+      if (window.location.search) {
+        const urlParams = new URLSearchParams(window.location.search);
+        eventCode.value = urlParams.get('invitationKey');
+      }
+    });
 
     return {
       ...form,
