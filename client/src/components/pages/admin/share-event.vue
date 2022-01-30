@@ -7,16 +7,16 @@
       :event-share-link="eventShareLinks.admin"
     />
     <o-share-for-user-type
-      type="observer"
-      :description="$t('page.admin.shareEvent.observer')"
-      :event-share-code="eventShareCodes.observer"
-      :event-share-link="eventShareLinks.observer"
-    />
-    <o-share-for-user-type
       type="teamLeader"
       :description="$t('page.admin.shareEvent.teamLeader')"
       :event-share-code="eventShareCodes.teamLeader"
       :event-share-link="eventShareLinks.teamLeader"
+    />
+    <o-share-for-user-type
+      type="observer"
+      :description="$t('page.admin.shareEvent.observer')"
+      :event-share-code="eventShareCodes.observer"
+      :event-share-link="eventShareLinks.observer"
     />
   </t-page>
 </template>

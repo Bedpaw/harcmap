@@ -9,7 +9,7 @@
         outlined
         size="40"
       />
-      <span class="f-flex-1 f-pl-2">{{ description }}</span>
+      <span class="f-flex-1 f-ml-2">{{ description }}</span>
     </div>
     <a-icon
       v-if="rolledUp"
@@ -28,7 +28,7 @@
       :text="'Link zaproszenia'"
       add-area-class="f-mt-0"
     />
-    <div class="f-pb-3">
+    <div>
       <a-button-primary
         add-area-class="f-mt-0"
         :disabled="isNotMobileDevice"
@@ -44,15 +44,22 @@
         Dostępne tylko na urządzeniach mobilnych
       </div>
     </div>
+    <a-button-primary
+      add-area-class="f-mt-0 f-pb-3"
+      add-class="f-bg-danger"
+      disabled
+    >
+      Zresetuj zaproszenie
+    </a-button-primary>
   </template>
 </template>
 
 <script lang="ts">
 import AButtonPrimary from 'atoms/button/primary.vue';
+import AButtonCopy from 'atoms/button/copy.vue';
 import { translator } from 'dictionary';
 import { computed, defineComponent, onMounted, PropType, ref } from 'vue';
 import { useStore } from 'vuex';
-import AButtonCopy from 'atoms/button/copy.vue';
 import { USERS_DEFAULT_CONFIG } from 'config/users-config';
 import { AccountTypesStringType } from 'utils/permissions';
 
