@@ -62,7 +62,6 @@ const beforeLoginRoutes = {
     icon: ICONS.vpn_key,
   },
   changePassword: {
-    path: '/user/remind',
     dynamicParam: 'key',
     name: 'changePassword',
     icon: ICONS.create,

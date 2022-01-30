@@ -58,7 +58,7 @@ export default {
           data: eventName,
         },
         {
-          label: 'form.field.eventId',
+          label: 'form.field.eventInvitation',
           data: eventId,
         },
         {

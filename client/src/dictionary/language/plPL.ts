@@ -78,7 +78,7 @@ export const plPL = {
     'yellow': 'Żółty',
     'red': 'Czerwony',
     'black': 'Czarny',
-    'orange': 'Pomrańczowy',
+    'orange': 'Pomarańczowy',
     'white': 'Biały',
     'pink': 'Różowy',
   },
