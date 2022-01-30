@@ -27,9 +27,11 @@ export default defineComponent({
 
     // Can't recognize invitation code for current team
     const teamShareCodes = computed(() => store.getters['invitations/forShareTeam']);
-    const linkBegin = document.location.origin + ROUTES.signUp.path + '/';
+    function generateLink (key:string) {
+      return document.location.origin + ROUTES.invitation.path.replace(':key', key);
+    }
     const teamShareLinks = computed(() => ({
-      teamMember: linkBegin + teamShareCodes.value.teamMember,
+      teamMember: generateLink(teamShareCodes.value.teamMember),
     }));
 
     return {
