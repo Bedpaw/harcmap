@@ -7,6 +7,17 @@ const {
 const Users = require('../../../../models/users');
 const getUserAggregation = require('../../../../aggregations/get-user');
 
+/**
+ * @description Check if user participle in any event and clear array if not
+ * @param userEvents {array}
+ * @return {array}
+ */
+function unifyUserEventsField (userEvents) {
+  const noUserEvents = userEvents.length === 1 && !userEvents[0].eventId;
+
+  return noUserEvents ? [] : userEvents;
+}
+
 // Login
 async function signIn (request, response, next) {
   const userIsAuthenticated = request.isAuthenticated();
@@ -22,7 +33,7 @@ async function signIn (request, response, next) {
       // authenticate errors
       if (authenticateAppError || !userData) {
         const errorCode = authenticateAppError
-          ? errorCodes.INVALID_CREDENTIALS
+          ? authenticateAppError.code
           : errorCodes.NOT_LOGGED;
 
         return handleErrors(new AppError(errorCode, {
@@ -41,7 +52,7 @@ async function signIn (request, response, next) {
 
         const responseData = {
           email: userData.email,
-          userEvents: userData.userEvents,
+          userEvents: unifyUserEventsField(userData.userEvents),
         };
 
         response.send(responseData);
@@ -55,7 +66,7 @@ async function signIn (request, response, next) {
 
     const responseData = {
       email: userData.email,
-      userEvents: userData.userEvents,
+      userEvents: unifyUserEventsField(userData.userEvents),
     };
 
     response.send(responseData);

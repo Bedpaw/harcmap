@@ -122,6 +122,19 @@ const user8 = {
   userEvents: [ObjectId('200000000000000000000011'), ObjectId('200000000000000000000012'), ObjectId('200000000000000000000013')],
 };
 
+/**
+ * USER9
+ */
+const user9 = {
+  _id: ObjectId('100000000000000000000009'),
+  email: 'user9@harcmap.pl',
+  password,
+  accountActivation,
+  passwordReset,
+  accountCreated,
+  userEvents: [],
+};
+
 module.exports = [
   user1,
   user2,
@@ -131,4 +144,5 @@ module.exports = [
   user6,
   user7,
   user8,
+  user9,
 ];
