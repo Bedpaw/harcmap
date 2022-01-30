@@ -21,14 +21,14 @@
   </t-page>
 </template>
 
-<script>
-import { computed } from 'vue';
-import TPage from 'templates/page';
-import OShareForUserType from 'organisms/share-for-user-type';
+<script lang="ts">
+import { computed, defineComponent } from 'vue';
+import TPage from 'templates/page.vue';
+import OShareForUserType from 'organisms/share-for-user-type.vue';
 import { ROUTES } from 'config/routes-config';
 import { useStore } from 'vuex';
 
-export default {
+export default defineComponent({
   name: 'p-admin-share-event',
   components: {
     OShareForUserType,
@@ -37,7 +37,7 @@ export default {
   setup () {
     const store = useStore();
     const eventShareCodes = computed(() => store.getters['invitations/forShareEvent']);
-    function generateLink (key) {
+    function generateLink (key:string) {
       return document.location.origin + ROUTES.invitation.path.replace(':key', key);
     }
     const eventShareLinks = computed(() => ({
@@ -52,5 +52,5 @@ export default {
       eventShareLinks,
     };
   },
-};
+});
 </script>
