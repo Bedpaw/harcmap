@@ -38,6 +38,7 @@ function getEventsAggregation (query) {
           keyId: '$inviteKeys._id',
           role: '$inviteKeys.role',
           key: '$inviteKeys.key',
+          teamId: '$inviteKeys.teamId',
         },
       },
     },

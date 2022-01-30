@@ -9,7 +9,7 @@ paths:
         - in: "query"
           name: "eventId"
           description: "Return information about users participle in specific event (eventId) and return only one item in userEvents"
-          example: '60e6cc2eaa95cc33d7c46701'
+          example: '300000000000000000000001'
           default: undefined
           required: true
       responses:
@@ -57,7 +57,7 @@ paths:
         - in: "path"
           name: key
           description: "Unique activation key"
-          example: '6074ab410b6c6887ac32adbb'
+          example: 'e993b950c469ca8eb60e1e7a22027b943877ccb0bfdd30a60846f07d36830e7f657020da10e124ca09e3dccfcd7e59af74a31e08a74e8f210f69bd69c9fdaec0'
           default: undefined
           required: true
       responses:
@@ -115,7 +115,7 @@ paths:
         - in: "path"
           name: key
           description: "Unique reset password key"
-          example: '6074ab410b6c6887ac32adbb'
+          example: '87daccad51d959e47ce23f36261f02af4ddf320e248f969b8271a4bb9ee1d1d9901015ff2e234771132b1baf7821c878547e6f843200045170586fc9a7ec7a96'
           default: undefined
           required: true
       requestBody:
@@ -160,7 +160,7 @@ paths:
         - in: "path"
           name: userId
           description: "Id of looking user"
-          example: '6074ab410b6c6887ac32adbb'
+          example: '100000000000000000000001'
           default: undefined
           required: true
       responses:
@@ -205,7 +205,7 @@ paths:
         - in: "path"
           name: userId
           description: "Id of updating user"
-          example: '6074ab410b6c6887ac32adbb'
+          example: '100000000000000000000003'
           default: undefined
           required: true
       requestBody:

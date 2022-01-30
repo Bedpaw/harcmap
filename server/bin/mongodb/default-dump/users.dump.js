@@ -2,8 +2,7 @@ const { ObjectId } = require('mongodb');
 // DEFAULT VALUES
 // PASS: Password1
 const password = '61a73c554fd0a2024eb3bffb06a597ef5095764ab049d8440c683f0ccd4e77d5a737fa90358664006cfa13c3b839028e63fc82f77e652730524c111efac95073';
-// 15.01.22 - 21:37
-const accountCreated = 1642279069734;
+const accountCreated = new Date(2021, 0, 1, 13, 22, 43);
 const accountActivation = {
   isActive: true,
   key: null,
@@ -52,8 +51,7 @@ const user3 = {
   accountActivation,
   passwordReset: {
     key: '87daccad51d959e47ce23f36261f02af4ddf320e248f969b8271a4bb9ee1d1d9901015ff2e234771132b1baf7821c878547e6f843200045170586fc9a7ec7a96',
-    // 15.01.22 - 21:37
-    date: 1642279069734,
+    date: Date.now(),
   },
   accountCreated,
   userEvents: [ObjectId('200000000000000000000002')],

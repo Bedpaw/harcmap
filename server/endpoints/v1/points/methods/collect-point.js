@@ -25,7 +25,15 @@ async function collectPoint (request, eventId, pointKey) {
 
         // team updated
         if (updatedTeam.success) {
-          return { success: true };
+          return {
+            pointId: point._id.toString(),
+            pointName: point.pointName,
+            pointType: point.pointType,
+            pointCollectedDate: point.pointCollectedDate,
+            pointDuration: point.pointDuration,
+            pointPosition: point.pointPosition,
+            pointCategoryId: point.pointCategoryId,
+          };
         } else {
           throw new AppError(errorCodes.CANNOT_UPDATE_TEAM_COLLECTED_POINTS, {
             httpStatus: 500,
