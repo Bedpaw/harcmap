@@ -21,7 +21,6 @@ export const invitations:Module<InvitationKeys, object> = {
       teamLeader: getters.forTeamLeader?.at(-1)?.key || '',
     }),
     forShareTeam: (state, getters, rootState, rootGetters) => ({
-      // teamMember: getters.forTeamMember.at(-1)?.key || '', // .filter(item => item.teamKey === teamKey)?.key,
       teamMember: getters.forTeamMember.find(
         (item:SingleInvitationKey) => item.teamId === rootGetters['team/teamId'],
       )?.key || '',
