@@ -1,7 +1,7 @@
 <template>
   <a-button-secondary
     :disabled="disabled"
-    :add-class="'f-flex f-flex-just-center f-flex-al-center ' + doneClass"
+    :add-class="'f-flex f-flex-just-center f-flex-al-center ' + doneClass + ' ' + errorClass"
     @click="copy()"
   >
     <a-icon
@@ -10,14 +10,14 @@
       size="24"
       outlined
     />
-    <slot v-if="text === ''" />
-    {{ showedMessage ? 'Copied!' : text }}
+    {{ message }}
   </a-button-secondary>
 </template>
 
 <script lang="ts">
 import AButtonSecondary from 'atoms/button/secondary.vue';
 import { computed, defineComponent, ref } from 'vue';
+import { translator } from 'dictionary';
 
 export default defineComponent({
   name: 'a-button-copy',
@@ -32,7 +32,15 @@ export default defineComponent({
     let timeoutIdForMessage = setTimeout(() => undefined);
     const showedMessage = ref(false);
     const showedError = ref(false);
-    const doneClass = computed(() => showedMessage.value ? 'f-primary-bg' : '');
+    const doneClass = computed(() => showedMessage.value ? 'f-bg-primary' : '');
+    const errorClass = computed(() => showedError.value ? 'f-bg-danger' : '');
+
+    const message = computed(() => {
+      if (showedError.value) return translator.t('general.errorAppear');
+      if (showedMessage.value) return translator.t('general.copiedShort');
+
+      return props.text;
+    });
 
     function copy () {
       navigator.clipboard.writeText(props.textToCopy).then(
@@ -51,9 +59,11 @@ export default defineComponent({
 
     return {
       copy,
+      message,
       showedMessage,
       showedError,
       doneClass,
+      errorClass,
     };
   },
 });

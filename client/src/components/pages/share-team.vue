@@ -2,7 +2,7 @@
   <t-page class="f-text-center">
     <o-share-for-user-type
       type="teamMember"
-      :description="$t('page.admin.shareEvent.teamMember')"
+      :description="$t('page.shareEvent.teamMember')"
       :event-share-code="teamShareCodes.teamMember"
       :event-share-link="teamShareLinks.teamMember"
     />
@@ -25,7 +25,6 @@ export default defineComponent({
   setup () {
     const store = useStore();
 
-    // Can't recognize invitation code for current team
     const teamShareCodes = computed(() => store.getters['invitations/forShareTeam']);
     function generateLink (key:string) {
       return document.location.origin + ROUTES.invitation.path.replace(':key', key);

@@ -60,6 +60,7 @@ export const plPL = {
     logout: 'Wyloguj',
     remove: 'Usuń',
     copied: 'Skopiowano do schowka',
+    copiedShort: 'Skopiowano',
     hello: 'Cześć',
     saved: 'Zapisano!',
     lightTheme: 'Jasny tryb',
@@ -69,6 +70,7 @@ export const plPL = {
     search: 'Szukaj',
     cords: 'Współrzędne',
     collectTime: 'Czas zebrania',
+    errorAppear: 'Wystąpił błąd',
   },
   colors: {
     'purple': 'Fioletowy',
@@ -253,15 +255,21 @@ export const plPL = {
         advancedOptions: 'Opcje zaawansowane',
       },
       shareEvent: {
-        teamMember: 'Zaproszenie dla członka zespołu:',
         teamLeader: 'Zaproszenie dla lidera zespołu:',
         observer: 'Zaproszenie dla obserwatora:',
         admin: 'Zaproszenie dla administratora:',
-        joinToEventMessage: 'Dołącz do wydarzenia {eventName} na HarcMapie!',
       },
     },
     shareEvent: {
-      teamMember: 'Zaproszenie do zespołu!',
+      teamMember: 'Zaproszenie do zespołu:',
+      joinToEventMessage: 'Dołącz do wydarzenia {eventName} na HarcMapie!',
+      button: {
+        invitationKey: 'Kod zaproszenia',
+        invitationURL: 'Link zaproszenia',
+        shareByApp: 'Udostępnij przez aplikacje',
+        shareByAppNotAvailable: 'Dostępne tylko na urządzeniach mobilnych',
+        resetInvitation: 'Zresetuj zaproszenie',
+      },
     },
   },
   error: {

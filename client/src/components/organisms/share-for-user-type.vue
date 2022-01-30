@@ -20,12 +20,12 @@
   <template v-if="detailsVisible">
     <a-button-copy
       :text-to-copy="eventShareCode"
-      :text="'Kod zaproszenia'"
+      :text="$t('page.shareEvent.button.invitationKey')"
       add-area-class="f-mt-0"
     />
     <a-button-copy
       :text-to-copy="eventShareLink"
-      :text="'Link zaproszenia'"
+      :text="$t('page.shareEvent.button.invitationURL')"
       add-area-class="f-mt-0"
     />
     <div>
@@ -34,14 +34,14 @@
         :disabled="isNotMobileDevice"
         @click="shareEvent()"
       >
-        Udostępnij przez aplikacje
+        {{ $t('page.shareEvent.button.shareByApp') }}
       </a-button-primary>
 
       <div
         v-if="isNotMobileDevice"
         class="a-assist f-button"
       >
-        Dostępne tylko na urządzeniach mobilnych
+        {{ $t('page.shareEvent.button.shareByAppNotAvailable') }}
       </div>
     </div>
     <a-button-primary
@@ -49,7 +49,7 @@
       add-class="f-bg-danger"
       disabled
     >
-      Zresetuj zaproszenie
+      {{ $t('page.shareEvent.button.resetInvitation') }}
     </a-button-primary>
   </template>
 </template>
@@ -95,7 +95,7 @@ export default defineComponent({
       const eventName = store.getters['event/eventName'];
 
       isMobileDevice.value && navigator.share({
-        title: translator.t('page.admin.shareEvent.joinToEventMessage', { eventName }),
+        title: translator.t('page.shareEvent.joinToEventMessage', { eventName }),
         url: props.eventShareLink,
       })
         .catch(console.error);
