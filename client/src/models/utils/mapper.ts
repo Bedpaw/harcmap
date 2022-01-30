@@ -72,14 +72,6 @@ export class Mapper {
   }
 
   public static mapUserIn (user: UserDTO): User {
-    // TODO: to remove after correction on backend
-    if (user.userEvents[0].eventId === undefined) {
-      return {
-        ...user,
-        userEvents: [],
-      };
-    }
-
     // When user have many userEvents -> ex. signIn response
     return {
       ...user,

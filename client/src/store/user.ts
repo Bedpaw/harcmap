@@ -21,8 +21,7 @@ export const user:Module<User, object> = {
   mutations: {
     setUser: (state, { email, userEvents }) => {
       state.email = email;
-      // TODO: to remove after correction on backend
-      state.userEvents = userEvents[0]?.eventId ? userEvents : [];
+      state.userEvents = userEvents || [];
     },
     signOut: state => {
       state.email = '';
