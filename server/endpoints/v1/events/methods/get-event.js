@@ -14,7 +14,11 @@ async function getEvent (eventId, request) {
     eventRefreshTime,
     inviteKeys,
   } = event;
-  const parsedInviteKeys = inviteKeys.map(key => ({ ...key, keyId: key.keyId.toString() }));
+  const parsedInviteKeys = inviteKeys.map(key => ({
+    ...key,
+    keyId: key.keyId.toString(),
+    teamId: key.teamId ? key.teamId.toString() : null,
+  }));
 
   return {
     eventName,

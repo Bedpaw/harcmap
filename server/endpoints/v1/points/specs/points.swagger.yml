@@ -9,7 +9,7 @@ paths:
         - in: "path"
           name: eventId
           description: "Event id for looking points"
-          example: '6074ab410b6c6887ac32adbb'
+          example: '300000000000000000000001'
           default: undefined
           required: true
       responses:
@@ -65,7 +65,7 @@ paths:
         - in: "path"
           name: eventId
           description: "Event id for adding point"
-          example: '6074ab410b6c6887ac32adbb'
+          example: '300000000000000000000002'
           default: undefined
           required: true
       requestBody:
@@ -141,7 +141,7 @@ paths:
         - in: "path"
           name: eventId
           description: "Event id"
-          example: '6074ab410b6c6887ac32adbb'
+          example: '300000000000000000000001'
           default: undefined
           required: true
       requestBody:
@@ -192,13 +192,13 @@ paths:
         - in: "path"
           name: eventId
           description: "Event id for looking points"
-          example: '6074ab410b6c6887ac32adbb'
+          example: '300000000000000000000001'
           default: undefined
           required: true
         - in: "path"
           name: pointId
           description: "Id of looking point"
-          example: '6074ab410b6c6887ac32adbb'
+          example: '600000000000000000000005'
           default: undefined
           required: true
       requestBody:
@@ -207,8 +207,6 @@ paths:
             schema:
               type: object
               properties:
-                pointKey:
-                  $ref: '#/components/props/pointKey'
                 pointName:
                   $ref: '#/components/props/pointName'
                 pointType:
@@ -256,13 +254,13 @@ paths:
         - in: "path"
           name: eventId
           description: "Event id for looking points"
-          example: '6074ab410b6c6887ac32adbb'
+          example: '300000000000000000000001'
           default: undefined
           required: true
         - in: "path"
           name: pointId
           description: "Id of deleting point"
-          example: '6074ab410b6c6887ac32adbb'
+          example: '600000000000000000000006'
           default: undefined
           required: true
       responses:

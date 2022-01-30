@@ -20,13 +20,14 @@ components:
       example: '2.0.1'
     id:
       description: 'Document unique id from database'
+      example: '100000000000000000000001'
       type: string
     email:
       description: 'User email. Used also as login'
       type: string
       format: email
       maxLength: 24
-      example: '1.2.3'
+      example: 'user1@harcmap.pl'
     password:
       description: 'User password'
       type: string
@@ -36,9 +37,11 @@ components:
     isActive:
       description: 'User account is active (in creating user, default: false)'
       type: boolean
+      example: true
     isBanned:
       description: 'User account is banned in event (default: false)'
       type: boolean
+      example: true
     userEvents:
       description: 'List of events that user participle'
       type: array
@@ -88,14 +91,14 @@ components:
     eventName:
       description: 'Event name'
       type: string
-      example: 'Rajd szarej lilijki'
+      example: 'Wydarzenie 1'
       minLength: 3
       maxLength: 50
     eventKey:
       description: 'Event access key'
       type: string
       length: 4
-      example: 'ev23'
+      example: 'K3y1'
     eventDuration:
       type: object
       properties:
@@ -135,7 +138,7 @@ components:
     teamName:
       description: 'Team name'
       type: string
-      example: 'Włóczykije'
+      example: 'Zespół 1'
       minLength: 3
       maxLength: 24
     teamColor:
@@ -161,23 +164,23 @@ components:
           role:
             $ref: '#/components/props/role'
     pointKey:
-      description: 'Point key to collect. Nullable if user have no permission to key'
+      description: 'Point key to collect'
       type: string
       length: 4
-      example: 'hw4p'
+      example: 'Poi1'
     pointKeyNullable:
       description: 'Point key to collect. Nullable if user have no permission to key'
       type: string
       nullable: true
       length: 4
-      example: 'hw4p'
+      example: 'Poi1'
     pointName:
       description: 'Point name'
       type: string
       minLength: 3
       maxLength: 24
       nullable: true
-      example: 'Kukułka'
+      example: 'Nazwa punktu'
     pointCollectedDate:
       description: 'Date when point was collected. Can be null'
       type: number
@@ -237,11 +240,13 @@ components:
       type: string
       minLength: 4
       maxLength: 7
+      example: '#922eb4'
     pointStrokeColor:
       description: 'Point category stroke color'
       type: string
       minLength: 4
       maxLength: 7
+      example: '#922eb4'
     inviteKeys:
       description: 'List of keys to join to event, team'
       type: array
@@ -254,6 +259,8 @@ components:
             $ref: '#/components/props/roleNullable'
           key:
             $ref: '#/components/props/eventKey'
+          teamId:
+            $ref: '#/components/props/id'
     inviteKeysNullable:
       description: 'List of keys to join to event, team'
       type: array

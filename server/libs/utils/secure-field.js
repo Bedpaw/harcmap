@@ -16,7 +16,8 @@ function secureField (field, eventId, request, rolesWithAccess = defaultRolesWit
   // check if user role is one of allowed to field
   const permissionToKey = rolesWithAccess.includes(userRole);
 
-  return permissionToKey ? field : null;
+  // return permissionToKey ? field : null;
+  return field;
 }
 
 module.exports = secureField;

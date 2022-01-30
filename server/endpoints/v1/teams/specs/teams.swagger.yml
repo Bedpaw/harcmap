@@ -9,7 +9,7 @@ paths:
         - in: "path"
           name: eventId
           description: "Event id for looking teams"
-          example: '60e6cc2eaa95cc33d7c46701'
+          example: '300000000000000000000001'
           default: undefined
           required: true
       responses:
@@ -62,13 +62,13 @@ paths:
         - in: "path"
           name: eventId
           description: "Event id for looking teams"
-          example: '6074ab410b6c6887ac32adbb'
+          example: '300000000000000000000001'
           default: undefined
           required: true
         - in: "path"
-          name: pointId
+          name: teamId
           description: "Id of looking team"
-          example: '6074ab410b6c6887ac32adbb'
+          example: '400000000000000000000001'
           default: undefined
           required: true
       responses:

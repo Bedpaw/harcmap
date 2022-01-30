@@ -9,7 +9,7 @@ paths:
         - in: "path"
           name: eventId
           description: "Event id for looking categories"
-          example: '60e6cc2eaa95cc33d7c46701'
+          example: '300000000000000000000002'
           default: undefined
           required: true
       responses:
@@ -59,7 +59,7 @@ paths:
         - in: "path"
           name: eventId
           description: "Event id for looking categories"
-          example: '6074ab410b6c6887ac32adbb'
+          example: '300000000000000000000002'
           default: undefined
           required: true
       requestBody:
