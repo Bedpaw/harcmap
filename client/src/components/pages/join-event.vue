@@ -2,7 +2,7 @@
   <t-page :back-route="ROUTES.eventsList">
     <o-form :on-submit="toggleDetails">
       <m-input
-        v-model="eventCode"
+        v-model="invitationKey"
         :disabled="blockForm"
         :placeholder="$t('form.field.eventInvitation')"
         :assist="$t('form.assist.joinEventCode')"
@@ -40,7 +40,7 @@ export default {
     AButtonSubmit,
   },
   setup () {
-    const eventCode = ref('');
+    const invitationKey = ref('');
     const event = ref(eventsListMock[0]);
     const popupScore = ref(null);
     const form = useForm();
@@ -50,12 +50,12 @@ export default {
     }
 
     onMounted(() => {
-      eventCode.value = urlUtils.getInvitationKey();
+      invitationKey.value = urlUtils.getInvitationKey();
     });
 
     return {
       ...form,
-      eventCode,
+      invitationKey,
       event,
       popupScore,
       toggleDetails,
