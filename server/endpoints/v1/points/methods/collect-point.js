@@ -2,12 +2,19 @@ const Points = require('../../../../models/points');
 const Teams = require('../../../../models/teams');
 const { ObjectId } = require('mongodb');
 const { AppError, errorCodes } = require('../../../../libs/errors');
-const { getUserTeamIdFromSession } = require('../../../../libs/utils');
+const { getUserTeamIdFromSession, getUserRoleFromSession } = require('../../../../libs/utils');
 
 async function collectPoint (request, eventId, pointKey) {
   // TODO add limit of try
   const point = await Points.get({ eventId: ObjectId(eventId), pointKey });
   const userTeamId = getUserTeamIdFromSession(eventId, request.user);
+  const userRole = getUserRoleFromSession(eventId, request.user);
+
+  if (['creator', 'admin', 'observer'].includes(userRole)) {
+    throw new AppError(errorCodes.ADMINISTRATOR_CANT_COLLECT_POINTS, {
+      httpStatus: 400,
+    });
+  }
 
   if (point) {
     const { _id } = point;

@@ -23,17 +23,13 @@ function setStrategy (passport) {
       .then((userData) => {
         if (userData.accountActivation.isActive === false) {
           // user account is not active
-          throw new AppError(errorCodes.ACCOUNT_IS_NOT_ACTIVE, {
-            httpStatus: 401,
-          });
+          throw new AppError(errorCodes.ACCOUNT_IS_NOT_ACTIVE);
         }
         if (userData && userData.password === getSHA(password)) {
           done(null, userData);
         } else {
           // invalid username or password
-          throw new AppError(errorCodes.INVALID_CREDENTIALS, {
-            httpStatus: 401,
-          });
+          throw new AppError(errorCodes.INVALID_CREDENTIALS);
         }
       })
       .catch((error) => {
