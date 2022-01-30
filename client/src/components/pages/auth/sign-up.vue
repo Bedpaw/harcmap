@@ -89,10 +89,14 @@ export default {
 
     const router = useRouter();
     function goToSignIn () {
-      router.push({
-        name: ROUTES.signIn.name,
-        query: { invitationKey },
-      });
+      if (invitationKey) {
+        router.push({
+          name: ROUTES.signIn.name,
+          query: { invitationKey },
+        });
+      } else {
+        router.push(ROUTES.signIn.path);
+      }
     }
 
     return {
