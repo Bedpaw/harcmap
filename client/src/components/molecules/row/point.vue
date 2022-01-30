@@ -2,10 +2,10 @@
   <div>
     <div class="m-grid f-point">
       <div>
-        <a-icon-category :category-id="point.pointCategory" />
+        <a-icon-category :category-id="point.pointCategoryId" />
       </div>
-      <div>{{ point.pointId }}</div>
-      <div>{{ getCategoryById(point.pointCategory).pointValue }} {{ $t('general.pointUnit') }}</div>
+      <div>{{ point.pointKey }}</div>
+      <div>{{ getCategoryById(point.pointCategoryId).pointValue }} {{ $t('general.pointUnit') }}</div>
       <div>
         <a-icon
           :name="$icons.names.map"

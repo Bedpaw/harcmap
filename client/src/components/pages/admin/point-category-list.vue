@@ -5,7 +5,14 @@
     class="m-grid f-point-category-list"
     @click="pushToEditPoint(c.categoryId)"
   >
-    <a-draw-point />
+    <a-draw-point
+      :circle-style="{
+        backgroundColor: c.pointFillColor,
+        borderColor: c.pointStrokeColor,
+        width: '40px',
+        height: '40px',
+      }"
+    />
     <div>{{ c.categoryName }}</div>
     <div>{{ c.pointValue }}</div>
   </div>
@@ -32,9 +39,9 @@ export default {
         params: { pointCategoryId: categoryId },
       });
     },
-    createNewPointCategory (pointCategory) {
+    createNewPointCategory (pointCategoryId) {
       return this.$store.dispatch('event/addPointCategory', {
-        pointCategory,
+        pointCategoryId,
         eventId: this.eventId,
       });
     },

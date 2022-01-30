@@ -1,11 +1,14 @@
 import { uCheck } from '@dbetka/utils';
-
+const initState = () => ({
+});
 export default {
-  state: {},
+  state: {
+    ...initState(),
+  },
   getters: {
     numberOfCollectedPointsByCategoryId: (state, getters, rootState, rootGetters) => categoryId => {
       const listOfPoints = rootGetters['event/points'].filter(point => {
-        const sameCategory = point.pointCategory === categoryId;
+        const sameCategory = point.pointCategoryId === categoryId;
         const isNotNull = uCheck.isNotNull(point.pointCollectionTime);
         return isNotNull && sameCategory;
       });
@@ -17,15 +20,19 @@ export default {
     },
     numberOfPointsByCategoryId: (state, getters, rootState, rootGetters) => categoryId => {
       const listOfPoints = rootGetters['event/points'].filter(point => {
-        return point.pointCategory === categoryId;
+        return point.pointCategoryId === categoryId;
       });
       return (listOfPoints || []).length;
     },
-    pointValueByPointCategory: (state, getters, rootState, rootGetters) => pointCategory => {
-      const category = rootGetters['event/getCategoryById'](pointCategory);
+    pointValueByPointCategory: (state, getters, rootState, rootGetters) => pointCategoryId => {
+      const category = rootGetters['event/getCategoryById'](pointCategoryId);
       return (category || {}).pointValue;
     },
   },
-  mutations: {},
+  mutations: {
+    resetPointsStatisticsState: (state) => {
+      Object.assign(state, initState());
+    },
+  },
   actions: {},
 };

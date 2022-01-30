@@ -28,7 +28,7 @@ export default {
         { route: ROUTES.scoreboard },
         { route: ROUTES.editEvent },
         { route: ROUTES.newPoint },
-        { url: '/point/all', label: this.$t('page.admin.adminPanel.downloadPointsList') },
+        // { url: '/point/all', label: this.$t('page.admin.adminPanel.downloadPointsList') }, TODO removed before backend fix
         { route: ROUTES.searchPoint },
         { route: ROUTES.usersList },
       ]

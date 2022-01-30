@@ -124,11 +124,12 @@ export default {
   },
   setup (props) {
     const { defaultValues, onSave } = toRefs(props);
+    const availableCategories = useStore().getters['event/categories'];
 
     const generateDefaultValues = () => ({
       pointKey: null,
       pointName: '',
-      pointCategory: MACROS.pointCategory[0].categoryId,
+      pointCategoryId: availableCategories[0].categoryId,
       pointType: MACROS.pointType.permanent,
       pointAppearanceTime: null,
       pointExpirationTime: null,
@@ -150,7 +151,6 @@ export default {
         value: MACROS.pointType.timeout,
       },
     ]);
-    const availableCategories = useStore().getters['event/categories'];
     const categoryOptions = computed(() => pointCategoryUtils.getCategoriesSelectOptions(availableCategories));
     const pointPositionIsSetting = ref(false);
 

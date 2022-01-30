@@ -1,8 +1,11 @@
-import { MACROS } from 'utils/macros';
 import { api } from 'api';
+
+const initState = () => ({
+  categories: [],
+});
 export default {
   state: {
-    categories: [],
+    ...initState(),
   },
   getters: {
     getCategoryById: state => categoryId => {
@@ -10,15 +13,23 @@ export default {
     },
     categories: state => state.categories,
     permanentCategories: state => state.categories
-      .filter(category => category.pointType === MACROS.pointType.permanent),
+      .filter(category => category.pointValue !== 0), // TODO Rethink if points have categories
     timeoutCategories: state => state.categories
-      .filter(category => category.pointType === MACROS.pointType.timeout),
+      .filter(category => category.pointValue === 0),
   },
-  mutations: {},
+  mutations: {
+    addCategory: (state, pointCategory) => {
+      state.categories.push(pointCategory);
+    },
+    resetCategoriesState: (state) => {
+      Object.assign(state, initState());
+    },
+  },
   actions: {
-    addPointCategory (context, { pointCategory, eventId = context.getters.eventId }) {
+    addPointCategory (context, { pointCategoryId, eventId = context.getters.eventId }) {
       return new Promise((resolve, reject) => {
-        api.addPointCategory(pointCategory, eventId)
+        api.addPointCategory(pointCategoryId, eventId)
+          .then(pointCategory => context.commit('addCategory', pointCategory))
           .then(() => resolve())
           .catch(reject);
       });

@@ -2,19 +2,22 @@ import { map } from 'map';
 import { pointUtils } from 'utils/point';
 import { api } from 'api';
 const { pointIsCollected, isTimeOut, sortPointsAscending } = pointUtils;
+const initState = () => ({
+  points: [],
+  hidePoint: {},
+});
 
 export default {
   state: {
-    points: [],
-    hidePoint: {},
+    ...initState(),
   },
   getters: {
     hidePoint: state => state.hidePoint,
     points: state => state.points,
     getPointById: state =>
       pointId => state.points.find(point => point.pointId === pointId),
-    pointValueByPointCategory: (state, getters, rootState, rootGetters) => pointCategory => {
-      const category = rootGetters['event/getCategoryById'](pointCategory);
+    pointValueByPointCategory: (state, getters, rootState, rootGetters) => pointCategoryId => {
+      const category = rootGetters['event/getCategoryById'](pointCategoryId);
       return (category || {}).pointValue;
     },
     getPointByOlUid: state => pointOlUid =>
@@ -49,6 +52,9 @@ export default {
     },
     setHidePoint: (state, payload) => (state.hidePoint = payload),
     clearHidePoint: (state) => (state.hidePoint = {}),
+    resetPointsState: (state) => {
+      Object.assign(state, initState());
+    },
   },
   actions: {
     removePoint (context, pointId) {

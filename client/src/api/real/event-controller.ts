@@ -16,16 +16,7 @@ export const eventController = {
   getEventById (eventId: string) {
     return httpService.get<EventDTO, Event>({
       url: urls.getEvent(eventId),
-      successCallback: data => {
-        // TODO
-        const e = Mapper.mapEventIn(data);
-        e.eventStartDate = Number(new Date()) - 2000;
-        e.eventEndDate = Number(new Date()) + 1000000000;
-        if (e.mapRefreshTime < 60) {
-          e.mapRefreshTime *= 60;
-        }
-        return e;
-      },
+      successCallback: data => Mapper.mapEventIn(data),
       errorOptions: API_ERRORS.getEventById,
     });
   },

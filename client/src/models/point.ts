@@ -5,7 +5,7 @@ export type PointType = {
   pointLongitude: number | null
   pointLatitude: number | null
   pointType: string
-  pointCategory: string
+  pointCategoryId: string
   pointCollectionTime: number | null
   pointAppearanceTime: number | null
   pointExpirationTime: number | null
