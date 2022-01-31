@@ -13,7 +13,8 @@ function getKeyByValue (object, value) {
 // This function get name of error from error codes list
 function getCodeName (code) {
   const codeKey = getKeyByValue(codes, code);
-  return codeKey.toLowerCase().replace(/_/g, ' ');
+
+  return codeKey ? codeKey.toLowerCase().replace(/_/g, ' ') : codeKey;
 }
 
 /**
