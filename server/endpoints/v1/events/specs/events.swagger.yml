@@ -182,12 +182,20 @@ paths:
               schema:
                 type: object
                 properties:
-                  eventId:
-                    $ref: '#/components/props/id'
                   role:
                     $ref: '#/components/props/role'
+                  eventId:
+                    $ref: '#/components/props/id'
+                  eventName:
+                    $ref: '#/components/props/eventName'
+                  eventDuration:
+                    $ref: '#/components/props/eventDuration'
                   teamId:
                     $ref: '#/components/props/id'
+                  teamName:
+                    $ref: '#/components/props/teamName'
+                  teamColor:
+                    $ref: '#/components/props/teamColor'
         400:
           description: 'Validation error or none exist eventKey'
           content:
@@ -229,8 +237,20 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    $ref: '#/components/props/success'
+                  role:
+                    $ref: '#/components/props/role'
+                  eventId:
+                    $ref: '#/components/props/id'
+                  eventName:
+                    $ref: '#/components/props/eventName'
+                  eventDuration:
+                    $ref: '#/components/props/eventDuration'
+                  teamId:
+                    $ref: '#/components/props/id'
+                  teamName:
+                    $ref: '#/components/props/teamName'
+                  teamColor:
+                    $ref: '#/components/props/teamColor'
         400:
           description: 'Validation error or none exist eventKey'
           content:

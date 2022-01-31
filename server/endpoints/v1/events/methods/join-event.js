@@ -5,6 +5,7 @@ const Users = require('../../../../models/users');
 const Teams = require('../../../../models/teams');
 const getUserAggregation = require('../../../../aggregations/get-user');
 const { AppError, errorCodes } = require('../../../../libs/errors');
+const getKeyAggregation = require('../../../../aggregations/get-key');
 
 function checkIfGivenUserIdOwnToAuthorizedUser (sessionData, requestedUserId) {
   if (!sessionData || (sessionData && sessionData._id !== requestedUserId)) {
@@ -40,8 +41,10 @@ function checkIfUserAlreadyParticipleInEvent (userEvents, eventId) {
 
 // TODO secure from ddos, add captcha
 // TODO upgrade permission after give new code
-async function joinEvent (request, userId, eventKey, teamName) {
-  const key = await Keys.get({ key: eventKey });
+async function joinEvent (request, userId, eventKey, newTeamName) {
+  const key = await Keys.get({ key: eventKey }, {
+    aggregationPipeline: getKeyAggregation,
+  });
   const user = await Users.get({ _id: ObjectId(userId) }, {
     aggregationPipeline: getUserAggregation,
   });
@@ -51,7 +54,7 @@ async function joinEvent (request, userId, eventKey, teamName) {
 
   checkIfGivenUserIdOwnToAuthorizedUser(request.user, userId);
 
-  const { eventId, teamId, role } = key;
+  const { eventId, teamId, role, eventName, eventDuration, teamName, teamColor } = key;
   const { userEvents } = user;
 
   // check if user participle in key event
@@ -60,7 +63,7 @@ async function joinEvent (request, userId, eventKey, teamName) {
   // creating team if role is teamLeader
   let team;
   if (role === 'teamLeader') {
-    if (!teamName) {
+    if (!newTeamName) {
       throw new AppError(errorCodes.REQUIRE_TEAMNAME, {
         httpStatus: 400,
       });
@@ -68,7 +71,7 @@ async function joinEvent (request, userId, eventKey, teamName) {
 
     team = await Teams.create({
       eventId,
-      teamName,
+      teamName: newTeamName,
       collectedPoints: [],
     });
 
@@ -97,7 +100,7 @@ async function joinEvent (request, userId, eventKey, teamName) {
 
   // update user with new event data
   const updatedUser = await Users.update({ _id: user._id }, {
-    $push: { userEvents: newUserEvent.data._id },
+    $push: { userEvents: newUserEvent.data[0]._id },
   }, { rawNewDocument: true });
 
   if (!updatedUser.success) {
@@ -107,7 +110,15 @@ async function joinEvent (request, userId, eventKey, teamName) {
     });
   }
 
-  return updatedUser;
+  return {
+    role,
+    eventId: eventId.toString(),
+    eventName,
+    eventDuration,
+    teamId: teamId ? teamId.toString() : null,
+    teamName: teamName || null,
+    teamColor: teamColor || null,
+  };
 }
 
 module.exports = joinEvent;

@@ -14,11 +14,11 @@ const requestSchemaStore = {};
  * 	[DELETE]:object
  * }} - object with httpMethods(uppercase) map to it schema
  */
-function addEndpointValidation(path, httpMethodsWithSchema) {
-	requestSchemaStore[path] = httpMethodsWithSchema;
+function addEndpointValidation (path, httpMethodsWithSchema) {
+  requestSchemaStore[path] = httpMethodsWithSchema;
 }
 
 module.exports = {
-	requestSchemaStore,
-	addEndpointValidation,
+  requestSchemaStore,
+  addEndpointValidation,
 };

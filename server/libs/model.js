@@ -185,7 +185,7 @@ class Model {
       const updateResult = await collection.updateMany(filters, query);
 
       // check if created all items
-      if (updateResult.modifiedCount === 1) {
+      if (updateResult.matchedCount === 1) {
         result.success = true;
       } else {
         result.error = errorCodes.MODEL_UPDATE_INCORRECT_LENGTH;
