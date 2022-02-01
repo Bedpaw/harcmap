@@ -4,11 +4,13 @@ const Users = require('../../../../models/users');
 const { sendActivationMail } = require('../../../../libs/mail');
 
 // registration
-async function signUp (userObject) {
+async function signUp (body) {
   const activationKey = getSHA(generateRandomString(10));
+  const { email, password, invitationKey } = body;
 
-  Object.assign(userObject, {
-    password: getSHA(userObject.password),
+  const userObject = {
+    email,
+    password: getSHA(password),
     accountActivation: {
       isActive: false,
       key: activationKey,
@@ -19,7 +21,7 @@ async function signUp (userObject) {
     },
     accountCreated: Date.now(),
     userEvents: [],
-  });
+  };
 
   const {
     success,
@@ -27,7 +29,7 @@ async function signUp (userObject) {
     errorDetails,
   } = await Users.create(userObject);
 
-  await sendActivationMail(userObject.email, activationKey);
+  await sendActivationMail(userObject.email, activationKey, invitationKey);
 
   return {
     success,

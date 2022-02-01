@@ -1,10 +1,10 @@
 const mailHtmlTemplate = require('./mail-html-template');
 const sendMail = require('./send-mail');
 
-async function sendActivationMail (to, key) {
+async function sendActivationMail (to, key, invitationKey) {
   return await sendMail(to, {
     subject: 'HarcMap - Aktywacja konta',
-    content: mailHtmlTemplate(false, key),
+    content: mailHtmlTemplate(false, key, invitationKey),
   });
 }
 

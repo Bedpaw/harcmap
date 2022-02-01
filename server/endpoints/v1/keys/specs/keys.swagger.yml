@@ -1,0 +1,55 @@
+paths:
+  /api/v1/keys/:keyId/refresh:
+    post:
+      deprecated: true
+      summary: 'Refresh key value for given key id (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Categories
+      parameters:
+        - in: "path"
+          name: keyId
+          description: "Id of key document to refresh key value"
+          example: '500000000000000000000001'
+          default: undefined
+          required: true
+      responses:
+        200:
+          description: 'Successfully refresh key value'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  role:
+                    $ref: '#/components/props/role'
+                  eventId:
+                    $ref: '#/components/props/id'
+                  eventName:
+                    $ref: '#/components/props/eventName'
+                  eventDuration:
+                    $ref: '#/components/props/eventDuration'
+                  teamId:
+                    $ref: '#/components/props/id'
+                  teamName:
+                    $ref: '#/components/props/teamName'
+                  teamColor:
+                    $ref: '#/components/props/teamColor'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
