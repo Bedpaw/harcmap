@@ -5,12 +5,12 @@ const refreshKey = require('./methods/refresh-key');
 
 const router = Router();
 
-addEndpointValidation('/api/v1/keys/:keyId/refresh', refresh);
+addEndpointValidation('/api/v1/events/:eventId/keys/:keyId/refresh', refresh);
 
-router.route('/:keyId/refresh')
+router.route('/:eventId/keys/:keyId/refresh')
   .post(async (request, response) => {
-    const { keyId } = request.params;
-    const result = await refreshKey(keyId, request.user);
+    const { eventId, keyId } = request.params;
+    const result = await refreshKey(eventId, keyId);
 
     response.send(result);
   });

@@ -35,6 +35,9 @@ function getKeyAggregation (query) {
     }, {
       $group: {
         _id: '$_id',
+        key: {
+          $first: '$key',
+        },
         role: {
           $first: '$role',
         },

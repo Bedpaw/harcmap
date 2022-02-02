@@ -59,7 +59,7 @@ const allUsers = admins.concat([users.leader, users.member]);
 //   '/api/v1/events/:eventId/points/:pointId': admins,
 //   '/api/v1/events/:eventId/points/collect': [users.creator, users.admin, users.observer, users.leader],
 //   // keys
-//   '/api/v1/keys/:keyId/refresh': {
+//   '/api/v1/events/:eventId/keys/:keyId/refresh': {
 //     POST: admins,
 //   },
 // };
@@ -93,7 +93,7 @@ const endpointsAccessConfig = {
   '/api/v1/events/:eventId/points/:pointId': users.guest,
   '/api/v1/events/:eventId/points/collect': users.guest,
   // keys
-  '/api/v1/keys/:keyId/refresh': users.guest,
+  '/api/v1/events/:eventId/keys/:keyId/refresh': users.guest,
 };
 
 module.exports = endpointsAccessConfig;

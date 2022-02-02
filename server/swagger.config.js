@@ -40,6 +40,9 @@ const options = {
     }, {
       name: 'Teams',
       description: 'Endpoint do obsługi zespołów wydarzenia',
+    }, {
+      name: 'Keys',
+      description: 'Endpoint do obsługi kluczy wydarzeń',
     }],
   },
 };

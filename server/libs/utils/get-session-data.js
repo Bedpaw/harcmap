@@ -1,3 +1,5 @@
+const { ObjectId } = require('mongodb');
+
 /**
  * @description Method used to get event data of authenticated user
  * for given eventId
@@ -5,8 +7,6 @@
  * @param sessionData {object} - "request.user" object
  * @return {Object}
  */
-const { ObjectId } = require('mongodb');
-
 function getUserDataFromSession (eventId, sessionData) {
   const { userEvents } = sessionData || { userEvents: [] };
   const actualEvent = userEvents.find(userEvent => {

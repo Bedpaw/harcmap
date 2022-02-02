@@ -3,6 +3,7 @@ const parseDocumentToUpdate = require('./parse-document-to-update');
 const { validateMany, validateOne } = require('./validate-utils');
 const { getUserRoleFromSession, getUserTeamIdFromSession } = require('./get-session-data');
 const secureField = require('./secure-field');
+const generateUniqueKey = require('./generate-unique-key');
 
 module.exports = {
   getSHA,
@@ -12,4 +13,5 @@ module.exports = {
   getUserRoleFromSession,
   getUserTeamIdFromSession,
   secureField,
+  generateUniqueKey,
 };
