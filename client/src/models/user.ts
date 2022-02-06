@@ -7,6 +7,7 @@ export interface UserEvent {
   teamName: string
   role: string
   isBanned: boolean
+  nickname: string
 }
 
 export interface User {
@@ -28,4 +29,5 @@ export interface UserInEvent {
   teamName: string
   role: string
   isBanned: boolean
+  nickname: string
 }

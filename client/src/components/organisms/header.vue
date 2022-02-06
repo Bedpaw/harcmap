@@ -16,14 +16,14 @@
           {{ pageTitle }}
         </div>
         <div class="a-logo">
-          HARCMAP
+          {{ appName }}
         </div>
       </template>
       <div
         v-else
         class="a-logo f-big"
       >
-        HARCMAP
+        {{ appName }}
       </div>
     </div>
     <div
@@ -49,9 +49,13 @@
 <script>
 import { mapGetters } from 'vuex';
 import { ROUTES } from 'config/routes-config';
+import { APP_NAME } from 'config/app-env';
 
 export default {
   name: 'o-header',
+  data: () => ({
+    appName: APP_NAME.toUpperCase(),
+  }),
   computed: {
     ...mapGetters('event', [
       'eventId',

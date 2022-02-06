@@ -19,7 +19,7 @@ export const pointCategoryController = {
   addPointCategory (category: PointCategoryDTOCreate, eventId: string) {
     return httpService.post({
       url: urls.addPointCategory(eventId),
-      body: { ...category, eventId }, // TODO remove eventId from body after backend change
+      body: category,
       errorOptions: API_ERRORS.addPoint,
     });
   },

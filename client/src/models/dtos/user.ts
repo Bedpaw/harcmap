@@ -8,6 +8,7 @@ export interface UserEventDTO {
   teamName: string
   role: string
   isBanned: boolean
+  nickname: string
 }
 
 export interface UserDTO {

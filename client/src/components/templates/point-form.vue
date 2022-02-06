@@ -37,19 +37,11 @@
         :disabled="blockForm"
       />
       <m-select
-        v-if="isPermanent"
         v-model="values.pointCategoryId"
         :options="categoryOptions"
         :placeholder="$t('form.field.pointCategory')"
         :disabled="blockForm"
       />
-      <a-button-secondary
-        :disabled="blockForm"
-        class="f-text-center f-mt-0"
-        @click="$router.push(ROUTES.newPointCategory)"
-      >
-        Dodaj nową kategorię
-      </a-button-secondary><!--TODO think about better solution or remove-->
 
       <a-button-secondary
         :disabled="blockForm"
@@ -167,9 +159,6 @@ export default {
       pointPositionIsSetting.value = false;
     }
     function ensureValidDataByPointType () {
-      if (values.value.pointType === MACROS.pointType.timeout) {
-        values.value.pointCategoryId = 0;
-      }
       if (values.value.pointType === MACROS.pointType.permanent) {
         values.value.pointExpirationTime = null;
         values.value.pointAppearanceTime = null;

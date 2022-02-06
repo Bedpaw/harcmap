@@ -110,16 +110,10 @@ export default {
     },
     collectPoint (context, pointKey) {
       return new Promise((resolve, reject) => {
-        // Poi9 // TODO
-        console.log(context.getters.eventId);
         api.collectPoint(context.getters.eventId, pointKey)
-          .then(() => {
-            /*             context.commit('updatePoint', {
-              pointKey,
-              pointCollectionTime: Date.now(),
-            });
-            context.commit('user/addCollectedPointId', pointKey, { root: true }); */
-            // TODO with new backend data update teamCollected and point
+          .then((point) => {
+            context.commit('updatePoint', { ...point, pointCollectedDate: Number(new Date()) }); // TODO doesnt set collectedDate;
+            context.commit('team/addCollectedPoint', point.pointId, { root: true });
             resolve();
           })
           .catch(error => {

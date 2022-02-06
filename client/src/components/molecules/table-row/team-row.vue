@@ -1,5 +1,5 @@
 <template>
-  <div class="m-grid f-team-view f-mb-1">
+  <div class="m-grid f-team-view f-mb-1 f-text-14">
     <a-icon
       outlined
       :name="getUserIcon(user)"

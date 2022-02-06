@@ -28,7 +28,7 @@ export default {
     ...mapGetters('user', ['isLogin']),
   },
   mounted () {
-    const route = ROUTES[this.$router.currentRoute.name] || {};
+    const route = ROUTES[this.$router.currentRoute.value.name] || {};
     const title = route.label;
     this.$store.commit('header/setPageTitle', title);
     this.$store.commit('header/setBackRouteName', this.backRoute);

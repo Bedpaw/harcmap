@@ -15,8 +15,8 @@
             :type="$icons.types.outlined"
             :name="getUserIcon(user)"
           />
-          <div class="f-pl-1 f-py-1 f-line-24 f-overflow-hidden">
-            What here?<!--TODO what in this row?-->
+          <div class="f-pl-1 f-py-1 f-text-12 f-line-24 f-overflow-hidden">
+            {{ user.nickname }}
           </div>
           <div class="f-pl-1 f-py-1 f-text-subtext f-text-14 f-line-24 f-overflow-hidden">
             {{ user.email }}

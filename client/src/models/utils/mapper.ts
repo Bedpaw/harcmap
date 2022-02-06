@@ -75,6 +75,7 @@ export class Mapper {
       ...user,
       userEvents: user.userEvents.map(event => ({
         ...event,
+        nickname: event.nickname ?? 'Nickname mock', // TODO Remove after backend
         eventEndDate: event.eventDuration.endDate,
         eventStartDate: event.eventDuration.startDate,
       })),
@@ -86,6 +87,7 @@ export class Mapper {
     const { userId, isActive, email } = user;
     const {
       eventId, eventName, teamName, teamId, isBanned, role,
+      nickname = 'Nickname mock', // TODO Remove after backend
       eventDuration: {
         endDate: eventEndDate,
         startDate: eventStartDate,
@@ -104,6 +106,7 @@ export class Mapper {
       teamName,
       userId,
       email,
+      nickname,
     };
   }
 }
