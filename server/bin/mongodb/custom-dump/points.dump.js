@@ -16,8 +16,8 @@ const point1 = {
   pointCollectedDate: new Date(2022, 0, 1).getTime(),
   pointDuration,
   pointPosition: {
-    longitude: 10,
-    latitude: 10,
+    longitude: 18.542,
+    latitude: 54.469,
   },
 };
 
@@ -35,8 +35,8 @@ const point2 = {
     endDate: new Date(2050, 0, 14, 13, 32, 54).getTime(),
   },
   pointPosition: {
-    longitude: 10,
-    latitude: 10,
+    longitude: 18.543,
+    latitude: 54.470,
   },
 };
 
@@ -51,8 +51,8 @@ const point3 = {
   pointCollectedDate: new Date(2022, 0, 3, 3, 53, 24).getTime(),
   pointDuration,
   pointPosition: {
-    longitude: 10,
-    latitude: 10,
+    longitude: 18.541,
+    latitude: 54.464,
   },
 };
 
@@ -67,8 +67,8 @@ const point4 = {
   pointCollectedDate: new Date(2022, 0, 2, 16, 49, 1).getTime(),
   pointDuration,
   pointPosition: {
-    longitude: 10,
-    latitude: 10,
+    longitude: 18.540,
+    latitude: 54.469,
   },
 };
 
@@ -86,8 +86,8 @@ const point5 = {
     endDate: Date.now(),
   },
   pointPosition: {
-    longitude: 10,
-    latitude: 10,
+    longitude: 18.548,
+    latitude: 54.473,
   },
 };
 
@@ -102,8 +102,8 @@ const point6 = {
   pointCollectedDate: null,
   pointDuration,
   pointPosition: {
-    longitude: 10,
-    latitude: 10,
+    longitude: 18.545,
+    latitude: 54.466,
   },
 };
 
@@ -121,8 +121,8 @@ const point7 = {
     endDate: new Date(2050, 0, 1, 9, 1, 5).getTime(),
   },
   pointPosition: {
-    longitude: 10,
-    latitude: 10,
+    longitude: 18.548,
+    latitude: 54.461,
   },
 };
 
@@ -137,8 +137,8 @@ const point8 = {
   pointCollectedDate: null,
   pointDuration,
   pointPosition: {
-    longitude: 10,
-    latitude: 10,
+    longitude: 18.540,
+    latitude: 54.460,
   },
 };
 
@@ -153,8 +153,8 @@ const point9 = {
   pointCollectedDate: null,
   pointDuration,
   pointPosition: {
-    longitude: 10,
-    latitude: 10,
+    longitude: 18.545,
+    latitude: 54.465,
   },
 };
 
@@ -172,8 +172,8 @@ const point10 = {
     endDate: Date.now(),
   },
   pointPosition: {
-    longitude: 10,
-    latitude: 10,
+    longitude: 18.543,
+    latitude: 54.479,
   },
 };
 
@@ -188,8 +188,8 @@ const point11 = {
   pointCollectedDate: new Date(2021, 10, 25, 13, 4, 14).getTime(),
   pointDuration,
   pointPosition: {
-    longitude: 10,
-    latitude: 10,
+    longitude: 18.549,
+    latitude: 54.479,
   },
 };
 
@@ -204,8 +204,8 @@ const point12 = {
   pointCollectedDate: null,
   pointDuration,
   pointPosition: {
-    longitude: 10,
-    latitude: 10,
+    longitude: 18.540,
+    latitude: 54.470,
   },
 };
 

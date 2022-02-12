@@ -57,7 +57,7 @@ const category6 = {
   categoryName: 'Kategoria 6',
   pointValue: 7,
   pointStrokeColor: '#000000',
-  pointFillColor: '#ffffff',
+  pointFillColor: '#345635',
 };
 
 // Wydarzenie 3
@@ -67,7 +67,7 @@ const category7 = {
   categoryName: 'Kategoria 7',
   pointValue: 6,
   pointStrokeColor: '#523452',
-  pointFillColor: '#ffffff',
+  pointFillColor: '#833532',
 };
 
 module.exports = [

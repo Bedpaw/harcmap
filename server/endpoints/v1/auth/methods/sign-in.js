@@ -18,6 +18,19 @@ function unifyUserEventsField (userEvents) {
   return noUserEvents ? [] : userEvents;
 }
 
+/**
+ * @description Generate one format of response
+ * @param userData {object} - user data from session/database
+ * @return {{userId, email, userEvents}}
+ */
+function generateUserResponse (userData) {
+  return {
+    userId: userData._id,
+    email: userData.email,
+    userEvents: unifyUserEventsField(userData.userEvents),
+  };
+}
+
 // Login
 async function signIn (request, response, next) {
   const userIsAuthenticated = request.isAuthenticated();
@@ -50,12 +63,7 @@ async function signIn (request, response, next) {
           }), request, response, next);
         }
 
-        const responseData = {
-          email: userData.email,
-          userEvents: unifyUserEventsField(userData.userEvents),
-        };
-
-        response.send(responseData);
+        response.send(generateUserResponse(userData));
       });
     })(request, response, next);
   } else {
@@ -64,12 +72,7 @@ async function signIn (request, response, next) {
       aggregationPipeline: getUserAggregation,
     });
 
-    const responseData = {
-      email: userData.email,
-      userEvents: unifyUserEventsField(userData.userEvents),
-    };
-
-    response.send(responseData);
+    response.send(generateUserResponse(userData));
   }
 }
 

@@ -67,6 +67,8 @@ paths:
               schema:
                 type: object
                 properties:
+                  userId:
+                    $ref: '#/components/props/id'
                   email:
                     $ref: '#/components/props/email'
                   userEvents:

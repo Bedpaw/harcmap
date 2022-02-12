@@ -20,8 +20,9 @@ async function collectPoint (request, eventId, pointKey) {
     const { _id } = point;
     // check if point wasn't collect
     if (!point.pointCollectedDate) {
+      const now = Date.now();
       const updatedPoint = await Points.update({ _id }, {
-        pointCollectedDate: Date.now(),
+        pointCollectedDate: now,
       });
 
       // point updated - we can add it to user team collected points
@@ -36,7 +37,7 @@ async function collectPoint (request, eventId, pointKey) {
             pointId: point._id.toString(),
             pointName: point.pointName,
             pointType: point.pointType,
-            pointCollectedDate: point.pointCollectedDate,
+            pointCollectedDate: now,
             pointDuration: point.pointDuration,
             pointPosition: point.pointPosition,
             pointCategoryId: point.pointCategoryId,
