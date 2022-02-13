@@ -5,6 +5,7 @@
     :loading="loading"
     :loading-img="loadingImg"
     :disabled="disabled"
+    :tests-selector="testsSelector"
   >
     <slot />
   </a-button>
@@ -33,6 +34,10 @@ export default {
     addAreaClass: {
       type: [Array, String],
       default: '',
+    },
+    testsSelector: {
+      type: String,
+      default: 'button-secondary',
     },
   },
   computed: {

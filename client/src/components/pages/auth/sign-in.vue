@@ -5,16 +5,19 @@
         v-model.trim="values.email"
         :disabled="blockForm"
         :placeholder="$t('form.field.email')"
+        tests-selector="input-email"
       />
       <m-input
         v-model="values.password"
         :disabled="blockForm"
         :placeholder="$t('form.field.password')"
         type="password"
+        tests-selector="input-password"
       />
       <a-button-submit
         :disabled="blockForm"
         :is-sending="isSending"
+        tests-selector="sign-in-submit"
       />
     </o-form>
     <a-button-secondary

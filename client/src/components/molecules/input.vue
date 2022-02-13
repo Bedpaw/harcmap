@@ -7,6 +7,7 @@
       :class="additionalClasses"
       :type="getType"
       :disabled="disabled"
+      :data-cy="testsSelector"
     >
     <label
       class="a-label f-field"
@@ -78,6 +79,10 @@ export default {
     assist: {
       type: String,
       default: '',
+    },
+    testsSelector: {
+      type: String,
+      default: 'input',
     },
   },
   emits: ['blur'],

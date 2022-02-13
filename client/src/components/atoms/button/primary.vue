@@ -5,6 +5,7 @@
     :loading="loading"
     :disabled="disabled"
     :type="type"
+    :tests-selector="testsSelector"
     loading-img="/img/zhp-52.png"
   >
     <slot />
@@ -37,6 +38,10 @@ export default {
     type: {
       type: String,
       default: 'button',
+    },
+    testsSelector: {
+      type: String,
+      default: 'button-primary',
     },
   },
 };

@@ -7,6 +7,7 @@
     <button
       ref="button"
       class="a-button"
+      :data-cy="testsSelector"
       :class="getClass"
       :type="type"
       :disabled="disabled"
@@ -50,6 +51,10 @@ export default {
       default: '',
     },
     type: {
+      type: String,
+      default: 'button',
+    },
+    testsSelector: {
       type: String,
       default: 'button',
     },

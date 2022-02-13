@@ -1,0 +1,12 @@
+{
+  "baseUrl": "http://localhost:3030",
+  "viewportHeight": 720,
+  "viewportWidth": 360,
+  "env": {
+    "backendServerRoot": "/api/v1/",
+    "stubServer": false,
+    "login_password": "Password1",
+    "admin_email": "user1@harcmap.pl",
+    "teamLeader_email": "user7@harcmap.pl"
+  }
+}
