@@ -5,8 +5,8 @@ describe(endpoint, () => {
   testEndpoint(endpoint, {
     description: 'Should logout user',
     signIn: {
+      email: 'user5@harcmap.pl',
       password: 'Password1',
-      email: 'example@domain.com',
     },
     method: 'POST',
     body: {

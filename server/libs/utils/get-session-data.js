@@ -10,7 +10,7 @@ const { ObjectId } = require('mongodb');
 function getUserDataFromSession (eventId, sessionData) {
   const { userEvents } = sessionData || { userEvents: [] };
   const actualEvent = userEvents.find(userEvent => {
-    const objectIdString = userEvent.eventId.toString();
+    const objectIdString = userEvent.eventId ? userEvent.eventId.toString() : '';
 
     return eventId === objectIdString;
   });

@@ -170,9 +170,12 @@ paths:
             schema:
               type: object
               properties:
+                userId:
+                  $ref: '#/components/props/userId'
                 eventKey:
                   $ref: '#/components/props/eventKey'
               required:
+                - userId
                 - eventKey
       responses:
         200:

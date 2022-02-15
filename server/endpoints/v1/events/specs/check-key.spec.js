@@ -2,20 +2,28 @@ const testEndpoint = require('../../../../tests/utils/test-endpoint');
 
 describe('/api/v1/events/check', () => {
   testEndpoint('/api/v1/events/check', {
-    description: 'Return information for hd5b event key',
+    description: 'Return information for K3y4 event key',
     method: 'POST',
     signIn: {
-      email: 'admin@harcmap.com',
+      email: 'user1@harcmap.pl',
       password: 'Password1',
     },
     body: {
       send: {
-        eventKey: 'hd5b',
+        userId: '100000000000000000000001',
+        eventKey: 'K3y6',
       },
       expect: {
-        'eventId': '605920002c60e426288b8971',
-        'role': 'teamMember',
-        'teamId': '60e6b02e0b6c6887accf6c05',
+        eventId: '300000000000000000000002',
+        eventName: 'Wydarzenie 2',
+        eventDuration: {
+          endDate: 2537560799000,
+          startDate: 1577870639000,
+        },
+        role: 'admin',
+        teamId: null,
+        teamName: null,
+        teamColor: null,
       },
     },
   });
@@ -24,17 +32,22 @@ describe('/api/v1/events/check', () => {
     description: 'Return error for none exist key',
     method: 'POST',
     signIn: {
-      email: 'admin@harcmap.com',
+      email: 'user1@harcmap.pl',
       password: 'Password1',
     },
     expectedStatus: 400,
     body: {
       send: {
-        eventKey: 'eeeb',
+        userId: '100000000000000000000001',
+        eventKey: 'abcd',
       },
       expect: {
-        error: 1400,
-        message: 'key not exist',
+        error: 1401,
+        message: 'key or user not exist',
+        errorDetails: {
+          key: 'not exist',
+          user: 'exist',
+        },
       },
     },
   });
@@ -45,7 +58,8 @@ describe('/api/v1/events/check', () => {
     expectedStatus: 401,
     body: {
       send: {
-        eventKey: 'hd5b',
+        userId: '100000000000000000000001',
+        eventKey: 'K3y1',
       },
       expect: {
         error: 1104,

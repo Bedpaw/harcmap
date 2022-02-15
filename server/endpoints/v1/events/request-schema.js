@@ -47,6 +47,7 @@ const oneEvent = {
 
 const check = {
   POST: Joi.object({
+    userId: objectIdInRequest.required(),
     eventKey: keys.required(),
   }),
 };

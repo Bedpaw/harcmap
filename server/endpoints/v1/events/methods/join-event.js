@@ -6,38 +6,7 @@ const Teams = require('../../../../models/teams');
 const getUserAggregation = require('../../../../aggregations/get-user');
 const { AppError, errorCodes } = require('../../../../libs/errors');
 const getKeyAggregation = require('../../../../aggregations/get-key');
-
-function checkIfGivenUserIdOwnToAuthorizedUser (sessionData, requestedUserId) {
-  if (!sessionData || (sessionData && sessionData._id !== requestedUserId)) {
-    throw new AppError(errorCodes.THIS_USER_ID_DOESNT_BELONG_TO_YOU, {
-      httpStatus: 400,
-    });
-  }
-}
-
-function checkIfKeyAndUserExist (key, user) {
-  if (!key || !user) {
-    throw new AppError(errorCodes.KEY_OR_USER_NOT_EXIST, {
-      httpStatus: 400,
-      details: {
-        key: key ? 'exist' : 'not exist',
-        user: user ? 'exist' : 'not exist',
-      },
-    });
-  }
-}
-
-function checkIfUserAlreadyParticipleInEvent (userEvents, eventId) {
-  const stringifyEventId = eventId.toString();
-  const userParticipleInThisEvent = userEvents.find(userEvent => userEvent.eventId.toString() === stringifyEventId);
-  if (userParticipleInThisEvent) {
-    const { teamName, role } = userParticipleInThisEvent;
-    throw new AppError(errorCodes.USER_ALREADY_PARTICIPLE_IN_THIS_EVENT, {
-      httpStatus: 400,
-      details: { teamName, role },
-    });
-  }
-}
+const { checkIfGivenUserIdOwnToAuthorizedUser, checkIfKeyAndUserExist, checkIfUserAlreadyParticipleInEvent } = require('../../../../libs/utils');
 
 // TODO secure from ddos, add captcha
 // TODO upgrade permission after give new code
@@ -62,6 +31,7 @@ async function joinEvent (request, userId, eventKey, newTeamName) {
 
   // creating team if role is teamLeader
   let team;
+  let newTeamId = teamId;
   if (role === 'teamLeader') {
     if (!newTeamName) {
       throw new AppError(errorCodes.REQUIRE_TEAMNAME, {
@@ -81,12 +51,14 @@ async function joinEvent (request, userId, eventKey, newTeamName) {
         details: team.errorDetails,
       });
     }
+
+    newTeamId = team.data[0]._id;
   }
 
   // create new userEvent document
   const newUserEvent = await UsersEvents.create({
     eventId,
-    teamId: teamId || team.data._id,
+    teamId: newTeamId || null,
     role,
     isBanned: false,
   });

@@ -4,6 +4,7 @@ const { validateMany, validateOne } = require('./validate-utils');
 const { getUserRoleFromSession, getUserTeamIdFromSession } = require('./get-session-data');
 const secureField = require('./secure-field');
 const generateUniqueKey = require('./generate-unique-key');
+const { checkIfGivenUserIdOwnToAuthorizedUser, checkIfKeyAndUserExist, checkIfUserAlreadyParticipleInEvent } = require('./check-key');
 
 module.exports = {
   getSHA,
@@ -14,4 +15,7 @@ module.exports = {
   getUserTeamIdFromSession,
   secureField,
   generateUniqueKey,
+  checkIfGivenUserIdOwnToAuthorizedUser,
+  checkIfKeyAndUserExist,
+  checkIfUserAlreadyParticipleInEvent,
 };

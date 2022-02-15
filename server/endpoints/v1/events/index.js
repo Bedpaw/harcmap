@@ -30,13 +30,12 @@ router.route('/')
 
 router.route('/check')
   .post(async (request, response) => {
-    const { eventKey } = request.body;
-    const result = await checkKey(eventKey);
+    const { eventKey, userId, teamName } = request.body;
+    const result = await checkKey(request, eventKey, userId, teamName);
 
     response.send(result);
   });
 
-// TODO
 router.route('/join')
   .post(async (request, response) => {
     const { userId, eventKey, teamName } = request.body;
