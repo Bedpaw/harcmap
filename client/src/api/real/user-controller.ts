@@ -7,7 +7,9 @@ import { Mapper } from 'models/utils/mapper';
 const urls = {
   getUsers: '/users',
   resetPassword: '/users/reset-password',
-  user: (id: string) => '/users/' + id,
+  changePassword: (key: string) => `/users/reset-password/${key}`,
+  getUser: (id: string) => '/users/' + id,
+  updateUser: (id: string) => '/users/' + id,
   activateAccount: (key: string) => '/account-activation/' + key,
 };
 
@@ -29,7 +31,7 @@ export const userController = {
 
   getUser (userId: string, eventId: string) {
     return httpService.get<UserDTO, UserInEvent>({
-      url: urls.user(userId),
+      url: urls.getUser(userId),
       errorOptions: API_ERRORS.all,
       queryObject: { eventId },
       successCallback: user => Mapper.mapUserInEvent(user),
@@ -38,7 +40,7 @@ export const userController = {
 
   updateUser (userId: string) {
     return httpService.put({
-      url: urls.user(userId),
+      url: urls.updateUser(userId),
       errorOptions: API_ERRORS.all,
     });
   },
@@ -53,7 +55,7 @@ export const userController = {
 
   changePassword (password: string, key: string) {
     return httpService.put({
-      url: `${urls.resetPassword}/${key}`,
+      url: urls.changePassword(key),
       body: { password },
       errorOptions: API_ERRORS.changePassword,
     });

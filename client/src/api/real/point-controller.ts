@@ -16,15 +16,6 @@ export const pointController = {
   getPointsByEventId (eventId: string): Promise<PointType[]> {
     return httpService.get<PointDTO[], PointType[]>({
       url: urls.getPointsByEventId(eventId),
-      successCallback: data => data.map((point, index) => {
-        // TODO Every point cors (10,10) -> remove after mock change
-        const x = Mapper.mapPointIn(point);
-        if (x.pointLongitude && x.pointLatitude) {
-          x.pointLatitude += index * 10;
-          x.pointLongitude += index * 10;
-        }
-        return x;
-      }),
       errorOptions: API_ERRORS.getPointsByEventId,
     });
   },
