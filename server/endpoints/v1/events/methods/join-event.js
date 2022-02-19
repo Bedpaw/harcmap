@@ -10,7 +10,9 @@ const { checkIfGivenUserIdOwnToAuthorizedUser, checkIfKeyAndUserExist, checkIfUs
 
 // TODO secure from ddos, add captcha
 // TODO upgrade permission after give new code
-async function joinEvent (request, userId, eventKey, newTeamName) {
+async function joinEvent (request, body) {
+  const { userId, eventKey, nickname, newTeamName, newTeamColor } = body;
+
   const key = await Keys.get({ key: eventKey }, {
     aggregationPipeline: getKeyAggregation,
   });
@@ -39,9 +41,16 @@ async function joinEvent (request, userId, eventKey, newTeamName) {
       });
     }
 
+    if (!newTeamColor) {
+      throw new AppError(errorCodes.REQUIRE_TEAMCOLOR, {
+        httpStatus: 400,
+      });
+    }
+
     team = await Teams.create({
       eventId,
       teamName: newTeamName,
+      teamColor: newTeamColor,
       collectedPoints: [],
     });
 
@@ -59,6 +68,7 @@ async function joinEvent (request, userId, eventKey, newTeamName) {
   const newUserEvent = await UsersEvents.create({
     eventId,
     teamId: newTeamId || null,
+    nickname,
     role,
     isBanned: false,
   });
@@ -83,6 +93,7 @@ async function joinEvent (request, userId, eventKey, newTeamName) {
   }
 
   return {
+    nickname,
     role,
     eventId: eventId.toString(),
     eventName,

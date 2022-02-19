@@ -43,6 +43,7 @@ function getTeams (query) {
         $push: {
           userId: '$users._id',
           email: '$users.email',
+          nickname: '$users.nickname',
           role: '$userEvents.role',
         },
       },

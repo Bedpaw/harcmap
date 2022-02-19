@@ -31,7 +31,7 @@ const point2 = {
   pointType: 'timeout',
   pointCollectedDate: new Date(2022, 0, 2, 5, 35, 45).getTime(),
   pointDuration: {
-    startDate: Date.now(),
+    startDate: new Date(2021, 0, 14, 13, 32, 54).getTime(),
     endDate: new Date(2050, 0, 14, 13, 32, 54).getTime(),
   },
   pointPosition: {
@@ -83,7 +83,7 @@ const point5 = {
   pointCollectedDate: null,
   pointDuration: {
     startDate: new Date(2021, 0, 7, 17, 12, 42).getTime(),
-    endDate: Date.now(),
+    endDate: new Date(2022, 0, 7, 17, 12, 42).getTime(),
   },
   pointPosition: {
     longitude: 18.548,
@@ -117,7 +117,7 @@ const point7 = {
   pointType: 'timeout',
   pointCollectedDate: null,
   pointDuration: {
-    startDate: Date.now(),
+    startDate: new Date(2021, 0, 7, 17, 12, 42).getTime(),
     endDate: new Date(2050, 0, 1, 9, 1, 5).getTime(),
   },
   pointPosition: {
@@ -169,7 +169,7 @@ const point10 = {
   pointCollectedDate: new Date(2021, 11, 1, 23, 1, 31).getTime(),
   pointDuration: {
     startDate: new Date(2021, 9, 23, 15, 34, 23).getTime(),
-    endDate: Date.now(),
+    endDate: new Date(2022, 0, 7, 17, 12, 42).getTime(),
   },
   pointPosition: {
     longitude: 18.543,

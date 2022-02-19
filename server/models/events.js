@@ -24,6 +24,8 @@ const eventSchema = {
 };
 
 // Create model
-const Events = new Model('events', eventSchema);
+const Events = new Model('events', eventSchema, {
+  uniqueFiled: 'eventName',
+});
 
 module.exports = Events;

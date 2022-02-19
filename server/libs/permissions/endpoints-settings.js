@@ -42,7 +42,9 @@ const endpointsAccessConfig = {
     POST: users.guest,
   },
   // events endpoints
-  '/api/v1/events': users.authenticated,
+  '/api/v1/events': {
+    POST: users.authenticated,
+  },
   '/api/v1/events/:eventId': admins,
   '/api/v1/events/check': users.authenticated,
   '/api/v1/events/join': users.authenticated,

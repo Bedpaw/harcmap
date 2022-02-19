@@ -11,7 +11,7 @@ const modelSchema = {
   key: keys,
   role: keysRole,
   eventId: Joi.object(),
-  teamId: Joi.object(),
+  teamId: Joi.object().allow(null),
 };
 
 // Create model

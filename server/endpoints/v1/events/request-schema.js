@@ -9,6 +9,8 @@ const {
   eventRefreshTime,
   defaultMapZoom,
   keys,
+  color,
+  nickname,
 } = require('../../../libs/common-schemas');
 
 // empty schema means that no data can be pass
@@ -25,6 +27,8 @@ const allEvents = {
       latitude: latitude.required(),
     },
     eventRefreshTime: eventRefreshTime.required(),
+    nickname: nickname.required(),
+    userId: objectIdInRequest.required(),
   }),
 };
 
@@ -56,6 +60,8 @@ const join = {
   POST: Joi.object({
     userId: objectIdInRequest.required(),
     eventKey: keys.required(),
+    nickname: nickname.required(),
+    teamColor: color,
     teamName,
   }),
 };

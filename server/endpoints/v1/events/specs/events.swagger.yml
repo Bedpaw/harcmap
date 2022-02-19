@@ -1,7 +1,6 @@
 paths:
   /api/v1/events:
     post:
-      deprecated: true
       summary: 'Create event with (SECURED)'
       description: 'Special privilege required'
       tags:
@@ -20,6 +19,18 @@ paths:
                   $ref: '#/components/props/mapProperties'
                 eventRefreshTime:
                   $ref: '#/components/props/eventRefreshTime'
+                userId:
+                  $ref: '#/components/props/userId'
+                nickname:
+                  $ref: '#/components/props/nickname'
+              required:
+                - userId
+                - eventName
+                - eventDuration
+                - mapProperties
+                - eventRefreshTime
+                - userId
+                - nickname
       responses:
         200:
           description: 'Event data'
@@ -227,11 +238,16 @@ paths:
                   $ref: '#/components/props/id'
                 eventKey:
                   $ref: '#/components/props/eventKey'
+                nickname:
+                  $ref: '#/components/props/nickname'
                 teamName:
                   $ref: '#/components/props/teamName'
+                teamColor:
+                  $ref: '#/components/props/teamColor'
               required:
                 - userId
                 - eventKey
+                - nickname
       responses:
         200:
           description: 'Successfully join to event'

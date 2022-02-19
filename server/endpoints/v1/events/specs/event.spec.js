@@ -37,6 +37,16 @@ describe('/api/v1/events/300000000000000000000001', () => {
           keyId: '500000000000000000000003',
           role: 'teamLeader',
           teamId: null,
+        }, {
+          key: 'K3y4',
+          keyId: '500000000000000000000004',
+          role: 'teamMember',
+          teamId: '400000000000000000000001',
+        }, {
+          key: 'K3y5',
+          keyId: '500000000000000000000005',
+          role: 'teamMember',
+          teamId: '400000000000000000000002',
         }],
       },
     },

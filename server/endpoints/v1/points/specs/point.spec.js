@@ -1,12 +1,12 @@
 const testEndpoint = require('../../../../tests/utils/test-endpoint');
 const { ObjectId } = require('mongodb');
 
-describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671b', () => {
-  testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671b', {
-    description: 'Update data for point 60e6d13faa95cc33d7c4671b',
+describe('/api/v1/events/300000000000000000000002/points/600000000000000000000008', () => {
+  testEndpoint('/api/v1/events/300000000000000000000002/points/600000000000000000000008', {
+    description: 'Update data for point 600000000000000000000008',
     method: 'PUT',
     signIn: {
-      email: 'example@domain.com',
+      email: 'user4@harcmap.pl',
       password: 'Password1',
     },
     body: {
@@ -19,11 +19,11 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671
     },
     expectInDb: {
       collectionName: 'points',
-      query: { _id: ObjectId('60e6d13faa95cc33d7c4671b') },
+      query: { _id: ObjectId('600000000000000000000008') },
       document: {
-        _id: ObjectId('60e6d13faa95cc33d7c4671b'),
-        eventId: ObjectId('60e6cc2eaa95cc33d7c46701'),
-        pointCategoryId: ObjectId('60e7046eaa95cc33d7c4672b'),
+        _id: ObjectId('600000000000000000000008'),
+        eventId: ObjectId('300000000000000000000002'),
+        pointCategoryId: ObjectId('700000000000000000000004'),
         pointCollectedDate: null,
         pointKey: expect.any(String),
         pointDuration: {
@@ -32,8 +32,8 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671
         },
         pointName: 'New point name',
         pointPosition: {
-          latitude: 1,
-          longitude: 1,
+          latitude: 54.46,
+          longitude: 18.54,
         },
         pointType: 'permanent',
       },
@@ -41,11 +41,11 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671
     resetDbToDefault: true,
   });
 
-  testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671b', {
+  testEndpoint('/api/v1/events/300000000000000000000002/points/600000000000000000000008', {
     description: 'Shouldn\'t update data for point if user have no permissions',
     method: 'PUT',
     signIn: {
-      email: 'quest@google.com',
+      email: 'user7@harcmap.pl',
       password: 'Password1',
     },
     expectedStatus: 401,
@@ -60,21 +60,21 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671
     },
     expectInDb: {
       collectionName: 'points',
-      query: { _id: ObjectId('60e6d13faa95cc33d7c4671b') },
+      query: { _id: ObjectId('600000000000000000000008') },
       document: {
-        _id: ObjectId('60e6d13faa95cc33d7c4671b'),
-        eventId: ObjectId('60e6cc2eaa95cc33d7c46701'),
-        pointCategoryId: ObjectId('60e7046eaa95cc33d7c4672b'),
+        _id: ObjectId('600000000000000000000008'),
+        eventId: ObjectId('300000000000000000000002'),
+        pointCategoryId: ObjectId('700000000000000000000004'),
         pointCollectedDate: null,
         pointKey: expect.any(String),
         pointDuration: {
           endDate: null,
           startDate: null,
         },
-        pointName: 'Point name',
+        pointName: null,
         pointPosition: {
-          latitude: 1,
-          longitude: 1,
+          latitude: 54.46,
+          longitude: 18.54,
         },
         pointType: 'permanent',
       },
@@ -82,17 +82,17 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671
     resetDbToDefault: true,
   });
 
-  testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671b', {
-    description: 'Shouldn\'t update data for point if user have dont participle in point event',
+  testEndpoint('/api/v1/events/300000000000000000000002/points/600000000000000000000008', {
+    description: 'Shouldn\'t update data for point if user dont participle in point event',
     method: 'PUT',
     signIn: {
-      email: 'admin@harcmap.com',
+      email: 'user1@harcmap.com',
       password: 'Password1',
     },
     expectedStatus: 401,
     body: {
       send: {
-        pointType: 'permanent',
+        pointType: 'timeout',
       },
       expect: {
         error: 1104,
@@ -101,21 +101,21 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671
     },
     expectInDb: {
       collectionName: 'points',
-      query: { _id: ObjectId('60e6d13faa95cc33d7c4671b') },
+      query: { _id: ObjectId('600000000000000000000008') },
       document: {
-        _id: ObjectId('60e6d13faa95cc33d7c4671b'),
-        eventId: ObjectId('60e6cc2eaa95cc33d7c46701'),
-        pointCategoryId: ObjectId('60e7046eaa95cc33d7c4672b'),
+        _id: ObjectId('600000000000000000000008'),
+        eventId: ObjectId('300000000000000000000002'),
+        pointCategoryId: ObjectId('700000000000000000000004'),
         pointCollectedDate: null,
         pointKey: expect.any(String),
         pointDuration: {
           endDate: null,
           startDate: null,
         },
-        pointName: 'Point name',
+        pointName: null,
         pointPosition: {
-          latitude: 1,
-          longitude: 1,
+          latitude: 54.46,
+          longitude: 18.54,
         },
         pointType: 'permanent',
       },
@@ -123,11 +123,11 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671
     resetDbToDefault: true,
   });
 
-  testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671b', {
+  testEndpoint('/api/v1/events/300000000000000000000001/points/600000000000000000000001', {
     description: 'Should return error for incorrect input data',
     method: 'PUT',
     signIn: {
-      email: 'example@domain.com',
+      email: 'user1@harcmap.pl',
       password: 'Password1',
     },
     expectedStatus: 400,
@@ -143,11 +143,11 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671
     },
   });
 
-  testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671b', {
-    description: 'Update data for point 60e6d13faa95cc33d7c4671b',
+  testEndpoint('/api/v1/events/300000000000000000000001/points/600000000000000000000005', {
+    description: 'DELETE point 600000000000000000000005',
     method: 'DELETE',
     signIn: {
-      email: 'example@domain.com',
+      email: 'user1@harcmap.pl',
       password: 'Password1',
     },
     body: {
@@ -157,17 +157,17 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671
     },
     expectInDb: {
       collectionName: 'points',
-      query: { _id: ObjectId('60e6d13faa95cc33d7c4671b') },
+      query: { _id: ObjectId('600000000000000000000005') },
       document: null,
     },
     resetDbToDefault: true,
   });
 
-  testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671b', {
+  testEndpoint('/api/v1/events/300000000000000000000001/points/600000000000000000000005', {
     description: 'Shouldn\'t delete point if user have no permissions',
     method: 'DELETE',
     signIn: {
-      email: 'quest@google.com',
+      email: 'user3@harcmap.pl',
       password: 'Password1',
     },
     expectedStatus: 401,
@@ -179,29 +179,29 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671
     },
     expectInDb: {
       collectionName: 'points',
-      query: { _id: ObjectId('60e6d13faa95cc33d7c4671b') },
+      query: { _id: ObjectId('600000000000000000000005') },
       document: {
-        _id: ObjectId('60e6d13faa95cc33d7c4671b'),
-        eventId: ObjectId('60e6cc2eaa95cc33d7c46701'),
-        pointCategoryId: ObjectId('60e7046eaa95cc33d7c4672b'),
+        _id: ObjectId('600000000000000000000005'),
+        eventId: ObjectId('300000000000000000000001'),
+        pointCategoryId: ObjectId('700000000000000000000002'),
         pointCollectedDate: null,
         pointKey: expect.any(String),
         pointDuration: {
-          endDate: null,
-          startDate: null,
+          endDate: 1641571962000,
+          startDate: 1610035962000,
         },
-        pointName: 'Point name',
+        pointName: 'Punkt 5',
         pointPosition: {
-          latitude: 1,
-          longitude: 1,
+          latitude: 54.473,
+          longitude: 18.548,
         },
-        pointType: 'permanent',
+        pointType: 'timeout',
       },
     },
     resetDbToDefault: true,
   });
 
-  testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671b', {
+  testEndpoint('/api/v1/events/300000000000000000000001/points/600000000000000000000005', {
     description: 'Shouldn\'t delete point for unauthorized user',
     method: 'DELETE',
     expectedStatus: 401,
@@ -213,29 +213,29 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671
     },
     expectInDb: {
       collectionName: 'points',
-      query: { _id: ObjectId('60e6d13faa95cc33d7c4671b') },
+      query: { _id: ObjectId('600000000000000000000005') },
       document: {
-        _id: ObjectId('60e6d13faa95cc33d7c4671b'),
-        eventId: ObjectId('60e6cc2eaa95cc33d7c46701'),
-        pointCategoryId: ObjectId('60e7046eaa95cc33d7c4672b'),
+        _id: ObjectId('600000000000000000000005'),
+        eventId: ObjectId('300000000000000000000001'),
+        pointCategoryId: ObjectId('700000000000000000000002'),
         pointCollectedDate: null,
         pointKey: expect.any(String),
         pointDuration: {
-          endDate: null,
-          startDate: null,
+          endDate: 1641571962000,
+          startDate: 1610035962000,
         },
-        pointName: 'Point name',
+        pointName: 'Punkt 5',
         pointPosition: {
-          latitude: 1,
-          longitude: 1,
+          latitude: 54.473,
+          longitude: 18.548,
         },
-        pointType: 'permanent',
+        pointType: 'timeout',
       },
     },
     resetDbToDefault: true,
   });
 
-  testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/points/60e6d13faa95cc33d7c4671b', {
+  testEndpoint('/api/v1/events/300000000000000000000001/points/600000000000000000000005', {
     description: 'Should return 500 status for others http methods',
     method: ['GET', 'OPTIONS', 'PATCH'],
     expectedStatus: 500,
