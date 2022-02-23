@@ -6,12 +6,15 @@ const Teams = require('../../../../models/teams');
 const getUserAggregation = require('../../../../aggregations/get-user');
 const { AppError, errorCodes } = require('../../../../libs/errors');
 const getKeyAggregation = require('../../../../aggregations/get-key');
-const { checkIfGivenUserIdOwnToAuthorizedUser, checkIfKeyAndUserExist, checkIfUserAlreadyParticipleInEvent } = require('../../../../libs/utils');
+const {
+  checkIfGivenUserIdOwnToAuthorizedUser, checkIfKeyAndUserExist, checkIfUserAlreadyParticipleInEvent,
+  generateUniqueKey,
+} = require('../../../../libs/utils');
 
 // TODO secure from ddos, add captcha
 // TODO upgrade permission after give new code
 async function joinEvent (request, body) {
-  const { userId, eventKey, nickname, newTeamName, newTeamColor } = body;
+  const { userId, eventKey, nickname, teamName: newTeamName, teamColor: newTeamColor } = body;
 
   const key = await Keys.get({ key: eventKey }, {
     aggregationPipeline: getKeyAggregation,
@@ -38,12 +41,14 @@ async function joinEvent (request, body) {
     if (!newTeamName) {
       throw new AppError(errorCodes.REQUIRE_TEAMNAME, {
         httpStatus: 400,
+        message: 'require teamName',
       });
     }
 
     if (!newTeamColor) {
       throw new AppError(errorCodes.REQUIRE_TEAMCOLOR, {
         httpStatus: 400,
+        message: 'require teamColor',
       });
     }
 
@@ -62,6 +67,20 @@ async function joinEvent (request, body) {
     }
 
     newTeamId = team.data[0]._id;
+
+    const teamMemberKey = await Keys.create({
+      eventId,
+      teamId: newTeamId,
+      key: await generateUniqueKey(Keys, 'key'),
+      role: 'teamMember',
+    });
+
+    if (!teamMemberKey.success) {
+      throw new AppError(errorCodes.CANNOT_CREATE_TEAMMEMBER_KEY, {
+        httpStatus: 500,
+        details: teamMemberKey.errorDetails,
+      });
+    }
   }
 
   // create new userEvent document
@@ -98,9 +117,9 @@ async function joinEvent (request, body) {
     eventId: eventId.toString(),
     eventName,
     eventDuration,
-    teamId: teamId ? teamId.toString() : null,
-    teamName: teamName || null,
-    teamColor: teamColor || null,
+    teamId: newTeamId ? newTeamId.toString() : null,
+    teamName: teamName || newTeamName || null,
+    teamColor: teamColor || newTeamColor || null,
   };
 }
 

@@ -122,6 +122,7 @@ async function createEvent (request, body) {
   });
 
   return {
+    eventId: event.data[0]._id.toString(),
     eventName,
     eventDuration,
     mapProperties,

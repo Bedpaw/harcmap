@@ -43,6 +43,7 @@ const errors = {
   CANNOT_CREATE_ADMIN_KEY: 1407,
   CANNOT_CREATE_OBSERVER_KEY: 1407,
   CANNOT_CREATE_TEAMLEADER_KEY: 1408,
+  CANNOT_CREATE_TEAMMEMBER_KEY: 1409,
   // 15xx - 3rd part services
   MAIL_SERVICE_ERROR: 1500,
   // 16xx - Account activation / Password reset

@@ -41,6 +41,7 @@ class AppError extends Error {
       message,
       // more details
       details,
+      // customized code text message
     } = options;
 
     // default: undefined

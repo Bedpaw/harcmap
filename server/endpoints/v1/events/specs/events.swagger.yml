@@ -29,7 +29,6 @@ paths:
                 - eventDuration
                 - mapProperties
                 - eventRefreshTime
-                - userId
                 - nickname
       responses:
         200:
@@ -39,6 +38,8 @@ paths:
               schema:
                 type: object
                 properties:
+                  eventId:
+                    $ref: '#/components/props/id'
                   eventName:
                     $ref: '#/components/props/eventName'
                   eventDuration:
@@ -47,6 +48,8 @@ paths:
                     $ref: '#/components/props/mapProperties'
                   eventRefreshTime:
                     $ref: '#/components/props/eventRefreshTime'
+                  inviteKeys:
+                    $ref: '#/components/props/inviteKeys'
         400:
           description: 'Validation error'
           content:
