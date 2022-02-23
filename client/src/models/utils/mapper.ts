@@ -54,12 +54,11 @@ export class Mapper {
 
   public static mapEventOut (eventOut: Event): EventDTOCreate | EventDTOUpdate {
     return {
+      eventName: eventOut.eventName,
       eventDuration: {
         endDate: eventOut.eventEndDate,
         startDate: eventOut.eventStartDate,
       },
-      eventKey: eventOut.eventKey,
-      eventName: eventOut.eventName,
       eventRefreshTime: eventOut.mapRefreshTime,
       mapProperties: {
         longitude: eventOut.mapLongitude,
@@ -75,7 +74,7 @@ export class Mapper {
       ...user,
       userEvents: user.userEvents.map(event => ({
         ...event,
-        nickname: event.nickname ?? 'Nickname mock', // TODO Remove after backend
+        nickname: event.nickname,
         eventEndDate: event.eventDuration.endDate,
         eventStartDate: event.eventDuration.startDate,
       })),
@@ -87,7 +86,7 @@ export class Mapper {
     const { userId, isActive, email } = user;
     const {
       eventId, eventName, teamName, teamId, isBanned, role,
-      nickname = 'Nickname mock', // TODO Remove after backend
+      nickname,
       eventDuration: {
         endDate: eventEndDate,
         startDate: eventStartDate,

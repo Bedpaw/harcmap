@@ -16,12 +16,14 @@ export const user:Module<User, object> = {
   getters: {
     email: state => state.email,
     isLogin: state => state.email !== '',
+    userId: state => state.userId,
     userEvents: state => state.userEvents,
   },
   mutations: {
-    setUser: (state, { email, userEvents }) => {
+    setUser: (state, { email, userEvents, userId }) => {
       state.email = email;
       state.userEvents = userEvents;
+      state.userId = userId;
     },
     signOut: state => {
       state.email = '';
