@@ -15,6 +15,17 @@ const allCategories = {
   }),
 };
 
+const oneCategory = {
+  PUT: Joi.object({
+    categoryName: categoryName.required(),
+    pointValue: pointValue.required(),
+    pointStrokeColor: color.required(),
+    pointFillColor: color.required(),
+  }),
+  DELETE: Joi.object({}),
+};
+
 module.exports = {
   allCategories,
+  oneCategory,
 };

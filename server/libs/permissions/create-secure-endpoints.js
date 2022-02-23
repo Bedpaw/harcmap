@@ -48,8 +48,10 @@ function createSecuredEndpoints (app, config) {
       let userTeamId;
 
       if (isAuth && eventId) {
+        const userTeamIdObject = getUserTeamIdFromSession(eventId, user);
+
         userRole = getUserRoleFromSession(eventId, user);
-        userTeamId = getUserTeamIdFromSession(eventId, user);
+        userTeamId = userTeamIdObject ? userTeamIdObject.toString() : null;
       }
 
       const isAdminRole = ['creator', 'admin', 'observer'].includes(userRole);
