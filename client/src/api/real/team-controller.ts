@@ -19,13 +19,6 @@ export const teamController = {
     return httpService.get<TeamDTO, Team>({
       url: urls.getTeamByEventId(eventId, teamId),
       errorOptions: API_ERRORS.getPointsByEventId,
-      successCallback: (team) => {
-        const teamMembers = team.teamMembers.map((tm, i) => ({
-          ...tm,
-          nickname: 'Mock nickname ' + i,
-        }));
-        return { ...team, teamMembers }; // TODO remove after backend add nickname
-      },
     });
   },
 };

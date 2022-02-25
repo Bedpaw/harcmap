@@ -17,6 +17,7 @@ export const pointController = {
     return httpService.get<PointDTO[], PointType[]>({
       url: urls.getPointsByEventId(eventId),
       errorOptions: API_ERRORS.getPointsByEventId,
+      successCallback: (points) => points.map(Mapper.mapPointIn),
     });
   },
   collectPoint (eventId: string, pointKey: string) {
