@@ -3,8 +3,8 @@ const { allCategories, oneCategory } = require('./request-schema');
 const { addEndpointValidation } = require('../../../libs/validation');
 const getCategories = require('./methods/get-categories');
 const addCategory = require('./methods/add-category');
-// const editCategory = require('./methods/edit-category');
-// const deleteCategory = require('./methods/delete-category');
+const editCategory = require('./methods/edit-category');
+const deleteCategory = require('./methods/delete-category');
 
 const router = Router();
 
@@ -27,14 +27,14 @@ router.route('/:eventId/categories')
 
 router.route('/:eventId/categories/:categoryId')
   .put(async (request, response) => {
-    const { categoryId } = request.params;
-    const result = await editCategory(categoryId, request.body);
+    const { eventId, categoryId } = request.params;
+    const result = await editCategory(eventId, categoryId, request.body);
 
     response.send(result);
   })
   .delete(async (request, response) => {
-    const { categoryId } = request.params;
-    const result = await deleteCategory(categoryId);
+    const { eventId, categoryId } = request.params;
+    const result = await deleteCategory(eventId, categoryId);
 
     response.send(result);
   });

@@ -117,3 +117,112 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/500'
+  /api/v1/events/{eventId}/categories/{categoryId}:
+    put:
+      summary: 'Edit category (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Categories
+      parameters:
+        - in: "path"
+          name: eventId
+          description: "Event id for looking categories"
+          example: '300000000000000000000002'
+          default: undefined
+          required: true
+        - in: "path"
+          name: categoryId
+          description: "Id of edited category"
+          example: '700000000000000000000003'
+          default: undefined
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                categoryName:
+                  $ref: '#/components/props/categoryName'
+                pointValue:
+                  $ref: '#/components/props/pointValue'
+                pointStrokeColor:
+                  $ref: '#/components/props/pointStrokeColor'
+                pointFillColor:
+                  $ref: '#/components/props/pointFillColor'
+      responses:
+        200:
+          description: 'Return result of operation'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    success:
+                      $ref: '#/components/props/success'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
+    delete:
+      summary: 'Add points category (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Categories
+      parameters:
+        - in: "path"
+          name: eventId
+          description: "Event id for looking categories"
+          example: '300000000000000000000002'
+          default: undefined
+          required: true
+        - in: "path"
+          name: categoryId
+          description: "Id of edited category"
+          example: '700000000000000000000003'
+          default: undefined
+          required: true
+      responses:
+        200:
+          description: 'Successfully add category'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    $ref: '#/components/props/success'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'

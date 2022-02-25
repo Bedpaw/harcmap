@@ -17,10 +17,10 @@ const allCategories = {
 
 const oneCategory = {
   PUT: Joi.object({
-    categoryName: categoryName.required(),
-    pointValue: pointValue.required(),
-    pointStrokeColor: color.required(),
-    pointFillColor: color.required(),
+    categoryName: categoryName,
+    pointValue: pointValue,
+    pointStrokeColor: color,
+    pointFillColor: color,
   }),
   DELETE: Joi.object({}),
 };

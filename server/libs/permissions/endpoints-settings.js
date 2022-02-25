@@ -56,7 +56,11 @@ const endpointsAccessConfig = {
     GET: allUsers,
     POST: admins,
   },
-  // teams
+  '/api/v1/events/:eventId/categories/:categoryId': {
+    PUT: admins,
+    DELETE: admins,
+  },
+  // teamss
   '/api/v1/events/:eventId/teams': admins,
   '/api/v1/events/:eventId/teams/:teamId': allUsers,
   // points
