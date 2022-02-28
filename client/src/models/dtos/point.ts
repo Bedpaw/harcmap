@@ -29,6 +29,7 @@ export interface PointCategoryDTOCreate {
   pointStrokeColor: string;
   pointFillColor: string;
 }
+export type PointCategoryDTOUpdate = PointCategoryDTOCreate;
 
 export interface PointCategoryDTO extends PointCategoryDTOCreate{
   categoryId: string;
