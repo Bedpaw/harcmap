@@ -28,9 +28,7 @@ async function refreshKey (eventId, keyId) {
   });
 
   if (!updatedKey.success) {
-    throw new AppError(errorCodes.CANNOT_REFRESH_KEY, {
-      httpStatus: 400,
-    });
+    throw new AppError(errorCodes.CANNOT_REFRESH_KEY);
   }
 
   const {

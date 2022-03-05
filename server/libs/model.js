@@ -52,7 +52,6 @@ class Model {
     // validation failed
     if (validationResults.nok) {
       throw new AppError(errorCodes.MODEL_VALIDATION_NOT_PASS, {
-        httpStatus: 500,
         details: validationResults.results,
       });
     } else {

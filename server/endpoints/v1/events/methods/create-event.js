@@ -50,7 +50,6 @@ async function createEvent (request, body) {
 
   if (!newUserEvent.success) {
     throw new AppError(errorCodes.CANNOT_CREATE_USEREVENTS_DOCUMENT, {
-      httpStatus: 500,
       details: newUserEvent.errorDetails,
     });
   }
@@ -62,7 +61,6 @@ async function createEvent (request, body) {
 
   if (!updatedUser.success) {
     throw new AppError(errorCodes.CANNOT_UPDATE_USER_EVENTS, {
-      httpStatus: 500,
       details: newUserEvent.errorDetails,
     });
   }

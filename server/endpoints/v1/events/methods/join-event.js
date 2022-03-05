@@ -61,7 +61,6 @@ async function joinEvent (request, body) {
 
     if (!team.success) {
       throw new AppError(errorCodes.CANNOT_CREATE_TEAM, {
-        httpStatus: 500,
         details: team.errorDetails,
       });
     }
@@ -77,7 +76,6 @@ async function joinEvent (request, body) {
 
     if (!teamMemberKey.success) {
       throw new AppError(errorCodes.CANNOT_CREATE_TEAMMEMBER_KEY, {
-        httpStatus: 500,
         details: teamMemberKey.errorDetails,
       });
     }
@@ -94,7 +92,6 @@ async function joinEvent (request, body) {
 
   if (!newUserEvent.success) {
     throw new AppError(errorCodes.CANNOT_CREATE_USEREVENTS_DOCUMENT, {
-      httpStatus: 500,
       details: newUserEvent.errorDetails,
     });
   }
@@ -106,7 +103,6 @@ async function joinEvent (request, body) {
 
   if (!updatedUser.success) {
     throw new AppError(errorCodes.CANNOT_UPDATE_USER_EVENTS, {
-      httpStatus: 500,
       details: updatedUser.errorDetails,
     });
   }

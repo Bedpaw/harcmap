@@ -44,13 +44,11 @@ async function collectPoint (request, eventId, pointKey) {
           };
         } else {
           throw new AppError(errorCodes.CANNOT_UPDATE_TEAM_COLLECTED_POINTS, {
-            httpStatus: 500,
             details: updatedTeam.errorDetails,
           });
         }
       } else {
         throw new AppError(errorCodes.CANNOT_UPDATE_COLLECTED_POINT, {
-          httpStatus: 500,
           details: updatedPoint.errorDetails,
         });
       }

@@ -24,7 +24,9 @@ function setStrategy (passport) {
         if (userData) {
           if (userData.accountActivation.isActive === false) {
             // user account is not active
-            throw new AppError(errorCodes.ACCOUNT_IS_NOT_ACTIVE);
+            throw new AppError(errorCodes.ACCOUNT_IS_NOT_ACTIVE, {
+              httpStatus: 400,
+            });
           } else if (userData.password === getSHA(password)) {
             done(null, userData);
           } else {
