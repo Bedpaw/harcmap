@@ -16,6 +16,7 @@ class Model {
     this.validationSchema = Joi.object(validationSchema);
     this.validationSchemaRequired = {};
     this.uniqueFiled = options.uniqueFiled;
+    this.uniqueFieldError = options.uniqueFieldError;
 
     // add ".required()" to schema for CREATE method - all fields are required
     Object.entries(validationSchema).forEach(([fieldName, fieldValue]) => {
@@ -82,7 +83,8 @@ class Model {
         result.success = true;
         result.data = insertResult.ops;
       } else if (foundDuplicates) {
-        throw new AppError(errorCodes.MODEL_FOUND_DOCUMENT_WITH_UNIQUE_FIELD, {
+        const errorCode = this.uniqueFieldError || errorCodes.MODEL_FOUND_DOCUMENT_WITH_UNIQUE_FIELD;
+        throw new AppError(errorCode, {
           httpStatus: 400,
         });
       } else {
