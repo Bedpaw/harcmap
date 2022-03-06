@@ -83,10 +83,15 @@ class Model {
         result.success = true;
         result.data = insertResult.ops;
       } else if (foundDuplicates) {
-        const errorCode = this.uniqueFieldError || errorCodes.MODEL_FOUND_DOCUMENT_WITH_UNIQUE_FIELD;
-        throw new AppError(errorCode, {
-          httpStatus: 400,
-        });
+        if (this.uniqueFieldError) {
+          throw new AppError(this.uniqueFieldError, {
+            httpStatus: 400,
+          });
+        } else {
+          throw new AppError(errorCodes.MODEL_FOUND_DOCUMENT_WITH_UNIQUE_FIELD, {
+            httpStatus: 500,
+          });
+        }
       } else {
         throw new AppError(errorCodes.MODEL_INSERT_INCORRECT_LENGTH, {
           details: insertResult,
