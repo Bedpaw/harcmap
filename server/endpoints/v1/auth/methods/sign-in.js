@@ -18,6 +18,19 @@ function unifyUserEventsField (userEvents) {
   return noUserEvents ? [] : userEvents;
 }
 
+/**
+ * @description Generate one format of response
+ * @param userData {object} - user data from session/database
+ * @return {{userId, email, userEvents}}
+ */
+function generateUserResponse (userData) {
+  return {
+    userId: userData._id,
+    email: userData.email,
+    userEvents: unifyUserEventsField(userData.userEvents),
+  };
+}
+
 // Login
 async function signIn (request, response, next) {
   const userIsAuthenticated = request.isAuthenticated();
@@ -30,15 +43,24 @@ async function signIn (request, response, next) {
   if (!userIsAuthenticated || bodyLength) {
     // run authenticate logic
     passport.authenticate('local', (authenticateAppError, userData) => {
-      // authenticate errors
-      if (authenticateAppError || !userData) {
-        const errorCode = authenticateAppError
-          ? authenticateAppError.code
-          : errorCodes.NOT_LOGGED;
-
-        return handleErrors(new AppError(errorCode, {
+      // received empty body fo unauthenticated user
+      if (!authenticateAppError && !userData) {
+        return handleErrors(new AppError(errorCodes.NOT_LOGGED, {
           httpStatus: 401,
         }), request, response, next);
+      }
+      // authenticate errors
+      if (authenticateAppError || !userData) {
+        const errorCode = authenticateAppError ? authenticateAppError.code : null;
+
+        if (errorCode) {
+          return handleErrors(new AppError(errorCode, {
+            httpStatus: 401,
+          }), request, response, next);
+        } else {
+          // unhandled error
+          return handleErrors(authenticateAppError, request, response, next);
+        }
       }
 
       // run serialize user to session(request.user) logic
@@ -50,12 +72,7 @@ async function signIn (request, response, next) {
           }), request, response, next);
         }
 
-        const responseData = {
-          email: userData.email,
-          userEvents: unifyUserEventsField(userData.userEvents),
-        };
-
-        response.send(responseData);
+        response.send(generateUserResponse(userData));
       });
     })(request, response, next);
   } else {
@@ -64,12 +81,7 @@ async function signIn (request, response, next) {
       aggregationPipeline: getUserAggregation,
     });
 
-    const responseData = {
-      email: userData.email,
-      userEvents: unifyUserEventsField(userData.userEvents),
-    };
-
-    response.send(responseData);
+    response.send(generateUserResponse(userData));
   }
 }
 

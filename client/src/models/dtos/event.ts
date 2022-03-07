@@ -12,7 +12,6 @@ interface MapProperties {
 
 export interface EventDTOCreate {
   eventName: string;
-  eventKey: string;
   eventDuration: EventDuration;
   mapProperties: MapProperties;
   inviteKeys: InvitationKeys;
@@ -21,6 +20,14 @@ export interface EventDTOCreate {
 
 export interface EventDTO extends EventDTOCreate {
   eventId: string;
+  eventKey: string;
 }
 
+export interface JoinEventParams {
+  userId: string,
+  eventKey: string,
+  nickname: string
+  teamName?: string,
+  teamColor?: string,
+}
 export type EventDTOUpdate = EventDTOCreate;

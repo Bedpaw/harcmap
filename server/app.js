@@ -32,6 +32,7 @@ const teams = require('./endpoints/v1/teams');
 const auth = require('./endpoints/v1/auth');
 const points = require('./endpoints/v1/points');
 const categories = require('./endpoints/v1/categories');
+const keys = require('./endpoints/v1/keys');
 
 // App instance
 const app = express();
@@ -88,6 +89,7 @@ apiv1.use('/users', users);
 apiv1.use('/events', teams);
 apiv1.use('/events', categories);
 apiv1.use('/events', points);
+apiv1.use('/events', keys);
 apiv1.use('/events', events);
 apiv1.use('/auth', auth);
 apiv1.use('/about', about);

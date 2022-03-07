@@ -69,7 +69,7 @@ ${createCollection('events', events, ['_id'])}
 ${createCollection('teams', teams, ['_id', 'eventId'])}
 ${createCollection('keys', keys, ['_id', 'eventId', 'teamId'])}
 ${createCollection('categories', categories, ['_id', 'eventId'])}
-${createCollection('points', points, ['_id', 'eventId'])}
+${createCollection('points', points, ['_id', 'eventId', 'pointCategoryId'])}
 `;
 
 fs.writeFileSync(resolve(__dirname, '__mongo-dump.js'), data, 'utf8');

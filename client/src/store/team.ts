@@ -14,6 +14,7 @@ export const team:Module<TeamDTO, object> = {
     collectedPointsIds: state => state.collectedPoints,
     teamId: state => state.teamId,
     teamMembers: state => state.teamMembers,
+    teamName: state => state.teamName,
     collectedPoints (state, getters, rootState, rootGetters): PointType[] {
       const collectedPoints = [];
       for (const pointId of getters.collectedPointsIds) {
@@ -35,6 +36,9 @@ export const team:Module<TeamDTO, object> = {
       state.teamName = teamName;
       state.collectedPoints = collectedPoints;
       state.teamMembers = teamMembers;
+    },
+    addCollectedPoint: (state, pointId) => {
+      state.collectedPoints.push(pointId);
     },
   },
 };

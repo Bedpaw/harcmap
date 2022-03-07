@@ -16,26 +16,8 @@ export const pointController = {
   getPointsByEventId (eventId: string): Promise<PointType[]> {
     return httpService.get<PointDTO[], PointType[]>({
       url: urls.getPointsByEventId(eventId),
-      successCallback: data => data.map(point => {
-        // TODO Every point cors (10,10) -> remove after mock change
-        const x = Mapper.mapPointIn(point);
-        const randomSign1 = Math.random() > 0.5;
-        const randomSign2 = Math.random() > 0.5;
-        let random1 = Math.random() * 100;
-        let random2 = Math.random() * 100;
-        if (randomSign1) {
-          random1 *= -1;
-        }
-        if (randomSign2) {
-          random2 *= -1;
-        }
-        if (x.pointLongitude && x.pointLatitude) {
-          x.pointLatitude += random1;
-          x.pointLongitude += random2;
-        }
-        return x;
-      }),
       errorOptions: API_ERRORS.getPointsByEventId,
+      successCallback: (points) => points.map(Mapper.mapPointIn),
     });
   },
   collectPoint (eventId: string, pointKey: string) {

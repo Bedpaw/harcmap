@@ -14,19 +14,23 @@ export default {
   components: {
     TPointCategoryForm,
   },
+  data: () => ({
+    pointCategoryId: null,
+  }),
   computed: {
     ...mapGetters('event', [
       'eventId',
     ]),
     defaultValues () {
-      const pointCategoryId = this.$route.params.pointCategoryId;
-      return Object.assign({}, this.$store.getters['event/getCategoryById'](pointCategoryId));
+      return Object.assign({}, this.$store.getters['event/getCategoryById'](this.pointCategoryId));
     },
   },
+  mounted () {
+    this.pointCategoryId = this.$route.params.pointCategoryId;
+  },
   methods: {
-    editPointCategory (pointCategoryId) {
-      console.log(pointCategoryId);
-      // TODO api
+    editPointCategory (pointCategory) {
+      return this.$store.dispatch('event/editPointCategory', { pointCategory, pointCategoryId: this.pointCategoryId });
     },
   },
 };

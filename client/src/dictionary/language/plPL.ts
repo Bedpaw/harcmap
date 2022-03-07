@@ -107,6 +107,8 @@ export const plPL = {
       strokeColor: 'Kolor konturu',
       pointValue: 'Wartość punktu',
       categoryName: 'Nazwa kategorii',
+      nickname: 'Nazwa użytkownika',
+      teamName: 'Nazwa drużyny',
     },
     assist: {
       pointId: 'Kod punktu jest generowany automatycznie',
@@ -230,6 +232,8 @@ export const plPL = {
       confirmData: 'Potwierdź dane wydarzenia',
       eventStartDate: 'Data rozpoczęcia',
       eventEndDate: 'Data zakończenia',
+      nickname: 'Nazwa użytkownika',
+      teamName: 'Nazwa drużyny',
     },
     admin: {
       setMapPosition: {

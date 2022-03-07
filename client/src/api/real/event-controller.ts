@@ -1,12 +1,12 @@
 import { API_ERRORS } from 'src/utils/macros/errors';
 import { httpService } from 'config/http-service';
 import { Mapper } from 'models/utils/mapper';
-import { EventDTO } from 'models/dtos/event';
+import { EventDTO, JoinEventParams } from 'models/dtos/event';
 import { Event } from 'models/event';
 
 const urls = {
   getEvent: (eventId: string) => `/events/${eventId}`,
-  addEvent: (eventId: string) => `/events/${eventId}`,
+  addEvent: '/events',
   updateEvent: (eventId: string) => `/events/${eventId}`,
   checkEvent: '/events/check',
   joinEvent: '/events/join',
@@ -27,30 +27,36 @@ export const eventController = {
       errorOptions: API_ERRORS.updateEvent,
     });
   },
-  checkEvent (eventKey: string) {
+  checkEvent (eventKey: string, userId: string) {
     return httpService.post({
       url: urls.checkEvent,
       body: {
         eventKey,
+        userId,
       },
       errorOptions: API_ERRORS.updateEvent,
     });
   },
-  joinEvent (userId: string, eventId: string, teamName: string) {
+  joinEvent (params: JoinEventParams) {
+    let body;
+    const { userId, eventKey, nickname, teamColor, teamName } = params;
+    if (teamName || teamColor) {
+      // TODO v2.1
+      body = { ...params, teamColor: '#555555' };
+    } else {
+      body = { userId, eventKey, nickname };
+    }
     return httpService.post({
       url: urls.joinEvent,
-      body: {
-        userId,
-        eventId,
-        teamName,
-      },
+      body,
       errorOptions: API_ERRORS.updateEvent,
     });
   },
-  addEvent (event: Event) {
-    return httpService.post({
-      url: urls.addEvent(event.eventId),
-      body: Mapper.mapEventOut(event),
+  addEvent (event: Event, userId: string) {
+    return httpService.post<EventDTO, Event>({
+      url: urls.addEvent,
+      // TODO Add admin nickname to event form
+      body: { ...Mapper.mapEventOut(event), nickname: 'Creator nickname', userId },
       errorOptions: API_ERRORS.addEvent,
     });
   },

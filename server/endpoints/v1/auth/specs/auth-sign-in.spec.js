@@ -7,26 +7,23 @@ describe(endpoint, () => {
     method: 'POST',
     body: {
       send: {
+        email: 'user1@harcmap.pl',
         password: 'Password1',
-        email: 'example@domain.com',
       },
       expect: {
-        email: 'example@domain.com',
+        userId: '100000000000000000000001',
+        email: 'user1@harcmap.pl',
         userEvents: [
           {
-            eventId: '60e6cc2eaa95cc33d7c46701',
-            eventName: 'event1',
-            teamId: '60e6ca2aaa95cc33d7c466f8',
-            teamName: 'team1',
+            eventId: '300000000000000000000001',
+            eventName: 'Wydarzenie 1',
+            eventDuration: {
+              endDate: 2537560799000,
+              startDate: 1577870639000,
+            },
+            teamId: null,
+            teamName: null,
             role: 'creator',
-            isBanned: false,
-          },
-          {
-            eventId: '605920002c60e426288b8971',
-            eventName: 'event2',
-            teamId: '60e6b02e0b6c6887accf6c03',
-            teamName: 'team2',
-            role: 'teamLeader',
             isBanned: false,
           },
         ],
@@ -37,29 +34,37 @@ describe(endpoint, () => {
   testEndpoint(endpoint, {
     description: 'User is already logged - return his data',
     signIn: {
+      email: 'user4@harcmap.pl',
       password: 'Password1',
-      email: 'example@domain.com',
     },
     method: 'POST',
     body: {
       send: {},
       expect: {
-        email: 'example@domain.com',
+        userId: '100000000000000000000004',
+        email: 'user4@harcmap.pl',
         userEvents: [
           {
-            eventId: '60e6cc2eaa95cc33d7c46701',
-            eventName: 'event1',
-            teamId: '60e6ca2aaa95cc33d7c466f8',
-            teamName: 'team1',
-            role: 'creator',
+            eventId: '300000000000000000000001',
+            eventName: 'Wydarzenie 1',
+            eventDuration: {
+              endDate: 2537560799000,
+              startDate: 1577870639000,
+            },
+            teamId: '400000000000000000000001',
+            teamName: 'Team 1',
+            role: 'teamMember',
             isBanned: false,
-          },
-          {
-            eventId: '605920002c60e426288b8971',
-            eventName: 'event2',
-            teamId: '60e6b02e0b6c6887accf6c03',
-            teamName: 'team2',
-            role: 'teamLeader',
+          }, {
+            eventId: '300000000000000000000002',
+            eventName: 'Wydarzenie 2',
+            eventDuration: {
+              endDate: 2537560799000,
+              startDate: 1577870639000,
+            },
+            teamId: null,
+            teamName: null,
+            role: 'creator',
             isBanned: false,
           },
         ],
@@ -81,12 +86,46 @@ describe(endpoint, () => {
   });
 
   testEndpoint(endpoint, {
+    description: 'Return already logged user even if we try to login with new data',
+    signIn: {
+      email: 'user3@harcmap.pl',
+      password: 'Password1',
+    },
+    method: 'POST',
+    expectedStatus: 200,
+    body: {
+      send: {
+        email: 'user1@harcmap.pl',
+        password: 'Password1',
+      },
+      expect: {
+        userId: '100000000000000000000001',
+        email: 'user1@harcmap.pl',
+        userEvents: [
+          {
+            eventId: '300000000000000000000001',
+            eventName: 'Wydarzenie 1',
+            eventDuration: {
+              endDate: 2537560799000,
+              startDate: 1577870639000,
+            },
+            teamId: null,
+            teamName: null,
+            role: 'creator',
+            isBanned: false,
+          },
+        ],
+      },
+    },
+  });
+
+  testEndpoint(endpoint, {
     description: 'Should return 401 for invalid email and password and not authenticated user',
     method: 'POST',
     expectedStatus: 401,
     body: [{
       send: {
-        email: 'example12@domain.com',
+        email: 'user111@harcmap.pl',
         password: 'Password1',
       },
       expect: {
@@ -95,7 +134,7 @@ describe(endpoint, () => {
       },
     }, {
       send: {
-        email: 'example1@domain.com',
+        email: 'user1@harcmap.pl',
         password: 'Password11',
       },
       expect: {
@@ -108,14 +147,14 @@ describe(endpoint, () => {
   testEndpoint(endpoint, {
     description: 'Should return 401 for invalid email and password and for authenticated user',
     signIn: {
+      email: 'user3@henouser.pl',
       password: 'Password1',
-      email: 'example@domain.com',
     },
     method: 'POST',
     expectedStatus: 401,
     body: [{
       send: {
-        email: 'example12@domain.com',
+        email: 'user111@harcmap.pl',
         password: 'Password1',
       },
       expect: {
@@ -124,7 +163,7 @@ describe(endpoint, () => {
       },
     }, {
       send: {
-        email: 'example1@domain.com',
+        email: 'user1@harcmap.pl',
         password: 'Password11',
       },
       expect: {
@@ -196,7 +235,7 @@ describe(endpoint, () => {
     expectedStatus: 400,
     body: [{
       send: {
-        email: 'example@domain.com',
+        email: 'user1@harcmap.pl',
       },
       expect: {
         error: 1001,
@@ -205,7 +244,7 @@ describe(endpoint, () => {
       },
     }, {
       send: {
-        email: 'example@domain.com',
+        email: 'user1@harcmap.pl',
         password: 'short',
       },
       expect: {
@@ -215,7 +254,7 @@ describe(endpoint, () => {
       },
     }, {
       send: {
-        email: 'example@domain.com',
+        email: 'user1@harcmap.pl',
         password: 'this_is_too_long_password',
       },
       expect: {
@@ -229,14 +268,14 @@ describe(endpoint, () => {
   testEndpoint(endpoint, {
     description: 'Should return 400 status for invalid password field and authenticated user',
     signIn: {
+      email: 'user1@harcmap.pl',
       password: 'Password1',
-      email: 'example@domain.com',
     },
     method: 'POST',
     expectedStatus: 400,
     body: [{
       send: {
-        email: 'example@domain.com',
+        email: 'user3@harcmap.pl',
       },
       expect: {
         error: 1001,
@@ -245,7 +284,7 @@ describe(endpoint, () => {
       },
     }, {
       send: {
-        email: 'example@domain.com',
+        email: 'user3@harcmap.pl',
         password: 'short',
       },
       expect: {
@@ -255,7 +294,7 @@ describe(endpoint, () => {
       },
     }, {
       send: {
-        email: 'example@domain.com',
+        email: 'user3@harcmap.pl',
         password: 'this_is_too_long_password',
       },
       expect: {

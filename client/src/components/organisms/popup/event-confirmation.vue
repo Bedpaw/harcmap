@@ -33,6 +33,7 @@ import AButtonPrimary from 'atoms/button/primary';
 import AButtonSecondary from 'atoms/button/secondary';
 import { userUtils } from 'config/users-config';
 import { DATE_FORMATS, displayDate } from 'utils/date';
+import { enterEvent } from 'utils/enter-event';
 
 export default {
   name: 'o-popup-event-confirmation',
@@ -42,24 +43,43 @@ export default {
       required: true,
       type: Object,
     },
+    nickname: {
+      required: true,
+      type: String,
+    },
+    eventKey: {
+      required: true,
+      type: String,
+    },
+    teamName: {
+      required: false,
+      type: String,
+      default: null,
+    },
   },
+  data: () => ({
+    events: [],
+    futureEvents: [],
+    currentEvents: [],
+    pastEvents: [],
+    wantsAutoLoginToEvent: true,
+  }),
   computed: {
     dataRows: function () {
       const {
         eventName,
-        eventId,
         eventStartDate,
         eventEndDate,
-        accountType,
+        role,
       } = this.event;
       return [
         {
-          label: 'general.name',
+          label: 'form.field.eventName',
           data: eventName,
         },
         {
           label: 'form.field.eventInvitation',
-          data: eventId,
+          data: this.eventKey,
         },
         {
           label: 'page.joinEvent.eventStartDate',
@@ -71,17 +91,32 @@ export default {
         },
         {
           label: 'accountTypes.accountType',
-          data: this.$t(userUtils.getNameKey(accountType)),
+          data: this.$t(userUtils.getNameKey(role)),
         },
-      ];
+        {
+          label: 'page.joinEvent.teamName',
+          data: this.teamName,
+        },
+        {
+          label: 'page.joinEvent.nickname',
+          data: this.nickname,
+        },
+      ].filter(row => row.data);
     },
   },
   methods: {
     toggle () {
       this.$refs.popup.toggle();
     },
-    enterEvent () {
-      console.log(`Enter event with id ${this.event.eventId}`);
+    async enterEvent () {
+      const userId = this.$store.getters['user/userId'];
+      const { role, teamId } = await api.joinEvent({
+        userId,
+        eventKey: this.eventKey,
+        teamName: this.teamName,
+        nickname: this.nickname,
+      });
+      enterEvent(role, this.event.eventId, teamId);
     },
   },
 };

@@ -16,8 +16,26 @@ function secureField (field, eventId, request, rolesWithAccess = defaultRolesWit
   // check if user role is one of allowed to field
   const permissionToKey = rolesWithAccess.includes(userRole);
 
-  // return permissionToKey ? field : null;
-  return field;
+  return permissionToKey ? field : null;
 }
 
-module.exports = secureField;
+function secureInviteKeys (inviteKeys, eventId, request) {
+  const teamLeader = 'teamLeader';
+  const rolesWithAccess = defaultRolesWithAccess.concat(teamLeader);
+  const inviteKeysIfHavePermissions = secureField(inviteKeys, eventId, request, rolesWithAccess);
+
+  if (inviteKeysIfHavePermissions) {
+    return inviteKeysIfHavePermissions.filter(inviteKey => {
+      const rolesWithAccessToKey = inviteKey.role === 'teamMember' ? rolesWithAccess : defaultRolesWithAccess;
+
+      return !!secureField(inviteKey, eventId, request, rolesWithAccessToKey);
+    });
+  } else {
+    return null;
+  }
+}
+
+module.exports = {
+  secureField,
+  secureInviteKeys,
+};

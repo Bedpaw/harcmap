@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const { codes } = require('../libs/errors');
 
 const {
   keys,
@@ -11,12 +12,13 @@ const modelSchema = {
   key: keys,
   role: keysRole,
   eventId: Joi.object(),
-  teamId: Joi.object(),
+  teamId: Joi.object().allow(null),
 };
 
 // Create model
 const Keys = new Model('keys', modelSchema, {
   uniqueFiled: 'key',
+  uniqueFieldError: codes.THIS_KEY_ALREADY_EXIST,
 });
 
 module.exports = Keys;

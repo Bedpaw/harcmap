@@ -3,6 +3,7 @@ const Joi = require('joi');
 const {
   objectIdInDatabase,
   keysRole,
+  nickname,
 } = require('../libs/common-schemas');
 const Model = require('../libs/model');
 
@@ -11,6 +12,7 @@ const modelSchema = {
   eventId: objectIdInDatabase,
   teamId: Joi.object().allow(null),
   role: keysRole,
+  nickname,
   isBanned: Joi.boolean(),
 };
 

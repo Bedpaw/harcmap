@@ -13,6 +13,7 @@ function validateRequests (app) {
     // todo logs
     app.all(endpointUrl, (request, response, next) => {
       const { method, body, query } = request;
+
       const endpointSchemaObject = requestSchemaStore[endpointUrl]
         ? requestSchemaStore[endpointUrl][method]
         : null;

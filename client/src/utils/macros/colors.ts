@@ -10,7 +10,7 @@ export const appColors = {
   'black': '#000000',
   'orange': '#FEB300',
   'white': '#FFFFFF',
-  'pink': '#C863DEFF',
+  'pink': '#C863DE',
 };
 
 export const colorsUtils = {

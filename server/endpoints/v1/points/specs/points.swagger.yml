@@ -162,8 +162,20 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    $ref: '#/components/props/success'
+                  pointId:
+                    $ref: '#/components/props/id'
+                  pointName:
+                    $ref: '#/components/props/pointName'
+                  pointType:
+                    $ref: '#/components/props/pointType'
+                  pointCollectedDate:
+                    $ref: '#/components/props/pointCollectedDate'
+                  pointDuration:
+                    $ref: '#/components/props/pointDuration'
+                  pointPosition:
+                    $ref: '#/components/props/pointPosition'
+                  pointCategoryId:
+                    $ref: '#/components/props/id'
         400:
           description: 'Validation error'
           content:

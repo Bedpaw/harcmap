@@ -7,6 +7,7 @@ const userEvent1 = {
   eventId: ObjectId('300000000000000000000001'),
   teamId: null,
   role: 'creator',
+  nickname: 'Nick 1',
   isBanned: false,
 };
 
@@ -18,6 +19,7 @@ const userEvent2 = {
   eventId: ObjectId('300000000000000000000001'),
   teamId: ObjectId('400000000000000000000001'),
   role: 'teamLeader',
+  nickname: 'Nick 2',
   isBanned: false,
 };
 
@@ -29,6 +31,7 @@ const userEvent3 = {
   eventId: ObjectId('300000000000000000000001'),
   teamId: ObjectId('400000000000000000000001'),
   role: 'teamMember',
+  nickname: 'Nick 3',
   isBanned: false,
 };
 
@@ -39,6 +42,7 @@ const userEvent4 = {
   eventId: ObjectId('300000000000000000000002'),
   teamId: null,
   role: 'creator',
+  nickname: 'Nick 4',
   isBanned: false,
 };
 
@@ -50,6 +54,7 @@ const userEvent5 = {
   eventId: ObjectId('300000000000000000000001'),
   teamId: ObjectId('400000000000000000000002'),
   role: 'teamLeader',
+  nickname: 'Nick 5',
   isBanned: true,
 };
 
@@ -60,6 +65,7 @@ const userEvent6 = {
   eventId: ObjectId('300000000000000000000001'),
   teamId: null,
   role: 'admin',
+  nickname: 'Nick 6',
   isBanned: false,
 };
 
@@ -70,6 +76,7 @@ const userEvent7 = {
   eventId: ObjectId('300000000000000000000002'),
   teamId: null,
   role: 'observer',
+  nickname: 'Nick 7',
   isBanned: false,
 };
 
@@ -81,6 +88,7 @@ const userEvent8 = {
   eventId: ObjectId('300000000000000000000001'),
   teamId: ObjectId('400000000000000000000001'),
   role: 'teamMember',
+  nickname: 'Nick 8',
   isBanned: false,
 };
 
@@ -92,6 +100,7 @@ const userEvent9 = {
   eventId: ObjectId('300000000000000000000002'),
   teamId: ObjectId('400000000000000000000003'),
   role: 'teamLeader',
+  nickname: 'Nick 9',
   isBanned: false,
 };
 
@@ -102,6 +111,7 @@ const userEvent10 = {
   eventId: ObjectId('300000000000000000000003'),
   teamId: null,
   role: 'creator',
+  nickname: 'Nick 10',
   isBanned: false,
 };
 
@@ -113,6 +123,7 @@ const userEvent11 = {
   eventId: ObjectId('300000000000000000000001'),
   teamId: ObjectId('400000000000000000000002'),
   role: 'teamMember',
+  nickname: 'Nick 11',
   isBanned: false,
 };
 
@@ -124,6 +135,7 @@ const userEvent12 = {
   eventId: ObjectId('300000000000000000000002'),
   teamId: ObjectId('400000000000000000000003'),
   role: 'teamMember',
+  nickname: 'Nick 12',
   isBanned: false,
 };
 
@@ -135,6 +147,7 @@ const userEvent13 = {
   eventId: ObjectId('300000000000000000000003'),
   teamId: ObjectId('400000000000000000000004'),
   role: 'teamLeader',
+  nickname: 'Nick 13',
   isBanned: false,
 };
 

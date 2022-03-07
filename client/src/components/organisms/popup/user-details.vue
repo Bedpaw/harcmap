@@ -5,7 +5,7 @@
         {{ user.email }}
       </div>
       <div class="f-pb-2 f-text-16">
-        {{ user.role }}
+        {{ user.nickname }} - {{ userRoleName }}
       </div>
       <a-checkbox
         :id="'isActive-' + user.email"
@@ -74,6 +74,9 @@ export default {
   computed: {
     isOrganizer () {
       return userUtils.isOrganizer(this.user);
+    },
+    userRoleName () {
+      return this.$t(userUtils.getNameKey(this.user.role));
     },
   },
   mounted () {

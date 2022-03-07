@@ -1,86 +1,236 @@
 const testEndpoint = require('../../../../tests/utils/test-endpoint');
 
-describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points', () => {
-  testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/points', {
-    description: 'Return all points data for event 60e6cc2eaa95cc33d7c46701',
+describe('/api/v1/events/300000000000000000000001/points', () => {
+  testEndpoint('/api/v1/events/300000000000000000000001/points', {
+    description: 'Return all points data for event 300000000000000000000001',
     method: 'GET',
     signIn: {
-      email: 'example@domain.com',
+      email: 'user1@harcmap.pl',
       password: 'Password1',
     },
     body: {
       expect: [{
-        pointCategoryId: '60e7046eaa95cc33d7c4672b',
-        pointCollectedDate: null,
-        pointDuration: {
-          endDate: null,
-          startDate: null,
+        'pointId': '600000000000000000000001',
+        'pointKey': 'Poi1',
+        'pointName': 'Punkt 1',
+        'pointType': 'permanent',
+        'pointCollectedDate': 1640991600000,
+        'pointDuration': {
+          'startDate': null,
+          'endDate': null,
         },
-        pointId: '60e6d13faa95cc33d7c4671b',
-        pointKey: 'ab12',
-        pointName: 'Point name',
-        pointPosition: {
-          latitude: 1,
-          longitude: 1,
+        'pointPosition': {
+          'longitude': 18.542,
+          'latitude': 54.469,
         },
-        pointType: 'permanent',
+        'pointCategoryId': '700000000000000000000001',
       }, {
-        pointCategoryId: '60e7046eaa95cc33d7c4672b',
-        pointCollectedDate: 34523416,
-        pointDuration: {
-          endDate: null,
-          startDate: null,
+        'pointId': '600000000000000000000002',
+        'pointKey': 'Poi2',
+        'pointName': null,
+        'pointType': 'timeout',
+        'pointCollectedDate': 1641098145000,
+        'pointDuration': {
+          'startDate': 1610627574000,
+          'endDate': 2525776374000,
         },
-        pointId: '60e6d13faa95cc33d7c467aa',
-        pointKey: 'wg53',
-        pointName: 'Point second',
-        pointPosition: {
-          latitude: 1,
-          longitude: 1,
+        'pointPosition': {
+          'longitude': 18.543,
+          'latitude': 54.47,
         },
-        pointType: 'permanent',
+        'pointCategoryId': '700000000000000000000002',
+      }, {
+        'pointId': '600000000000000000000003',
+        'pointKey': 'Poi3',
+        'pointName': null,
+        'pointType': 'permanent',
+        'pointCollectedDate': 1641178404000,
+        'pointDuration': {
+          'startDate': null,
+          'endDate': null,
+        },
+        'pointPosition': {
+          'longitude': 18.541,
+          'latitude': 54.464,
+        },
+        'pointCategoryId': '700000000000000000000001',
+      }, {
+        'pointId': '600000000000000000000004',
+        'pointKey': 'Poi4',
+        'pointName': 'Punkt 4',
+        'pointType': 'permanent',
+        'pointCollectedDate': 1641138541000,
+        'pointDuration': {
+          'startDate': null,
+          'endDate': null,
+        },
+        'pointPosition': {
+          'longitude': 18.54,
+          'latitude': 54.469,
+        },
+        'pointCategoryId': '700000000000000000000001',
+      }, {
+        'pointId': '600000000000000000000005',
+        'pointKey': 'Poi5',
+        'pointName': 'Punkt 5',
+        'pointType': 'timeout',
+        'pointCollectedDate': null,
+        'pointDuration': {
+          'startDate': 1610035962000,
+          'endDate': 1641571962000,
+        },
+        'pointPosition': {
+          'longitude': 18.548,
+          'latitude': 54.473,
+        },
+        'pointCategoryId': '700000000000000000000002',
+      }, {
+        'pointId': '600000000000000000000006',
+        'pointKey': 'Poi6',
+        'pointName': null,
+        'pointType': 'permanent',
+        'pointCollectedDate': null,
+        'pointDuration': {
+          'startDate': null,
+          'endDate': null,
+        },
+        'pointPosition': {
+          'longitude': 18.545,
+          'latitude': 54.466,
+        },
+        'pointCategoryId': '700000000000000000000003',
+      }, {
+        'pointId': '600000000000000000000007',
+        'pointKey': 'Poi7',
+        'pointName': 'Punkt 7',
+        'pointType': 'timeout',
+        'pointCollectedDate': null,
+        'pointDuration': {
+          'startDate': 1610035962000,
+          'endDate': 2524636865000,
+        },
+        'pointPosition': {
+          'longitude': 18.548,
+          'latitude': 54.461,
+        },
+        'pointCategoryId': '700000000000000000000001',
       }],
     },
   });
 
-  testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/points', {
-    description: 'Return all points data for event 60e6cc2eaa95cc33d7c46701 for other user',
+  testEndpoint('/api/v1/events/300000000000000000000001/points', {
+    description: 'Return all points data for event 300000000000000000000001 for other user',
     method: 'GET',
     signIn: {
-      email: 'quest@google.com',
+      email: 'user4@harcmap.pl',
       password: 'Password1',
     },
     body: {
       expect: [{
-        pointCategoryId: '60e7046eaa95cc33d7c4672b',
-        pointCollectedDate: null,
-        pointDuration: {
-          endDate: null,
-          startDate: null,
+        'pointId': '600000000000000000000001',
+        'pointKey': null,
+        'pointName': 'Punkt 1',
+        'pointType': 'permanent',
+        'pointCollectedDate': 1640991600000,
+        'pointDuration': {
+          'startDate': null,
+          'endDate': null,
         },
-        pointId: '60e6d13faa95cc33d7c4671b',
-        pointKey: null,
-        pointName: 'Point name',
-        pointPosition: {
-          latitude: 1,
-          longitude: 1,
+        'pointPosition': {
+          'longitude': 18.542,
+          'latitude': 54.469,
         },
-        pointType: 'permanent',
+        'pointCategoryId': '700000000000000000000001',
       }, {
-        pointCategoryId: '60e7046eaa95cc33d7c4672b',
-        pointCollectedDate: 34523416,
-        pointDuration: {
-          endDate: null,
-          startDate: null,
+        'pointId': '600000000000000000000002',
+        'pointKey': null,
+        'pointName': null,
+        'pointType': 'timeout',
+        'pointCollectedDate': 1641098145000,
+        'pointDuration': {
+          'startDate': 1610627574000,
+          'endDate': 2525776374000,
         },
-        pointId: '60e6d13faa95cc33d7c467aa',
-        pointKey: null,
-        pointName: 'Point second',
-        pointPosition: {
-          latitude: 1,
-          longitude: 1,
+        'pointPosition': {
+          'longitude': 18.543,
+          'latitude': 54.47,
         },
-        pointType: 'permanent',
+        'pointCategoryId': '700000000000000000000002',
+      }, {
+        'pointId': '600000000000000000000003',
+        'pointKey': null,
+        'pointName': null,
+        'pointType': 'permanent',
+        'pointCollectedDate': 1641178404000,
+        'pointDuration': {
+          'startDate': null,
+          'endDate': null,
+        },
+        'pointPosition': {
+          'longitude': 18.541,
+          'latitude': 54.464,
+        },
+        'pointCategoryId': '700000000000000000000001',
+      }, {
+        'pointId': '600000000000000000000004',
+        'pointKey': null,
+        'pointName': 'Punkt 4',
+        'pointType': 'permanent',
+        'pointCollectedDate': 1641138541000,
+        'pointDuration': {
+          'startDate': null,
+          'endDate': null,
+        },
+        'pointPosition': {
+          'longitude': 18.54,
+          'latitude': 54.469,
+        },
+        'pointCategoryId': '700000000000000000000001',
+      }, {
+        'pointId': '600000000000000000000005',
+        'pointKey': null,
+        'pointName': 'Punkt 5',
+        'pointType': 'timeout',
+        'pointCollectedDate': null,
+        'pointDuration': {
+          'startDate': 1610035962000,
+          'endDate': 1641571962000,
+        },
+        'pointPosition': {
+          'longitude': 18.548,
+          'latitude': 54.473,
+        },
+        'pointCategoryId': '700000000000000000000002',
+      }, {
+        'pointId': '600000000000000000000006',
+        'pointKey': null,
+        'pointName': null,
+        'pointType': 'permanent',
+        'pointCollectedDate': null,
+        'pointDuration': {
+          'startDate': null,
+          'endDate': null,
+        },
+        'pointPosition': {
+          'longitude': 18.545,
+          'latitude': 54.466,
+        },
+        'pointCategoryId': '700000000000000000000003',
+      }, {
+        'pointId': '600000000000000000000007',
+        'pointKey': null,
+        'pointName': 'Punkt 7',
+        'pointType': 'timeout',
+        'pointCollectedDate': null,
+        'pointDuration': {
+          'startDate': 1610035962000,
+          'endDate': 2524636865000,
+        },
+        'pointPosition': {
+          'longitude': 18.548,
+          'latitude': 54.461,
+        },
+        'pointCategoryId': '700000000000000000000001',
       }],
     },
   });
@@ -113,16 +263,16 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points', () => {
     },
   });
 
-  testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/points', {
-    description: 'Should add point for event 60e6cc2eaa95cc33d7c46701',
+  testEndpoint('/api/v1/events/300000000000000000000001/points', {
+    description: 'Should add point for event 300000000000000000000001',
     method: 'POST',
     signIn: {
-      email: 'example@domain.com',
+      email: 'user1@harcmap.pl',
       password: 'Password1',
     },
     body: {
       send: {
-        pointCategoryId: '60e7046eaa95cc33d7c4672b',
+        pointCategoryId: '700000000000000000000002',
         pointDuration: {
           endDate: 2,
           startDate: 1,
@@ -135,7 +285,7 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points', () => {
         pointType: 'permanent',
       },
       expect: {
-        pointCategoryId: '60e7046eaa95cc33d7c4672b',
+        pointCategoryId: '700000000000000000000002',
         pointCollectedDate: null,
         pointKey: expect.any(String),
         pointDuration: {
@@ -155,7 +305,7 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points', () => {
         query: { pointName: 'UniquePointName' },
         document: {
           _id: expect.any(Object),
-          pointCategoryId: '60e7046eaa95cc33d7c4672b',
+          pointCategoryId: '700000000000000000000002',
           pointCollectedDate: null,
           pointKey: expect.any(String),
           pointDuration: {
@@ -174,22 +324,22 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points', () => {
     },
   });
 
-  testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/points', {
+  testEndpoint('/api/v1/events/300000000000000000000001/points', {
     description: 'User without administrator permissions cannot add new point',
     method: 'POST',
     signIn: {
-      email: 'quest@google.com',
+      email: 'user3@harcmap.pl',
       password: 'Password1',
     },
     expectedStatus: 401,
     body: {
       send: {
-        pointCategoryId: '60e7046eaa95cc33d7c4672b',
+        pointCategoryId: '300000000000000000000001',
         pointDuration: {
           endDate: 2,
           startDate: 1,
         },
-        pointName: 'Point name',
+        pointName: 'NewPoint2',
         pointPosition: {
           latitude: 1,
           longitude: 1,
@@ -201,9 +351,15 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points', () => {
         message: 'no permission to resource',
       },
     },
+    expectInDb: {
+      collectionName: 'points',
+      query: { pointName: '{' },
+      document: null,
+    },
+    resetDbToDefault: true,
   });
 
-  testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/points', {
+  testEndpoint('/api/v1/events/300000000000000000000001/points', {
     description: 'Should return error for incorrect input data',
     method: 'POST',
     signIn: {
@@ -232,7 +388,7 @@ describe('/api/v1/events/60e6cc2eaa95cc33d7c46701/points', () => {
     },
   });
 
-  testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/points', {
+  testEndpoint('/api/v1/events/300000000000000000000001/points', {
     description: 'Should return 500 status for others http methods',
     method: ['PUT', 'DELETE', 'OPTIONS', 'PATCH'],
     expectedStatus: 500,

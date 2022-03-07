@@ -15,10 +15,13 @@ export function useForm () {
     communicates.showSuccessTemporary(message);
   }
 
-  function onSuccessOccurs (message:string = translator.t('general.saved')) {
+  function onSuccessOccurs (message:string | null = translator.t('general.saved')) {
     isServerError.value = false;
     isSending.value = false;
     blockForm.value = false;
+    if (message === null) {
+      return;
+    }
     showSuccessMessage(message);
   }
 

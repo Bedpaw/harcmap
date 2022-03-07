@@ -45,6 +45,7 @@ async function sendMail (to, config) {
       html: content,
     });
   } catch (error) {
+    console.log(error);
     throw new AppError(errorCodes.MAIL_SERVICE_ERROR, {
       details: error,
     });

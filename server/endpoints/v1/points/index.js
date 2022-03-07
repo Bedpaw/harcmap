@@ -42,14 +42,14 @@ router.route('/:eventId/points/collect')
 
 router.route('/:eventId/points/:pointId')
   .put(async (request, response) => {
-    const { pointId } = request.params;
-    const result = await updatePoint(pointId, request.body);
+    const { eventId, pointId } = request.params;
+    const result = await updatePoint(eventId, pointId, request.body);
 
     response.send(result);
   })
   .delete(async (request, response) => {
-    const { pointId } = request.params;
-    const result = await deletePoint(pointId);
+    const { eventId, pointId } = request.params;
+    const result = await deletePoint(eventId, pointId);
 
     response.send(result);
   });

@@ -67,6 +67,7 @@ function getUserAggregation (query) {
             eventDuration: '$event.eventDuration',
             teamId: { $ifNull: ['$team._id', null] },
             teamName: { $ifNull: ['$team.teamName', null] },
+            nickname: '$userEvents.nickname',
             role: '$userEvents.role',
             isBanned: '$userEvents.isBanned',
           },

@@ -30,6 +30,7 @@ import { ref } from 'vue';
 import { useForm } from 'plugins/form';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import { map } from 'map';
 
 export default {
   name: 'p-collect-point',
@@ -60,6 +61,7 @@ export default {
         .then(() => {
           isSending.value = false;
           blockForm.value = false;
+          map.updateMapFeatures();
           router.push(ROUTES.map.path);
         });
     }

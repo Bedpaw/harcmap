@@ -8,17 +8,19 @@ const {
  * @param resetPassword {boolean} - mail with data for reset password
  * if false - contain information for account activation
  * @param key {string} - unique key from database
+ * @param [invitationKey] {string} - optional key from invitation
  * @return {string} - email html content
  */
-module.exports = (resetPassword, key) => {
+module.exports = (resetPassword, key, invitationKey) => {
+  const queryParams = invitationKey ? `?invitationKey=${invitationKey}` : '';
   let title = 'Kliknij w poniższy link, aby aktywować konto';
   let linkTitle = 'AKTYWUJ KONTO';
-  let link = `${SERVER_ADDRESS}/api/v1/users/account-activation/${key}`;
+  let link = `${SERVER_ADDRESS}/api/v1/users/account-activation/${key}${queryParams}`;
 
   if (resetPassword) {
     title = 'Kliknij w poniższy link, aby zresetować hasło';
     linkTitle = 'ZRESETUJ HASŁO';
-    link = `${SERVER_ADDRESS}/reset-password?key=${key}`;
+    link = `${SERVER_ADDRESS}/change-password/${key}`;
   }
 
   return `<div>

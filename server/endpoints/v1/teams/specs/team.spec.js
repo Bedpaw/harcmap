@@ -1,37 +1,95 @@
 const testEndpoint = require('../../../../tests/utils/test-endpoint');
 
 describe('/api/v1/events/:eventId/teams/:teamId', () => {
-  testEndpoint('/api/v1/events/605920002c60e426288b8971/teams/60e6b02e0b6c6887accf6c05', {
-    description: 'Return teams list for event id: 605920002c60e426288b8971 and team 60e6b02e0b6c6887accf6c05',
+  testEndpoint('/api/v1/events/300000000000000000000001/teams/400000000000000000000001', {
+    description: 'Return team object 400000000000000000000001',
     signIn: {
+      email: 'user6@harcmap.pl',
       password: 'Password1',
-      email: 'admin@harcmap.com',
     },
     method: 'GET',
     body: {
       expect: {
-        teamName: 'team3',
-        teamColor: '#922eb4',
-        collectedPoints: ['60e6d13faa95cc33d7c467aa'],
-        teamMembers: [{
-          email: 'member@harcmap.com',
-          role: 'teamMember',
-          userId: '6074ab220b6c6887ac32adaa',
-        }, {
-          email: 'creator@harcmap.com',
-          role: 'creator',
-          userId: '6074ab220b6c6887ac32ddff',
-        }],
-        inviteKeys: [{
-          keyId: '60758ddf32eed00e1a283911',
-          role: 'teamMember',
-          key: 'hd5b',
-        }],
+        'teamName': 'Team 1',
+        'teamColor': '#eee',
+        'teamMembers': [
+          {
+            'userId': '100000000000000000000003',
+            'email': 'user3@harcmap.pl',
+            'role': 'teamLeader',
+          },
+          {
+            'userId': '100000000000000000000004',
+            'email': 'user4@harcmap.pl',
+            'role': 'teamMember',
+          },
+          {
+            'userId': '100000000000000000000007',
+            'email': 'user7@harcmap.pl',
+            'role': 'teamMember',
+          },
+        ],
+        'inviteKeys': [
+          {
+            'keyId': '500000000000000000000004',
+            'role': 'teamMember',
+            'key': 'K3y4',
+          },
+        ],
+        'collectedPoints': [
+          '600000000000000000000001',
+          '600000000000000000000002',
+          '600000000000000000000003',
+        ],
       },
     },
   });
 
-  testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/teams/60e6b02e0b6c6887accf6c05', {
+  testEndpoint('/api/v1/events/300000000000000000000001/teams/400000000000000000000001', {
+    description: 'Return team object 400000000000000000000001 for teamLeader',
+    signIn: {
+      password: 'Password1',
+      email: 'user3@harcmap.pl',
+    },
+    method: 'GET',
+    body: {
+      expect: {
+        'teamName': 'Team 1',
+        'teamColor': '#eee',
+        'teamMembers': [
+          {
+            'userId': '100000000000000000000003',
+            'email': 'user3@harcmap.pl',
+            'role': 'teamLeader',
+          },
+          {
+            'userId': '100000000000000000000004',
+            'email': 'user4@harcmap.pl',
+            'role': 'teamMember',
+          },
+          {
+            'userId': '100000000000000000000007',
+            'email': 'user7@harcmap.pl',
+            'role': 'teamMember',
+          },
+        ],
+        'inviteKeys': [
+          {
+            'keyId': '500000000000000000000004',
+            'role': 'teamMember',
+            'key': 'K3y4',
+          },
+        ],
+        'collectedPoints': [
+          '600000000000000000000001',
+          '600000000000000000000002',
+          '600000000000000000000003',
+        ],
+      },
+    },
+  });
+
+  testEndpoint('/api/v1/events/300000000000000000000001/teams/400000000000000000000001', {
     description: 'Dont return team if user is not logged',
     method: 'GET',
     expectedStatus: 401,
@@ -43,11 +101,11 @@ describe('/api/v1/events/:eventId/teams/:teamId', () => {
     },
   });
 
-  testEndpoint('/api/v1/events/605920002c60e426288b8971/teams/60e6b02e0b6c6887accf6c05', {
+  testEndpoint('/api/v1/events/300000000000000000000001/teams/400000000000000000000001', {
     description: 'Dont return team list if user have no right permissions',
     signIn: {
       password: 'Password1',
-      email: 'example@domain.com',
+      email: 'user7@harcmap.pl',
     },
     method: 'GET',
     expectedStatus: 401,
@@ -59,7 +117,7 @@ describe('/api/v1/events/:eventId/teams/:teamId', () => {
     },
   });
 
-  testEndpoint('/api/v1/events/60e6cc2eaa95cc33d7c46701/teams/60e6b02e0b6c6887accf6c05', {
+  testEndpoint('/api/v1/events/300000000000000000000001/teams/400000000000000000000001', {
     description: 'Should return 500 status for others http methods',
     method: ['POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
     expectedStatus: 500,

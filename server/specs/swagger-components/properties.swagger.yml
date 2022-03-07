@@ -58,6 +58,8 @@ components:
             $ref: '#/components/props/id'
           teamName:
             $ref: '#/components/props/teamName'
+          nickname:
+            $ref: '#/components/props/nickname'
           role:
             $ref: '#/components/props/role'
           isBanned:
@@ -81,6 +83,10 @@ components:
       example: true
     role:
       description: 'Describe permissions in app'
+      type: string
+      example: 'teamLeader'
+    nickname:
+      description: 'User nick per event'
       type: string
       example: 'teamLeader'
     roleNullable:
@@ -159,6 +165,8 @@ components:
         properties:
           email:
             $ref: '#/components/props/email'
+          username:
+            $ref: '#/components/props/username'
           userId:
             $ref: '#/components/props/id'
           role:

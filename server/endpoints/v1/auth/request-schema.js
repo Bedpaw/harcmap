@@ -2,6 +2,7 @@ const Joi = require('joi');
 const {
   email,
   password,
+  keys,
 } = require('../../../libs/common-schemas');
 
 // login
@@ -25,6 +26,7 @@ const signUpSchema = {
   POST: Joi.object({
     email: email.required(),
     password: password.required(),
+    invitationKey: keys,
   }),
 };
 

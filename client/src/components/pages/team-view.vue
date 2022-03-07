@@ -40,12 +40,8 @@ export default {
     MRowTeamRow,
     TPage,
   },
-  data: () => ({
-    teamName: 'Team rzodkiewka',
-    collectedPoints: 5,
-  }),
   computed: {
-    ...mapGetters('team', ['sumOfCollectedPoints', 'teamMembers']),
+    ...mapGetters('team', ['sumOfCollectedPoints', 'teamMembers', 'teamName']),
     teamMembersOrdered () {
       return userUtils.getOrderedMembers(this.teamMembers);
     },
