@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { codes } = require('../libs/errors');
+const { errorCodes } = require('../libs/errors');
 
 const {
   keys,
@@ -18,7 +18,7 @@ const modelSchema = {
 // Create model
 const Keys = new Model('keys', modelSchema, {
   uniqueFiled: 'key',
-  uniqueFieldError: codes.THIS_KEY_ALREADY_EXIST,
+  uniqueFieldError: errorCodes.THIS_KEY_ALREADY_EXIST,
 });
 
 module.exports = Keys;
