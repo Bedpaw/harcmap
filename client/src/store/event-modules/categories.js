@@ -14,7 +14,7 @@ export default {
     },
     categories: state => state.categories,
     permanentCategories: state => state.categories
-      .filter(category => category.pointValue !== 0), // TODO Rethink if points have categories
+      .filter(category => category.pointValue !== 0),
     timeoutCategories: state => state.categories
       .filter(category => category.pointValue === 0),
   },

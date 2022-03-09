@@ -22,20 +22,20 @@ export const pointCategoryController = {
     return httpService.post({
       url: urls.addPointCategory(eventId),
       body: category,
-      errorOptions: API_ERRORS.addPoint,
+      errorOptions: API_ERRORS.addPointCategory,
     });
   },
   updatePointCategory (category: PointCategoryDTOUpdate, categoryId: string, eventId: string) {
     return httpService.put({
       url: urls.updatePointCategory(eventId, categoryId),
       body: category,
-      errorOptions: API_ERRORS.addPoint,
+      errorOptions: API_ERRORS.updatePointCategory,
     });
   },
   deletePointCategory (categoryId: string, eventId: string) {
     return httpService.delete({
       url: urls.deletePointCategory(eventId, categoryId),
-      errorOptions: API_ERRORS.addPoint,
+      errorOptions: API_ERRORS.deletePointCategory,
     });
   },
 

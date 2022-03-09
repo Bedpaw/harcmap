@@ -6,6 +6,7 @@ import { pointUtils } from 'utils/point';
 import { permissions } from 'utils/permissions';
 import { appStorage } from 'utils/storage';
 import { colorsUtils } from 'utils/macros/colors';
+import { translator } from 'dictionary';
 
 const initState = () => ({
   eventId: null,
@@ -87,11 +88,10 @@ export default {
             if (categories.length > 0) {
               return categories;
             } else {
-              // TODO Should this logic be on backend or frontend
               return api.addPointCategory({
                 pointValue: 1,
                 pointFillColor: colorsUtils.appColors.red,
-                categoryName: 'Podstawowy',
+                categoryName: translator('general.defaultPointCategoryName'),
                 pointStrokeColor: colorsUtils.appColors.black,
               }, eventId).then(category => [category]);
             }
@@ -126,7 +126,7 @@ export default {
       return new Promise((resolve, reject) => {
         api.collectPoint(context.getters.eventId, pointKey)
           .then((point) => {
-            context.commit('updatePoint', { ...point, pointCollectedDate: Number(new Date()) }); // TODO doesnt set collectedDate;
+            context.commit('updatePoint', point);
             context.commit('team/addCollectedPoint', point.pointId, { root: true });
             resolve();
           })
