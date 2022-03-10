@@ -37,7 +37,7 @@
       ref="eventConfirmationPopUp"
       :event="event"
       :team-name="teamName"
-      :event-key="eventKey"
+      :event-key="invitationKey"
       :nickname="nickname"
     />
   </t-page>
@@ -56,7 +56,6 @@ import { ErrorMessage } from 'utils/error-message';
 import { ACCOUNT_TYPES } from 'utils/permissions';
 import { useStore } from 'vuex';
 import { urlUtils } from 'utils/url';
-
 
 export default {
   name: 'p-join-event',
@@ -97,6 +96,7 @@ export default {
 
     onMounted(() => {
       invitationKey.value = urlUtils.getInvitationKey();
+      if (invitationKey.value) getEvent();
     });
 
     return {

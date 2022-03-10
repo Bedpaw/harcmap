@@ -29,7 +29,6 @@ export const httpService = HttpService.createInstance<ApiError, ServerError>({
   },
   permissionErrorCallback: (serverError) => {
     store.commit('user/signOut');
-    router.push(ROUTES.welcome.path);
     return new ErrorMessage(getSpecificError(serverError?.error) ?? translator.t('apiError.general.unauthorizedAccess'));
   },
 });
