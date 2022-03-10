@@ -34,7 +34,7 @@ export const eventController = {
         eventKey,
         userId,
       },
-      errorOptions: API_ERRORS.updateEvent,
+      errorOptions: API_ERRORS.checkEvent,
     });
   },
   joinEvent (params: JoinEventParams) {
@@ -49,7 +49,7 @@ export const eventController = {
     return httpService.post({
       url: urls.joinEvent,
       body,
-      errorOptions: API_ERRORS.updateEvent,
+      errorOptions: API_ERRORS.joinEvent,
     });
   },
   addEvent (event: Event, userId: string) {

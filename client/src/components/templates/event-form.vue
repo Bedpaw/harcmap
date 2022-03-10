@@ -29,7 +29,9 @@
           :block-form="blockForm"
         />
       </transition>
+      <!-- TODO v2.1 Game settings -->
       <a-button
+        v-if="false"
         add-class="f-clear"
         add-area-class="f-mt-0"
         @click="showAdvancedOptions = !showAdvancedOptions"

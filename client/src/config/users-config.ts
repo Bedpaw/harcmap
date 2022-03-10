@@ -15,8 +15,6 @@ const accountTypeInfo = {
       ROUTES.scoreboard,
       ROUTES.editEvent,
       ROUTES.newPoint,
-      ROUTES.newPointCategory,
-      ROUTES.pointCategoriesList,
     ],
     menuCentralButton: ROUTES.adminPanel,
   },
@@ -28,8 +26,6 @@ const accountTypeInfo = {
       ROUTES.shareEvent,
       ROUTES.editEvent,
       ROUTES.newPoint,
-      ROUTES.newPointCategory,
-      ROUTES.pointCategoriesList,
     ],
     menuCentralButton: ROUTES.adminPanel,
   },
@@ -80,7 +76,9 @@ export const userUtils = {
     /* Returns list of user with leader at 0 index */
     const commonUsers = teamMembers.filter(user => user.role === ACCOUNT_TYPES.teamMember);
     const leaderUser = teamMembers.find(user => user.role === ACCOUNT_TYPES.teamLeader);
-    commonUsers.unshift(leaderUser!);
+    if (leaderUser) {
+      commonUsers.unshift(leaderUser);
+    }
     return commonUsers;
   },
   getIcon: (obj: { role: string }) => accountTypeInfo[obj.role].icon,

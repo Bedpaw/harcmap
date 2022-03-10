@@ -1,5 +1,5 @@
 const Model = require('../libs/model');
-const { codes } = require('../libs/errors');
+const { errorCodes } = require('../libs/errors');
 const {
   eventName,
   date,
@@ -27,7 +27,7 @@ const eventSchema = {
 // Create model
 const Events = new Model('events', eventSchema, {
   uniqueFiled: 'eventName',
-  uniqueFieldError: codes.THIS_EVENTNAME_ALREADY_EXIST,
+  uniqueFieldError: errorCodes.THIS_EVENTNAME_ALREADY_EXIST,
 });
 
 module.exports = Events;

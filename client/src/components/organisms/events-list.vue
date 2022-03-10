@@ -17,18 +17,15 @@
       :buttons-details="pastEvents"
       :title="$t('page.eventsList.finished')"
     />
-    <!-- Do we want this? Provide translation if yes TODO-->
-    <span class="f-text-bold f-text-center">Ustawienia aplikacji:</span>
+    <span class="f-text-bold f-text-center">{{ $t('page.eventsList.appSettings') }}</span>
     <a-checkbox
       id="wantsAutoLoginToEvent"
       v-model="wantsAutoLoginToEvent"
       class="f-pt-1"
-      assist="Po zalogowaniu przejdź do ostatniego wydarzenia"
+      :assist="$t('page.eventsList.wantsAutoLoginAssist')"
     >
-      Automatyczne logowanie
-      {{ }}
+      {{ $t('page.eventsList.wantsAutoLogin') }}
     </a-checkbox>
-    <!-- Do we want this? Provide translation if yes-->
   </section>
 </template>
 

@@ -5,7 +5,7 @@ const {
   collectedPoints,
 } = require('../libs/common-schemas');
 const Model = require('../libs/model');
-const { codes } = require('../libs/errors');
+const { errorCodes } = require('../libs/errors');
 
 // Model schema
 const modelSchema = {
@@ -18,7 +18,7 @@ const modelSchema = {
 // Create model
 const Teams = new Model('teams', modelSchema, {
   uniqueFiled: 'teamName',
-  uniqueFieldError: codes.THIS_TEAMNAME_ALREADY_EXIST,
+  uniqueFieldError: errorCodes.THIS_TEAMNAME_ALREADY_EXIST,
 });
 
 module.exports = Teams;

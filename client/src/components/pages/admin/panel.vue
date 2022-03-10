@@ -29,14 +29,14 @@ export default {
           { route: ROUTES.editEvent },
           { route: ROUTES.shareEvent },
           { route: ROUTES.newPoint },
-          // { url: '/point/all', label: this.$t('page.admin.adminPanel.downloadPointsList') }, TODO removed before backend fix
           { route: ROUTES.searchPoint },
           { route: ROUTES.usersList },
+          { route: ROUTES.pointCategoriesList },
+          { route: ROUTES.newPointCategory },
         ];
       } else if (this.checkIsObserver()) {
         return [
           { route: ROUTES.scoreboard },
-          // { url: '/point/all', label: this.$t('page.admin.adminPanel.downloadPointsList') }, TODO removed before backend fix
           { route: ROUTES.searchPoint },
         ];
       }
