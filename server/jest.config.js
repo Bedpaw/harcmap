@@ -3,6 +3,8 @@
 
 module.exports = {
   testEnvironment: 'node',
-  testMatch: ['**/specs/*.spec.js'],
+  testMatch: [
+    '**/teams/specs/*.spec.js',
+  ],
   maxWorkers: 1,
 };

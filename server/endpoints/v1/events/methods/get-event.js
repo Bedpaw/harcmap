@@ -1,7 +1,7 @@
 const Events = require('../../../../models/events');
 const { ObjectId } = require('mongodb');
 const aggregationPipeline = require('../../../../aggregations/get-event');
-const { secureField } = require('../../../../libs/utils');
+const { secureInviteKeys } = require('../../../../libs/utils/secure-field');
 
 async function getEvent (eventId, request) {
   const event = await Events.get({ _id: ObjectId(eventId) }, {
@@ -25,7 +25,7 @@ async function getEvent (eventId, request) {
     eventDuration,
     mapProperties,
     eventRefreshTime,
-    inviteKeys: secureField(parsedInviteKeys, eventId, request),
+    inviteKeys: secureInviteKeys(parsedInviteKeys, eventId, request),
   };
 }
 

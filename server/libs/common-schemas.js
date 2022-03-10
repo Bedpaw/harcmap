@@ -34,6 +34,9 @@ const password = Joi.string()
   .pattern(/^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,24}$/);
 const role = Joi.string()
   .equal('creator', 'admin', 'observer', 'teamLeader', 'teamMember');
+const nickname = Joi.string()
+  .min(3)
+  .max(24);
 
 /**
  * Teams props
@@ -110,4 +113,5 @@ module.exports = {
   pointType,
   collectedPoints,
   keysRole,
+  nickname,
 };

@@ -17,18 +17,15 @@
       :buttons-details="pastEvents"
       :title="$t('page.eventsList.finished')"
     />
-    <!-- Do we want this? Provide translation if yes TODO-->
-    <span class="f-text-bold f-text-center">Ustawienia aplikacji:</span>
+    <span class="f-text-bold f-text-center">{{ $t('page.eventsList.appSettings') }}</span>
     <a-checkbox
       id="wantsAutoLoginToEvent"
       v-model="wantsAutoLoginToEvent"
       class="f-pt-1"
-      assist="Po zalogowaniu przejdź do ostatniego wydarzenia"
+      :assist="$t('page.eventsList.wantsAutoLoginAssist')"
     >
-      Automatyczne logowanie
-      {{ }}
+      {{ $t('page.eventsList.wantsAutoLogin') }}
     </a-checkbox>
-    <!-- Do we want this? Provide translation if yes-->
   </section>
 </template>
 
@@ -40,10 +37,9 @@ import { generalConfigUtils } from 'config/general-config';
 import { userUtils } from 'config/users-config';
 import { eventUtils } from 'utils/event';
 import { materialIcons } from '@dbetka/vue-material-icons';
-import { autoUpdate } from 'utils/auto-update';
-import { ROUTES } from 'config/routes-config';
 import { appStorage } from 'utils/storage';
 import ACheckbox from 'atoms/checkbox';
+import { enterEvent } from 'utils/enter-event';
 
 const ICONS_TYPES = materialIcons.types;
 
@@ -129,25 +125,8 @@ export default {
       };
     },
     signInToEvent (eventId) {
-      const teamId = this.events.find(event => event.eventId === eventId).teamId;
-      const role = this.events.find(event => event.eventId === eventId).role;
-      const lastRoute = appStorage.getItem(appStorage.appKeys.lastRoute, appStorage.getIds.eventIdAndEmail());
-      this.$store.dispatch('event/download', { eventId, teamId, role })
-        .then(() => {
-          autoUpdate.run();
-          this.$router.push(lastRoute ?? ROUTES.start.path).then(() => this.updateStorageAfterSuccessLogIn(eventId));
-        })
-        .catch(() => {
-          this.$store.dispatch('user/signOut').catch(() => undefined);
-        });
-    },
-    updateStorageAfterSuccessLogIn (eventId) {
-      appStorage.setItem(appStorage.appKeys.recentEvent, eventId, appStorage.getIds.email());
-      const isFirstLogIn = appStorage.getItem(appStorage.appKeys.firstLogin, appStorage.getIds.eventIdAndEmail()) === null;
-      if (isFirstLogIn) {
-        this.$store.commit('guide/open');
-        appStorage.setItem(appStorage.appKeys.firstLogin, true, appStorage.getIds.eventIdAndEmail());
-      }
+      const { teamId, role } = this.events.find(event => event.eventId === eventId);
+      enterEvent(role, eventId, teamId);
     },
     autoSignInToEventIfPossible () {
       this.wantsAutoLoginToEvent = appStorage.getItem(appStorage.appKeys.wantsAutoLoginToEvent, appStorage.getIds.email());

@@ -48,8 +48,10 @@ function createSecuredEndpoints (app, config) {
       let userTeamId;
 
       if (isAuth && eventId) {
+        const userTeamIdObject = getUserTeamIdFromSession(eventId, user);
+
         userRole = getUserRoleFromSession(eventId, user);
-        userTeamId = getUserTeamIdFromSession(eventId, user);
+        userTeamId = userTeamIdObject ? userTeamIdObject.toString() : null;
       }
 
       const isAdminRole = ['creator', 'admin', 'observer'].includes(userRole);
@@ -106,12 +108,13 @@ function createSecuredEndpoints (app, config) {
     // check if request passed verification
     if (!request.PASS) {
       // request rejected - ERROR
-      const code = typeof request.PASS !== 'boolean'
-        ? errorCodes.PERMISSION_MIDDLEWARE_CANNOT_FIND_PATH_IN_SETTINGS
-        : errorCodes.NO_PERMISSION_TO_RESOURCE;
-      throw new AppError(code, {
-        httpStatus: 401,
-      });
+      if (typeof request.PASS !== 'boolean') {
+        throw new AppError(errorCodes.PERMISSION_MIDDLEWARE_CANNOT_FIND_PATH_IN_SETTINGS);
+      } else {
+        throw new AppError(errorCodes.NO_PERMISSION_TO_RESOURCE, {
+          httpStatus: 401,
+        });
+      }
     }
     next();
   });

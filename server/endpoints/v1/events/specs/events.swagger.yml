@@ -1,7 +1,6 @@
 paths:
   /api/v1/events:
     post:
-      deprecated: true
       summary: 'Create event with (SECURED)'
       description: 'Special privilege required'
       tags:
@@ -20,6 +19,17 @@ paths:
                   $ref: '#/components/props/mapProperties'
                 eventRefreshTime:
                   $ref: '#/components/props/eventRefreshTime'
+                userId:
+                  $ref: '#/components/props/userId'
+                nickname:
+                  $ref: '#/components/props/nickname'
+              required:
+                - userId
+                - eventName
+                - eventDuration
+                - mapProperties
+                - eventRefreshTime
+                - nickname
       responses:
         200:
           description: 'Event data'
@@ -28,6 +38,8 @@ paths:
               schema:
                 type: object
                 properties:
+                  eventId:
+                    $ref: '#/components/props/id'
                   eventName:
                     $ref: '#/components/props/eventName'
                   eventDuration:
@@ -36,6 +48,8 @@ paths:
                     $ref: '#/components/props/mapProperties'
                   eventRefreshTime:
                     $ref: '#/components/props/eventRefreshTime'
+                  inviteKeys:
+                    $ref: '#/components/props/inviteKeys'
         400:
           description: 'Validation error'
           content:
@@ -170,9 +184,12 @@ paths:
             schema:
               type: object
               properties:
+                userId:
+                  $ref: '#/components/props/userId'
                 eventKey:
                   $ref: '#/components/props/eventKey'
               required:
+                - userId
                 - eventKey
       responses:
         200:
@@ -224,11 +241,16 @@ paths:
                   $ref: '#/components/props/id'
                 eventKey:
                   $ref: '#/components/props/eventKey'
+                nickname:
+                  $ref: '#/components/props/nickname'
                 teamName:
                   $ref: '#/components/props/teamName'
+                teamColor:
+                  $ref: '#/components/props/teamColor'
               required:
                 - userId
                 - eventKey
+                - nickname
       responses:
         200:
           description: 'Successfully join to event'

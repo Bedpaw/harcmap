@@ -2,7 +2,7 @@
   <t-search
     :search-assist="$t('form.assist.searchUser')"
     :elements="users"
-    :search-keys="['email']"
+    :search-keys="['email', 'nickname']"
   >
     <template #result-list="{ filteredElements: filteredUsers }">
       <div class="f-flex-1 f-scroll-default f-mt--2">
@@ -21,7 +21,11 @@
           <div class="f-pl-1 f-py-1 f-text-subtext f-text-14 f-line-24 f-overflow-hidden">
             {{ user.email }}
           </div>
-          <a-button-icon @click="openDetails(user)">
+          <!-- TODO v2.1 Admin user management endpoint -->
+          <a-button-icon
+            v-if="false"
+            @click="openDetails(user)"
+          >
             <a-icon :name="$icons.names.more_vert" />
           </a-button-icon>
         </div>

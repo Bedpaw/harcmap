@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteLocationNormalized } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import { store } from 'store';
 import { api } from 'api';
 import { routes } from './routes';
@@ -13,14 +13,13 @@ import { appStorage } from 'utils/storage';
 
 let firstRun = true;
 
-const router = createRouter({
+export const router = createRouter({
   base: APP_BASE_URL,
   routes,
   history: createWebHistory(),
 });
 
 const clearEventWhenLeaveEventRoutes = (to) => {
-  // TODO poor solution, it clears only eventId and should all data
   if (!to.meta.afterEventChosen) {
     autoUpdate.stop();
     store.dispatch('event/resetState').then();

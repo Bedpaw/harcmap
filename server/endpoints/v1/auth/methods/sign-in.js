@@ -43,15 +43,24 @@ async function signIn (request, response, next) {
   if (!userIsAuthenticated || bodyLength) {
     // run authenticate logic
     passport.authenticate('local', (authenticateAppError, userData) => {
-      // authenticate errors
-      if (authenticateAppError || !userData) {
-        const errorCode = authenticateAppError
-          ? authenticateAppError.code
-          : errorCodes.NOT_LOGGED;
-
-        return handleErrors(new AppError(errorCode, {
+      // received empty body fo unauthenticated user
+      if (!authenticateAppError && !userData) {
+        return handleErrors(new AppError(errorCodes.NOT_LOGGED, {
           httpStatus: 401,
         }), request, response, next);
+      }
+      // authenticate errors
+      if (authenticateAppError || !userData) {
+        const errorCode = authenticateAppError ? authenticateAppError.code : null;
+
+        if (errorCode) {
+          return handleErrors(new AppError(errorCode, {
+            httpStatus: 401,
+          }), request, response, next);
+        } else {
+          // unhandled error
+          return handleErrors(authenticateAppError, request, response, next);
+        }
       }
 
       // run serialize user to session(request.user) logic

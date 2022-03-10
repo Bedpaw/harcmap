@@ -19,28 +19,26 @@ addEndpointValidation('/api/v1/events/check', check);
 addEndpointValidation('/api/v1/events/join', join);
 addEndpointValidation('/api/v1/events/:eventId', oneEvent);
 
-// TODO
 router.route('/')
   .post(async (request, response) => {
     const { body } = request;
-    const result = await createEvent(body);
+    const result = await createEvent(request, body);
 
     response.send(result);
   });
 
 router.route('/check')
   .post(async (request, response) => {
-    const { eventKey } = request.body;
-    const result = await checkKey(eventKey);
+    const { eventKey, userId, teamName } = request.body;
+    const result = await checkKey(request, eventKey, userId, teamName);
 
     response.send(result);
   });
 
-// TODO
 router.route('/join')
   .post(async (request, response) => {
-    const { userId, eventKey, teamName } = request.body;
-    const result = await joinEvent(request, userId, eventKey, teamName);
+    const { body } = request;
+    const result = await joinEvent(request, body);
 
     response.send(result);
   });

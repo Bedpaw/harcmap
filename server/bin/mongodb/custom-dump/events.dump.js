@@ -11,8 +11,8 @@ const event1 = {
   eventDuration,
   mapProperties: {
     zoom: 10,
-    longitude: 10,
-    latitude: 10,
+    longitude: 18.54,
+    latitude: 54.47,
   },
   eventRefreshTime: 60,
 };
@@ -23,8 +23,8 @@ const event2 = {
   eventDuration,
   mapProperties: {
     zoom: 20,
-    longitude: 10,
-    latitude: 10,
+    longitude: 18.54,
+    latitude: 54.47,
   },
   eventRefreshTime: 120,
 };
@@ -34,9 +34,9 @@ const event3 = {
   eventName: 'Wydarzenie 3',
   eventDuration,
   mapProperties: {
-    zoom: 20,
-    longitude: 20,
-    latitude: 20,
+    zoom: 15,
+    longitude: 18.54,
+    latitude: 54.47,
   },
   eventRefreshTime: 180,
 };

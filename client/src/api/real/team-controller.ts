@@ -12,20 +12,13 @@ export const teamController = {
   getAllTeamsByEventId (eventId: string) {
     return httpService.get<TeamDTO[], Team[]>({
       url: urls.getAllTeamsByEventId(eventId),
-      errorOptions: API_ERRORS.getPointsByEventId,
+      errorOptions: API_ERRORS.getAllTeamsByEventId,
     });
   },
   getTeamByEventId (eventId: string, teamId: string) {
     return httpService.get<TeamDTO, Team>({
       url: urls.getTeamByEventId(eventId, teamId),
-      errorOptions: API_ERRORS.getPointsByEventId,
-      successCallback: (team) => {
-        const teamMembers = team.teamMembers.map((tm, i) => ({
-          ...tm,
-          nickname: 'Mock nickname ' + i,
-        }));
-        return { ...team, teamMembers }; // TODO remove after backend add nickname
-      },
+      errorOptions: API_ERRORS.getTeamByEventId,
     });
   },
 };

@@ -1,5 +1,5 @@
 const Joi = require('joi');
-
+const { errorCodes } = require('../libs/errors');
 const {
   email,
   date,
@@ -25,6 +25,7 @@ const userSchema = {
 // Create model
 const Users = new Model('users', userSchema, {
   uniqueFiled: 'email',
+  uniqueFieldError: errorCodes.THIS_EMAIL_ALREADY_EXIST,
 });
 
 module.exports = Users;

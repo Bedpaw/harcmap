@@ -16,6 +16,7 @@ class Model {
     this.validationSchema = Joi.object(validationSchema);
     this.validationSchemaRequired = {};
     this.uniqueFiled = options.uniqueFiled;
+    this.uniqueFieldError = options.uniqueFieldError;
 
     // add ".required()" to schema for CREATE method - all fields are required
     Object.entries(validationSchema).forEach(([fieldName, fieldValue]) => {
@@ -52,7 +53,6 @@ class Model {
     // validation failed
     if (validationResults.nok) {
       throw new AppError(errorCodes.MODEL_VALIDATION_NOT_PASS, {
-        httpStatus: 500,
         details: validationResults.results,
       });
     } else {
@@ -83,9 +83,15 @@ class Model {
         result.success = true;
         result.data = insertResult.ops;
       } else if (foundDuplicates) {
-        throw new AppError(errorCodes.MODEL_FOUND_DOCUMENT_WITH_UNIQUE_FIELD, {
-          httpStatus: 400,
-        });
+        if (this.uniqueFieldError) {
+          throw new AppError(this.uniqueFieldError, {
+            httpStatus: 400,
+          });
+        } else {
+          throw new AppError(errorCodes.MODEL_FOUND_DOCUMENT_WITH_UNIQUE_FIELD, {
+            httpStatus: 500,
+          });
+        }
       } else {
         throw new AppError(errorCodes.MODEL_INSERT_INCORRECT_LENGTH, {
           details: insertResult,

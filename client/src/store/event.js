@@ -5,6 +5,8 @@ import { api } from 'api';
 import { pointUtils } from 'utils/point';
 import { permissions } from 'utils/permissions';
 import { appStorage } from 'utils/storage';
+import { colorsUtils } from 'utils/macros/colors';
+import { translator } from 'dictionary';
 
 const initState = () => ({
   eventId: null,
@@ -82,6 +84,18 @@ export default {
         api.getEventById(eventId)
           .then(data => (event = { ...data, eventId }))
           .then(() => api.getCategoriesByEventId(eventId))
+          .then((categories) => {
+            if (categories.length > 0) {
+              return categories;
+            } else {
+              return api.addPointCategory({
+                pointValue: 1,
+                pointFillColor: colorsUtils.appColors.red,
+                categoryName: translator('general.defaultPointCategoryName'),
+                pointStrokeColor: colorsUtils.appColors.black,
+              }, eventId).then(category => [category]);
+            }
+          })
           .then(categories => (event.categories = categories))
           .then(() => {
             if (teamId) {
@@ -112,7 +126,7 @@ export default {
       return new Promise((resolve, reject) => {
         api.collectPoint(context.getters.eventId, pointKey)
           .then((point) => {
-            context.commit('updatePoint', { ...point, pointCollectedDate: Number(new Date()) }); // TODO doesnt set collectedDate;
+            context.commit('updatePoint', point);
             context.commit('team/addCollectedPoint', point.pointId, { root: true });
             resolve();
           })
@@ -129,10 +143,10 @@ export default {
           .catch(reject);
       });
     },
-    addEvent (context, event) {
+    addEvent (context, { event, userId }) {
       return new Promise((resolve, reject) => {
-        api.addEvent(event)
-          .then(() => resolve())
+        api.addEvent(event, userId)
+          .then((eventResponse) => resolve(eventResponse))
           .catch(reject);
       });
     },
