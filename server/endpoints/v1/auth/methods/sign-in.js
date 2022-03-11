@@ -52,10 +52,11 @@ async function signIn (request, response, next) {
       // authenticate errors
       if (authenticateAppError || !userData) {
         const errorCode = authenticateAppError ? authenticateAppError.code : null;
+        const httpStatus = authenticateAppError ? authenticateAppError.httpStatus : null;
 
         if (errorCode) {
           return handleErrors(new AppError(errorCode, {
-            httpStatus: 401,
+            httpStatus: httpStatus || 401,
           }), request, response, next);
         } else {
           // unhandled error

@@ -55,11 +55,13 @@ app.use(expressSession({
   },
   resave: false,
   saveUninitialized: false,
-  store: MONGO_SESSION_STORE === 'true' ? new MongoStore({
-    url: connectionString,
-    // dbName: 'harcmap-sessions',
-    stringify: false,
-  }) : undefined,
+  store: MONGO_SESSION_STORE === 'true'
+    ? new MongoStore({
+      url: connectionString,
+      dbName: 'harcmap-sessions',
+      stringify: false,
+    })
+    : undefined,
 }));
 // Passport
 passport.serializeUser(serializeUser);

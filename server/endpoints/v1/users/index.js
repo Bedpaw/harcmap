@@ -33,7 +33,8 @@ router.route('/')
 router.route('/account-activation/:key')
   .get(async (request, response) => {
     const { key } = request.params;
-    await activateUser(response, key);
+    const { invitationKey } = request.query;
+    await activateUser(response, key, invitationKey);
   });
 
 router.route('/reset-password')
