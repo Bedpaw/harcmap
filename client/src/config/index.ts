@@ -1,6 +1,6 @@
 import { styleManager } from 'utils/style-manager';
-import uuidInit from 'utils/uuid';
 import { initializeDevTools } from './dev-tools';
+import { uuidInit } from 'utils/uuid';
 import { initDateConfig } from 'config/date-config';
 import { DEVELOPMENT_MODE } from 'config/app-env';
 
