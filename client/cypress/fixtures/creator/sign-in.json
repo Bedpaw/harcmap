@@ -11,8 +11,8 @@
       },
       "teamId": "100000000000000000000001",
       "teamName": "Zespół 1",
-      "role": "teamLeader",
-      "isBanned": true
+      "role": "creator",
+      "isBanned": false
     }
   ]
 }

@@ -1,4 +1,4 @@
-import { apiResources, intercept, selectors } from './selectors';
+import { apiResources, intercept, ROUTES, selectors } from './selectors';
 export class Page {
   static roles = {
     teamLeader: 'teamLeader',
@@ -11,19 +11,21 @@ export class Page {
   static selectors = selectors
 
   static initTest ({
-    stubServer = false,
+    stubServer = Cypress.env('stubServer'),
     openEvent = true,
     role = this.roles.teamLeader,
   }) {
     if (stubServer) {
       intercept.teams.getTeamByEventId();
-      intercept.auth.signIn(role === this.roles.teamLeader ? 'sign-in' : 'sign-in-admin');
+      intercept.auth.signIn({ role, name: 'sign-in' });
       intercept.events.getEventById();
+      intercept.categories.getCategoriesByEventId();
+      intercept.points.getPointsByEventId();
     } else {
       cy.intercept(apiResources.auth.signIn).as('signIn');
     }
 
-    cy.visit('/sign-in');
+    cy.visit(ROUTES.signIn);
 
     if (stubServer === false) {
       const loginData = this.getLoginData(role);
@@ -49,7 +51,12 @@ export class Page {
   }
 
   private static enterEvent (interception) {
-    const eventId = interception.response.body.userEvents[0].eventId;
+    // TODO
+    let x = true;
+    if (interception.response.body.email === Cypress.env('observer_email')) {
+      x = false;
+    }
+    const eventId = interception.response.body.userEvents[x ? 0 : 1].eventId;
     cy.dataCy(selectors.buttons.enterEvent(eventId)).click().then(() =>
       cy.get('.f-close-popup').click());
   }
@@ -59,6 +66,12 @@ export class Page {
       return { email: Cypress.env('admin_email'), password: Cypress.env('login_password') };
     } else if (role === this.roles.teamLeader) {
       return { email: Cypress.env('teamLeader_email'), password: Cypress.env('login_password') };
+    } else if (role === this.roles.teamMember) {
+      return { email: Cypress.env('teamMember_email'), password: Cypress.env('login_password') };
+    } else if (role === this.roles.creator) {
+      return { email: Cypress.env('creator_email'), password: Cypress.env('login_password') };
+    } else if (role === this.roles.observer) {
+      return { email: Cypress.env('observer_email'), password: Cypress.env('login_password') };
     }
   }
 }

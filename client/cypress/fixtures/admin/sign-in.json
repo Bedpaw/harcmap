@@ -12,7 +12,7 @@
       "teamId": "100000000000000000000001",
       "teamName": "Zespół 1",
       "role": "admin",
-      "isBanned": true
+      "isBanned": false
     }
   ]
 }
