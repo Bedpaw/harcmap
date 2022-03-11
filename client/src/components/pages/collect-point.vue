@@ -9,10 +9,12 @@
         :label="$t('form.field.pointId')"
         :rules="validationRules.pointId"
         :disabled="blockForm"
+        tests-selector="input-collect-point"
       />
       <a-button-submit
         :disabled="blockForm"
         :is-sending="isSending"
+        tests-selector="collect-point"
       />
     </o-form>
   </t-page>

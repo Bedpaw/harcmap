@@ -2,6 +2,7 @@
   <transition name="fade">
     <div
       v-if="isOpen"
+      data-cy="snackbar"
       class="m-snackbar"
       :class="colorClasses"
     >
