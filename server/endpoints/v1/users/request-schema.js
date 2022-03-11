@@ -3,6 +3,7 @@ const {
   objectIdInRequest,
   email,
   password,
+  keys,
 } = require('../../../libs/common-schemas');
 
 // /users/:userId
@@ -24,7 +25,9 @@ const resetPasswordSchema = {
 };
 
 const activateAccountSchema = {
-  GET: Joi.object({}),
+  GET: Joi.object({
+    invitationKey: keys,
+  }),
 };
 
 const resetPasswordKeySchema = {
