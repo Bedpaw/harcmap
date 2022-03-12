@@ -54,7 +54,7 @@ export default {
     futureEvents: [],
     currentEvents: [],
     pastEvents: [],
-    wantsAutoLoginToEvent: true,
+    wantsAutoLoginToEvent: appStorage.getItem(appStorage.appKeys.wantsAutoLoginToEvent, appStorage.getIds.email()),
   }),
   computed: {
     primaryButtons () {
@@ -89,7 +89,6 @@ export default {
   },
   mounted () {
     this.events = this.$store.getters['user/userEvents'];
-    this.autoSignInToEventIfPossible();
   },
   methods: {
     prepareButtonsDetails (event, timePeriod = MACROS.timePeriods.isCurrent) {
@@ -125,17 +124,7 @@ export default {
       const { teamId, role } = this.events.find(event => event.eventId === eventId);
       enterEvent(role, eventId, teamId);
     },
-    autoSignInToEventIfPossible () {
-      this.wantsAutoLoginToEvent = appStorage.getItem(appStorage.appKeys.wantsAutoLoginToEvent, appStorage.getIds.email());
-      const isJustLogged = this.$route.query.justLoggedIn;
-      const recentEventId = appStorage.getItem(appStorage.appKeys.recentEvent, appStorage.getIds.email());
-      if (isJustLogged && recentEventId && this.wantsAutoLoginToEvent) {
-        const isRecentEventAvailable = !!this.events.find(event => event.eventId === recentEventId);
-        if (isRecentEventAvailable) {
-          this.signInToEvent(recentEventId);
-        }
-      }
-    },
+
     navigateToCreateEvent () {
       this.$router.push(this.ROUTES.newEvent.path);
     },

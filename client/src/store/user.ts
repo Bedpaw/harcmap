@@ -4,6 +4,11 @@ import { api } from 'api';
 import { autoUpdate } from 'utils/auto-update';
 import { Module } from 'vuex';
 import { User } from 'models/user';
+import { urlUtils } from 'utils/url';
+import router from 'src/router';
+import { ROUTES } from 'config/routes-config';
+import { appStorage } from 'utils/storage';
+import { enterEvent } from 'utils/enter-event';
 
 export const user:Module<User, object> = {
   namespaced: true,
@@ -29,24 +34,61 @@ export const user:Module<User, object> = {
     signOut: state => {
       state.email = '';
       state.userEvents = [];
+      state.userId = '';
+      state.isActive = false;
       autoUpdate.stop();
     },
   },
   actions: {
-    signIn (context, data) {
-      return new Promise((resolve) => {
-        context.commit('setUser', data);
-        // TODO: Here should be download event if session say so
-        resolve(true);
+    signIn (context, credentials) {
+      return new Promise((resolve, reject) => {
+        const signInMethod = credentials ? api.signIn : api.checkYourLoginSession;
+
+        (signInMethod(credentials) as Promise<User>)
+          .then(userData => {
+            context.commit('setUser', userData);
+            console.log(userData.email);
+            const invitationKey = urlUtils.getInvitationKey();
+            if (invitationKey) {
+              router.push({
+                name: ROUTES.joinEvent.name,
+                query: { invitationKey },
+              });
+              resolve(true);
+              return;
+            }
+
+            const wantsAutoLoginToEvent = appStorage.getItem(appStorage.appKeys.wantsAutoLoginToEvent, appStorage.getIds.email());
+            const recentEventId = appStorage.getItem(appStorage.appKeys.recentEvent, appStorage.getIds.email());
+            if (recentEventId && wantsAutoLoginToEvent) {
+              const recentEvent = userData.userEvents.find(event => event.eventId === recentEventId);
+              if (recentEvent) {
+                const { role, eventId, teamId } = recentEvent;
+                enterEvent(role, eventId, teamId);
+                resolve(true);
+                return;
+              }
+            }
+
+            router.push({
+              name: ROUTES.eventsList.name,
+            });
+            resolve(true);
+          })
+          .catch(reject);
       });
     },
     signOut (context) {
       return new Promise((resolve, reject) => {
+        if (!context.state.userId) {
+          resolve(true);
+          return;
+        }
         api.signOut()
           .finally(() => {
             context.commit('signOut');
-            context.commit('event/setId', null, { root: true });
-            resolve(true);
+            context.dispatch('event/resetState', null, { root: true })
+              .then(() => resolve(true));
           })
           .catch(() => {
             const error = new ErrorMessage(ERRORS.signOut);

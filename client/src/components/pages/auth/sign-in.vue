@@ -29,7 +29,6 @@
 <script>
 import TPage from 'templates/page';
 import AButtonSecondary from 'atoms/button/secondary';
-import { api } from 'api';
 import { ROUTES } from 'config/routes-config';
 import { uPromise } from '@dbetka/utils';
 import MInput from 'molecules/input';
@@ -41,7 +40,6 @@ import { useForm } from 'plugins/form';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { DEVELOPMENT_MODE } from 'config/app-env';
-import { urlUtils } from 'utils/url';
 
 export default {
   name: 'p-sign-in',
@@ -57,7 +55,6 @@ export default {
     const router = useRouter();
     const form = useForm();
     const { isSending, blockForm, onErrorOccurs } = form;
-    let invitationKey = '';
 
     const values = reactive({
       email: '',
@@ -67,20 +64,8 @@ export default {
     function signIn () {
       isSending.value = true;
       blockForm.value = true;
-      api.signIn(values)
-        .then(data => store.dispatch('user/signIn', data))
+      store.dispatch('user/signIn', values)
         .then(() => {
-          if (invitationKey) {
-            router.push({
-              name: ROUTES.joinEvent.name,
-              query: { invitationKey },
-            });
-          } else {
-            router.push({
-              name: ROUTES.eventsList.name,
-              query: { justLoggedIn: true },
-            });
-          }
           isSending.value = false;
           blockForm.value = false;
         })
@@ -96,7 +81,6 @@ export default {
     }
 
     onMounted(() => {
-      invitationKey = urlUtils.getInvitationKey();
       if (DEVELOPMENT_MODE) {
         signInAutomatically();
       }

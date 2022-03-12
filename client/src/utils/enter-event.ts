@@ -5,7 +5,7 @@ import { ROUTES } from 'config/routes-config';
 import router from 'src/router';
 
 export function enterEvent (role: string, eventId: string, teamId: string | null = null) {
-  const lastRoute = appStorage.getItem(appStorage.appKeys.lastRoute, appStorage.getIds.eventIdAndEmail());
+  const lastRoute = appStorage.getItem(appStorage.appKeys.lastRoute, { ...appStorage.getIds.eventIdAndEmail(), eventId });
   store.dispatch('event/download', { eventId, teamId, role })
     .then(() => {
       autoUpdate.run();

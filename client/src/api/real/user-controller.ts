@@ -54,7 +54,7 @@ export const userController = {
   },
 
   changePassword (password: string, key: string) {
-    return httpService.put({
+    return httpService.post({
       url: urls.changePassword(key),
       body: { password },
       errorOptions: API_ERRORS.changePassword,
