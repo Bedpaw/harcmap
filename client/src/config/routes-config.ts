@@ -5,7 +5,9 @@ import { materialIcons } from '@dbetka/vue-material-icons';
 const ICONS = materialIcons.names;
 
 const enterPermissions: EnterPermissionGroup = {
-  alwaysAllowed: {},
+  alwaysAllowed: {
+    alwaysAllowed: true,
+  },
   beforeLogin: {
     beforeLogin: true,
   },

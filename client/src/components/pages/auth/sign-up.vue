@@ -78,7 +78,7 @@ export default {
     function signUp () {
       isSending.value = true;
       blockForm.value = true;
-      api.signUp(values)
+      api.signUp({ ...values, invitationKey })
         .then(onSignUp)
         .catch(this.onErrorOccurs);
     }

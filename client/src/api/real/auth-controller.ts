@@ -4,7 +4,7 @@ import { Mapper } from 'models/utils/mapper';
 import { UserDTO } from 'models/dtos/user';
 import { User } from 'models/user';
 
-type Credentials = { email: string, password: string }
+type Credentials = { email: string, password: string, invitationKey?: string }
 const urls = {
   signIn: '/auth/sign-in',
   signUp: '/auth/sign-up',
