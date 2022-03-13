@@ -9,6 +9,7 @@ import router from 'src/router';
 import { ROUTES } from 'config/routes-config';
 import { appStorage } from 'utils/storage';
 import { enterEvent } from 'utils/enter-event';
+import { RouteLocationNormalized } from 'vue-router';
 
 export const user:Module<User, object> = {
   namespaced: true,
@@ -40,14 +41,18 @@ export const user:Module<User, object> = {
     },
   },
   actions: {
-    signIn (context, credentials) {
+    signIn (context, credentialsOrStartPath: RouteLocationNormalized | { email: string, password: string }) {
       return new Promise((resolve, reject) => {
-        const signInMethod = credentials ? api.signIn : api.checkYourLoginSession;
+        const appFirstRun = urlUtils.checkIfRouteLocationNormalized(credentialsOrStartPath);
+        const signInPromise = (appFirstRun
+          ? api.checkYourLoginSession()
+          : api.signIn(credentialsOrStartPath)) as Promise<User>;
 
-        (signInMethod(credentials) as Promise<User>)
+        signInPromise
           .then(userData => {
             context.commit('setUser', userData);
-            console.log(userData.email);
+
+            // Invitation key redirect
             const invitationKey = urlUtils.getInvitationKey();
             if (invitationKey) {
               router.push({
@@ -58,18 +63,21 @@ export const user:Module<User, object> = {
               return;
             }
 
+            // wantsAutoLoginToEvent redirect
             const wantsAutoLoginToEvent = appStorage.getItem(appStorage.appKeys.wantsAutoLoginToEvent, appStorage.getIds.email());
             const recentEventId = appStorage.getItem(appStorage.appKeys.recentEvent, appStorage.getIds.email());
             if (recentEventId && wantsAutoLoginToEvent) {
               const recentEvent = userData.userEvents.find(event => event.eventId === recentEventId);
               if (recentEvent) {
                 const { role, eventId, teamId } = recentEvent;
-                enterEvent(role, eventId, teamId);
+                const routeInfo = appFirstRun ? credentialsOrStartPath : undefined;
+                enterEvent(role, eventId, teamId, (routeInfo as RouteLocationNormalized));
                 resolve(true);
                 return;
               }
             }
 
+            // default redirect
             router.push({
               name: ROUTES.eventsList.name,
             });

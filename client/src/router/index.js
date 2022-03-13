@@ -30,7 +30,7 @@ router.beforeEach((to, from, next) => {
   let promise;
   if (firstRun) {
     firstRun = false;
-    promise = makeFirstRun();
+    promise = makeFirstRun(to);
   } else {
     promise = Promise.resolve();
   }
@@ -51,11 +51,11 @@ router.hardReload = function () {
 
 export default router;
 
-function makeFirstRun () {
+function makeFirstRun (to) {
   return new Promise((resolve, reject) => {
     api.information()
       .then(versionCompatibility.check)
-      .then(session.tryLogin)
+      .then(() => session.tryLogin(to))
       .then(resolve)
       .catch(reject)
       .finally(() => promiseUtils.timeout(1000))

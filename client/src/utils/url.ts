@@ -1,3 +1,5 @@
+import { RouteLocationNormalized } from 'vue-router';
+
 export const urlUtils = {
   getQueryParam (name:string):string {
     if (window.location.search) {
@@ -8,5 +10,9 @@ export const urlUtils = {
   },
   getInvitationKey ():string {
     return this.getQueryParam('invitationKey');
+  },
+
+  checkIfRouteLocationNormalized (toBeDetermined: unknown): toBeDetermined is RouteLocationNormalized {
+    return !!(toBeDetermined as RouteLocationNormalized).meta;
   },
 };

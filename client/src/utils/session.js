@@ -1,9 +1,9 @@
 import { store } from 'store';
 
 export const session = {
-  tryLogin () {
+  tryLogin (to) {
     return new Promise(resolve => {
-      store.dispatch('user/signIn', null)
+      store.dispatch('user/signIn', to)
         .catch(() => undefined)
         .finally(() => resolve());
     });

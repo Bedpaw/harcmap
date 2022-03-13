@@ -35,7 +35,6 @@ const isLoginGuard = (enterPermissions: EnterPermissionOptions) => {
 };
 
 const isEventChooseGuard = (enterPermissions: EnterPermissionOptions) => {
-  // TODO: FIRST RUN ALWAYS THROW TRUE - eventId on init is empty
   const eventNotChosen = store.getters['event/eventId'] === null;
   const requireEventChosen = enterPermissions.afterEventChosen;
 
@@ -50,7 +49,7 @@ const getRedirectPath = () => {
     return ROUTES.welcome.path;
   }
   if (eventNotChosen) {
-    return ROUTES.eventsList.name;
+    return ROUTES.eventsList.path;
   }
   return ROUTES.start.path;
 };
