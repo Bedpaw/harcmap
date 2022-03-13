@@ -19,7 +19,7 @@ export function enterEvent (role: string, eventId: string, teamId: string | null
 function getRedirectPath (to?: RouteLocationNormalized) {
   let final;
   const lastRoute = appStorage.getItem(appStorage.appKeys.lastRoute, appStorage.getIds.eventIdAndEmail());
-  if (to && to.meta.afterEventChosen) {
+  if (to && (to.meta.afterEventChosen || to.meta.alwaysAllowed)) {
     final = to.path;
   } else if (lastRoute) {
     final = lastRoute;
