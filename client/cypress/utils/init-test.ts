@@ -1,4 +1,7 @@
-import { apiResources, intercept, ROUTES, selectors } from './selectors';
+import { testSelectors } from '../../data/selectors';
+import { apiResources } from '../../data/api-resources';
+import { intercept } from './interceptions';
+import { urls } from './urls';
 export class Page {
   static roles = {
     teamLeader: 'teamLeader',
@@ -8,7 +11,7 @@ export class Page {
     creator: 'creator',
   };
 
-  static selectors = selectors
+  static selectors = testSelectors;
 
   static initTest ({
     stubServer = Cypress.env('stubServer'),
@@ -16,48 +19,62 @@ export class Page {
     role = this.roles.teamLeader,
   }) {
     if (stubServer) {
-      intercept.teams.getTeamByEventId();
-      intercept.auth.signIn({ role, name: 'sign-in' });
-      intercept.events.getEventById();
-      intercept.categories.getCategoriesByEventId();
-      intercept.points.getPointsByEventId();
+      this.stubServerInit({ role, openEvent });
     } else {
-      cy.intercept(apiResources.auth.signIn).as('signIn');
-    }
-
-    cy.visit(ROUTES.signIn);
-
-    if (stubServer === false) {
-      const loginData = this.getLoginData(role);
-      cy.dataCy(this.selectors.inputs.email).type(loginData.email);
-      cy.dataCy(this.selectors.inputs.password).type(loginData.password);
-    }
-    if (openEvent) {
-      cy.wait('@signIn').then((interception) => {
-        cy.dataCy(this.selectors.buttons.signInSubmit).click()
-          .then(() => {
-            if (interception.response.body.userEvents) {
-              return this.enterEvent(interception);
-            } else {
-              cy.wait('@signIn').then((interception) => {
-                return this.enterEvent(interception);
-              });
-            }
-          });
-      });
-    } else {
-      return cy.dataCy(this.selectors.buttons.signInSubmit).click();
+      this.localServerInit({ role, openEvent });
     }
   }
 
+  static stubServerInit ({ role, openEvent }) {
+    intercept.other.checkVersion();
+    intercept.auth.signIn(role);
+    intercept.events.getEventById();
+    intercept.categories.getCategoriesByEventId();
+    intercept.teams.getTeamByEventId();
+    intercept.points.getPointsByEventId();
+
+    cy.visit('/');
+
+    // Intercept checkSession, so autologged
+    cy.wait('@signIn').then((interception) => {
+      return this.enterEvent(interception);
+    });
+
+  }
+
+  static localServerInit ({ role, openEvent }) {
+    cy.intercept(urls.withBackendPrefix(apiResources.auth.signIn)).as('signIn');
+
+    cy.visit('/sign-in');
+
+    // wait for checkSession call to be sure that it won't mess after
+    cy.wait('@signIn').then(() => {
+
+      // Enter credentials
+      const loginData = this.getLoginData(role);
+      cy.dataCy(this.selectors.inputs.email).type(loginData.email);
+      cy.dataCy(this.selectors.inputs.password).type(loginData.password);
+      const afterLogInResponsePromise = cy.dataCy(this.selectors.buttons.signInSubmit).click().then(() => cy.wait('@signIn'));
+
+      if (openEvent === false) {
+        // Just log in
+        return afterLogInResponsePromise;
+      }
+      // Chose event and close guide
+      return afterLogInResponsePromise.then((interception) => this.enterEvent(interception));
+    });
+  }
+
   private static enterEvent (interception) {
-    // TODO
+    // Get eventId with role chosen in configuration
     let x = true;
     if (interception.response.body.email === Cypress.env('observer_email')) {
       x = false;
     }
     const eventId = interception.response.body.userEvents[x ? 0 : 1].eventId;
-    cy.dataCy(selectors.buttons.enterEvent(eventId)).click().then(() =>
+
+    cy.dataCy(this.selectors.buttons.enterEvent(eventId)).click().then(() =>
+      // close guide
       cy.get('.f-close-popup').click());
   }
 

@@ -16,7 +16,7 @@ const alias = {
   validateCodes: resolve(ROOT + '../server/libs/errors/codes.js'),
   config: resolveSRC('config'),
   models: resolveSRC('models'),
-
+  data: resolve(ROOT + '/data'),
   components: resolveSRC('components'),
   atoms: resolveSRC('components/atoms'),
   mixins: resolveSRC('components/mixins'),

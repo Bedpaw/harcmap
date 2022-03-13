@@ -41,6 +41,7 @@ import { appStorage } from 'utils/storage';
 import ACheckbox from 'atoms/checkbox';
 import { enterEvent } from 'utils/enter-event';
 import { mapGetters } from 'vuex';
+import { testSelectors } from 'data/selectors';
 
 const ICONS_TYPES = materialIcons.types;
 
@@ -65,7 +66,7 @@ export default {
         {
           onClick: this.navigateToJoinEvent.bind(this),
           text: this.$t('page.eventsList.joinEvent'),
-          testsSelector: 'navigate-to-join-event',
+          testsSelector: testSelectors.buttons.navigateToJoinEvent,
           iconLeftProps: {
             name: this.$icons.names.check,
           },
@@ -73,7 +74,7 @@ export default {
         {
           onClick: this.navigateToCreateEvent.bind(this),
           text: this.$t('page.eventsList.createEvent'),
-          testsSelector: 'navigate-to-create-event',
+          testsSelector: testSelectors.buttons.navigateToCreateEvent,
           iconLeftProps: {
             name: this.$icons.names.add,
           },
@@ -116,7 +117,7 @@ export default {
       return {
         onClick: this.signInToEvent.bind(this),
         id: eventId,
-        testsSelector: `button-enter-event-${eventId}`,
+        testsSelector: testSelectors.buttons.enterEvent(eventId),
         iconLeftProps: {
           name: generalConfigUtils.getIconByTimePeriod(timePeriod),
           class: 'f-text-standard',

@@ -20,7 +20,7 @@
     <!-- o-guide `v-if` and `transition` must be here because of async dependencies -->
     <o-guide v-if="guideIsOpen" />
   </transition>
-  <o-loading />
+  <o-loading v-if="!TEST_MODE" />
 </template>
 
 <script>

@@ -1,3 +1,23 @@
+export const testSelectors = {
+  buttons: {
+    signInSubmit: 'sign-in-submit',
+    enterEvent: (eventId: string) => `button-enter-event-${eventId}`,
+    navigateToJoinEvent: 'navigate-to-join-event',
+    navigateToCreateEvent: 'navigate-to-create-event',
+    navigateToCheckResults: 'navigate-to-check-results',
+    navigateToScoreboard: 'navigate-to-scoreboard',
+    navigateToEditEvent: 'navigate-to-edit-event',
+    navigateToSearchPoints: 'navigate-to-search-point',
+    navigateToMap: 'navigate-to-map',
+    collectPoint: 'collect-point',
+  },
+  inputs: {
+    email: 'input-email',
+    password: 'input-password',
+    collectPoint: 'input-collect-point',
+  },
+};
+
 const beforeLoginRoutes = {
   welcome: {
     path: '/',
@@ -122,7 +142,7 @@ const alwaysAllowedRoutes = {
     name: 'about',
   },
 };
-export const ROUTES = {
+export const Selectors = {
   adminObserverRoutes,
   alwaysAllowedRoutes,
   authRoutes,

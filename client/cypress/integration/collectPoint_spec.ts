@@ -1,23 +1,34 @@
 import { Page } from '../utils/init-test';
-import { intercept, selectors } from '../utils/selectors';
+import { intercept } from '../utils/interceptions';
+import { testSelectors } from '../../data/selectors';
+import { assertions } from '../utils/assertions';
+import { urls } from '../utils/urls';
+import { apiResources } from '../../data/api-resources';
 
 describe('Collect point', () => {
   it(' - fail!', () => {
-    const rootUrl = Cypress.config().baseUrl;
+    const { teamLeader } = Page.roles;
     const pointKey = 'Poi7';
-    intercept.points.collectPoint(pointKey, { role: Page.roles.teamLeader, name: 'collect-point' });
+    const bigIconSelector = '.a-button.f-big > .a-icon';
+    if (Cypress.env('stubServer')) {
+      intercept.points.collectPoint(teamLeader, pointKey);
+    } else {
+      cy.intercept(urls.withBackendPrefix(apiResources.points.collectPoint(pointKey))).as('collectPoint');
+    }
+    Page.initTest({ role: teamLeader });
 
-    Page.initTest({ role: Page.roles.teamLeader });
-    cy.get('.a-button.f-big > .a-icon').click().then(() => {
-      cy.url().should('eq', rootUrl + '/collect-point');
-      cy.dataCy(selectors.inputs.collectPoint).type(pointKey);
-      cy.dataCy(selectors.buttons.collectPoint).click().then(() => {
-        cy.wait('@signIn').then((interception) => {
+    cy.get(bigIconSelector).click().then(() => {
+
+      assertions.isThisUrl('/collect-point');
+
+      cy.dataCy(testSelectors.inputs.collectPoint).type(pointKey);
+      cy.dataCy(testSelectors.buttons.collectPoint).click().then(() => {
+        cy.wait('@collectPoint').then((interception) => {
           /*           cy.dataCy('snackbar');
           cy.dataCy('snackbar').should('not.exist'); */
           cy.dataCy('popup');
           cy.dataCy('popup').should('not.exist');
-          cy.url().should('eq', rootUrl + '/map');
+          assertions.isThisUrl('/map');
         });
       });
     });
