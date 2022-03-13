@@ -40,6 +40,7 @@ import { materialIcons } from '@dbetka/vue-material-icons';
 import { appStorage } from 'utils/storage';
 import ACheckbox from 'atoms/checkbox';
 import { enterEvent } from 'utils/enter-event';
+import { mapGetters } from 'vuex';
 
 const ICONS_TYPES = materialIcons.types;
 
@@ -50,13 +51,15 @@ export default {
     MButtonsListEvents,
   },
   data: () => ({
-    events: [],
     futureEvents: [],
     currentEvents: [],
     pastEvents: [],
     wantsAutoLoginToEvent: appStorage.getItem(appStorage.appKeys.wantsAutoLoginToEvent, appStorage.getIds.email()),
   }),
   computed: {
+    ...mapGetters('user', [
+      'userEvents',
+    ]),
     primaryButtons () {
       return [
         {
@@ -77,7 +80,7 @@ export default {
     },
   },
   watch: {
-    events: function (events) {
+    userEvents: function (events) {
       const [past, current, future] = eventUtils.splitEventsByTimePeriods(events);
       this.pastEvents = past.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isPast));
       this.currentEvents = current.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isCurrent));
@@ -88,7 +91,11 @@ export default {
     },
   },
   mounted () {
-    this.events = this.$store.getters['user/userEvents'];
+    const events = this.$store.getters['user/userEvents'];
+    const [past, current, future] = eventUtils.splitEventsByTimePeriods(events);
+    this.pastEvents = past.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isPast));
+    this.currentEvents = current.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isCurrent));
+    this.futureEvents = future.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isFuture));
   },
   methods: {
     prepareButtonsDetails (event, timePeriod = MACROS.timePeriods.isCurrent) {
@@ -121,7 +128,7 @@ export default {
       };
     },
     signInToEvent (eventId) {
-      const { teamId, role } = this.events.find(event => event.eventId === eventId);
+      const { teamId, role } = this.userEvents.find(event => event.eventId === eventId);
       enterEvent(role, eventId, teamId);
     },
 
