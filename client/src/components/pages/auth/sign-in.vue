@@ -86,7 +86,7 @@ export default {
     }
 
     onMounted(() => {
-      if (DEVELOPMENT_MODE && !TEST_MODE) {
+      if (DEVELOPMENT_MODE && !TEST_MODE()) {
         signInAutomatically();
       }
     });
