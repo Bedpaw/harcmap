@@ -13,6 +13,7 @@ const accountTypeInfo = {
     nameKey: 'accountTypes.organizer',
     menuLinks: [
       ROUTES.scoreboard,
+      ROUTES.shareEvent,
       ROUTES.editEvent,
       ROUTES.newPoint,
     ],

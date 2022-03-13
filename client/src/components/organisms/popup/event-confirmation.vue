@@ -110,13 +110,15 @@ export default {
     },
     async enterEvent () {
       const userId = this.$store.getters['user/userId'];
-      const { role, teamId } = await api.joinEvent({
+      const event = await api.joinEvent({
         userId,
         eventKey: this.eventKey,
         teamName: this.teamName,
         nickname: this.nickname,
       });
-      enterEvent(role, this.event.eventId, teamId);
+      // TODO Backend responses not consistent
+      this.$store.commit('user/addUserEvent', event);
+      enterEvent(event.role, this.event.eventId, event.teamId);
     },
   },
 };

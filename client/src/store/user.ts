@@ -39,6 +39,9 @@ export const user:Module<User, object> = {
       state.isActive = false;
       autoUpdate.stop();
     },
+    addUserEvent: (state, userEvent) => {
+      state.userEvents.push(userEvent);
+    },
   },
   actions: {
     signIn (context, credentialsOrStartPath: RouteLocationNormalized | { email: string, password: string }) {
