@@ -28,7 +28,7 @@ const objectIdInDatabase = Joi.object();
  */
 const email = Joi.string()
   .email()
-  .max(24)
+  .max(50)
   .trim();
 const password = Joi.string()
   .pattern(/^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,24}$/);

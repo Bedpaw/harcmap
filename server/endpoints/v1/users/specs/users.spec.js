@@ -1,85 +1,43 @@
 const testEndpoint = require('../../../../tests/utils/test-endpoint');
 
 describe('/api/v1/users', () => {
-  testEndpoint('/api/v1/users?eventId=60e6cc2eaa95cc33d7c46701', {
-    description: 'Return users list for event 60e6cc2eaa95cc33d7c46701',
+  testEndpoint('/api/v1/users?eventId=300000000000000000000003', {
+    description: 'Return users list for event 300000000000000000000003',
     signIn: {
-      email: 'example@domain.com',
+      email: 'user7@harcmap.pl',
       password: 'Password1',
     },
     method: 'GET',
     body: {
       expect: [{
-        email: 'example@domain.com',
+        email: 'user7@harcmap.pl',
         userEvents: [{
-          eventId: '60e6cc2eaa95cc33d7c46701',
-          eventName: 'event1',
+          nickname: 'Nick 10',
+          eventId: '300000000000000000000003',
+          eventName: 'Wydarzenie 3',
+          eventDuration: {
+            startDate: 1577870639000,
+            endDate: 2537560799000,
+          },
           isBanned: false,
           role: 'creator',
-          teamId: '60e6ca2aaa95cc33d7c466f8',
-          teamName: 'team1',
+          teamId: null,
+          teamName: null,
         }],
       }, {
-        email: 'quest@google.com',
+        email: 'user8@harcmap.pl',
         userEvents: [{
-          eventId: '60e6cc2eaa95cc33d7c46701',
-          eventName: 'event1',
-          isBanned: false,
-          role: 'teamMember',
-          teamId: '60e6ca2aaa95cc33d7c466f8',
-          teamName: 'team1',
-        }],
-      }],
-    },
-  });
-
-  testEndpoint('/api/v1/users?eventId=605920002c60e426288b8971', {
-    description: 'Return users list for event 605920002c60e426288b8971',
-    signIn: {
-      email: 'admin@harcmap.com',
-      password: 'Password1',
-    },
-    method: 'GET',
-    body: {
-      expect: [{
-        email: 'example@domain.com',
-        userEvents: [{
-          eventId: '605920002c60e426288b8971',
-          eventName: 'event2',
+          nickname: 'Nick 13',
+          eventId: '300000000000000000000003',
+          eventName: 'Wydarzenie 3',
+          eventDuration: {
+            startDate: 1577870639000,
+            endDate: 2537560799000,
+          },
           isBanned: false,
           role: 'teamLeader',
-          teamId: '60e6b02e0b6c6887accf6c03',
-          teamName: 'team2',
-        }],
-      }, {
-        email: 'member@harcmap.com',
-        userEvents: [{
-          eventId: '605920002c60e426288b8971',
-          eventName: 'event2',
-          isBanned: false,
-          role: 'teamMember',
-          teamId: '60e6b02e0b6c6887accf6c05',
-          teamName: 'team3',
-        }],
-      }, {
-        email: 'admin@harcmap.com',
-        userEvents: [{
-          eventId: '605920002c60e426288b8971',
-          eventName: 'event2',
-          isBanned: false,
-          role: 'admin',
-          teamId: '60e6b02e0b6c6887accf6c03',
-          teamName: 'team2',
-        }],
-      }, {
-        email: 'creator@harcmap.com',
-        userEvents: [{
-          eventId: '605920002c60e426288b8971',
-          eventName: 'event2',
-          isBanned: false,
-          role: 'creator',
-          teamId: '60e6b02e0b6c6887accf6c05',
-          teamName: 'team3',
+          teamId: '400000000000000000000004',
+          teamName: 'Team 4',
         }],
       }],
     },

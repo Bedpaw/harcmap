@@ -62,7 +62,9 @@ const endpointsAccessConfig = {
   },
   // teamss
   '/api/v1/events/:eventId/teams': admins,
-  '/api/v1/events/:eventId/teams/:teamId': allUsers,
+  '/api/v1/events/:eventId/teams/:teamId': {
+    GET: allUsers,
+  },
   // points
   '/api/v1/events/:eventId/points': {
     GET: allUsers,

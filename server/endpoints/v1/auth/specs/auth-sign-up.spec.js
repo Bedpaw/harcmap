@@ -47,8 +47,8 @@ describe(endpoint, () => {
         password: 'Password1',
       },
       expect: {
-        error: 1203,
-        message: 'model found document with unique field',
+        error: 1213,
+        message: 'this email already exist',
       },
     },
   });
