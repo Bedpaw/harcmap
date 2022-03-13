@@ -27,6 +27,9 @@ export const authController = {
     });
   },
   signUp (credentials: Credentials) {
+    credentials = credentials.invitationKey && credentials.invitationKey !== ''
+      ? credentials
+      : { email: credentials.email, password: credentials.password };
     return httpService.post({
       url: urls.signUp,
       body: credentials,

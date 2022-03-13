@@ -7,13 +7,10 @@ import { ROUTES } from 'config/routes-config';
 
 export function enterEvent (role: string, eventId: string, teamId: string | null = null, to?: RouteLocationNormalized) {
   store.commit('event/setId', eventId);
-  store.dispatch('event/download', { eventId, teamId, role })
+  return store.dispatch('event/download', { eventId, teamId, role })
     .then(() => {
       autoUpdate.run();
       router.push(getRedirectPath(to)).then(() => updateStorageAfterSuccessLogIn(eventId));
-    })
-    .catch(() => {
-      store.dispatch('user/signOut').catch(() => undefined);
     });
 }
 function getRedirectPath (to?: RouteLocationNormalized) {

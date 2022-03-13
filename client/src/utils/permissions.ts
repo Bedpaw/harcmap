@@ -13,7 +13,7 @@ export const ACCOUNT_TYPES = {
 
 export const permissions = {
   checkPermissions (accountType: string) {
-    const userAccountType = store.getters['event/userRole'];
+    const userAccountType = store.getters['event/role'];
     return userAccountType === accountType;
   },
   checkIsCreator () {

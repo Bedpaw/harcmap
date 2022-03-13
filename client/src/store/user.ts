@@ -47,6 +47,7 @@ export const user:Module<User, object> = {
         const signInPromise = (appFirstRun
           ? api.checkYourLoginSession()
           : api.signIn(credentialsOrStartPath)) as Promise<User>;
+        const routeInfo = appFirstRun ? (credentialsOrStartPath as RouteLocationNormalized) : undefined;
 
         signInPromise
           .then(userData => {
@@ -70,8 +71,7 @@ export const user:Module<User, object> = {
               const recentEvent = userData.userEvents.find(event => event.eventId === recentEventId);
               if (recentEvent) {
                 const { role, eventId, teamId } = recentEvent;
-                const routeInfo = appFirstRun ? credentialsOrStartPath : undefined;
-                enterEvent(role, eventId, teamId, (routeInfo as RouteLocationNormalized));
+                enterEvent(role, eventId, teamId, routeInfo);
                 resolve(true);
                 return;
               }
@@ -95,7 +95,7 @@ export const user:Module<User, object> = {
         api.signOut()
           .finally(() => {
             context.commit('signOut');
-            context.dispatch('event/resetState', null, { root: true })
+            context.dispatch('resetState', null, { root: true })
               .then(() => resolve(true));
           })
           .catch(() => {

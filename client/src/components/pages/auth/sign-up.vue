@@ -67,7 +67,7 @@ export default {
     let invitationKey = '';
 
     const form = useForm();
-    const { formSend, isSending, blockForm } = form;
+    const { formSend, isSending, blockForm, onErrorOccurs } = form;
 
     function onSignUp () {
       formSend.value = true;
@@ -80,7 +80,7 @@ export default {
       blockForm.value = true;
       api.signUp({ ...values, invitationKey })
         .then(onSignUp)
-        .catch(this.onErrorOccurs);
+        .catch(onErrorOccurs);
     }
 
     onMounted(() => {

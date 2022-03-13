@@ -7,7 +7,7 @@
     v-touch:swipe.left="openMenuIfLogin"
     v-touch:swipe.right="closeMenu"
   />
-  <o-menu v-if="userRole" />
+  <o-menu v-if="role" />
   <div
     v-touch:swipe.right="closeMenu"
     class="a-cover f-menu"
@@ -54,7 +54,7 @@ export default {
       guideIsOpen: 'isOpen',
     }),
     ...mapGetters('event', [
-      'userRole',
+      'role',
     ]),
   },
   mounted () {

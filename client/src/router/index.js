@@ -22,7 +22,7 @@ export const router = createRouter({
 const clearEventWhenLeaveEventRoutes = (to) => {
   if (!(to.meta.afterEventChosen || to.meta.alwaysAllowed)) {
     autoUpdate.stop();
-    store.dispatch('event/resetState').then();
+    store.dispatch('resetState').then();
   }
 };
 router.beforeEach((to, from, next) => {

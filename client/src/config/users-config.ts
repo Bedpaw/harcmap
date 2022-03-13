@@ -69,7 +69,7 @@ const availabilities = {
   seeAdminStartView: [creator, admin, observer],
 };
 
-const checkIfCan = (permittedRoles: string[]) => permittedRoles.includes(store.getters['event/userRole']);
+const checkIfCan = (permittedRoles: string[]) => permittedRoles.includes(store.getters['event/role']);
 
 export const userUtils = {
   getOrderedMembers: (teamMembers: TeamMember[]) => {
@@ -83,8 +83,8 @@ export const userUtils = {
   },
   getIcon: (obj: { role: string }) => accountTypeInfo[obj.role].icon,
   getNameKey: (role: string) => accountTypeInfo[role].nameKey,
-  getMenuLinks: (role = store.getters['event/userRole']) => accountTypeInfo[role].menuLinks,
-  getMenuCentralButton: (role = store.getters['event/userRole']) => accountTypeInfo[role].menuCentralButton,
+  getMenuLinks: (role = store.getters['event/role']) => accountTypeInfo[role].menuLinks,
+  getMenuCentralButton: (role = store.getters['event/role']) => accountTypeInfo[role].menuCentralButton,
 
   isOrganizer: (user: { role: string }) => user.role === creator,
 
