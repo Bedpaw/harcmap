@@ -28,7 +28,6 @@ export const pointController = {
     });
   },
   removePoint (eventId: string, pointId: string) {
-    console.log(urls.removePoint(eventId, pointId));
     return httpService.delete({
       url: urls.removePoint(eventId, pointId),
       errorOptions: API_ERRORS.removePoint,

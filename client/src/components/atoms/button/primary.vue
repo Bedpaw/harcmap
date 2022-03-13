@@ -12,10 +12,11 @@
   </a-button>
 </template>
 
-<script>
-import AButton from 'atoms/button';
+<script lang="ts">
+import AButton from 'atoms/button.vue';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
   name: 'a-button-primary',
   components: { AButton },
   props: {
@@ -44,5 +45,5 @@ export default {
       default: 'button-primary',
     },
   },
-};
+});
 </script>

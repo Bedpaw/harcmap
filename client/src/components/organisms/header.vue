@@ -32,6 +32,7 @@
       <a-icon
         v-if="$route.name === ROUTES.eventsList.name"
         :name="$icons.names.logout"
+        outlined
         size="28"
         @click="signOut"
       />

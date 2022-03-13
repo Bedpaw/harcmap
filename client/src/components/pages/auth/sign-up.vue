@@ -27,7 +27,7 @@
           {{ $t('page.signUp.linkHasBeenSent') }}
           <span class="f-bold">{{ values.email }}</span>
         </div>
-        <a-button-primary @click="$router.push(ROUTES.signIn.path)">
+        <a-button-primary @click="goToSignIn()">
           {{ $t('form.button.goToLogin') }}
         </a-button-primary>
       </template>
@@ -43,8 +43,11 @@ import MFieldSetPassword from 'molecules/field/set-password';
 import OForm from 'organisms/form';
 import AButtonPrimary from 'atoms/button/primary';
 import { api } from 'api';
-import { reactive } from 'vue';
+import { onMounted, reactive } from 'vue';
 import { useForm } from 'plugins/form';
+import { useRouter } from 'vue-router';
+import { ROUTES } from 'config/routes-config';
+import { urlUtils } from 'utils/url';
 
 export default {
   name: 'p-sign-up',
@@ -61,9 +64,10 @@ export default {
       email: '',
       password: '',
     });
+    let invitationKey = '';
 
     const form = useForm();
-    const { formSend, isSending, blockForm } = form;
+    const { formSend, isSending, blockForm, onErrorOccurs } = form;
 
     function onSignUp () {
       formSend.value = true;
@@ -74,14 +78,31 @@ export default {
     function signUp () {
       isSending.value = true;
       blockForm.value = true;
-      api.signUp(values)
+      api.signUp({ ...values, invitationKey })
         .then(onSignUp)
-        .catch(this.onErrorOccurs);
+        .catch(onErrorOccurs);
+    }
+
+    onMounted(() => {
+      invitationKey = urlUtils.getInvitationKey();
+    });
+
+    const router = useRouter();
+    function goToSignIn () {
+      if (invitationKey) {
+        router.push({
+          name: ROUTES.signIn.name,
+          query: { invitationKey },
+        });
+      } else {
+        router.push(ROUTES.signIn.path);
+      }
     }
 
     return {
       values,
       signUp,
+      goToSignIn,
       ...form,
     };
   },

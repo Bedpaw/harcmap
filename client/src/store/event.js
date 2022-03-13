@@ -13,7 +13,8 @@ const initState = () => ({
   eventName: '',
   eventStartDate: null,
   eventEndDate: null,
-  userRole: '',
+  role: '',
+  inviteKeys: [],
 });
 
 export default {
@@ -28,7 +29,7 @@ export default {
     eventStartDate: state => state.eventStartDate,
     eventEndDate: state => state.eventEndDate,
     eventId: state => state.eventId,
-    userRole: state => state.userRole,
+    role: state => state.role,
     eventBasicInformation: (state) => ({
       eventId: state.eventId,
       eventName: state.eventName,
@@ -54,7 +55,7 @@ export default {
       state.mapDefaultLatitude = data.mapLatitude;
       state.mapDefaultLongitude = data.mapLongitude;
       state.mapDefaultZoom = data.mapZoom;
-      state.userRole = data.role;
+      state.role = data.role;
       const storageData = appStorage.getItem(appStorage.appKeys.mapPosition, appStorage.getIds.eventIdAndEmail());
       if (storageData) {
         const { mapLatitude, mapLongitude, mapZoom } = storageData;
@@ -64,7 +65,7 @@ export default {
       }
     },
     setId: (state, payload) => (state.eventId = payload),
-    setUserRole: (state, payload) => (state.userRole = payload),
+    setUserRole: (state, payload) => (state.role = payload),
     ...Modules.mutations,
     resetEventState: (state) => {
       Object.assign(state, initState());
@@ -83,6 +84,7 @@ export default {
         let event;
         api.getEventById(eventId)
           .then(data => (event = { ...data, eventId }))
+          .then(() => context.commit('invitations/setInvitationKeys', event.inviteKeys, { root: true }))
           .then(() => api.getCategoriesByEventId(eventId))
           .then((categories) => {
             if (categories.length > 0) {
@@ -91,7 +93,7 @@ export default {
               return api.addPointCategory({
                 pointValue: 1,
                 pointFillColor: colorsUtils.appColors.red,
-                categoryName: translator('general.defaultPointCategoryName'),
+                categoryName: translator.t('general.defaultPointCategoryName'),
                 pointStrokeColor: colorsUtils.appColors.black,
               }, eventId).then(category => [category]);
             }

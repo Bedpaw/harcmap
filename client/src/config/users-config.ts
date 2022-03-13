@@ -9,10 +9,11 @@ const ICONS = materialIcons.names;
 const { teamMember, teamLeader, creator, admin, observer } = ACCOUNT_TYPES;
 const accountTypeInfo = {
   [creator]: {
-    icon: ICONS.shield, // TODO change to other icon
+    icon: ICONS.security,
     nameKey: 'accountTypes.organizer',
     menuLinks: [
       ROUTES.scoreboard,
+      ROUTES.shareEvent,
       ROUTES.editEvent,
       ROUTES.newPoint,
     ],
@@ -23,6 +24,7 @@ const accountTypeInfo = {
     nameKey: 'accountTypes.admin',
     menuLinks: [
       ROUTES.scoreboard,
+      ROUTES.shareEvent,
       ROUTES.editEvent,
       ROUTES.newPoint,
     ],
@@ -37,19 +39,20 @@ const accountTypeInfo = {
     menuCentralButton: ROUTES.spectatorPanel,
   },
   [teamLeader]: {
-    icon: ICONS.person,
+    icon: ICONS.supervisor_account,
     nameKey: 'accountTypes.teamLeader',
     menuLinks: [
       ROUTES.teamView,
       ROUTES.collectPoint,
       ROUTES.about,
       ROUTES.collectedPoints,
+      ROUTES.shareTeam,
     ],
     menuCentralButton: ROUTES.collectPoint,
 
   },
   [teamMember]: {
-    icon: ICONS.person_search,
+    icon: ICONS.person,
     nameKey: 'accountTypes.userObserver',
     menuLinks: [
       ROUTES.teamView,
@@ -67,7 +70,7 @@ const availabilities = {
   seeAdminStartView: [creator, admin, observer],
 };
 
-const checkIfCan = (permittedRoles: string[]) => permittedRoles.includes(store.getters['event/userRole']);
+const checkIfCan = (permittedRoles: string[]) => permittedRoles.includes(store.getters['event/role']);
 
 export const userUtils = {
   getOrderedMembers: (teamMembers: TeamMember[]) => {
@@ -81,8 +84,8 @@ export const userUtils = {
   },
   getIcon: (obj: { role: string }) => accountTypeInfo[obj.role].icon,
   getNameKey: (role: string) => accountTypeInfo[role].nameKey,
-  getMenuLinks: (role = store.getters['event/userRole']) => accountTypeInfo[role].menuLinks,
-  getMenuCentralButton: (role = store.getters['event/userRole']) => accountTypeInfo[role].menuCentralButton,
+  getMenuLinks: (role = store.getters['event/role']) => accountTypeInfo[role].menuLinks,
+  getMenuCentralButton: (role = store.getters['event/role']) => accountTypeInfo[role].menuCentralButton,
 
   isOrganizer: (user: { role: string }) => user.role === creator,
 

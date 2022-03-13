@@ -32,7 +32,6 @@
 <script>
 import TPage from 'templates/page';
 import AButtonSecondary from 'atoms/button/secondary';
-import { api } from 'api';
 import { ROUTES } from 'config/routes-config';
 import { uPromise } from '@dbetka/utils';
 import MInput from 'molecules/input';
@@ -68,13 +67,8 @@ export default {
     function signIn () {
       isSending.value = true;
       blockForm.value = true;
-      api.signIn(values)
-        .then(data => store.dispatch('user/signIn', data))
+      store.dispatch('user/signIn', values)
         .then(() => {
-          router.push({
-            name: ROUTES.eventsList.name,
-            query: { justLoggedIn: true },
-          });
           isSending.value = false;
           blockForm.value = false;
         })
@@ -83,8 +77,8 @@ export default {
     function signInAutomatically () {
       isSending.value = true;
       blockForm.value = true;
-      values.email = DEV_USERS_LIST.teamLeader.email;
-      values.password = DEV_USERS_LIST.teamLeader.password;
+      values.email = DEV_USERS_LIST.teamMember.email;
+      values.password = DEV_USERS_LIST.teamMember.password;
       uPromise.timeout(500)
         .then(() => signIn());
     }
