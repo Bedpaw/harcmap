@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="isLogin"
+    v-if="role"
     class="o-footer"
   >
     <a-button-icon-footer
@@ -20,6 +20,7 @@ import { mapGetters } from 'vuex';
 import AButtonIconFooter from 'atoms/button/icon-footer';
 import { logical } from 'vendors/logical';
 import { ROUTES } from 'config/routes-config';
+import { userUtils } from 'config/users-config';
 
 export default {
   name: 'o-footer',
@@ -27,8 +28,8 @@ export default {
     AButtonIconFooter,
   },
   computed: {
-    ...mapGetters('user', [
-      'isLogin',
+    ...mapGetters('event', [
+      'role',
     ]),
   },
   methods: {
@@ -50,24 +51,22 @@ export default {
       }
     },
     getShortcuts () {
-      const isAdmin = this.checkIsAdmin();
-      const isLimited = this.checkIsLimited();
-      const adminRoute = isLimited ? ROUTES.spectatorPanel : ROUTES.adminPanel;
       const centralButton = {
-        ...(isAdmin ? adminRoute : ROUTES.collectPoint),
+        ...userUtils.getMenuCentralButton(),
         big: true,
+      };
+      const menuButton = {
+        label: 'Menu',
+        shortLabel: 'Menu',
+        icon: this.$store.getters['menu/isOpen'] ? this.$icons.names.arrow_forward : this.$icons.names.menu,
+        method: () => this.$store.commit('menu/toggle'),
       };
       return [
         ROUTES.start,
         ROUTES.timeoutPoints,
         centralButton,
         ROUTES.map,
-        {
-          label: 'Menu',
-          shortLabel: 'Menu',
-          icon: this.$store.getters['menu/isOpen'] ? this.$icons.names.arrow_forward : this.$icons.names.menu,
-          method: () => this.$store.commit('menu/toggle'),
-        },
+        menuButton,
       ];
     },
   },

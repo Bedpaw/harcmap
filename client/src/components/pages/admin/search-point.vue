@@ -2,7 +2,7 @@
   <t-search
     :search-assist="$t('form.assist.searchPoint')"
     :elements="points"
-    :search-keys="['pointId', 'pointName']"
+    :search-keys="['pointKey', 'pointName']"
   >
     <template #result-list="{ filteredElements: filteredPoints }">
       <div class="f-flex-1 f-scroll-default f-mr--2">
@@ -12,10 +12,10 @@
           class="m-grid f-search-point f-mr-2"
         >
           <a-button-icon class="f-minimal">
-            <a-icon-category :category-id="point.pointCategory" />
+            <a-icon-category :category-id="point.pointCategoryId" />
           </a-button-icon>
           <div class="f-py-2 f-overflow-hidden">
-            {{ point.pointId }}
+            {{ point.pointKey }}
           </div>
           <div class="f-pl-1 f-py-2 f-overflow-hidden f-text-subtext f-text-14">
             {{ point.pointName }}

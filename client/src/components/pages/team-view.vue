@@ -40,38 +40,8 @@ export default {
     MRowTeamRow,
     TPage,
   },
-  data: () => ({
-    teamName: 'Team rzodkiewka',
-    collectedPoints: 5,
-    teamMembers: [
-      {
-        email: 'andrew@demo.com',
-        nickname: 'Andrzeju',
-        userId: '1',
-        accountType: 'userObserver',
-      },
-      {
-        email: 'andrew@demo.com',
-        nickname: 'nie',
-        userId: '2',
-        accountType: 'common',
-      },
-      {
-        email: 'andrew@demo.com',
-        nickname: 'denerwuj',
-        userId: '3',
-        accountType: 'userObserver',
-      },
-      {
-        email: 'andrew@demo.com',
-        nickname: 'sie',
-        userId: '4',
-        accountType: 'userObserver',
-      },
-    ],
-  }),
   computed: {
-    ...mapGetters('user', ['sumOfCollectedPoints']),
+    ...mapGetters('team', ['sumOfCollectedPoints', 'teamMembers', 'teamName']),
     teamMembersOrdered () {
       return userUtils.getOrderedMembers(this.teamMembers);
     },

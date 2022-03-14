@@ -17,6 +17,15 @@
       :buttons-details="pastEvents"
       :title="$t('page.eventsList.finished')"
     />
+    <span class="f-text-bold f-text-center">{{ $t('page.eventsList.appSettings') }}</span>
+    <a-checkbox
+      id="wantsAutoLoginToEvent"
+      v-model="wantsAutoLoginToEvent"
+      class="f-pt-1"
+      :assist="$t('page.eventsList.wantsAutoLoginAssist')"
+    >
+      {{ $t('page.eventsList.wantsAutoLogin') }}
+    </a-checkbox>
   </section>
 </template>
 
@@ -25,25 +34,32 @@ import MButtonsListEvents from 'molecules/buttons-list-events';
 import { MACROS } from 'utils/macros';
 import { DATE_FORMATS, displayDate } from 'utils/date';
 import { generalConfigUtils } from 'config/general-config';
-import { eventsListMock } from 'organisms/events-list-mock';
 import { userUtils } from 'config/users-config';
 import { eventUtils } from 'utils/event';
 import { materialIcons } from '@dbetka/vue-material-icons';
+import { appStorage } from 'utils/storage';
+import ACheckbox from 'atoms/checkbox';
+import { enterEvent } from 'utils/enter-event';
+import { mapGetters } from 'vuex';
 
 const ICONS_TYPES = materialIcons.types;
 
 export default {
   name: 'o-events-list',
   components: {
+    ACheckbox,
     MButtonsListEvents,
   },
   data: () => ({
-    events: [],
     futureEvents: [],
     currentEvents: [],
     pastEvents: [],
+    wantsAutoLoginToEvent: appStorage.getItem(appStorage.appKeys.wantsAutoLoginToEvent, appStorage.getIds.email()),
   }),
   computed: {
+    ...mapGetters('user', [
+      'userEvents',
+    ]),
     primaryButtons () {
       return [
         {
@@ -64,15 +80,22 @@ export default {
     },
   },
   watch: {
-    events: function (events) {
+    userEvents: function (events) {
       const [past, current, future] = eventUtils.splitEventsByTimePeriods(events);
       this.pastEvents = past.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isPast));
       this.currentEvents = current.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isCurrent));
       this.futureEvents = future.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isFuture));
     },
+    wantsAutoLoginToEvent: function (boolean) {
+      appStorage.setItem(appStorage.appKeys.wantsAutoLoginToEvent, boolean, appStorage.getIds.email());
+    },
   },
   mounted () {
-    this.events = eventsListMock;
+    const events = this.$store.getters['user/userEvents'];
+    const [past, current, future] = eventUtils.splitEventsByTimePeriods(events);
+    this.pastEvents = past.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isPast));
+    this.currentEvents = current.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isCurrent));
+    this.futureEvents = future.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isFuture));
   },
   methods: {
     prepareButtonsDetails (event, timePeriod = MACROS.timePeriods.isCurrent) {
@@ -105,8 +128,10 @@ export default {
       };
     },
     signInToEvent (eventId) {
-      console.log(`Signing in to event with id ${eventId}`);
+      const { teamId, role } = this.userEvents.find(event => event.eventId === eventId);
+      enterEvent(role, eventId, teamId);
     },
+
     navigateToCreateEvent () {
       this.$router.push(this.ROUTES.newEvent.path);
     },

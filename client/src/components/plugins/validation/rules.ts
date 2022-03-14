@@ -9,6 +9,7 @@ import {
   minLength,
   required,
   sameAs,
+  positiveNumber,
 } from 'plugins/validation/validatorsWithTranslations';
 
 export const validationRules = {
@@ -17,14 +18,13 @@ export const validationRules = {
   passwordConfirmation: (passwordRef: Ref) => [required, sameAs(passwordRef)],
   userTeam: [required, minLength(4), maxLength(30)],
 
-  eventId: [required, minLength(4), maxLength(4)],
   eventName: [required, maxLength(45)],
 
   pointId: [required, minLength(4), maxLength(4)],
   required: [required],
   requiredName: [required, maxLength(128)],
   name: [maxLength(128)],
-
+  pointValue: [positiveNumber(0)],
   date: [required],
   futureDatetime: [required, futureDatetime],
   dateTimeAfter: (edgeDatetime: Ref) => [required, datetimeAfter(edgeDatetime)],

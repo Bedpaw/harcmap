@@ -1,0 +1,268 @@
+paths:
+  /api/v1/users:
+    get:
+      summary: 'Get list of users (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Users
+      parameters:
+        - in: "query"
+          name: "eventId"
+          description: "Return information about users participle in specific event (eventId) and return only one item in userEvents"
+          example: '300000000000000000000001'
+          default: undefined
+          required: true
+      responses:
+        200:
+          description: 'Return list of users'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    userId:
+                      $ref: '#/components/props/id'
+                    email:
+                      $ref: '#/components/props/email'
+                    isActive:
+                      $ref: '#/components/props/isActive'
+                    userEvents:
+                      $ref: '#/components/props/userEvents'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
+  /api/v1/users/account-activation/{key}:
+    get:
+      summary: 'Activate user account with "key"'
+      tags:
+        - Users
+      parameters:
+        - in: "query"
+          name: invitationKey
+          description: "Optional key to event from invitation"
+          example: 'K3y1'
+          default: undefined
+        - in: "path"
+          name: key
+          description: "Unique activation key"
+          example: 'e993b950c469ca8eb60e1e7a22027b943877ccb0bfdd30a60846f07d36830e7f657020da10e124ca09e3dccfcd7e59af74a31e08a74e8f210f69bd69c9fdaec0'
+          default: undefined
+          required: true
+      responses:
+        302:
+          description: 'Activation success. Redirect to login form'
+        400:
+          description: 'Validation error. Wrong request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
+  /api/v1/users/reset-password:
+    post:
+      summary: 'Send request for generate password-reset-key'
+      tags:
+        - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  $ref: '#/components/props/email'
+              required:
+                - email
+      responses:
+        200:
+          description: 'For safety always return true'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+  /api/v1/users/reset-password/{key}:
+    post:
+      summary: 'Reset password for user with passwordReset "key"'
+      tags:
+        - Users
+      parameters:
+        - in: "path"
+          name: key
+          description: "Unique reset password key"
+          example: '87daccad51d959e47ce23f36261f02af4ddf320e248f969b8271a4bb9ee1d1d9901015ff2e234771132b1baf7821c878547e6f843200045170586fc9a7ec7a96'
+          default: undefined
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  $ref: '#/components/props/password'
+              required:
+                - password
+      responses:
+        200:
+          description: 'Operation success'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    $ref: '#/components/props/success'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
+  /api/v1/users/{userId}:
+    get:
+      summary: 'Get user with :userId (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Users
+      parameters:
+        - in: "path"
+          name: userId
+          description: "Id of looking user"
+          example: '100000000000000000000001'
+          default: undefined
+          required: true
+      responses:
+        200:
+          description: 'User data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    $ref: '#/components/props/email'
+                  isActive:
+                    $ref: '#/components/props/isActive'
+                  userEvents:
+                    $ref: '#/components/props/userEvents'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
+    put:
+      summary: 'Update user with :id (SECURED)'
+      description: 'Special privilege required'
+      deprecated: true
+      tags:
+        - Users
+      parameters:
+        - in: "path"
+          name: userId
+          description: "Id of updating user"
+          example: '100000000000000000000003'
+          default: undefined
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  $ref: '#/components/props/email'
+                password:
+                  $ref: '#/components/props/password'
+                isActive:
+                  $ref: '#/components/props/isActive'
+                events:
+                  description: 'Object with events for edit. Keys are dynamic. If user have no permission to edit one of sent event, endpoint will return 401 status'
+                  type: object
+                  properties:
+                    [ eventId ]:
+                      type: object
+                      properties:
+                        teamId:
+                          $ref: '#/components/props/id'
+                        role:
+                          $ref: '#/components/props/role'
+                        isBanned:
+                          $ref: '#/components/props/isBanned'
+      responses:
+        200:
+          description: 'Result of operation'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    $ref: '#/components/props/success'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'

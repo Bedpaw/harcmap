@@ -1,0 +1,62 @@
+paths:
+  /api/v1/events/{eventId}/keys/{keyId}/refresh:
+    post:
+      summary: 'Refresh key value for given key id (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Keys
+      parameters:
+        - in: "path"
+          name: eventId
+          description: "Id of event that belong to key"
+          example: '300000000000000000000001'
+          default: undefined
+          required: true
+        - in: "path"
+          name: keyId
+          description: "Id of key document to refresh key value"
+          example: '500000000000000000000001'
+          default: undefined
+          required: true
+      responses:
+        200:
+          description: 'Successfully refresh key value'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  key:
+                    $ref: '#/components/props/eventKey'
+                  role:
+                    $ref: '#/components/props/role'
+                  eventId:
+                    $ref: '#/components/props/id'
+                  eventName:
+                    $ref: '#/components/props/eventName'
+                  eventDuration:
+                    $ref: '#/components/props/eventDuration'
+                  teamId:
+                    $ref: '#/components/props/id'
+                  teamName:
+                    $ref: '#/components/props/teamName'
+                  teamColor:
+                    $ref: '#/components/props/teamColor'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'

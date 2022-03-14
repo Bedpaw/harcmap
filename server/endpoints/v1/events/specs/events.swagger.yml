@@ -1,0 +1,293 @@
+paths:
+  /api/v1/events:
+    post:
+      summary: 'Create event with (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventName:
+                  $ref: '#/components/props/eventName'
+                eventDuration:
+                  $ref: '#/components/props/eventDuration'
+                mapProperties:
+                  $ref: '#/components/props/mapProperties'
+                eventRefreshTime:
+                  $ref: '#/components/props/eventRefreshTime'
+                userId:
+                  $ref: '#/components/props/userId'
+                nickname:
+                  $ref: '#/components/props/nickname'
+              required:
+                - userId
+                - eventName
+                - eventDuration
+                - mapProperties
+                - eventRefreshTime
+                - nickname
+      responses:
+        200:
+          description: 'Event data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  eventId:
+                    $ref: '#/components/props/id'
+                  eventName:
+                    $ref: '#/components/props/eventName'
+                  eventDuration:
+                    $ref: '#/components/props/eventDuration'
+                  mapProperties:
+                    $ref: '#/components/props/mapProperties'
+                  eventRefreshTime:
+                    $ref: '#/components/props/eventRefreshTime'
+                  inviteKeys:
+                    $ref: '#/components/props/inviteKeys'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
+  /api/v1/events/{eventId}:
+    get:
+      summary: 'Get event with :eventId (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Events
+      parameters:
+        - in: "path"
+          name: eventId
+          description: "Id of looking event"
+          example: '300000000000000000000001'
+          default: undefined
+          required: true
+      responses:
+        200:
+          description: 'Event data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  eventName:
+                    $ref: '#/components/props/eventName'
+                  eventKey:
+                    $ref: '#/components/props/eventKey'
+                  eventDuration:
+                    $ref: '#/components/props/eventDuration'
+                  mapProperties:
+                    $ref: '#/components/props/mapProperties'
+                  eventRefreshTime:
+                    $ref: '#/components/props/eventRefreshTime'
+                  inviteKeys:
+                    $ref: '#/components/props/inviteKeysNullable'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
+    put:
+      summary: 'Update event with :id (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Events
+      parameters:
+        - in: "path"
+          name: eventId
+          description: "Id of updating event"
+          example: '300000000000000000000002'
+          default: undefined
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventName:
+                  $ref: '#/components/props/eventName'
+                eventDuration:
+                  $ref: '#/components/props/eventDuration'
+                mapProperties:
+                  $ref: '#/components/props/mapProperties'
+                eventRefreshTime:
+                  $ref: '#/components/props/eventRefreshTime'
+      responses:
+        200:
+          description: 'Result of operation'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    $ref: '#/components/props/success'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
+  /api/v1/events/check:
+    post:
+      summary: 'Allow user to check event, role, team that code'
+      tags:
+        - Events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  $ref: '#/components/props/userId'
+                eventKey:
+                  $ref: '#/components/props/eventKey'
+              required:
+                - userId
+                - eventKey
+      responses:
+        200:
+          description: 'Information about code'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  role:
+                    $ref: '#/components/props/role'
+                  eventId:
+                    $ref: '#/components/props/id'
+                  eventName:
+                    $ref: '#/components/props/eventName'
+                  eventDuration:
+                    $ref: '#/components/props/eventDuration'
+                  teamId:
+                    $ref: '#/components/props/id'
+                  teamName:
+                    $ref: '#/components/props/teamName'
+                  teamColor:
+                    $ref: '#/components/props/teamColor'
+        400:
+          description: 'Validation error or none exist eventKey'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
+  /api/v1/events/join:
+    post:
+      summary: 'Allow user to join event (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  $ref: '#/components/props/id'
+                eventKey:
+                  $ref: '#/components/props/eventKey'
+                nickname:
+                  $ref: '#/components/props/nickname'
+                teamName:
+                  $ref: '#/components/props/teamName'
+                teamColor:
+                  $ref: '#/components/props/teamColor'
+              required:
+                - userId
+                - eventKey
+                - nickname
+      responses:
+        200:
+          description: 'Successfully join to event'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  role:
+                    $ref: '#/components/props/role'
+                  eventId:
+                    $ref: '#/components/props/id'
+                  eventName:
+                    $ref: '#/components/props/eventName'
+                  eventDuration:
+                    $ref: '#/components/props/eventDuration'
+                  teamId:
+                    $ref: '#/components/props/id'
+                  teamName:
+                    $ref: '#/components/props/teamName'
+                  teamColor:
+                    $ref: '#/components/props/teamColor'
+        400:
+          description: 'Validation error or none exist eventKey'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'

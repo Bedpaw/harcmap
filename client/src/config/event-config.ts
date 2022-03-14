@@ -31,7 +31,7 @@ export const DEFAULT_EVENT_CONFIG = {
   eventEndDate: null as DateType,
   eventStartDate: null as DateType,
   gameRules,
-  mapRefreshTimeOptions: [1, 5, 10, 15, 30].map(v => ({
+  mapRefreshTimeOptions: [1, 2, 3, 5, 10, 15, 30].map(v => ({
     label: `${v} min`,
     value: v * secondsInMinute,
   })),

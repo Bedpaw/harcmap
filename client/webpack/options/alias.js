@@ -13,7 +13,7 @@ const alias = {
   utils: resolveSRC('utils'),
   dictionary: resolveSRC('dictionary'),
   vendors: resolve(ROOT + '../vendors'),
-  validateCodes: resolve(ROOT + '../lib/validateCodes.js'),
+  validateCodes: resolve(ROOT + '../server/libs/errors/codes.js'),
   config: resolveSRC('config'),
   models: resolveSRC('models'),
 

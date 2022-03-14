@@ -1,18 +1,27 @@
-import { api } from 'api';
 import { store } from 'store';
-import { ACCOUNT_TYPES } from 'utils/permissions';
 import { ErrorMessage } from 'utils/error-message';
-import { ADMIN_LOGIN_DATA, USER_LOGIN_DATA } from 'config/app-env';
+import { ADMIN_LOGIN_DATA, TEAM_LEADER_LOGIN_DATA, TEAM_MEMBER_LOGIN_DATA, OBSERVER_LOGIN_DATA } from 'config/app-env';
 
 const users = Object.freeze({
-  common: USER_LOGIN_DATA,
+  teamLeader: TEAM_LEADER_LOGIN_DATA,
   admin: ADMIN_LOGIN_DATA,
+  observer: OBSERVER_LOGIN_DATA,
+  teamMember: TEAM_MEMBER_LOGIN_DATA,
 });
+let index = 0;
+const indexer = {
+  next: () => {
+    if (index < 3) {
+      index++;
+    } else {
+      index = 0;
+    }
+  },
+};
 
 function login (values) {
-  api.signOut({ user: store.getters['user/user'] })
-    .then(() => api.signIn(values))
-    .then(data => store.dispatch('user/signIn', data))
+  store.dispatch('user/signOut')
+    .then(() => store.dispatch('user/signIn', values))
     .catch(error => {
       if (error instanceof ErrorMessage) error.showMessage();
       else console.log(error);
@@ -21,11 +30,13 @@ function login (values) {
 
 export const autoLogin = {
   switch () {
-    const accountType = store.getters['user/accountType'];
-    if (accountType === ACCOUNT_TYPES.admin) this.common();
-    else this.admin();
+    const roles = [this.teamLeader, this.teamMember, this.observer, this.admin];
+    roles[index]();
+    indexer.next();
   },
-  common: () => login(users.common),
+  teamLeader: () => login(users.teamLeader),
+  teamMember: () => login(users.teamMember),
+  observer: () => login(users.observer),
   admin: () => login(users.admin),
 };
 

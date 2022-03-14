@@ -2,7 +2,8 @@
   <t-page class="f-flex f-flex-col">
     <o-form :on-submit="onSubmit">
       <m-field-text
-        v-model="values.pointId"
+        v-if="values.pointKey"
+        v-model="values.pointKey"
         disabled
         :label="$t('form.field.pointId')"
         :assist="$t('form.assist.pointId')"
@@ -36,8 +37,7 @@
         :disabled="blockForm"
       />
       <m-select
-        v-if="isPermanent"
-        v-model="values.pointCategory"
+        v-model="values.pointCategoryId"
         :options="categoryOptions"
         :placeholder="$t('form.field.pointCategory')"
         :disabled="blockForm"
@@ -83,12 +83,13 @@ import MFieldText from 'molecules/field/text';
 import { ErrorMessage } from 'utils/error-message';
 import OFloatContainer from 'organisms/float-container';
 import OAdminSetNewPointPosition from 'organisms/admin/set-point-position';
-import { idUtils } from 'utils/id';
 import { pointUtils } from 'utils/point';
 import { computed, onMounted, ref, toRefs } from 'vue';
 import { useForm } from 'plugins/form';
+import { useStore } from 'vuex';
 import { translator } from 'dictionary';
 import MFieldDatetimeRange from 'molecules/field/datetime-range';
+import { pointCategoryUtils } from 'utils/point-category';
 
 export default {
   name: 't-point-form',
@@ -115,11 +116,12 @@ export default {
   },
   setup (props) {
     const { defaultValues, onSave } = toRefs(props);
+    const availableCategories = useStore().getters['event/categories'];
 
     const generateDefaultValues = () => ({
-      pointId: idUtils.generateNewId(),
+      pointKey: null,
       pointName: '',
-      pointCategory: MACROS.pointCategory[0].categoryId,
+      pointCategoryId: availableCategories[0].categoryId,
       pointType: MACROS.pointType.permanent,
       pointAppearanceTime: null,
       pointExpirationTime: null,
@@ -141,17 +143,7 @@ export default {
         value: MACROS.pointType.timeout,
       },
     ]);
-    function categoryLabelFactory (id, value) {
-      const level = translator.t('general.pointCategoryLevel');
-      const unit = translator.t('general.pointUnit');
-      return `${id} ${level} - ${value} ${unit}`;
-    }
-    const categoryOptions = computed(() => MACROS.pointCategory.map((category) =>
-      ({
-        label: categoryLabelFactory(category.categoryId, category.pointValue),
-        value: category.categoryId,
-      }),
-    ));
+    const categoryOptions = computed(() => pointCategoryUtils.getCategoriesSelectOptions(availableCategories));
     const pointPositionIsSetting = ref(false);
 
     const form = useForm();
@@ -167,12 +159,12 @@ export default {
       pointPositionIsSetting.value = false;
     }
     function ensureValidDataByPointType () {
-      if (values.value.pointType === MACROS.pointType.timeout) {
-        values.value.pointCategory = 0;
-      }
       if (values.value.pointType === MACROS.pointType.permanent) {
         values.value.pointExpirationTime = null;
         values.value.pointAppearanceTime = null;
+      }
+      if (values.value.pointName === '') {
+        values.value.pointName = null;
       }
     }
     function onSubmit () {

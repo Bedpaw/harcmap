@@ -1,8 +1,7 @@
 <template>
-  <a-icon
-    :name="$icons.names.stop_circle"
-    :class="categoryStyleById(categoryId)"
-  />
+  <div :style="getStyle">
+    <a-icon :name="$icons.names.stop_circle" />
+  </div>
 </template>
 
 <script>
@@ -17,9 +16,14 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('theme', [
-      'categoryStyleById',
+    ...mapGetters('event', [
+      'getCategoryById',
     ]),
+    getStyle () {
+      return {
+        color: this.getCategoryById(this.categoryId).pointFillColor,
+      };
+    },
   },
 };
 </script>

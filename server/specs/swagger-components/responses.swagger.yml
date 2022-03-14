@@ -1,0 +1,38 @@
+components:
+  responses:
+    400:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/props/error'
+        message:
+          $ref: '#/components/props/message'
+        errorDetails:
+          $ref: '#/components/props/errorDetails'
+      required:
+        - error
+        - message
+    401:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/props/error'
+        message:
+          $ref: '#/components/props/message'
+        errorDetails:
+          $ref: '#/components/props/errorDetails'
+      required:
+        - error
+        - message
+    500:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/props/error'
+        message:
+          $ref: '#/components/props/message'
+        errorDetails:
+          $ref: '#/components/props/errorDetails'
+      required:
+        - error
+        - message

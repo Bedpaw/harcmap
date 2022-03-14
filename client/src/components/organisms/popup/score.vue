@@ -1,11 +1,11 @@
 <template>
   <o-popup-empty ref="popup">
     <div class="f-text-subtext f-pb-1">
-      {{ user.userTeam }}
+      {{ team.teamName }}
     </div>
     <o-collected-points
       class="f-text-16 f-text-normal"
-      :collected-points="collectedPointsByUser(user)"
+      :collected-points="collectedPointsByTeam(team)"
     />
   </o-popup-empty>
 </template>
@@ -19,14 +19,14 @@ export default {
   name: 'o-popup-score',
   components: { OPopupEmpty, OCollectedPoints },
   props: {
-    user: {
+    team: {
       type: Object,
       required: true,
     },
   },
   computed: {
-    ...mapGetters('allUsers', [
-      'collectedPointsByUser',
+    ...mapGetters('groups', [
+      'collectedPointsByTeam',
     ]),
   },
   methods: {

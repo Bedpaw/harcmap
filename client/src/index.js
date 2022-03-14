@@ -22,10 +22,11 @@ app.mixin({
   methods: {
     checkPermissions: permissions.checkPermissions,
     checkIsAdmin: permissions.checkIsAdmin,
-    checkIsCommon: permissions.checkIsCommon,
-    checkIsLimited: permissions.checkIsLimited,
-    checkIsNotLimited: permissions.checkIsNotLimited,
-    checkLimitingForRoute: permissions.checkLimitingForRoute,
+    checkIsTeamLeader: permissions.checkIsTeamLeader,
+    checkIsObserver: permissions.checkIsObserver,
+    checkIsCreator: permissions.checkIsCreator,
+    checkIsTeamMember: permissions.checkIsTeamMember,
+    checkIsCommonUser: permissions.checkIsCommonUser,
   },
 });
 

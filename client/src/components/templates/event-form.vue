@@ -1,5 +1,8 @@
 <template>
-  <t-page class="f-flex f-flex-col">
+  <t-page
+    class="f-flex f-flex-col"
+    :back-route="ROUTES.eventsList"
+  >
     <o-form :on-submit="onSubmit">
       <m-field-text
         v-model.trim="values.eventName"
@@ -7,15 +10,9 @@
         :rules="validationRules.eventName"
         :disabled="blockForm"
       />
-      <m-field-text
-        v-model="values.eventId"
-        disabled
-        :label="$t('form.field.eventId')"
-        :assist="$t('form.assist.eventId')"
-      />
       <m-select
         v-model="values.mapRefreshTime"
-        :options="options"
+        :options="mapRefreshTimeOptions"
         :placeholder="$t('form.field.mapRefreshTime')"
         :disabled="blockForm"
       />
@@ -28,11 +25,13 @@
       <transition name="fade">
         <o-game-advanced-rules
           v-if="showAdvancedOptions"
-          :advanced-game-rules="values.eventRules"
+          :advanced-game-rules="eventRules"
           :block-form="blockForm"
         />
       </transition>
+      <!-- TODO v2.1 Game settings -->
       <a-button
+        v-if="false"
         add-class="f-clear"
         add-area-class="f-mt-0"
         @click="showAdvancedOptions = !showAdvancedOptions"
@@ -82,7 +81,6 @@ import OGameAdvancedRules from 'organisms/admin/game-advanced-rules';
 import MFieldDatetimeRange from 'molecules/field/datetime-range';
 import { ErrorMessage } from 'utils/error-message';
 import { DEFAULT_EVENT_CONFIG } from 'config/event-config';
-import { idUtils } from 'utils/id';
 import { eventUtils } from 'utils/event';
 import { computed, ref, onMounted, toRefs } from 'vue';
 import { useForm } from 'plugins/form';
@@ -118,17 +116,16 @@ export default {
 
     const values = ref({
       eventName: '',
-      eventId: idUtils.generateNewId(),
       mapRefreshTime: DEFAULT_EVENT_CONFIG.mapRefreshTime,
       eventStartDate: null,
       eventEndDate: null,
       mapLatitude: null,
       mapLongitude: null,
       mapZoom: null,
-      eventRules: DEFAULT_EVENT_CONFIG.gameRules,
     });
+    const eventRules = ref(DEFAULT_EVENT_CONFIG.gameRules);
 
-    const options = ref(DEFAULT_EVENT_CONFIG.mapRefreshTimeOptions);
+    const mapRefreshTimeOptions = ref(DEFAULT_EVENT_CONFIG.mapRefreshTimeOptions);
     const eventPositionIsSetting = ref(false);
     const showAdvancedOptions = ref(false);
 
@@ -147,19 +144,28 @@ export default {
         onErrorOccurs(new ErrorMessage(translator.t('communicate.editEvent.positionIsRequired')));
         return;
       }
-      onSave.value(eventUtils.convertEventToSend(values.value))
+      onSave.value(eventUtils.convertEventToSend({
+        ...values.value,
+        eventRules: eventRules.value,
+      }))
         .then(onSuccessOccurs)
         .catch(onErrorOccurs);
     }
 
-    onMounted(() => Object.assign(values.value, eventUtils.convertEventToForm(defaultValues.value)));
+    onMounted(() => {
+      const newValues = eventUtils.convertEventToForm(defaultValues.value);
+      Object.assign(eventRules.value, newValues.eventRules || {});
+      delete newValues.eventRules;
+      Object.assign(values.value, newValues);
+    });
 
     return {
       values,
+      eventRules,
       saveNewPosition,
       onSubmit,
       ...form,
-      options,
+      mapRefreshTimeOptions,
       eventPositionIsSetting,
       hasSetPosition,
       showAdvancedOptions,

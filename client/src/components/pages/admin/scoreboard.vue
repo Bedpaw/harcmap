@@ -4,16 +4,18 @@
       {{ $t('page.scoreboard.completionLevelOfTheGame') }}
     </div>
     <div class="f-pt-1">
-      <m-circle-progress
-        v-for="[key, {categoryId}] of permanentCategories.entries()"
-        :key="`circle-progress${key}`"
-        class="f-mr-1"
-        :class="{'f-ml-1': key === 0}"
-        :number-of-completed="numberOfCollectedPointsByCategoryId(categoryId)"
-        :progress="percentageProgressByCategoryId(categoryId)"
-        :max-range="numberOfPointsByCategoryId(categoryId)"
-        :color="categoryColorById(categoryId)"
-      />
+      <template v-for="[key, {categoryId, pointFillColor}] of permanentCategories.entries()">
+        <m-circle-progress
+          v-if="numberOfPointsByCategoryId(categoryId) > 0"
+          :key="`circle-progress${key}`"
+          class="f-mr-1"
+          :class="{'f-ml-1': key === 0}"
+          :number-of-completed="numberOfCollectedPointsByCategoryId(categoryId)"
+          :progress="percentageProgressByCategoryId(categoryId)"
+          :max-range="numberOfPointsByCategoryId(categoryId)"
+          :color="pointFillColor"
+        />
+      </template>
     </div>
     <div class="f-pt-1 f-pb-3 f-text-subtext f-text-14">
       {{ $t('page.scoreboard.completionLevelDetails') }}
@@ -33,17 +35,17 @@
         v-text="errorMessage"
       />
       <div
-        v-else-if="commonUsers.length === 0"
+        v-else-if="teams.length === 0"
         class="a-message f-table"
         v-text="$t('page.collectedPoints.noPoints')"
       />
       <m-row-score
-        v-for="[key, {user, userScore}] of sortedUsers.entries()"
-        :key="user.pointId"
+        v-for="[key, {team, teamScore}] of sortedTeams.entries()"
+        :key="team.pointId"
         class="f-text-subtext"
         :class="{ 'f-text-standard': key < 3 }"
-        :user="user"
-        :user-score="userScore"
+        :team="team"
+        :team-score="teamScore"
       />
     </div>
   </t-page>
@@ -66,30 +68,31 @@ export default {
     errorMessage: '',
   }),
   computed: {
-    ...mapGetters('allUsers', [
-      'commonUsers',
-      'scoreByUser',
+    ...mapGetters('groups', [
+      'teams',
+      'scoreByTeam',
     ]),
     ...mapGetters('event', [
       'permanentCategories',
       'numberOfCollectedPointsByCategoryId',
       'numberOfPointsByCategoryId',
       'percentageProgressByCategoryId',
+      'eventId',
     ]),
     ...mapGetters('theme', [
       'categoryColorById',
     ]),
-    sortedUsers () {
-      return this.commonUsers
-        .map(user => ({
-          user,
-          userScore: this.scoreByUser(user),
+    sortedTeams () {
+      return this.teams
+        .map(team => ({
+          team,
+          teamScore: this.scoreByTeam(team),
         }))
-        .sort((a, b) => b.userScore - a.userScore);
+        .sort((a, b) => b.teamScore - a.teamScore);
     },
   },
   mounted () {
-    this.$store.dispatch('allUsers/download')
+    this.$store.dispatch('groups/downloadTeams', this.eventId)
       .then(() => {
         this.errorMessage = '';
       })

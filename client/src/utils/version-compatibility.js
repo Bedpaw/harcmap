@@ -1,22 +1,20 @@
-import Cookies from 'js-cookie';
 import { ErrorMessage } from 'utils/error-message';
 import { translator } from 'src/dictionary';
 import { APP_VERSION } from 'config/app-env';
+import { appStorage } from 'utils/storage';
 
 export const versionCompatibility = {
-  check ({ appVersion }) {
-    const cookieName = 'incompatible-version-after-reload';
-    const cookie = Cookies.get(cookieName);
-    const incompatibleVersionAfterReload = cookie ? JSON.parse(cookie) : false;
-    if (appVersion !== APP_VERSION) {
-      if (incompatibleVersionAfterReload === false) {
-        Cookies.set(cookieName, true);
+  check ({ appClientVersion }) {
+    const incompatibleVersionAfterReload = appStorage.getItem(appStorage.appKeys.incompatibleVersionAfterReload);
+    if (appClientVersion !== APP_VERSION) {
+      if (incompatibleVersionAfterReload === null) {
+        appStorage.setItem(appStorage.appKeys.incompatibleVersionAfterReload, true);
         window.location.reload();
       } else {
         throw new ErrorMessage(translator.t('error.incompatibleAppVersion'), { hard: true });
       }
     } else {
-      Cookies.remove(cookieName);
+      appStorage.removeItem(appStorage.appKeys.incompatibleVersionAfterReload);
     }
   },
 };

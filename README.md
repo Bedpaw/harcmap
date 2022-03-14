@@ -1,3 +1,4 @@
+
 # HarcMap
 
 - [Installation](#installation)
@@ -20,8 +21,9 @@
 ## Installation
 
 ### Requirements
-- node v10.15.3 or higher
-- npm v6.13.7 or higher
+- NodeJS - version **14.x** (v16.x+ not supported by node-sass)
+- NPM - version **6.x**
+- Docker - version - **newest**
 
 ### How to prepare Intellij IDE (Webstorm) for front-end development
 1. You have to get into `Settings/Languages & Frameworks/JavaScript/Webpack` and set `client/webpack/config.common.js` as a config file.
@@ -34,6 +36,9 @@
 ## Development
 
 ### Devel environment
+1. Go to main dir with all dirs.
+2. Install common packages: `npm i`
+3. Go to one of projects:
 
 #### Client
 1. Go to client dir `cd client`
@@ -43,15 +48,15 @@
 5. Build client files destination is in `public/`
    
 #### Server
-1. Go to main project dir
-2. Run the local database ([read more](#local-database))
-3. Fill the database ([read more](#adding-rtl-gdynia-points-to-database))
-4. Install server packages: `npm i`
-5. Run the local server: `npm run run:dev`
-6. App is ready on https://localhost:3030/
-7. If you get into https://localhost:3030/sign-in, the application log you in automatically on 
-   the demo account (to edit demo user's data go to `config/mongodb/local.js`).
-
+1. Go to server dir `cd client`
+2. Install server packages: `npm i`
+3. Copy `server/.env.local` file to new file `server/.env`   
+   This is server configuration file with app http port, mail credentials, session configs, etc.
+4. Run database: `npm run mongo`
+5. Run server: `npm run server:watch`
+6. App is ready on http://localhost:3030  
+   WARNING! App UI will be available after build and run frontend part.  
+   But to check if server working correctly without starting frontend - check API Documentation: http://localhost:3030/api-docs
 
 ### Production environment
 
@@ -63,10 +68,8 @@
 5. Build client files destination is in `public/`
 
 #### Server
-1. Go to main project dir
-2. Install packages: `npm i`
-3. Run server: `npm run run:prod`
-4. Server is ready!
+Production environment have own configuration on production server.
+It only differs with env variables defined in `.env` file
 
 ### Development kit
 
@@ -92,44 +95,35 @@ Write below commands to browser console:
 1. Run devel environment
 2. Connect mobile device and computer to the same WI-FI network
 3. Check computer IP in your WI-FI network
-4. Put computer IP to phone browser address like here _https://192.168.1.10:3030/_
+4. Put computer IP to phone browser address like here _http://192.168.1.10:3030/_
 5. Use your project from localhost on mobile device!
 
 ## Local database
 
 ### Database installation
-1. To run the local database be sure that you already installed [Docker](https://www.docker.com/products/docker-desktop)
+1. To run the local database be sure that you already installed [Docker Confluence Instruction](https://harcmap.atlassian.net/wiki/spaces/HARCMAP/pages/88834075/Docker+w+Harcmapie)
 2. Next step is running npm script: 
 ```
-// Warning! It can be necessary to run this command with administrator permissions (sudo)
+// Warning! If you have to run this command as root. Check solution in documentation: https://harcmap.atlassian.net/wiki/spaces/HARCMAP/pages/88834075/Docker+w+Harcmapie#Problemy-kt%C3%B3re-mo%C5%BCna-napotka%C4%87-podczas-instalacji%3A
 npm run run:mongodb
 ``` 
 
 ### Default data in local database
 For default, the local database is filling example data to run all basic functionality.
-It means one user(zhp@harcmap.henouser.pl), one event(ab12) with 3 categories and 4 points.
+More details in TODO..
+
+It no more contain data about "RTL Gdynia" event or another.  
+
+~~Adding "RTL Gdynia" points to database:~~  
+~~1. To add points, necessary categories and events you have to run local database first ([read more](#local-database))~~  
+~~2. When local DB completely load, run command `npm run fill-database`.~~   
+~~3. That's all!~~
+
+~~fill-database script, add only example "RTL Gdynia" data to database!~~
 
 
-It doesn't contain any data about "RTL Gdynia" event or another. 
-Default data are the smallest content to run basic functionality!
-
-All initialized data are setting from `/config/mongodb/local.js` script!
-
-### Adding "RTL Gdynia" points to database:
-1. To add points, necessary categories and events you have to run local database first ([read more](#local-database))
-2. When local DB completely load, run command `npm run fill-database`.
-3. That's all!
-
-`fill-database` script, add only example "RTL Gdynia" data to database!
-
-
-## Swagger documentation
-Swagger documentation is easy to see. You just have to:
-1. Run app in DEVELOPMENT env `npm run run:dev`.
-2. Go to url: https://localhost:3030/api-docs
-
-View of swagger documentation are group by main endpoint categories like: User, Point, Event(part of them are still todo).
-
+## Release on server
+For now it's only available by Jurek (contact@jurkiewicz.io)
 
 ## Version release
 To do list:
@@ -137,4 +131,3 @@ To do list:
 - Update version in `client/package.json` and `package.json`
 - Merge to master
 - Create version tag
-- Release on server

@@ -8,24 +8,32 @@ import { session } from 'utils/session';
 import { promiseUtils } from 'utils/promise';
 import { guardsUtils } from 'src/router/guards';
 import { APP_BASE_URL } from 'config/app-env';
+import { autoUpdate } from 'utils/auto-update';
+import { appStorage } from 'utils/storage';
 
 let firstRun = true;
 
-const router = createRouter({
+export const router = createRouter({
   base: APP_BASE_URL,
   routes,
   history: createWebHistory(),
 });
 
+const clearEventWhenLeaveEventRoutes = (to) => {
+  if (!(to.meta.afterEventChosen || to.meta.alwaysAllowed)) {
+    autoUpdate.stop();
+    store.dispatch('resetState').then();
+  }
+};
 router.beforeEach((to, from, next) => {
+  clearEventWhenLeaveEventRoutes(to);
   let promise;
   if (firstRun) {
     firstRun = false;
-    promise = makeFirstRun();
+    promise = makeFirstRun(to);
   } else {
     promise = Promise.resolve();
   }
-
   promise
     .catch((error) => {
       if (error instanceof ErrorMessage) error.showMessage();
@@ -43,11 +51,11 @@ router.hardReload = function () {
 
 export default router;
 
-function makeFirstRun () {
+function makeFirstRun (to) {
   return new Promise((resolve, reject) => {
     api.information()
       .then(versionCompatibility.check)
-      .then(session.tryLogin)
+      .then(() => session.tryLogin(to))
       .then(resolve)
       .catch(reject)
       .finally(() => promiseUtils.timeout(1000))
@@ -58,19 +66,21 @@ function makeFirstRun () {
 function redirectIfNotAuth (to, from, next) {
   const {
     checkGuards, getRedirectPath, guards: {
-      isTheSameRoute, isLoginGuard, isAdminGuard, isAdminObserverGuard,
+      isTheSameRoute, isLoginGuard, isAdminGuard, isObserverGuard, isEventChooseGuard, isTeamLeader,
     },
   } = guardsUtils;
-  const blockRedirectGuards = [isTheSameRoute];
-  const redirectSomewhereElseGuards = [isAdminObserverGuard, isAdminGuard, isLoginGuard];
+  const redirectSomewhereElseGuards = [isTeamLeader, isObserverGuard, isAdminGuard, isLoginGuard, isEventChooseGuard];
 
-  if (checkGuards(blockRedirectGuards, to, from)) {
+  if (isTheSameRoute(from, to)) {
     next(false);
     return;
   }
-  if (checkGuards(redirectSomewhereElseGuards, to, from)) {
+  if (checkGuards(redirectSomewhereElseGuards, to.meta)) {
     next(getRedirectPath());
     return;
+  }
+  if (to.meta.afterEventChosen) {
+    appStorage.setItem(appStorage.appKeys.lastRoute, to.path, appStorage.getIds.eventIdAndEmail());
   }
   next();
 }

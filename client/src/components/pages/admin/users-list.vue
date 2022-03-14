@@ -2,26 +2,30 @@
   <t-search
     :search-assist="$t('form.assist.searchUser')"
     :elements="users"
-    :search-keys="['user', 'userTeam']"
+    :search-keys="['email', 'nickname']"
   >
     <template #result-list="{ filteredElements: filteredUsers }">
       <div class="f-flex-1 f-scroll-default f-mt--2">
         <div
           v-for="user of filteredUsers"
-          :key="user.user"
+          :key="user.email"
           class="m-grid f-search-user"
         >
           <a-icon
             :type="$icons.types.outlined"
             :name="getUserIcon(user)"
           />
-          <div class="f-pl-1 f-py-1 f-line-24 f-overflow-hidden">
-            {{ user.userTeam }}
+          <div class="f-pl-1 f-py-1 f-text-12 f-line-24 f-overflow-hidden">
+            {{ user.nickname }}
           </div>
           <div class="f-pl-1 f-py-1 f-text-subtext f-text-14 f-line-24 f-overflow-hidden">
-            {{ user.user }}
+            {{ user.email }}
           </div>
-          <a-button-icon @click="openDetails(user)">
+          <!-- TODO v2.1 Admin user management endpoint -->
+          <a-button-icon
+            v-if="false"
+            @click="openDetails(user)"
+          >
             <a-icon :name="$icons.names.more_vert" />
           </a-button-icon>
         </div>
@@ -53,10 +57,11 @@ export default {
     selectedUser: null,
   }),
   computed: {
-    ...mapGetters('allUsers', ['users']),
+    ...mapGetters('groups', ['users']),
+    ...mapGetters('event', ['eventId']),
   },
   mounted () {
-    this.$store.dispatch('allUsers/download')
+    this.$store.dispatch('groups/downloadUsers', this.eventId)
       .then(() => {
         this.errorMessage = '';
       })
