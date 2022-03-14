@@ -92,14 +92,14 @@ describe(endpoint, () => {
       },
     }, {
       send: {
-        email: 'to_long_mail_address@tolongmailaddress.com',
+        email: 'too_long_email_address_more_more_long_then_50_characters@tolongmailaddress.com',
         password: 'Password1',
       },
       expect: {
         error: 1001,
         message: 'request validation error',
         errorDetails: [
-          '"email" length must be less than or equal to 24 characters long',
+          '"email" length must be less than or equal to 50 characters long',
         ],
       },
     }, {
