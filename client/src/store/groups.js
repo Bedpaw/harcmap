@@ -26,6 +26,10 @@ export default {
   mutations: {
     setUsers: (state, payload) => (state.users = payload),
     setTeams: (state, payload) => (state.teams = payload),
+    resetState: (state) => {
+      state.users = [];
+      state.teams = [];
+    },
   },
   actions: {
     downloadTeams (context, eventId) {

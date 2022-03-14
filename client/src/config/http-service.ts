@@ -1,7 +1,5 @@
 import { API_ERRORS } from 'utils/macros/errors';
 import { store } from 'store';
-import router from 'src/router';
-import { ROUTES } from 'config/routes-config';
 import { translator } from 'src/dictionary';
 import { ErrorMessage } from 'utils/error-message';
 import { HttpService } from '@dbetka/wdk/lib/http-service';
@@ -29,7 +27,6 @@ export const httpService = HttpService.createInstance<ApiError, ServerError>({
   },
   permissionErrorCallback: (serverError) => {
     store.commit('user/signOut');
-    router.push(ROUTES.welcome.path);
     return new ErrorMessage(getSpecificError(serverError?.error) ?? translator.t('apiError.general.unauthorizedAccess'));
   },
 });

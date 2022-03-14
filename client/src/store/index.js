@@ -10,6 +10,7 @@ import mapPopup from './map-popup';
 import snackbar from './snackbar';
 import guide from './guide';
 import { team } from 'store/team';
+import { invitations } from 'store/invitations';
 
 export const store = createStore({
   modules: {
@@ -24,6 +25,7 @@ export const store = createStore({
     snackbar,
     guide,
     team,
+    invitations,
   },
   state: {
     isLoading: true,
@@ -37,5 +39,15 @@ export const store = createStore({
     setIsLoading: (state, payload) => (state.isLoading = payload),
     increaseRouterId: (state) => state.routerId++,
   },
-  actions: {},
+  actions: {
+    resetState (context) {
+      return new Promise((resolve) => {
+        context.dispatch('event/resetState')
+          .then(context.commit('team/resetTeamState'))
+          .then(context.commit('invitations/clearStore'))
+          .then(context.commit('groups/resetState'))
+          .then(resolve(true));
+      });
+    },
+  },
 });

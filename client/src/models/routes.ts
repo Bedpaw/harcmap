@@ -5,6 +5,7 @@ export interface EnterPermissionOptions {
     teamLeader?: boolean
     observer?: boolean
     admin?: boolean
+    alwaysAllowed?: boolean
 }
 
 export interface EnterPermissionGroup {

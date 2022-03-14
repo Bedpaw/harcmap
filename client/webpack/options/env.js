@@ -1,19 +1,19 @@
 const getDevGlobals = () => ({
   '__APP_PRODUCTION_MODE__': JSON.stringify(false),
   '__APP_TEAM_LEADER_LOGIN_DATA__': JSON.stringify({
-    email: 'user7@harcmap.pl',
+    email: 'user3@harcmap.pl',
     password: 'Password1',
   }),
   '__APP_ADMIN_LOGIN_DATA__': JSON.stringify({
-    email: 'user6@harcmap.pl',
+    email: 'user1@harcmap.pl',
     password: 'Password1',
   }),
   '__APP_OBSERVER_LOGIN_DATA__': JSON.stringify({
-    email: 'user4@harcmap.pl',
+    email: 'user6@harcmap.pl',
     password: 'Password1',
   }),
   '__APP_TEAM_MEMBER_LOGIN_DATA__': JSON.stringify({
-    email: 'user1@harcmap.pl',
+    email: 'user7@harcmap.pl',
     password: 'Password1',
   }),
   '__VUE_OPTIONS_API__': true,

@@ -64,7 +64,7 @@ export default {
     function remindPassword () {
       isSending.value = true;
       blockForm.value = true;
-      api.sendResetPassword({ email: email.value })
+      api.sendResetPassword(email.value)
         .then(onRemindPassword)
         .catch(onErrorOccurs);
     }
