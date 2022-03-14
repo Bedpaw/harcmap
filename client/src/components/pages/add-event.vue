@@ -18,6 +18,8 @@ export default {
     addEvent (event) {
       return this.$store.dispatch('event/addEvent', { event, userId: this.$store.getters['user/userId'] })
         .then(event => {
+          // TODO Backend responses are not consistent
+          this.$store.commit('user/addUserEvent', { ...event, role: ACCOUNT_TYPES.creator });
           enterEvent(ACCOUNT_TYPES.creator, event.eventId);
           return null;
         });

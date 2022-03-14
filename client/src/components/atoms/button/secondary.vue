@@ -10,11 +10,12 @@
   </a-button>
 </template>
 
-<script>
-import AButton from 'atoms/button';
+<script lang="ts">
+import AButton from 'atoms/button.vue';
 import { THEMES } from 'utils/style-manager';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
   name: 'a-button-secondary',
   components: { AButton },
   props: {
@@ -44,5 +45,5 @@ export default {
       }
     },
   },
-};
+});
 </script>

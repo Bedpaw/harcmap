@@ -49,10 +49,7 @@ const getRedirectPath = () => {
     return ROUTES.welcome.path;
   }
   if (eventNotChosen) {
-    return {
-      name: ROUTES.eventsList.name,
-      query: { justLoggedIn: true },
-    };
+    return ROUTES.eventsList.path;
   }
   return ROUTES.start.path;
 };

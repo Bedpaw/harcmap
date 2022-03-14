@@ -1,3 +1,5 @@
+import { InvitationKeys } from 'models/invitations';
+
 export interface Event {
   eventId: string;
   eventKey: string;
@@ -8,4 +10,5 @@ export interface Event {
   mapLongitude: number;
   mapZoom: number;
   mapRefreshTime: number;
+  inviteKeys: InvitationKeys;
 }

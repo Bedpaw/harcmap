@@ -1,27 +1,27 @@
 @each $name, $value in $x
   .f-p-#{$name}
-    padding: map_get($y, $name) $value
+    padding: map_get($y, $name) $value !important
 
 @each $name, $value in $x
   .f-px-#{$name}
     padding:
-      left: $value
-      right: $value
+      left: $value !important
+      right: $value !important
 
   .f-pl-#{$name}
-    padding-left: $value
+    padding-left: $value !important
 
   .f-pr-#{$name}
-    padding-right: $value
+    padding-right: $value !important
 
 @each $name, $value in $y
   .f-py-#{$name}
     padding:
-      top: $value
-      bottom: $value
+      top: $value !important
+      bottom: $value !important
 
   .f-pt-#{$name}
-    padding-top: $value
+    padding-top: $value !important
 
   .f-pb-#{$name}
-    padding-bottom: $value
+    padding-bottom: $value !important

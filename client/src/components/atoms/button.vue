@@ -21,10 +21,11 @@
   </div>
 </template>
 
-<script>
-import ALoader from 'atoms/loader';
+<script lang="ts">
+import ALoader from 'atoms/loader.vue';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
   name: 'a-button',
   components: { ALoader },
   inheritAttrs: false,
@@ -67,11 +68,11 @@ export default {
     },
   },
   methods: {
-    emitClick (event) {
+    emitClick (event:Event) {
       if (this.disabled === false) {
         this.$emit('click', event);
       }
     },
   },
-};
+});
 </script>

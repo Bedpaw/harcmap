@@ -49,6 +49,7 @@ export class Mapper {
       mapRefreshTime: eventIn.eventRefreshTime,
       mapZoom: eventIn.mapProperties.zoom,
       eventKey: eventIn.eventKey,
+      inviteKeys: eventIn.inviteKeys,
     };
   }
 
@@ -65,6 +66,7 @@ export class Mapper {
         latitude: eventOut.mapLatitude,
         zoom: eventOut.mapZoom,
       },
+      inviteKeys: eventOut.inviteKeys,
     };
   }
 

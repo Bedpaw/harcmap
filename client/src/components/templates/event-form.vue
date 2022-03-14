@@ -10,12 +10,6 @@
         :rules="validationRules.eventName"
         :disabled="blockForm"
       />
-      <!--      <m-field-text
-        v-model="values.eventId"
-        disabled
-        :label="$t('form.field.eventId')"
-        :assist="$t('form.assist.eventId')"
-      />-->
       <m-select
         v-model="values.mapRefreshTime"
         :options="mapRefreshTimeOptions"
@@ -122,7 +116,6 @@ export default {
 
     const values = ref({
       eventName: '',
-      eventId: null,
       mapRefreshTime: DEFAULT_EVENT_CONFIG.mapRefreshTime,
       eventStartDate: null,
       eventEndDate: null,

@@ -2,13 +2,17 @@ import { Module } from 'vuex';
 import { TeamDTO } from 'models/dtos/team';
 import { PointType } from 'models/point';
 
+const initState = () => ({
+  teamId: '',
+  teamName: '',
+  collectedPoints: [],
+  teamMembers: [],
+});
+
 export const team:Module<TeamDTO, object> = {
   namespaced: true,
   state: {
-    teamId: '',
-    teamName: '',
-    collectedPoints: [],
-    teamMembers: [],
+    ...initState(),
   },
   getters: {
     collectedPointsIds: state => state.collectedPoints,
@@ -39,6 +43,9 @@ export const team:Module<TeamDTO, object> = {
     },
     addCollectedPoint: (state, pointId) => {
       state.collectedPoints.push(pointId);
+    },
+    resetTeamState: (state) => {
+      Object.assign(state, initState());
     },
   },
 };

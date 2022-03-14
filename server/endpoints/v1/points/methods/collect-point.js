@@ -8,9 +8,9 @@ async function collectPoint (request, eventId, pointKey) {
   // TODO add limit of try
   const point = await Points.get({ eventId: ObjectId(eventId), pointKey });
   const userTeamId = getUserTeamIdFromSession(eventId, request.user);
-  const userRole = getUserRoleFromSession(eventId, request.user);
+  const role = getUserRoleFromSession(eventId, request.user);
 
-  if (['creator', 'admin', 'observer'].includes(userRole)) {
+  if (['creator', 'admin', 'observer'].includes(role)) {
     throw new AppError(errorCodes.ADMINISTRATOR_CANT_COLLECT_POINTS, {
       httpStatus: 400,
     });

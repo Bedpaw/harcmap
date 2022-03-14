@@ -25,7 +25,6 @@ export default {
   },
   created () {
     this.defaultValues.eventName = this.event.eventName;
-    this.defaultValues.eventId = this.event.eventId;
     this.defaultValues.mapRefreshTime = this.event.mapRefreshTime;
     this.defaultValues.eventStartDate = this.event.eventStartDate;
     this.defaultValues.eventEndDate = this.event.eventEndDate;
