@@ -1,0 +1,24 @@
+paths:
+  /api/v1/about:
+    get:
+      summary: Get general information about app, project
+      tags:
+        - About
+      responses:
+        200:
+          description: 'Return information'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  appName:
+                    $ref: '#/components/props/appName'
+                  author:
+                    $ref: '#/components/props/author'
+                  version:
+                    $ref: '#/components/props/version'
+                  appClientVersion:
+                    $ref: '#/components/props/appClientVersion'
+                  appServerVersion:
+                    $ref: '#/components/props/appServerVersion'

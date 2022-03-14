@@ -1,0 +1,18 @@
+{
+  "userId": "100000000000000000000001",
+  "email": "user1@harcmap.pl",
+  "userEvents": [
+    {
+      "eventId": "100000000000000000000001",
+      "eventName": "Wydarzenie 1",
+      "eventDuration": {
+        "startDate": 1638714036373,
+        "endDate": 1638714036373
+      },
+      "teamId": "100000000000000000000001",
+      "teamName": "Zespół 1",
+      "role": "teamMember",
+      "isBanned": false
+    }
+  ]
+}

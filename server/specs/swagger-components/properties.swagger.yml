@@ -1,0 +1,284 @@
+components:
+  props:
+    appName:
+      description: 'App name'
+      type: string
+    author:
+      description: 'App author'
+      type: string
+    version:
+      description: 'App version'
+      type: string
+      example: '1.2.3'
+    appClientVersion:
+      description: 'Frontend service version'
+      type: string
+      example: '2.1.15'
+    appServerVersion:
+      description: 'Backend service version'
+      type: string
+      example: '2.0.1'
+    id:
+      description: 'Document unique id from database'
+      example: '100000000000000000000001'
+      type: string
+    email:
+      description: 'User email. Used also as login'
+      type: string
+      format: email
+      maxLength: 50
+      example: 'user1@harcmap.pl'
+    password:
+      description: 'User password'
+      type: string
+      format: password
+      pattern: /^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,24}$/
+      example: 'Password1'
+    isActive:
+      description: 'User account is active (in creating user, default: false)'
+      type: boolean
+      example: true
+    isBanned:
+      description: 'User account is banned in event (default: false)'
+      type: boolean
+      example: true
+    userEvents:
+      description: 'List of events that user participle'
+      type: array
+      items:
+        type: object
+        properties:
+          eventId:
+            $ref: '#/components/props/id'
+          eventName:
+            $ref: '#/components/props/eventName'
+          eventDuration:
+            $ref: '#/components/props/eventDuration'
+          teamId:
+            $ref: '#/components/props/id'
+          teamName:
+            $ref: '#/components/props/teamName'
+          nickname:
+            $ref: '#/components/props/nickname'
+          role:
+            $ref: '#/components/props/role'
+          isBanned:
+            $ref: '#/components/props/isBanned'
+    error:
+      description: 'Error code name'
+      type: number
+      length: 4
+      example: 1300
+    message:
+      description: 'Error text name'
+      type: string
+      example: 'error text name'
+    errorDetails:
+      description: 'Validation details. PROBABLY WILL BE REMOVED'
+      type: object
+    success:
+      description: 'Field describe status of operation. In most endpoints always return TRUE'
+      type: boolean
+      nullable: false
+      example: true
+    role:
+      description: 'Describe permissions in app'
+      type: string
+      example: 'teamLeader'
+    nickname:
+      description: 'User nick per event'
+      type: string
+      example: 'teamLeader'
+    roleNullable:
+      description: 'Describe permissions in app'
+      type: string
+      example: 'teamLeader'
+      nullable: true
+    eventName:
+      description: 'Event name'
+      type: string
+      example: 'Wydarzenie 1'
+      minLength: 3
+      maxLength: 50
+    eventKey:
+      description: 'Event access key'
+      type: string
+      length: 4
+      example: 'K3y1'
+    eventDuration:
+      type: object
+      properties:
+        startDate:
+          description: 'Time when event start'
+          type: number
+          example: 1638714036373
+          maximum: 8640000000000000
+        endDate:
+          description: 'Time when event end'
+          type: number
+          example: 1638714036373
+          maximum: 8640000000000000
+    mapProperties:
+      type: object
+      properties:
+        zoom:
+          description: 'Default map zoom for user'
+          type: number
+          example: 30
+          maximum: 10000000000
+        longitude:
+          description: 'Default map longitude for user'
+          type: number
+          minimum: -180
+          maximum: 180
+        latitude:
+          description: 'Default map latitude for user'
+          type: number
+          minimum: -90
+          maximum: 90
+    eventRefreshTime:
+      description: 'Refresh time(in seconds) of map with points'
+      type: number
+      example: 60
+      maximum: 10000000000
+    teamName:
+      description: 'Team name'
+      type: string
+      example: 'Zespół 1'
+      minLength: 3
+      maxLength: 24
+    teamColor:
+      description: 'Team color'
+      type: string
+      pattern: /^#[a-fA-F0-9]{3,6}$/
+      example: '#922eb4'
+    collectedPoints:
+      description: 'List of collected points (pointsId)'
+      type: array
+      items:
+        $ref: '#/components/props/id'
+    teamMembers:
+      description: 'List of members in team'
+      type: array
+      items:
+        type: object
+        properties:
+          email:
+            $ref: '#/components/props/email'
+          username:
+            $ref: '#/components/props/username'
+          userId:
+            $ref: '#/components/props/id'
+          role:
+            $ref: '#/components/props/role'
+    pointKey:
+      description: 'Point key to collect'
+      type: string
+      length: 4
+      example: 'Poi1'
+    pointKeyNullable:
+      description: 'Point key to collect. Nullable if user have no permission to key'
+      type: string
+      nullable: true
+      length: 4
+      example: 'Poi1'
+    pointName:
+      description: 'Point name'
+      type: string
+      minLength: 3
+      maxLength: 24
+      nullable: true
+      example: 'Nazwa punktu'
+    pointCollectedDate:
+      description: 'Date when point was collected. Can be null'
+      type: number
+      nullable: true
+      example: 1638714036373
+      maximum: 8640000000000000
+    pointPosition:
+      description: 'Point position on map'
+      type: object
+      properties:
+        longitude:
+          type: number
+          minimum: -180
+          maximum: 180
+          example: 140.62
+        latitude:
+          type: number
+          minimum: -90
+          maximum: 90
+          example: -14.15132424
+    pointDuration:
+      description: 'Start and end time when point is available'
+      type: object
+      properties:
+        startDate:
+          description: 'Time when point start to be available. If null, point exist from start of event'
+          type: number
+          example: 1638714036373
+          maximum: 8640000000000000
+          default: null
+          nullable: true
+        endDate:
+          description: 'Time when point end to be available. If null, point exist to end of event'
+          type: number
+          example: 1638714036373
+          maximum: 8640000000000000
+          default: null
+          nullable: true
+    categoryName:
+      description: 'Category name'
+      type: string
+      minLength: 3
+      maxLength: 24
+      example: 'Czerwone'
+    pointType:
+      description: 'Point type'
+      type: string
+      example: 'permanent'
+    pointValue:
+      description: 'Point category value'
+      type: number
+      minimum: 0
+      maximum: 9999999999
+      example: 5
+    pointFillColor:
+      description: 'Point category fill color'
+      type: string
+      minLength: 4
+      maxLength: 7
+      example: '#922eb4'
+    pointStrokeColor:
+      description: 'Point category stroke color'
+      type: string
+      minLength: 4
+      maxLength: 7
+      example: '#922eb4'
+    inviteKeys:
+      description: 'List of keys to join to event, team'
+      type: array
+      items:
+        type: object
+        properties:
+          keyId:
+            $ref: '#/components/props/id'
+          role:
+            $ref: '#/components/props/roleNullable'
+          key:
+            $ref: '#/components/props/eventKey'
+          teamId:
+            $ref: '#/components/props/id'
+    inviteKeysNullable:
+      description: 'List of keys to join to event, team'
+      type: array
+      nullable: true
+      items:
+        type: object
+        properties:
+          keyId:
+            $ref: '#/components/props/id'
+          role:
+            $ref: '#/components/props/roleNullable'
+          key:
+            $ref: '#/components/props/eventKey'

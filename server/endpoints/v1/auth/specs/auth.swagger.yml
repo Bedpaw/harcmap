@@ -1,0 +1,114 @@
+paths:
+  /api/v1/auth/sign-up:
+    post:
+      summary: 'User registration endpoint'
+      tags:
+        - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  $ref: '#/components/props/email'
+                password:
+                  $ref: '#/components/props/password'
+                invitationKey:
+                  $ref: '#/components/props/eventKey'
+              required:
+                - email
+                - password
+      responses:
+        200:
+          description: 'Return information if account have been created (but not active)'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    $ref: '#/components/props/success'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+  /api/v1/auth/sign-in:
+    post:
+      summary: 'Login endpoint'
+      tags:
+        - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  $ref: '#/components/props/email'
+                password:
+                  $ref: '#/components/props/password'
+            examples:
+              login:
+                summary: 'If we want to login'
+                description: 'If we give any data in body, backend will validate email and password fields'
+                value: { email: 'example@domain.com', password: 'Password1' }
+              logged:
+                summary: 'Check if user is already logged'
+                description: 'Must send empty object'
+                value: { }
+      responses:
+        200:
+          description: 'User logged. Response his data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    $ref: '#/components/props/id'
+                  email:
+                    $ref: '#/components/props/email'
+                  userEvents:
+                    $ref: '#/components/props/userEvents'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+  /api/v1/auth/sign-out:
+    post:
+      summary: Logout endpoint
+      tags:
+        - Auth
+      responses:
+        200:
+          description: 'Information if user logout'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    $ref: '#/components/props/success'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'

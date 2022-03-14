@@ -1,0 +1,54 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "module": "esnext",
+    "target": "esnext",
+    "allowJs": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["src/*"],
+      "components/*": ["src/components/*"],
+      "config/*": ["src/config/*"],
+      "api": ["src/api"],
+      "map": ["src/map"],
+      "map/*": ["src/map/*"],
+      "models/*": ["src/models/*"],
+      "store": ["src/store"],
+      "store/*": ["src/store/*"],
+      "utils/*": ["src/utils/*"],
+      "assets/*": ["src/assets/*"],
+      "dictionary": ["src/dictionary"],
+      "dictionary/*": ["src/dictionary/*"],
+      "types/*": ["src/types/*"],
+      "vendors/*": ["../vendors/*"],
+      "validateCodes": ["../server/libs/errors/codes.js"],
+
+      "plugins/*": ["src/components/plugins/*"],
+      "atoms/*": ["src/components/atoms/*"],
+      "molecules/*": ["src/components/molecules/*"],
+      "organisms/*": ["src/components/organisms/*"],
+      "templates/*": ["src/components/templates/*"],
+      "pages/*": ["src/components/pages/*"],
+      "extends/*": ["src/components/extends/*"],
+      "mixins/*": ["src/components/mixins/*"]
+    },
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "tests/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "teamName": "Zespół 1",
+  "teamColor": "#922eb4",
+  "collectedPoints": [
+    "100000000000000000000001"
+  ],
+  "teamMembers": [
+    {
+      "email": "user1@harcmap.pl",
+      "userId": "100000000000000000000001",
+      "role": "teamLeader"
+    }
+  ],
+  "inviteKeys": [
+    {
+      "keyId": "100000000000000000000001",
+      "role": "teamLeader",
+      "key": "K3y1"
+    }
+  ]
+}

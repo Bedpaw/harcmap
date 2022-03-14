@@ -1,0 +1,109 @@
+paths:
+  /api/v1/events/{eventId}/teams:
+    get:
+      summary: 'Get list of teams in event with eventId (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Teams
+      parameters:
+        - in: "path"
+          name: eventId
+          description: "Event id for looking teams"
+          example: '300000000000000000000001'
+          default: undefined
+          required: true
+      responses:
+        200:
+          description: 'Return list of teams'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    teamId:
+                      $ref: '#/components/props/id'
+                    teamName:
+                      $ref: '#/components/props/teamName'
+                    teamColor:
+                      $ref: '#/components/props/teamColor'
+                    collectedPoints:
+                      $ref: '#/components/props/collectedPoints'
+                    teamMembers:
+                      $ref: '#/components/props/teamMembers'
+                    inviteKeys:
+                      $ref: '#/components/props/inviteKeys'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
+  /api/v1/events/{eventId}/teams/{teamId}:
+    get:
+      summary: 'Get team with teamId from event with eventId (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - Teams
+      parameters:
+        - in: "path"
+          name: eventId
+          description: "Event id for looking teams"
+          example: '300000000000000000000001'
+          default: undefined
+          required: true
+        - in: "path"
+          name: teamId
+          description: "Id of looking team"
+          example: '400000000000000000000001'
+          default: undefined
+          required: true
+      responses:
+        200:
+          description: 'Team data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  teamName:
+                    $ref: '#/components/props/teamName'
+                  teamColor:
+                    $ref: '#/components/props/teamColor'
+                  collectedPoints:
+                    $ref: '#/components/props/collectedPoints'
+                  teamMembers:
+                    $ref: '#/components/props/teamMembers'
+                  inviteKeys:
+                    $ref: '#/components/props/inviteKeysNullable'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/500'
