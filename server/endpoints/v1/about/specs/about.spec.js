@@ -1,20 +1,20 @@
 const testEndpoint = require('../../../../tests/utils/test-endpoint');
-const endpoint = '/about';
+const endpoint = '/api/v1/about';
 
 // mock server package.json
-jest.mock('../../package.json', () => ({
+jest.mock('../../../../package.json', () => ({
   version: '1.2.3',
 }), { virtual: true });
 
 // mock main app package.json
-jest.mock('../../../package.json', () => ({
+jest.mock('../../../../../package.json', () => ({
   version: '2.3.4',
   author: 'harcmapTeam',
   name: 'harcmap',
 }), { virtual: true });
 
 // mock client package.json
-jest.mock('../../../client/package.json', () => ({
+jest.mock('../../../../../client/package.json', () => ({
   version: '3.4.5',
 }), { virtual: true });
 

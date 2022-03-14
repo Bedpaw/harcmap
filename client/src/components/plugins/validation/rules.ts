@@ -18,7 +18,6 @@ export const validationRules = {
   passwordConfirmation: (passwordRef: Ref) => [required, sameAs(passwordRef)],
   userTeam: [required, minLength(4), maxLength(30)],
 
-  eventId: [required, minLength(4), maxLength(4)],
   eventName: [required, maxLength(45)],
 
   pointId: [required, minLength(4), maxLength(4)],

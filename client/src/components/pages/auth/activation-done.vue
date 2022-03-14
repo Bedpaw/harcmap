@@ -5,7 +5,7 @@
         {{ $t('page.activationDone.main') }}
       </div>
     </div>
-    <a-button-primary @click="$router.push(ROUTES.signIn.path)">
+    <a-button-primary @click="$router.push({ path: ROUTES.signIn.path, query: { invitationKey } })">
       {{ $t('form.button.goToLogin') }}
     </a-button-primary>
   </t-page>
@@ -14,12 +14,25 @@
 <script>
 import TPage from 'templates/page';
 import AButtonPrimary from 'atoms/button/primary';
+import { onMounted, ref } from 'vue';
+import { urlUtils } from 'utils/url';
 
 export default {
-  name: 'p-sign-up',
+  name: 'p-activation-done',
   components: {
     TPage,
     AButtonPrimary,
+  },
+  setup () {
+    const invitationKey = ref('');
+
+    onMounted(() => {
+      invitationKey.value = urlUtils.getInvitationKey();
+    });
+
+    return {
+      invitationKey,
+    };
   },
 };
 </script>

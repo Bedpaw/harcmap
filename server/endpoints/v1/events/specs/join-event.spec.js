@@ -13,6 +13,7 @@ describe('/api/v1/events/join', () => {
       send: {
         userId: '100000000000000000000009',
         eventKey: 'K3y1',
+        nickname: 'Sylwek',
       },
       expect: {
         eventDuration: {
@@ -22,6 +23,7 @@ describe('/api/v1/events/join', () => {
         eventId: '300000000000000000000001',
         eventName: 'Wydarzenie 1',
         role: 'admin',
+        nickname: 'Sylwek',
         teamColor: null,
         teamId: null,
         teamName: null,
@@ -48,13 +50,14 @@ describe('/api/v1/events/join', () => {
       },
     }, {
       collectionName: 'usersEvents',
-      query: { role: 'admin', eventId: ObjectId('300000000000000000000001') },
+      query: { role: 'admin', eventId: ObjectId('300000000000000000000001'), nickname: 'Sylwek' },
       document: {
         '_id': expect.any(Object),
         'eventId': ObjectId('300000000000000000000001'),
         'teamId': null,
         'role': 'admin',
         'isBanned': false,
+        'nickname': 'Sylwek',
       },
     }],
     resetDbToDefault: true,
@@ -72,6 +75,7 @@ describe('/api/v1/events/join', () => {
       send: {
         eventKey: 'K3y3',
         userId: '100000000000000000000001',
+        nickname: 'Duru',
       },
       expect: {
         error: 1402,
@@ -117,6 +121,7 @@ describe('/api/v1/events/join', () => {
       send: {
         eventKey: 'K3y2',
         userId: '100000000000000000000002',
+        nickname: 'Adi',
       },
       expect: {
         error: 1404,

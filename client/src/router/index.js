@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteLocationNormalized } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import { store } from 'store';
 import { api } from 'api';
 import { routes } from './routes';
@@ -20,9 +20,9 @@ export const router = createRouter({
 });
 
 const clearEventWhenLeaveEventRoutes = (to) => {
-  if (!to.meta.afterEventChosen) {
+  if (!(to.meta.afterEventChosen || to.meta.alwaysAllowed)) {
     autoUpdate.stop();
-    store.dispatch('event/resetState').then();
+    store.dispatch('resetState').then();
   }
 };
 router.beforeEach((to, from, next) => {
@@ -30,7 +30,7 @@ router.beforeEach((to, from, next) => {
   let promise;
   if (firstRun) {
     firstRun = false;
-    promise = makeFirstRun();
+    promise = makeFirstRun(to);
   } else {
     promise = Promise.resolve();
   }
@@ -51,11 +51,11 @@ router.hardReload = function () {
 
 export default router;
 
-function makeFirstRun () {
+function makeFirstRun (to) {
   return new Promise((resolve, reject) => {
     api.information()
       .then(versionCompatibility.check)
-      .then(session.tryLogin)
+      .then(() => session.tryLogin(to))
       .then(resolve)
       .catch(reject)
       .finally(() => promiseUtils.timeout(1000))
@@ -66,10 +66,10 @@ function makeFirstRun () {
 function redirectIfNotAuth (to, from, next) {
   const {
     checkGuards, getRedirectPath, guards: {
-      isTheSameRoute, isLoginGuard, isAdminGuard, isObserverGuard, isEventChooseGuard,
+      isTheSameRoute, isLoginGuard, isAdminGuard, isObserverGuard, isEventChooseGuard, isTeamLeader,
     },
   } = guardsUtils;
-  const redirectSomewhereElseGuards = [isObserverGuard, isAdminGuard, isLoginGuard, isEventChooseGuard];
+  const redirectSomewhereElseGuards = [isTeamLeader, isObserverGuard, isAdminGuard, isLoginGuard, isEventChooseGuard];
 
   if (isTheSameRoute(from, to)) {
     next(false);

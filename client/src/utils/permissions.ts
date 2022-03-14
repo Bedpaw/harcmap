@@ -1,5 +1,7 @@
 import { store } from 'store';
 
+export type AccountTypesStringType = 'teamLeader' | 'admin' | 'observer' | 'teamMember' | 'creator'
+
 // ACCOUNT_TYPES is available in vue templates
 export const ACCOUNT_TYPES = {
   teamLeader: 'teamLeader',
@@ -11,7 +13,7 @@ export const ACCOUNT_TYPES = {
 
 export const permissions = {
   checkPermissions (accountType: string) {
-    const userAccountType = store.getters['event/userRole'];
+    const userAccountType = store.getters['event/role'];
     return userAccountType === accountType;
   },
   checkIsCreator () {

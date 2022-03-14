@@ -1,11 +1,9 @@
-import { api } from 'api';
 import { store } from 'store';
 
 export const session = {
-  tryLogin () {
+  tryLogin (to) {
     return new Promise(resolve => {
-      api.checkYourLoginSession()
-        .then(data => store.dispatch('user/signIn', data))
+      store.dispatch('user/signIn', to)
         .catch(() => undefined)
         .finally(() => resolve());
     });

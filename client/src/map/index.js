@@ -58,7 +58,7 @@ export const map = {
   updateMapFeatures () {
     const eventId = store.getters['event/eventId'];
     const teamId = store.getters['team/teamId'];
-    const role = store.getters['event/userRole'];
+    const role = store.getters['event/role'];
     const promise = store.dispatch('event/download', { eventId, teamId, role });
     promise.then(() => {
       if (uCheck.isObject(map.realMap)) {

@@ -54,16 +54,19 @@ export default {
       });
     },
     deleteCategory (pointCategoryId) {
-      // TODO tranlastion and refactor if we want this solution
       const numberOfPointsWithThisCategory = this.points.filter(point => point.pointCategoryId === pointCategoryId).length;
       if (numberOfPointsWithThisCategory > 0) {
-        communicates.showErrorTemporary(`Ta kategoria jest używana przez podaną ilość punktów - ${numberOfPointsWithThisCategory}`);
+        communicates.showErrorTemporary(this.$t('communicate.pointCategory.errorCategoryIsUsed') + `${numberOfPointsWithThisCategory}`);
         return;
       }
-      if (confirm(translator.t('communicate.map.confirmPointRemove'))) {
-        communicates.showSuccess(translator.t('communicate.map.pointRemovingInProgress'));
+      if (this.categories.length < 2) {
+        communicates.showErrorTemporary(this.$t('communicate.pointCategory.errorLastCategory'));
+        return;
+      }
+      if (confirm(translator.t('communicate.pointCategory.confirmPointCategoryRemove'))) {
+        communicates.showSuccess(translator.t('communicate.pointCategory.pointCategoryRemovingInProgress'));
         this.$store.dispatch('event/deletePointCategory', { pointCategoryId })
-          .then(() => communicates.showSuccessTemporary(translator.t('communicate.map.pointRemoved')))
+          .then(() => communicates.showSuccessTemporary(translator.t('communicate.pointCategory.pointCategoryRemoved')))
           .catch(em => em.showMessage());
       }
     },

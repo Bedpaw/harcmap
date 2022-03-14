@@ -6,13 +6,15 @@ import { pointUtils } from 'utils/point';
 import { permissions } from 'utils/permissions';
 import { appStorage } from 'utils/storage';
 import { colorsUtils } from 'utils/macros/colors';
+import { translator } from 'dictionary';
 
 const initState = () => ({
   eventId: null,
   eventName: '',
   eventStartDate: null,
   eventEndDate: null,
-  userRole: '',
+  role: '',
+  inviteKeys: [],
 });
 
 export default {
@@ -27,7 +29,7 @@ export default {
     eventStartDate: state => state.eventStartDate,
     eventEndDate: state => state.eventEndDate,
     eventId: state => state.eventId,
-    userRole: state => state.userRole,
+    role: state => state.role,
     eventBasicInformation: (state) => ({
       eventId: state.eventId,
       eventName: state.eventName,
@@ -53,7 +55,7 @@ export default {
       state.mapDefaultLatitude = data.mapLatitude;
       state.mapDefaultLongitude = data.mapLongitude;
       state.mapDefaultZoom = data.mapZoom;
-      state.userRole = data.role;
+      state.role = data.role;
       const storageData = appStorage.getItem(appStorage.appKeys.mapPosition, appStorage.getIds.eventIdAndEmail());
       if (storageData) {
         const { mapLatitude, mapLongitude, mapZoom } = storageData;
@@ -63,7 +65,7 @@ export default {
       }
     },
     setId: (state, payload) => (state.eventId = payload),
-    setUserRole: (state, payload) => (state.userRole = payload),
+    setUserRole: (state, payload) => (state.role = payload),
     ...Modules.mutations,
     resetEventState: (state) => {
       Object.assign(state, initState());
@@ -82,16 +84,16 @@ export default {
         let event;
         api.getEventById(eventId)
           .then(data => (event = { ...data, eventId }))
+          .then(() => context.commit('invitations/setInvitationKeys', event.inviteKeys, { root: true }))
           .then(() => api.getCategoriesByEventId(eventId))
           .then((categories) => {
             if (categories.length > 0) {
               return categories;
             } else {
-              // TODO Should this logic be on backend or frontend
               return api.addPointCategory({
                 pointValue: 1,
                 pointFillColor: colorsUtils.appColors.red,
-                categoryName: 'Podstawowy',
+                categoryName: translator.t('general.defaultPointCategoryName'),
                 pointStrokeColor: colorsUtils.appColors.black,
               }, eventId).then(category => [category]);
             }
@@ -126,7 +128,7 @@ export default {
       return new Promise((resolve, reject) => {
         api.collectPoint(context.getters.eventId, pointKey)
           .then((point) => {
-            context.commit('updatePoint', { ...point, pointCollectedDate: Number(new Date()) }); // TODO doesnt set collectedDate;
+            context.commit('updatePoint', point);
             context.commit('team/addCollectedPoint', point.pointId, { root: true });
             resolve();
           })

@@ -9,9 +9,10 @@
   </span>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
   name: 'a-loader',
   props: {
     addClass: {
@@ -23,5 +24,5 @@ export default {
       default: '/img/zhp-52.png',
     },
   },
-};
+});
 </script>

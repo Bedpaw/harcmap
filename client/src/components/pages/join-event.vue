@@ -5,10 +5,10 @@
       style="margin-top:50%"
     >
       <m-field-text
-        v-model="eventKey"
+        v-model="invitationKey"
         :disabled="blockForm"
         :rules="validationRules.eventId"
-        :placeholder="$t('form.field.eventId')"
+        :placeholder="$t('form.field.eventInvitation')"
         :assist="$t('form.assist.joinEventCode')"
         @input="getEvent"
       />
@@ -37,7 +37,7 @@
       ref="eventConfirmationPopUp"
       :event="event"
       :team-name="teamName"
-      :event-key="eventKey"
+      :event-key="invitationKey"
       :nickname="nickname"
     />
   </t-page>
@@ -48,13 +48,14 @@ import TPage from 'templates/page';
 import OForm from 'organisms/form';
 import AButtonSubmit from 'atoms/button/submit';
 import OPopupEventConfirmation from 'organisms/popup/event-confirmation';
-import { ref, computed } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useForm } from 'plugins/form';
 import { api } from 'api';
 import MFieldText from 'molecules/field/text';
 import { ErrorMessage } from 'utils/error-message';
 import { ACCOUNT_TYPES } from 'utils/permissions';
 import { useStore } from 'vuex';
+import { urlUtils } from 'utils/url';
 
 export default {
   name: 'p-join-event',
@@ -67,7 +68,7 @@ export default {
   },
   setup () {
     const eventKeyRequiredLength = 4;
-    const eventKey = ref('');
+    const invitationKey = ref('');
     const teamName = ref('');
     const nickname = ref('');
     const event = ref(null);
@@ -79,11 +80,11 @@ export default {
 
     const getEvent = async () => {
       event.value = null;
-      if (eventKey.value.length !== eventKeyRequiredLength) {
+      if (invitationKey.value.length !== eventKeyRequiredLength) {
         return;
       }
       try {
-        event.value = await api.checkEvent(eventKey.value, store.getters['user/userId']);
+        event.value = await api.checkEvent(invitationKey.value, store.getters['user/userId']);
       } catch (e) {
         form.onErrorOccurs((new ErrorMessage(e)));
       }
@@ -93,9 +94,14 @@ export default {
       eventConfirmationPopUp.value && eventConfirmationPopUp.value.toggle();
     }
 
+    onMounted(() => {
+      invitationKey.value = urlUtils.getInvitationKey();
+      if (invitationKey.value) getEvent();
+    });
+
     return {
       ...form,
-      eventKey,
+      invitationKey,
       event,
       eventConfirmationPopUp,
       openPopUp,

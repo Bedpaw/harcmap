@@ -25,6 +25,7 @@ describe(endpoint, () => {
             teamName: null,
             role: 'creator',
             isBanned: false,
+            nickname: 'Nick 1',
           },
         ],
       },
@@ -55,6 +56,7 @@ describe(endpoint, () => {
             teamName: 'Team 1',
             role: 'teamMember',
             isBanned: false,
+            nickname: 'Nick 3',
           }, {
             eventId: '300000000000000000000002',
             eventName: 'Wydarzenie 2',
@@ -66,6 +68,7 @@ describe(endpoint, () => {
             teamName: null,
             role: 'creator',
             isBanned: false,
+            nickname: 'Nick 4',
           },
         ],
       },
@@ -113,6 +116,7 @@ describe(endpoint, () => {
             teamName: null,
             role: 'creator',
             isBanned: false,
+            nickname: 'Nick 1',
           },
         ],
       },
@@ -218,13 +222,13 @@ describe(endpoint, () => {
       },
     }, {
       send: {
-        email: 'too_long_email_address@toolongemailaddress.com',
+        email: 'too_long_email_address_more_more_long_then_50_characters@toolongemailaddress.com',
         password: 'Password1',
       },
       expect: {
         error: 1001,
         message: 'request validation error',
-        errorDetails: ['"email" length must be less than or equal to 24 characters long'],
+        errorDetails: ['"email" length must be less than or equal to 50 characters long'],
       },
     }],
   });

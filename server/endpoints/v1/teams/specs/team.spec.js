@@ -16,16 +16,19 @@ describe('/api/v1/events/:eventId/teams/:teamId', () => {
           {
             'userId': '100000000000000000000003',
             'email': 'user3@harcmap.pl',
+            'nickname': 'Nick 2',
             'role': 'teamLeader',
           },
           {
             'userId': '100000000000000000000004',
             'email': 'user4@harcmap.pl',
+            'nickname': 'Nick 3',
             'role': 'teamMember',
           },
           {
             'userId': '100000000000000000000007',
             'email': 'user7@harcmap.pl',
+            'nickname': 'Nick 8',
             'role': 'teamMember',
           },
         ],
@@ -60,16 +63,19 @@ describe('/api/v1/events/:eventId/teams/:teamId', () => {
           {
             'userId': '100000000000000000000003',
             'email': 'user3@harcmap.pl',
+            'nickname': 'Nick 2',
             'role': 'teamLeader',
           },
           {
             'userId': '100000000000000000000004',
             'email': 'user4@harcmap.pl',
+            'nickname': 'Nick 3',
             'role': 'teamMember',
           },
           {
             'userId': '100000000000000000000007',
             'email': 'user7@harcmap.pl',
+            'nickname': 'Nick 8',
             'role': 'teamMember',
           },
         ],
@@ -91,22 +97,6 @@ describe('/api/v1/events/:eventId/teams/:teamId', () => {
 
   testEndpoint('/api/v1/events/300000000000000000000001/teams/400000000000000000000001', {
     description: 'Dont return team if user is not logged',
-    method: 'GET',
-    expectedStatus: 401,
-    body: {
-      expect: {
-        error: 1104,
-        message: 'no permission to resource',
-      },
-    },
-  });
-
-  testEndpoint('/api/v1/events/300000000000000000000001/teams/400000000000000000000001', {
-    description: 'Dont return team list if user have no right permissions',
-    signIn: {
-      password: 'Password1',
-      email: 'user7@harcmap.pl',
-    },
     method: 'GET',
     expectedStatus: 401,
     body: {

@@ -2,8 +2,9 @@ const Users = require('../../../../models/users');
 const logger = require('../../../../libs/logger');
 const { errorCodes } = require('../../../../libs/errors');
 
-async function activateUser (response, key) {
+async function activateUser (response, key, invitationKey) {
   const user = await Users.get({ 'accountActivation.key': key });
+  const invitationKeyParam = invitationKey ? `?invitationKey=${invitationKey}` : '';
 
   if (!user) {
     logger.error(errorCodes.INVALID_ACTIVATION_KEY);
@@ -23,7 +24,7 @@ async function activateUser (response, key) {
     });
     response.redirect('/activation-wrong');
   } else {
-    response.redirect('/activation-done');
+    response.redirect(`/activation-done${invitationKeyParam}`);
   }
 }
 

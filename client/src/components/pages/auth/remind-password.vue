@@ -37,7 +37,6 @@ import OForm from 'organisms/form';
 import MFieldEmail from 'molecules/field/email';
 import AButtonPrimary from 'atoms/button/primary';
 import { api } from 'api';
-import validateCodes from 'validateCodes';
 import { ref } from 'vue';
 import { useForm } from 'plugins/form';
 import { useRouter } from 'vue-router';
@@ -65,15 +64,9 @@ export default {
     function remindPassword () {
       isSending.value = true;
       blockForm.value = true;
-      api.sendResetPassword({ email: email.value })
+      api.sendResetPassword(email.value)
         .then(onRemindPassword)
-        .catch(error => {
-          if (error.code !== validateCodes.DATABASE_NO_RESULT_ERROR) {
-            onErrorOccurs(error);
-          } else {
-            onRemindPassword();
-          }
-        });
+        .catch(onErrorOccurs);
     }
 
     return {

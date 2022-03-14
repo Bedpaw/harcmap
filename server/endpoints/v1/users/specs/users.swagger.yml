@@ -54,6 +54,11 @@ paths:
       tags:
         - Users
       parameters:
+        - in: "query"
+          name: invitationKey
+          description: "Optional key to event from invitation"
+          example: 'K3y1'
+          default: undefined
         - in: "path"
           name: key
           description: "Unique activation key"

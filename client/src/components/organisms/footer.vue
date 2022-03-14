@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="eventId"
+    v-if="role"
     class="o-footer"
   >
     <a-button-icon-footer
@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     ...mapGetters('event', [
-      'eventId',
+      'role',
     ]),
   },
   methods: {

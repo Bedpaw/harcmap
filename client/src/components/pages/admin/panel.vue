@@ -14,7 +14,6 @@
 import TPage from 'templates/page';
 import AButtonPrimary from 'atoms/button/primary';
 import { ROUTES } from 'config/routes-config';
-import { uCheck } from '@dbetka/utils';
 
 export default {
   name: 'p-admin-panel',
@@ -24,19 +23,24 @@ export default {
   },
   computed: {
     links () {
-      return [
-        { route: ROUTES.scoreboard },
-        { route: ROUTES.editEvent },
-        { route: ROUTES.newPoint },
-        // { url: '/point/all', label: this.$t('page.admin.adminPanel.downloadPointsList') }, TODO removed before backend fix
-        { route: ROUTES.searchPoint },
-        { route: ROUTES.usersList },
-      ]
-        .filter(link => {
-          const routeIsDefined = uCheck.isDefined(link.route);
-          const routeIsUndefined = uCheck.isUndefined(link.route);
-          return routeIsUndefined || (routeIsDefined && this.checkIsAdmin());
-        });
+      if (this.checkIsAdmin()) {
+        return [
+          { route: ROUTES.scoreboard },
+          { route: ROUTES.editEvent },
+          { route: ROUTES.shareEvent },
+          { route: ROUTES.newPoint },
+          { route: ROUTES.searchPoint },
+          { route: ROUTES.usersList },
+          { route: ROUTES.pointCategoriesList },
+          { route: ROUTES.newPointCategory },
+        ];
+      } else if (this.checkIsObserver()) {
+        return [
+          { route: ROUTES.scoreboard },
+          { route: ROUTES.searchPoint },
+        ];
+      }
+      return [];
     },
   },
   methods: {

@@ -7,7 +7,7 @@ const mainpj = require('../../../../package.json');
 
 const router = Router();
 
-addEndpointValidation('/about', requestSchema);
+addEndpointValidation('/api/v1/about', requestSchema);
 
 // Information about application
 router.route('/')

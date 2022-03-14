@@ -5,7 +5,9 @@ import { materialIcons } from '@dbetka/vue-material-icons';
 const ICONS = materialIcons.names;
 
 const enterPermissions: EnterPermissionGroup = {
-  alwaysAllowed: {},
+  alwaysAllowed: {
+    alwaysAllowed: true,
+  },
   beforeLogin: {
     beforeLogin: true,
   },
@@ -61,12 +63,12 @@ const beforeLoginRoutes = {
     icon: ICONS.vpn_key,
   },
   changePassword: {
-    path: '/user/remind',
     dynamicParam: 'key',
     name: 'changePassword',
     icon: ICONS.create,
   },
 };
+
 const choseEventRoutes = {
   start: {
     name: 'start',
@@ -98,6 +100,11 @@ const teamLeaderRoutes = {
   collectPoint: {
     name: 'collectPoint',
     icon: ICONS.add,
+    hasShortLabel: true,
+  },
+  shareTeam: {
+    name: 'shareTeam',
+    icon: ICONS.share,
     hasShortLabel: true,
   },
 };
@@ -154,6 +161,10 @@ const adminRoutes = {
     name: 'usersList',
     icon: ICONS.people,
   },
+  shareEvent: {
+    name: 'shareEvent',
+    icon: ICONS.share,
+  },
 };
 
 const authRoutes = {
@@ -179,6 +190,11 @@ const alwaysAllowedRoutes = {
   about: {
     name: 'about',
     icon: ICONS.emoji_objects,
+  },
+  invitation: {
+    dynamicParam: 'key',
+    name: 'invitation',
+    icon: ICONS.email,
   },
 };
 

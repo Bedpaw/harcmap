@@ -17,18 +17,15 @@
       :buttons-details="pastEvents"
       :title="$t('page.eventsList.finished')"
     />
-    <!-- Do we want this? Provide translation if yes TODO-->
-    <span class="f-text-bold f-text-center">Ustawienia aplikacji:</span>
+    <span class="f-text-bold f-text-center">{{ $t('page.eventsList.appSettings') }}</span>
     <a-checkbox
       id="wantsAutoLoginToEvent"
       v-model="wantsAutoLoginToEvent"
       class="f-pt-1"
-      assist="Po zalogowaniu przejdź do ostatniego wydarzenia"
+      :assist="$t('page.eventsList.wantsAutoLoginAssist')"
     >
-      Automatyczne logowanie
-      {{ }}
+      {{ $t('page.eventsList.wantsAutoLogin') }}
     </a-checkbox>
-    <!-- Do we want this? Provide translation if yes-->
   </section>
 </template>
 
@@ -43,6 +40,7 @@ import { materialIcons } from '@dbetka/vue-material-icons';
 import { appStorage } from 'utils/storage';
 import ACheckbox from 'atoms/checkbox';
 import { enterEvent } from 'utils/enter-event';
+import { mapGetters } from 'vuex';
 
 const ICONS_TYPES = materialIcons.types;
 
@@ -53,13 +51,15 @@ export default {
     MButtonsListEvents,
   },
   data: () => ({
-    events: [],
     futureEvents: [],
     currentEvents: [],
     pastEvents: [],
-    wantsAutoLoginToEvent: true,
+    wantsAutoLoginToEvent: appStorage.getItem(appStorage.appKeys.wantsAutoLoginToEvent, appStorage.getIds.email()),
   }),
   computed: {
+    ...mapGetters('user', [
+      'userEvents',
+    ]),
     primaryButtons () {
       return [
         {
@@ -80,7 +80,7 @@ export default {
     },
   },
   watch: {
-    events: function (events) {
+    userEvents: function (events) {
       const [past, current, future] = eventUtils.splitEventsByTimePeriods(events);
       this.pastEvents = past.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isPast));
       this.currentEvents = current.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isCurrent));
@@ -91,8 +91,11 @@ export default {
     },
   },
   mounted () {
-    this.events = this.$store.getters['user/userEvents'];
-    this.autoSignInToEventIfPossible();
+    const events = this.$store.getters['user/userEvents'];
+    const [past, current, future] = eventUtils.splitEventsByTimePeriods(events);
+    this.pastEvents = past.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isPast));
+    this.currentEvents = current.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isCurrent));
+    this.futureEvents = future.map(event => this.prepareButtonsDetails(event, MACROS.timePeriods.isFuture));
   },
   methods: {
     prepareButtonsDetails (event, timePeriod = MACROS.timePeriods.isCurrent) {
@@ -125,20 +128,10 @@ export default {
       };
     },
     signInToEvent (eventId) {
-      const { teamId, role } = this.events.find(event => event.eventId === eventId);
+      const { teamId, role } = this.userEvents.find(event => event.eventId === eventId);
       enterEvent(role, eventId, teamId);
     },
-    autoSignInToEventIfPossible () {
-      this.wantsAutoLoginToEvent = appStorage.getItem(appStorage.appKeys.wantsAutoLoginToEvent, appStorage.getIds.email());
-      const isJustLogged = this.$route.query.justLoggedIn;
-      const recentEventId = appStorage.getItem(appStorage.appKeys.recentEvent, appStorage.getIds.email());
-      if (isJustLogged && recentEventId && this.wantsAutoLoginToEvent) {
-        const isRecentEventAvailable = !!this.events.find(event => event.eventId === recentEventId);
-        if (isRecentEventAvailable) {
-          this.signInToEvent(recentEventId);
-        }
-      }
-    },
+
     navigateToCreateEvent () {
       this.$router.push(this.ROUTES.newEvent.path);
     },
