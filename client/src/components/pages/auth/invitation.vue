@@ -1,7 +1,9 @@
 <template>
   <t-page class="f-text-center">
-    <div>Cześć!</div>
-    <div>Zanim dołączysz do wydarzenia zaloguj się lub zarejestruj</div>
+    <div class="f-mb-1">
+      {{ $t('general.hello') }}!
+    </div>
+    <div>{{ $t('page.invitation.welcomeInfo') }}</div>
     <div class="m-collection f-button">
       <a-button-primary @click="goToByName(ROUTES.signIn.name)">
         {{ ROUTES.signIn.label }}

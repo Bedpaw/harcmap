@@ -239,6 +239,9 @@ export const plPL = {
       nickname: 'Nazwa użytkownika',
       teamName: 'Nazwa drużyny',
     },
+    invitation: {
+      welcomeInfo: 'Zanim dołączysz do wydarzenia zaloguj się lub zarejestruj.',
+    },
     admin: {
       setMapPosition: {
         content: 'Wybierz pozycję mapy dla wydarzenia.',
