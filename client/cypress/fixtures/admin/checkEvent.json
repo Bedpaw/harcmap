@@ -1,0 +1,12 @@
+{
+  "role": "admin",
+  "eventId": "100000000000000000000001",
+  "eventName": "Wydarzenie 1",
+  "eventDuration": {
+    "startDate": 1638714036373,
+    "endDate": 1638714036373
+  },
+  "teamId": null,
+  "teamName": null,
+  "teamColor": "#922eb4"
+}

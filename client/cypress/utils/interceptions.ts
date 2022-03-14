@@ -41,6 +41,18 @@ export const intercept = {
       resourcePath: apiResources.events.getEventById(testId),
       fixtureName: fixtures.events.getEventById,
     }),
+    checkEvent: (role) => createInterception({
+      resourcePath: apiResources.events.checkEvent,
+      fixtureName: fixtures.events.checkEvent,
+      role,
+      alias: 'checkEvent',
+    }),
+    joinEvent: (role) => createInterception({
+      resourcePath: apiResources.events.joinEvent,
+      fixtureName: fixtures.events.joinEvent,
+      role,
+      alias: 'joinEvent',
+    }),
   },
   teams: {
     getTeamByEventId: () => createInterception({

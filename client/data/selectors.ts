@@ -10,11 +10,16 @@ export const testSelectors = {
     navigateToSearchPoints: 'navigate-to-search-point',
     navigateToMap: 'navigate-to-map',
     collectPoint: 'collect-point',
+    joinEventSubmit: 'join-event-submit',
+    joinEventConfirmationSubmit: 'join-event-confirmation-submit',
   },
   inputs: {
     email: 'input-email',
     password: 'input-password',
     collectPoint: 'input-collect-point',
+    invitationKey: 'input-invitation-key',
+    teamName: 'input-team-name',
+    nickname: 'input-nickname',
   },
 };
 

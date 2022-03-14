@@ -6,6 +6,9 @@ const createUrl = (fragments: string[]): string => {
 };
 
 export const apiResources = {
+  other: {
+    checkVersion: createUrl(['information']),
+  },
   auth: {
     signUp: createUrl(['auth', 'sign-up']),
     signIn: createUrl(['auth', 'sign-in']),
@@ -17,6 +20,8 @@ export const apiResources = {
   },
   events: {
     getEventById: (eventId: string) => createUrl(['events', eventId]),
+    checkEvent: createUrl(['events', 'check']),
+    joinEvent: createUrl(['events', 'join']),
   },
   points: {
     getPointsByEventId: (eventId: string) => createUrl(['events', eventId, 'points']),
@@ -29,7 +34,5 @@ export const apiResources = {
     getTeamsByEventId: (eventId: string) => createUrl(['events', eventId, 'teams']),
     getTeamByEventId: (eventId: string, teamId: string) => createUrl(['events', eventId, 'teams', teamId]),
   },
-  other: {
-    checkVersion: createUrl(['information']),
-  },
+
 };

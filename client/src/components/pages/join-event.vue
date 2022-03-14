@@ -10,6 +10,7 @@
         :rules="validationRules.eventId"
         :placeholder="$t('form.field.eventInvitation')"
         :assist="$t('form.assist.joinEventCode')"
+        :tests-selector="testSelectors.inputs.invitationKey"
         @input="getEvent"
       />
       <template v-if="event">
@@ -18,6 +19,7 @@
           :disabled="blockForm"
           :rules="validationRules.userTeam"
           :placeholder="$t('form.field.nickname')"
+          :tests-selector="testSelectors.inputs.nickname"
         />
         <m-field-text
           v-if="shouldDisplayTeamNameInput"
@@ -25,10 +27,12 @@
           :disabled="blockForm"
           :rules="validationRules.userTeam"
           :placeholder="$t('form.field.teamName')"
+          :tests-selector="testSelectors.inputs.teamName"
         />
         <a-button-submit
           :disabled="blockForm"
           :is-sending="isSending"
+          :tests-selector="testSelectors.buttons.joinEventSubmit"
         />
       </template>
     </o-form>
@@ -56,6 +60,7 @@ import { ErrorMessage } from 'utils/error-message';
 import { ACCOUNT_TYPES } from 'utils/permissions';
 import { useStore } from 'vuex';
 import { urlUtils } from 'utils/url';
+import { testSelectors } from 'data/selectors';
 
 export default {
   name: 'p-join-event',
@@ -109,6 +114,7 @@ export default {
       teamName,
       nickname,
       shouldDisplayTeamNameInput,
+      testSelectors,
     };
   },
 };

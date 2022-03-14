@@ -4,6 +4,8 @@ export const fixtures = {
   },
   events: {
     getEventById: 'getEventById',
+    checkEvent: 'checkEvent',
+    joinEvent: 'checkEvent',
   },
   teams: {
     getTeamByEventId: 'getTeamById',
