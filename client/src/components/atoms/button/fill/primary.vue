@@ -4,6 +4,7 @@
     :add-class="['f-fill', addClass]"
     :loading="loading"
     :disabled="disabled"
+    :tests-selector="testsSelector"
     @click="$emit('click', $event)"
   >
     <slot /> {{ text }}
@@ -36,6 +37,10 @@ export default {
     text: {
       type: String,
       default: '',
+    },
+    testsSelector: {
+      type: String,
+      default: 'button-fill-primary',
     },
   },
   emits: ['click'],

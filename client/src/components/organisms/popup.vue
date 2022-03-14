@@ -2,6 +2,7 @@
   <div
     v-if="isOpen"
     class="m-cover f-popup"
+    data-cy="popup"
   >
     <div class="o-popup">
       <div

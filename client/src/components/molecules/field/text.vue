@@ -6,6 +6,7 @@
     :placeholder="label"
     :error="isError"
     :assist="errorMessage || assist"
+    :tests-selector="testsSelector"
   />
 </template>
 
@@ -36,6 +37,10 @@ export default {
     assist: {
       type: String,
       default: '',
+    },
+    testsSelector: {
+      type: String,
+      default: 'input-text',
     },
   },
   setup: (props, context) => ({

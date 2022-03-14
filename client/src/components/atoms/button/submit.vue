@@ -3,6 +3,7 @@
     :disabled="disabled"
     type="submit"
     :loading="isSending"
+    :tests-selector="testsSelector"
   >
     {{ message ? message : text }}
   </a-button-primary>
@@ -31,6 +32,10 @@ export default {
     text: {
       type: String,
       default: translator.t('form.button.next'),
+    },
+    testsSelector: {
+      type: String,
+      default: 'button-submit',
     },
   },
 };

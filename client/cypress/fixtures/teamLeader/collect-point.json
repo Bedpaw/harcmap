@@ -1,0 +1,15 @@
+{
+  "pointId": "100000000000000000000001",
+  "pointName": "Nazwa punktu",
+  "pointType": "permanent",
+  "pointCollectedDate": null,
+  "pointDuration": {
+    "startDate": 1638714036373,
+    "endDate": 1638714036373
+  },
+  "pointPosition": {
+    "longitude": 140.62,
+    "latitude": -14.15132424
+  },
+  "pointCategoryId": "100000000000000000000001"
+}

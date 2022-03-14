@@ -12,6 +12,7 @@
       :is="buttonTypeComponent"
       v-for="button in buttonsDetailsPaginated"
       :key="button.id"
+      :tests-selector="button.testsSelector"
       @click="button.onClick(button.id ? button.id : null)"
     >
       <a-icon
