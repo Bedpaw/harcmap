@@ -11,6 +11,7 @@ const {
   keys,
   color,
   nickname,
+  eventSettings,
 } = require('../../../libs/common-schemas');
 
 // empty schema means that no data can be pass
@@ -27,6 +28,7 @@ const allEvents = {
       latitude: latitude.required(),
     },
     eventRefreshTime: eventRefreshTime.required(),
+    eventSettings: eventSettings.required(),
     nickname: nickname.required(),
     userId: objectIdInRequest.required(),
   }),
@@ -46,6 +48,7 @@ const oneEvent = {
       latitude,
     },
     eventRefreshTime,
+    eventSettings,
   }),
 };
 
