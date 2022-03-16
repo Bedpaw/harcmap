@@ -29,7 +29,6 @@
     "mongo:fresh": "cd server && npm run mongo:fresh",
     "mongo:fresh:windows": "cd server && npm run mongo:fresh:windows",
     "mongo:fresh:custom-dump": "cd server && npm run mongo:fresh:custom-dump",
-    "mongo:fresh:old-dump": "cd server && npm run mongo:fresh:old-dump",
     "mongo:windows": "cd server && npm run mongo:windows",
     "mongo:tests": "cd server && npm run mongo:tests"
   },
