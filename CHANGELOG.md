@@ -6,6 +6,52 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1] - 2022-03-16
+### Fixed
+- Fix build production package
+
+## [2.0.0] - 2022-03-14
+### Fixed
+- Merge frontend and new backend
+- Improve webpack configuration
+- Use recommended eslint settings
+- Check account activation
+- Sorting in aggregations
+- Replace objectid method
+- Upgrade Vue to version 3
+- Replace vee validate with vuelidate
+- Advance game config
+- Correct and narrow data field types
+- Trim fields in login and registration
+- Selecting event after log in
+- Switch momentjs to dayjs
+- Serve static files
+- TS for route config
+- Switch eslint loader
+- Aliases in TS
+- Rename window api and fix api imports
+- Hide navigation duplicated error
+- Refactor dates handling in app
+- Refactor routing and guards
+- Make dir tree more clear
+- Webpack upgrade
+- Replace http request utils at http service from wdk repo
+- Fix remove point
+- Pointer to set point position has small inaccuracy
+
+### Added
+- Share event functionality
+- Team color field
+- Cypress
+- Possible to use typescript
+- User role icons in users list
+- Users list
+- Create team page
+- Event list view
+- Join event view
+- Use new logo
+- Run HarcMap as android app
+
 ## [1.3.0] - 2021-07-18
 ### Fixed
 - Correct all typos

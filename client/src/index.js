@@ -11,6 +11,7 @@ import { initApp } from 'config';
 import { ROUTES } from 'config/routes-config';
 import '@dbetka/vue-material-icons/dist/vue-material-icons.css';
 
+export const TEST_MODE = () => false; // true when use cypress
 initApp();
 
 const app = createApp(App);
@@ -18,6 +19,7 @@ app.mixin({
   computed: {
     ROUTES: () => ROUTES,
     ACCOUNT_TYPES: () => ACCOUNT_TYPES,
+    TEST_MODE,
   },
   methods: {
     checkPermissions: permissions.checkPermissions,

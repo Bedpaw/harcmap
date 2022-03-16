@@ -13,6 +13,7 @@
       </div>
       <a-button-primary
         add-area-class="f-mt-2 f-mb-0"
+        :tests-selector="testSelectors.buttons.joinEventConfirmationSubmit"
         @click="enterEvent"
       >
         {{ $t('form.button.next') }}
@@ -34,6 +35,7 @@ import AButtonSecondary from 'atoms/button/secondary';
 import { userUtils } from 'config/users-config';
 import { DATE_FORMATS, displayDate } from 'utils/date';
 import { enterEvent } from 'utils/enter-event';
+import { testSelectors } from 'data/selectors';
 
 export default {
   name: 'o-popup-event-confirmation',
@@ -63,6 +65,7 @@ export default {
     currentEvents: [],
     pastEvents: [],
     wantsAutoLoginToEvent: true,
+    testSelectors,
   }),
   computed: {
     dataRows: function () {

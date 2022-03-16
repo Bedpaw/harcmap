@@ -1,0 +1,21 @@
+{
+  "eventName": "Wydarzenie 1",
+  "eventKey": "K3y1",
+  "eventDuration": {
+    "startDate": 1638714036373,
+    "endDate": 1638714036373
+  },
+  "mapProperties": {
+    "zoom": 30,
+    "longitude": 180,
+    "latitude": 90
+  },
+  "eventRefreshTime": 60,
+  "inviteKeys": [
+    {
+      "keyId": "100000000000000000000001",
+      "role": "teamLeader",
+      "key": "K3y1"
+    }
+  ]
+}

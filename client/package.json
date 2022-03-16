@@ -1,6 +1,6 @@
 {
   "name": "harcmap",
-  "version": "2.0.0-dev",
+  "version": "2.0.1",
   "main": "src/index.js",
   "scripts": {
     "build:dev": "npx webpack --config ./webpack/config.dev.js",
@@ -10,7 +10,9 @@
     "build:prod": "npx webpack --config ./webpack/config.prod.js",
     "build:prod:watch": "npx webpack --config ./webpack/config.prod.js --watch",
     "build:prod:analyse": "npx webpack --config ./webpack/config.analyse.js",
-    "import:sass:watch": "sass-watcher --config sass-watcher.json"
+    "import:sass:watch": "sass-watcher --config sass-watcher.json",
+    "cypress:stub": "cypress open --config-file cypress/cypress.stub.json",
+    "cypress:local": "cypress open --config-file cypress/cypress.local.json"
   },
   "dependencies": {
     "@capacitor/android": "^3.0.1",
@@ -49,6 +51,7 @@
     "console-table-printer": "^2.10.0",
     "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^6.2.0",
+    "cypress": "^9.4.1",
     "glob": "^7.1.6",
     "html-webpack-plugin": "^5.3.2",
     "progress-bar-webpack-plugin": "^2.1.0",

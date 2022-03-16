@@ -9,10 +9,12 @@
         :label="$t('form.field.pointId')"
         :rules="validationRules.pointId"
         :disabled="blockForm"
+        :tests-selector="testSelectors.inputs.collectPoint"
       />
       <a-button-submit
         :disabled="blockForm"
         :is-sending="isSending"
+        :tests-selector="testSelectors.buttons.collectPoint"
       />
     </o-form>
   </t-page>
@@ -31,6 +33,7 @@ import { useForm } from 'plugins/form';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { map } from 'map';
+import { testSelectors } from 'data/selectors';
 
 export default {
   name: 'p-collect-point',
@@ -77,6 +80,7 @@ export default {
       collectedPointId,
       collectPoint,
       ...form,
+      testSelectors,
     };
   },
 };

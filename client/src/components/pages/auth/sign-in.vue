@@ -5,16 +5,19 @@
         v-model.trim="values.email"
         :disabled="blockForm"
         :placeholder="$t('form.field.email')"
+        :tests-selector="testSelectors.inputs.email"
       />
       <m-input
         v-model="values.password"
         :disabled="blockForm"
         :placeholder="$t('form.field.password')"
         type="password"
+        :tests-selector="testSelectors.inputs.password"
       />
       <a-button-submit
         :disabled="blockForm"
         :is-sending="isSending"
+        :tests-selector="testSelectors.buttons.signInSubmit"
       />
     </o-form>
     <a-button-secondary
@@ -40,6 +43,8 @@ import { useForm } from 'plugins/form';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { DEVELOPMENT_MODE } from 'config/app-env';
+import { TEST_MODE } from 'src';
+import { testSelectors } from 'data/selectors';
 
 export default {
   name: 'p-sign-in',
@@ -81,7 +86,7 @@ export default {
     }
 
     onMounted(() => {
-      if (DEVELOPMENT_MODE) {
+      if (DEVELOPMENT_MODE && !TEST_MODE()) {
         signInAutomatically();
       }
     });
@@ -92,6 +97,7 @@ export default {
       ROUTES,
       values,
       signIn,
+      testSelectors,
     };
   },
 };
