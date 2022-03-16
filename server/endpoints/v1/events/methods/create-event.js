@@ -16,6 +16,7 @@ async function createEvent (request, body) {
     eventDuration,
     mapProperties,
     eventRefreshTime,
+    eventSettings,
     nickname,
     userId,
   } = body;
@@ -28,6 +29,7 @@ async function createEvent (request, body) {
     eventDuration,
     mapProperties,
     eventRefreshTime,
+    eventSettings,
   });
 
   if (!event.success) {
@@ -125,6 +127,7 @@ async function createEvent (request, body) {
     eventDuration,
     mapProperties,
     eventRefreshTime,
+    eventSettings,
     inviteKeys,
   };
 }

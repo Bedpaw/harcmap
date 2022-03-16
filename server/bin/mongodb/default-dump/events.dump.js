@@ -15,6 +15,7 @@ const event1 = {
     latitude: 54.47,
   },
   eventRefreshTime: 60,
+  eventSettings: [],
 };
 
 const event2 = {
@@ -27,6 +28,13 @@ const event2 = {
     latitude: 54.47,
   },
   eventRefreshTime: 120,
+  eventSettings: [{
+    ruleId: 0,
+    ruleValue: false,
+  }, {
+    ruleId: 1,
+    ruleValue: 3,
+  }],
 };
 
 const event3 = {
@@ -39,6 +47,7 @@ const event3 = {
     latitude: 54.47,
   },
   eventRefreshTime: 180,
+  eventSettings: [],
 };
 
 module.exports = [
