@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1] - 2022-03-16
+### Fixed
+- Fix build production package
+
 ## [2.0.0] - 2022-03-14
 ### Fixed
 - Merge frontend and new backend
