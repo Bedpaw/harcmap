@@ -7,6 +7,7 @@ const {
   longitude,
   latitude,
   eventRefreshTime,
+  eventSettings,
 } = require('../libs/common-schemas');
 
 // event schema
@@ -22,6 +23,7 @@ const eventSchema = {
     latitude,
   },
   eventRefreshTime,
+  eventSettings,
 };
 
 // Create model

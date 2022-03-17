@@ -6,89 +6,128 @@ const Joi = require('joi');
 /**
  * Universal props
  */
-const date = Joi.number()
+const date = Joi
+  .number()
   .integer()
   .unsafe() // Date.now() max value is greater then js MAX_SAFE_INTEGER
   .max(8640000000000000); // that's the max value of Date.now()
-const dateWithNull = date.allow(null);
-const keys = Joi.string()
+const dateWithNull = date
+  .allow(null);
+const keys = Joi
+  .string()
   .pattern(/^[ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz123456789]{4}$/); // all characters except [O0Il]
-const longitude = Joi.number()
+const longitude = Joi
+  .number()
   .min(-180)
   .max(180);
-const latitude = Joi.number()
+const latitude = Joi
+  .number()
   .min(-90)
   .max(90);
-const objectIdInRequest = Joi.string()
+const objectIdInRequest = Joi
+  .string()
   .pattern(/^[a-fA-F0-9]{24}$/); // 24 character long hexadecimal pattern
-const objectIdInDatabase = Joi.object();
+const objectIdInDatabase = Joi
+  .object();
 
 /**
  * Users props
  */
-const email = Joi.string()
+const email = Joi
+  .string()
   .email()
   .max(50)
   .trim();
-const password = Joi.string()
+const password = Joi
+  .string()
   .pattern(/^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,24}$/);
-const role = Joi.string()
+const role = Joi
+  .string()
   .equal('creator', 'admin', 'observer', 'teamLeader', 'teamMember');
-const nickname = Joi.string()
+const nickname = Joi
+  .string()
   .min(3)
   .max(24);
 
 /**
  * Teams props
  */
-const teamName = Joi.string()
+const teamName = Joi
+  .string()
   .min(3)
   .max(24)
   .trim();
-const collectedPoints = Joi.array()
+const collectedPoints = Joi
+  .array()
   .items(objectIdInRequest);
 
 /**
  * Event props
  */
-const eventName = Joi.string()
+const eventName = Joi
+  .string()
   .min(3)
   .max(50);
-const eventRefreshTime = Joi.number()
+const eventRefreshTime = Joi
+  .number()
   .min(0)
   .less(10000000000);
-const defaultMapZoom = Joi.number()
+const defaultMapZoom = Joi
+  .number()
   .min(0)
   .less(10000000000);
+const ruleId = Joi
+  .number()
+  .min(0)
+  .less(10000000000);
+const ruleValue = Joi
+  .alternatives()
+  .try(Joi.number()
+    .min(0)
+    .less(10000000000),
+  Joi.boolean());
+const eventSettings = Joi
+  .array()
+  .items(Joi.object({
+    ruleId: ruleId.required(),
+    ruleValue: ruleValue.required(),
+  }))
+  .allow(null);
 
 /**
  * Points props
  */
-const pointName = Joi.string()
+const pointName = Joi
+  .string()
   .min(3)
   .max(24)
   .trim()
   .allow(null);
-const pointType = Joi.string()
+const pointType = Joi
+  .string()
   .equal('timeout', 'permanent');
 
 /**
  * Category props
  */
-const pointValue = Joi.number()
+const pointValue = Joi
+  .number()
   .integer()
   .min(0)
   .max(9999999999);
-const categoryName = Joi.string()
+const categoryName = Joi
+  .string()
   .min(3)
   .max(24)
   .trim();
-const color = Joi.string()
+const color = Joi
+  .string()
   .pattern(/^#[a-fA-F0-9]{3,6}$/); // hex color value
 /**
  * Keys props
  */
-const keysRole = Joi.string()
+const keysRole = Joi
+  .string()
   .equal('teamMember', 'teamLeader', 'observer', 'admin', 'creator');
 
 module.exports = {
@@ -114,4 +153,7 @@ module.exports = {
   collectedPoints,
   keysRole,
   nickname,
+  ruleId,
+  ruleValue,
+  eventSettings,
 };

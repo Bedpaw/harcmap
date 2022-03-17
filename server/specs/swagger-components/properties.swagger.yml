@@ -141,6 +141,22 @@ components:
       type: number
       example: 60
       maximum: 10000000000
+    eventSettings:
+      type: object
+      properties:
+        ruleId:
+          description: 'Id of event settings rule'
+          type: number
+          example: 30
+          maximum: 10000000000
+        ruleValue:
+          description: 'Value of settings rule'
+          oneOf:
+            - type: number
+              example: 30
+              maximum: 10000000000
+            - type: boolean
+              example: false
     teamName:
       description: 'Team name'
       type: string

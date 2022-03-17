@@ -13,6 +13,7 @@ async function getEvent (eventId, request) {
     mapProperties,
     eventRefreshTime,
     inviteKeys,
+    eventSettings,
   } = event;
   const parsedInviteKeys = inviteKeys.map(key => ({
     ...key,
@@ -25,6 +26,7 @@ async function getEvent (eventId, request) {
     eventDuration,
     mapProperties,
     eventRefreshTime,
+    eventSettings,
     inviteKeys: secureInviteKeys(parsedInviteKeys, eventId, request),
   };
 }

@@ -20,7 +20,9 @@ paths:
                 eventRefreshTime:
                   $ref: '#/components/props/eventRefreshTime'
                 userId:
-                  $ref: '#/components/props/userId'
+                  $ref: '#/components/props/id'
+                eventSettings:
+                  $ref: '#/components/props/eventSettings'
                 nickname:
                   $ref: '#/components/props/nickname'
               required:
@@ -29,6 +31,7 @@ paths:
                 - eventDuration
                 - mapProperties
                 - eventRefreshTime
+                - eventSettings
                 - nickname
       responses:
         200:
@@ -48,6 +51,8 @@ paths:
                     $ref: '#/components/props/mapProperties'
                   eventRefreshTime:
                     $ref: '#/components/props/eventRefreshTime'
+                  eventSettings:
+                    $ref: '#/components/props/eventSettings'
                   inviteKeys:
                     $ref: '#/components/props/inviteKeys'
         400:
@@ -99,6 +104,8 @@ paths:
                     $ref: '#/components/props/mapProperties'
                   eventRefreshTime:
                     $ref: '#/components/props/eventRefreshTime'
+                  eventSettings:
+                    $ref: '#/components/props/eventSettings'
                   inviteKeys:
                     $ref: '#/components/props/inviteKeysNullable'
         400:
@@ -143,6 +150,8 @@ paths:
                   $ref: '#/components/props/eventDuration'
                 mapProperties:
                   $ref: '#/components/props/mapProperties'
+                eventSettings:
+                  $ref: '#/components/props/eventSettings'
                 eventRefreshTime:
                   $ref: '#/components/props/eventRefreshTime'
       responses:

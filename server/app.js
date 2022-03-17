@@ -44,6 +44,7 @@ const apiv1 = Router();
 app.use(express.json());
 // Requests body, get validation
 validateRequests(app);
+// Sessions settings
 app.use(expressSession({
   name: SESSION_COOKIE_NAME,
   secret: SESSION_SECRET,
@@ -56,9 +57,8 @@ app.use(expressSession({
   resave: false,
   saveUninitialized: false,
   store: MONGO_SESSION_STORE === 'true'
-    ? new MongoStore({
-      url: connectionString,
-      dbName: 'harcmap-sessions',
+    ? MongoStore.create({
+      mongoUrl: connectionString,
       stringify: false,
     })
     : undefined,

@@ -33,6 +33,9 @@ function getEventsAggregation (query) {
       eventRefreshTime: {
         $first: '$eventRefreshTime',
       },
+      eventSettings: {
+        $first: '$eventSettings',
+      },
       inviteKeys: {
         $push: {
           keyId: '$inviteKeys._id',
