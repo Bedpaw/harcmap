@@ -8,6 +8,16 @@
       "smallIcon": "ic_stat_icon_config_sample",
       "iconColor": "#488AFF",
       "sound": "beep.wav"
+    },
+    "SplashScreen": {
+      "launchShowDuration": 1000,
+      "launchAutoHide": true,
+      "backgroundColor": "#07632c",
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_CROP",
+      "splashFullScreen": true,
+      "splashImmersive": true,
+      "layoutName": "launch_screen"
     }
   }
 }
