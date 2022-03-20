@@ -61,7 +61,7 @@
   },
   "husky":{
 		"hooks": {
-			"pre-push": "npm run server:unit-tests"
+			"pre-commit": "npm run server:unit-tests"
 		}
 	}	  
   
