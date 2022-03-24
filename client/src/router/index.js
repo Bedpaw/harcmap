@@ -3,7 +3,6 @@ import { store } from 'store';
 import { api } from 'api';
 import { routes } from './routes';
 import { versionCompatibility } from 'utils/version-compatibility';
-import { ErrorMessage } from 'utils/error-message';
 import { session } from 'utils/session';
 import { promiseUtils } from 'utils/promise';
 import { guardsUtils } from 'src/router/guards';
@@ -26,6 +25,7 @@ const clearEventWhenLeaveEventRoutes = (to) => {
   }
 };
 router.beforeEach((to, from, next) => {
+  console.log('Start routing', from.path, to.path);
   clearEventWhenLeaveEventRoutes(to);
   let promise;
   if (firstRun) {
@@ -35,12 +35,20 @@ router.beforeEach((to, from, next) => {
     promise = Promise.resolve();
   }
   promise
-    .catch((error) => {
-      if (error instanceof ErrorMessage) error.showMessage();
-      else console.error(error);
+    .then(path => {
+      if (path) {
+        console.log('First run change path to:', path);
+        next(path);
+      } else {
+        console.log('Not first run, check guards:', to.path);
+        redirectIfNotAuth(to, from, next);
+      }
+    })
+    .catch(() => {
+      console.log('Catch error and check guards:');
+      redirectIfNotAuth(to, from, next);
     })
     .finally(() => {
-      redirectIfNotAuth(to, from, next);
       store.commit('menu/close');
     });
 });
@@ -56,9 +64,9 @@ function makeFirstRun (to) {
     api.information()
       .then(versionCompatibility.check)
       .then(() => session.tryLogin(to))
-      .then(resolve)
+      .then(path => resolve(path))
       .catch(reject)
-      .finally(() => promiseUtils.timeout(1000))
+      .finally(() => promiseUtils.timeout(100))
       .finally(() => store.commit('setIsLoading', false));
   });
 }
@@ -70,17 +78,20 @@ function redirectIfNotAuth (to, from, next) {
     },
   } = guardsUtils;
   const redirectSomewhereElseGuards = [isTeamLeader, isObserverGuard, isAdminGuard, isLoginGuard, isEventChooseGuard];
-
+  console.log('Guards started:');
   if (isTheSameRoute(from, to)) {
+    console.log('Same route, no redirect');
     next(false);
     return;
   }
   if (checkGuards(redirectSomewhereElseGuards, to.meta)) {
+    console.log('Guard blocked and redirect to:', getRedirectPath());
     next(getRedirectPath());
     return;
   }
   if (to.meta.afterEventChosen) {
     appStorage.setItem(appStorage.appKeys.lastRoute, to.path, appStorage.getIds.eventIdAndEmail());
   }
+  console.log('Successful redirection to:', to.path);
   next();
 }
