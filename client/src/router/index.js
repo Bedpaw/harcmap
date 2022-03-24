@@ -24,7 +24,7 @@ const clearEventWhenLeaveEventRoutes = (to) => {
     store.dispatch('resetState').then();
   }
 };
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   console.log('Start routing', from.path, to.path);
   clearEventWhenLeaveEventRoutes(to);
   let promise;
@@ -32,25 +32,17 @@ router.beforeEach((to, from, next) => {
     firstRun = false;
     promise = makeFirstRun(to);
   } else {
-    promise = Promise.resolve();
+    promise = Promise.resolve({ isNotFirstRun: true });
   }
   promise
-    .then(path => {
-      if (path) {
-        console.log('First run change path to:', path);
-        next(path);
-      } else {
-        console.log('Not first run, check guards:', to.path);
-        redirectIfNotAuth(to, from, next);
-      }
+    .then(({ path, checkMeta, isNotFirstRun }) => {
+      if (isNotFirstRun) return redirectIfNotAuth(to, from, next);
+      if (path) return next(path);
+      if (checkMeta) return checkMetaMethod ? redirectIfNotAuth(to, from, next) : next('/start');
     })
-    .catch(() => {
-      console.log('Catch error and check guards:');
-      redirectIfNotAuth(to, from, next);
-    })
-    .finally(() => {
-      store.commit('menu/close');
-    });
+    .catch(() => redirectIfNotAuth(to, from, next))
+    .finally(() => store.commit('menu/close'));
+
 });
 
 router.hardReload = function () {
@@ -58,6 +50,26 @@ router.hardReload = function () {
 };
 
 export default router;
+
+const makeNewFirstRun = () => {
+  return new Promise((resolve, reject) => {
+    try {
+      const userData = await signIn();
+      if (inviteKey) {
+        return resolve({ path: 'join-event' });
+      }
+      if (autoEnterToEvent && eventInEventsList) {
+        const eventKey = userData.eventList.find();
+        await fetchEventData(eventKey);
+        resolve({ checkMeta: true });
+      }
+
+      return resolve({ path: 'eventsList' });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 
 function makeFirstRun (to) {
   return new Promise((resolve, reject) => {

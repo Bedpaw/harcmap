@@ -19,6 +19,11 @@ const performSignInActions = (context: ActionContext<User, object>, userData: Us
   return new Promise((resolve) => {
     context.commit('setUser', userData);
 
+    const invitationKey = urlUtils.getInvitationKey();
+    if (invitationKey) {
+      resolve(false);
+    }
+
     const wantsAutoLoginToEvent = appStorage.getItem(appStorage.appKeys.wantsAutoLoginToEvent, appStorage.getIds.email());
     const recentEventId = appStorage.getItem(appStorage.appKeys.recentEvent, appStorage.getIds.email());
 
@@ -97,8 +102,18 @@ export const user:Module<User, object> = {
           .then(userData => performSignInActions(context, userData)
             .then((result) => {
               if (!result) {
-                console.log('signIn chose route', ROUTES.eventsList.path);
-                router.push(ROUTES.eventsList.path);
+                const invitationKey = urlUtils.getInvitationKey();
+                if (invitationKey) {
+                  router.push({
+                    name: ROUTES.joinEvent.name,
+                    query: { invitationKey },
+                  });
+
+                } else {
+                  console.log('signIn chose route', ROUTES.eventsList.path);
+                  router.push(ROUTES.eventsList.path);
+                }
+
               } else {
                 autoUpdate.run();
                 const redirectPath = redirectAfterEnterEvent();
@@ -117,8 +132,16 @@ export const user:Module<User, object> = {
           .then(userData => {
             return performSignInActions(context, userData).then(result => {
               if (!result) {
-                console.log('Checkout session decide to', ROUTES.eventsList.path);
-                resolve({ name: ROUTES.eventsList.name });
+                const invitationKey = urlUtils.getInvitationKey();
+                if (invitationKey) {
+                  return resolve({
+                    name: ROUTES.joinEvent.name,
+                    query: { invitationKey },
+                  });
+                } else {
+                  console.log('Checkout session decide to', ROUTES.eventsList.path);
+                  resolve({ name: ROUTES.eventsList.name });
+                }
               } else {
                 autoUpdate.run();
 
