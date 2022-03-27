@@ -3,12 +3,12 @@ import { store } from 'store';
 import { api } from 'api';
 import { routes } from './routes';
 import { versionCompatibility } from 'utils/version-compatibility';
-import { session } from 'utils/session';
-import { promiseUtils } from 'utils/promise';
 import { guardsUtils } from 'src/router/guards';
 import { APP_BASE_URL } from 'config/app-env';
 import { autoUpdate } from 'utils/auto-update';
 import { appStorage } from 'utils/storage';
+import { urlUtils } from 'utils/url';
+import { ROUTES } from 'config/routes-config';
 
 let firstRun = true;
 
@@ -18,29 +18,45 @@ export const router = createRouter({
   history: createWebHistory(),
 });
 
-const clearEventWhenLeaveEventRoutes = (to) => {
-  if (!(to.meta.afterEventChosen || to.meta.alwaysAllowed)) {
+const isEventOrAlwaysAllowedRoute = (to) => {
+  return !!(to.meta.afterEventChosen || to.meta.alwaysAllowed);
+};
+
+const clearEventDataWhenLeaveEventRoutes = (to) => {
+  if ((isEventOrAlwaysAllowedRoute(to)) === false) {
     autoUpdate.stop();
     store.dispatch('resetState').then();
   }
 };
+
 router.beforeEach(async (to, from, next) => {
   console.log('Start routing', from.path, to.path);
-  clearEventWhenLeaveEventRoutes(to);
+
   let promise;
   if (firstRun) {
     firstRun = false;
     promise = makeFirstRun(to);
   } else {
+    clearEventDataWhenLeaveEventRoutes(to);
     promise = Promise.resolve({ isNotFirstRun: true });
   }
-  promise
-    .then(({ path, checkMeta, isNotFirstRun }) => {
-      if (isNotFirstRun) return redirectIfNotAuth(to, from, next);
-      if (path) return next(path);
-      if (checkMeta) return checkMetaMethod ? redirectIfNotAuth(to, from, next) : next('/start');
+
+  await promise
+    .then(({ path, wantsEnterEvent }) => {
+      if (wantsEnterEvent && isEventOrAlwaysAllowedRoute(to) === false) {
+        return next(ROUTES.start.path);
+      }
+      if (path && path !== to.path) {
+        return next(path);
+      }
+      redirectIfNotAuth(to, from, next);
     })
-    .catch(() => redirectIfNotAuth(to, from, next))
+    .catch(() => {
+      redirectIfNotAuth(to, from, next);
+    })
+    .finally(() => {
+      store.commit('setIsLoading', false);
+    })
     .finally(() => store.commit('menu/close'));
 
 });
@@ -51,35 +67,41 @@ router.hardReload = function () {
 
 export default router;
 
-const makeNewFirstRun = () => {
-  return new Promise((resolve, reject) => {
+const makeFirstRun = async () => {
+  const apiInfo = await api.information();
+  versionCompatibility.check(apiInfo);
+
+  const userData = await store.dispatch('user/checkoutSession');
+  return await postSignInActions(userData);
+};
+
+export function postSignInActions (userData) {
+  return new Promise(async (resolve, reject) => {
     try {
-      const userData = await signIn();
-      if (inviteKey) {
-        return resolve({ path: 'join-event' });
-      }
-      if (autoEnterToEvent && eventInEventsList) {
-        const eventKey = userData.eventList.find();
-        await fetchEventData(eventKey);
-        resolve({ checkMeta: true });
+      // Invitation key user journey
+      const invitationKey = urlUtils.getInvitationKey();
+      if (invitationKey) {
+        return resolve({ path: ROUTES.joinEvent.path });
       }
 
-      return resolve({ path: 'eventsList' });
+      // Log into event user journey
+      const wantsAutoLoginToEvent = appStorage.getItem(appStorage.appKeys.wantsAutoLoginToEvent, appStorage.getIds.email());
+      const recentEventId = appStorage.getItem(appStorage.appKeys.recentEvent, appStorage.getIds.email());
+
+      if (recentEventId && wantsAutoLoginToEvent) {
+        const recentEvent = userData.userEvents.find(event => event.eventId === recentEventId);
+        if (recentEvent) {
+          await store.dispatch('event/download', recentEvent);
+          return resolve({ wantsEnterEvent: true });
+        }
+      }
+
+      // Default user journey
+      return resolve({ path: ROUTES.eventsList.path });
+
     } catch (e) {
       reject(e);
     }
-  });
-};
-
-function makeFirstRun (to) {
-  return new Promise((resolve, reject) => {
-    api.information()
-      .then(versionCompatibility.check)
-      .then(() => session.tryLogin(to))
-      .then(path => resolve(path))
-      .catch(reject)
-      .finally(() => promiseUtils.timeout(100))
-      .finally(() => store.commit('setIsLoading', false));
   });
 }
 
@@ -100,9 +122,6 @@ function redirectIfNotAuth (to, from, next) {
     console.log('Guard blocked and redirect to:', getRedirectPath());
     next(getRedirectPath());
     return;
-  }
-  if (to.meta.afterEventChosen) {
-    appStorage.setItem(appStorage.appKeys.lastRoute, to.path, appStorage.getIds.eventIdAndEmail());
   }
   console.log('Successful redirection to:', to.path);
   next();

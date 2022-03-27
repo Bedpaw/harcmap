@@ -69,12 +69,7 @@ export default {
     function signIn () {
       isSending.value = true;
       blockForm.value = true;
-      store.dispatch('user/signIn', values)
-        .then(() => {
-          isSending.value = false;
-          blockForm.value = false;
-        })
-        .catch(onErrorOccurs);
+      store.dispatch('user/signIn', values).catch(onErrorOccurs);
     }
     function signInAutomatically () {
       isSending.value = true;

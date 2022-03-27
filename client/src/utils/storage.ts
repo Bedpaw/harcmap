@@ -63,7 +63,6 @@ export const appStorage = {
     theme: 'theme',
     uuid: 'hm.u.u.i.d',
     wantsAutoLoginToEvent: 'wantsAutoLoginToEvent',
-    lastRoute: 'lastRoute',
   },
   getIds: {
     eventId: () => ({ eventId: store.getters['event/eventId'] }),
