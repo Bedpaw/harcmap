@@ -30,35 +30,32 @@ const clearEventDataWhenLeaveEventRoutes = (to) => {
 };
 
 router.beforeEach(async (to, from, next) => {
-  console.log('Start routing', from.path, to.path);
+  // console.log('Start routing', from.path, to.path);
 
   let promise;
   if (firstRun) {
     firstRun = false;
-    promise = makeFirstRun(to);
+    promise = makeFirstRun();
   } else {
     clearEventDataWhenLeaveEventRoutes(to);
     promise = Promise.resolve({ isNotFirstRun: true });
   }
 
-  await promise
-    .then(({ path, wantsEnterEvent }) => {
-      if (wantsEnterEvent && isEventOrAlwaysAllowedRoute(to) === false) {
-        return next(ROUTES.start.path);
-      }
-      if (path && path !== to.path) {
-        return next(path);
-      }
-      redirectIfNotAuth(to, from, next);
-    })
-    .catch(() => {
-      redirectIfNotAuth(to, from, next);
-    })
-    .finally(() => {
-      store.commit('setIsLoading', false);
-    })
-    .finally(() => store.commit('menu/close'));
-
+  try {
+    const { path, wantsEnterEvent } = await promise;
+    if (wantsEnterEvent && isEventOrAlwaysAllowedRoute(to) === false) {
+      return next(ROUTES.start.path);
+    }
+    if (path && path !== to.path) {
+      return next(path);
+    }
+    checkRouteGuards(to, from, next);
+  } catch (e) {
+    checkRouteGuards(to, from, next);
+  } finally {
+    store.commit('setIsLoading', false);
+    store.commit('menu/close');
+  }
 });
 
 router.hardReload = function () {
@@ -75,54 +72,53 @@ const makeFirstRun = async () => {
   return await postSignInActions(userData);
 };
 
-export function postSignInActions (userData) {
-  return new Promise(async (resolve, reject) => {
-    try {
-      // Invitation key user journey
-      const invitationKey = urlUtils.getInvitationKey();
-      if (invitationKey) {
-        return resolve({ path: ROUTES.joinEvent.path });
-      }
+export async function postSignInActions (userData) {
+  // Invitation key user journey
+  const invitationKey = urlUtils.getInvitationKey();
+  if (invitationKey) {
+    return {
+      path: {
+        name: ROUTES.joinEvent.name,
+        query: { invitationKey },
+      },
+    };
+  }
 
-      // Log into event user journey
-      const wantsAutoLoginToEvent = appStorage.getItem(appStorage.appKeys.wantsAutoLoginToEvent, appStorage.getIds.email());
-      const recentEventId = appStorage.getItem(appStorage.appKeys.recentEvent, appStorage.getIds.email());
+  // Log into event user journey
+  const wantsAutoLoginToEvent = appStorage.getItem(appStorage.appKeys.wantsAutoLoginToEvent, appStorage.getIds.email());
+  const recentEventId = appStorage.getItem(appStorage.appKeys.recentEvent, appStorage.getIds.email());
 
-      if (recentEventId && wantsAutoLoginToEvent) {
-        const recentEvent = userData.userEvents.find(event => event.eventId === recentEventId);
-        if (recentEvent) {
-          await store.dispatch('event/download', recentEvent);
-          return resolve({ wantsEnterEvent: true });
-        }
-      }
-
-      // Default user journey
-      return resolve({ path: ROUTES.eventsList.path });
-
-    } catch (e) {
-      reject(e);
+  if (recentEventId && wantsAutoLoginToEvent) {
+    const recentEvent = userData.userEvents.find(event => event.eventId === recentEventId);
+    if (recentEvent) {
+      await store.dispatch('event/download', recentEvent);
+      return { wantsEnterEvent: true };
     }
-  });
+  }
+
+  // Default user journey
+  return { path: ROUTES.eventsList.path };
+
 }
 
-function redirectIfNotAuth (to, from, next) {
+function checkRouteGuards (to, from, next) {
   const {
     checkGuards, getRedirectPath, guards: {
       isTheSameRoute, isLoginGuard, isAdminGuard, isObserverGuard, isEventChooseGuard, isTeamLeader,
     },
   } = guardsUtils;
   const redirectSomewhereElseGuards = [isTeamLeader, isObserverGuard, isAdminGuard, isLoginGuard, isEventChooseGuard];
-  console.log('Guards started:');
+  // console.log('Guards started:');
   if (isTheSameRoute(from, to)) {
-    console.log('Same route, no redirect');
+    // console.log('Same route, no redirect');
     next(false);
     return;
   }
   if (checkGuards(redirectSomewhereElseGuards, to.meta)) {
-    console.log('Guard blocked and redirect to:', getRedirectPath());
+    // console.log('Guard blocked and redirect to:', getRedirectPath());
     next(getRedirectPath());
     return;
   }
-  console.log('Successful redirection to:', to.path);
+  // console.log('Successful redirection to:', to.path);
   next();
 }

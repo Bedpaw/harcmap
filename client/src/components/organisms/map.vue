@@ -59,7 +59,9 @@ export default {
     map.realMap.on('moveend', this.saveLastMapPositionToStorage);
   },
   beforeUnmount () {
-    map.realMap.un('moveend', this.saveLastMapPositionToStorage);
+    if (map.realMap) {
+      map.realMap.un('moveend', this.saveLastMapPositionToStorage);
+    }
     map.destroy(elementId);
   },
   methods: {

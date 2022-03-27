@@ -46,7 +46,7 @@ export const user:Module<User, object> = {
           .then(userData => {
             context.commit('setUser', userData);
             postSignInActions(userData).then(({ wantsEnterEvent, path }) => {
-              router.push(wantsEnterEvent ? ROUTES.start.path : path).then(() => resolve(userData));
+              router.push(wantsEnterEvent ? ROUTES.start.path : path as string).then(() => resolve(userData));
             });
           })
           .catch(reject);
