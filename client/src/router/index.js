@@ -83,7 +83,6 @@ export async function postSignInActions (userData) {
       },
     };
   }
-
   // Log into event user journey
   const wantsAutoLoginToEvent = appStorage.getItem(appStorage.appKeys.wantsAutoLoginToEvent, appStorage.getIds.email());
   const recentEventId = appStorage.getItem(appStorage.appKeys.recentEvent, appStorage.getIds.email());
@@ -92,10 +91,10 @@ export async function postSignInActions (userData) {
     const recentEvent = userData.userEvents.find(event => event.eventId === recentEventId);
     if (recentEvent) {
       await store.dispatch('event/download', recentEvent);
+      autoUpdate.run();
       return { wantsEnterEvent: true };
     }
   }
-
   // Default user journey
   return { path: ROUTES.eventsList.path };
 
