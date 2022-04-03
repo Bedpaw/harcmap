@@ -9,7 +9,7 @@
       class="o-map"
     />
     <o-popup-map
-      v-if="checkIsAdmin() && pointOptions"
+      v-if="pointOptions"
       ref="mapPopup"
     />
   </div>
