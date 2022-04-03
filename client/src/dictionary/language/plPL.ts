@@ -72,6 +72,7 @@ export const plPL = {
     collectTime: 'Czas zebrania',
     errorAppear: 'Wystąpił błąd',
     defaultPointCategoryName: 'Podstawowy',
+    look: 'Wygląd',
   },
   colors: {
     'purple': 'Fioletowy',

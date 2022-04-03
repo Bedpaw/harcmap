@@ -1,4 +1,21 @@
 <template>
+  <div class="m-grid f-point-category-list">
+    <div class="m-row f-header">
+      {{ $t('general.look') }}
+    </div>
+    <div class="m-row f-header">
+      {{ $t('general.name') }}
+    </div>
+    <div class="m-row f-header">
+      {{ $t('table.value') }}
+    </div>
+    <div class="m-row f-header">
+      {{ $t('general.edit') }}
+    </div>
+    <div class="m-row f-header">
+      {{ $t('general.remove') }}
+    </div>
+  </div>
   <div
     v-for="c in categories"
     :key="c.categoryId"
@@ -12,13 +29,15 @@
         height: '40px',
       }"
     />
-    <div @click="pushToEditPoint(c.categoryId)">
-      {{ c.categoryName }}
-    </div>
+    <div>{{ c.categoryName }}</div>
     <div>{{ c.pointValue }}</div>
     <a-icon
+      :name="$icons.names.edit"
+      @click="pushToEditPoint(c.categoryId)"
+    />
+    <a-icon
       :name="$icons.names.delete"
-      @click.prevent="deleteCategory(c.categoryId)"
+      @click="deleteCategory(c.categoryId)"
     />
   </div>
 </template>
