@@ -71,13 +71,10 @@ export default {
     ]),
     createFeatures () {
       const pointList = this.$store.getters['event/pointsVisibleOnMap'];
-      map.points.create({
-        list: pointList,
-      });
+      const pointsCollectedByUser = this.$store.getters['team/collectedPoints'];
 
-      map.lines.create({
-        list: this.$store.getters['user/collectedPoints'],
-      });
+      map.points.create(pointList);
+      map.lines.create(pointsCollectedByUser);
     },
     saveLastMapPositionToStorage () {
       const mapView = map.realMap.getView();

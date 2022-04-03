@@ -1,16 +1,18 @@
 import { createMap } from 'src/map/create';
-import { points } from 'map/points';
 import { ROUTES } from 'config/routes-config';
 import { store } from 'store';
 import router from 'src/router';
-import { lines } from 'map/lines';
 import { fromLonLat, toLonLat } from 'ol/proj';
 import { uCheck } from '@dbetka/utils';
+import { lines } from 'map/features/lines';
+import { points } from 'map/features/points';
+import { myPosition } from 'map/features/myPosition';
 
 export const map = {
   realMap: null,
   points,
   lines,
+  myPosition,
   create: config => createMap(map, config),
   destroy (elementId) {
     if (map.realMap) {
@@ -69,9 +71,7 @@ export const map = {
     const promise = store.dispatch('event/download', { eventId, teamId, role });
     promise.then(() => {
       if (uCheck.isObject(map.realMap)) {
-        map.points.create({
-          list: store.getters['event/pointsVisibleOnMap'],
-        });
+        map.points.create(store.getters['event/pointsVisibleOnMap']);
       }
     });
     return promise;
