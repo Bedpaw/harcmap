@@ -1,4 +1,5 @@
 import { InvitationKeys } from 'models/invitations';
+import { GameRule } from 'models/game-rules';
 
 export interface Event {
   eventId: string;
@@ -11,4 +12,5 @@ export interface Event {
   mapZoom: number;
   mapRefreshTime: number;
   inviteKeys: InvitationKeys;
+  eventSettings: GameRule[]
 }

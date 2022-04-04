@@ -3,8 +3,8 @@ interface PointDuration {
   endDate: number | null;
 }
 interface PointPosition {
-  longitude: number | null;
-  latitude: number | null;
+  longitude: number;
+  latitude: number;
 }
 
 export interface PointDTOCreate {
