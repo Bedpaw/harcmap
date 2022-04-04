@@ -3,18 +3,22 @@
     <h3 class="f-mt-0">
       {{ $t('page.admin.eventForm.advancedOptions') }}
     </h3>
-    <component
-      :is="inputTypeComponent(rule.ruleType)"
+    <template
       v-for="rule of advancedGameRules"
       :key="rule.ruleId"
-      v-model="rule.ruleValue"
-      :disabled="blockForm"
-      :assist="gameRulesUtils.getDescription(rule)"
-      v-bind="inputProps(rule)"
-      class="f-mb-2"
     >
-      {{ gameRulesUtils.getName(rule) }}
-    </component>
+      <component
+        :is="inputTypeComponent(rule.ruleType)"
+        v-if="!disabledRules.includes(rule.ruleId)"
+        v-model="rule.ruleValue"
+        :disabled="blockForm"
+        :assist="gameRulesUtils.getDescription(rule)"
+        v-bind="inputProps(rule)"
+        class="f-mb-2"
+      >
+        {{ gameRulesUtils.getName(rule) }}
+      </component>
+    </template>
   </section>
 </template>
 
@@ -22,7 +26,7 @@
 import ACheckbox from 'atoms/checkbox';
 import MSelect from 'molecules/select';
 import { gameRulesUtils } from 'utils/game-rules';
-import { InputTypeEnum } from 'models/game-rules';
+import { InputTypeEnum, Rules } from 'models/game-rules';
 
 export default {
   name: 'o-game-advanced-rules',
@@ -41,6 +45,7 @@ export default {
   },
   data: () => ({
     gameRulesUtils,
+    disabledRules: [Rules.PointDetailsVisibilityOnMap],
   }),
   methods: {
     inputTypeComponent (ruleType) {

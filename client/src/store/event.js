@@ -7,6 +7,7 @@ import { permissions } from 'utils/permissions';
 import { appStorage } from 'utils/storage';
 import { colorsUtils } from 'utils/macros/colors';
 import { translator } from 'dictionary';
+import { DEFAULT_EVENT_CONFIG } from 'config/event-config';
 
 const initState = () => ({
   eventId: null,
@@ -15,6 +16,7 @@ const initState = () => ({
   eventEndDate: null,
   role: '',
   inviteKeys: [],
+  eventSettings: { ...DEFAULT_EVENT_CONFIG.gameRules },
 });
 
 export default {
@@ -30,6 +32,7 @@ export default {
     eventEndDate: state => state.eventEndDate,
     eventId: state => state.eventId,
     role: state => state.role,
+    eventSettings: state => state.eventSettings,
     eventBasicInformation: (state) => ({
       eventId: state.eventId,
       eventName: state.eventName,
