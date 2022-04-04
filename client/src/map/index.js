@@ -12,6 +12,13 @@ export const map = {
   points,
   lines,
   create: config => createMap(map, config),
+  destroy (elementId) {
+    if (map.realMap) {
+      map.realMap.setTarget(null);
+      map.realMap = null;
+      document.getElementById(elementId).firstChild?.remove();
+    }
+  },
   panTo ({ latitude, longitude, zoom }) {
     function panToView () {
       const view = map.realMap.getView();

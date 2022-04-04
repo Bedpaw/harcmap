@@ -22,6 +22,8 @@ import { toLonLat } from 'ol/proj';
 import OPopupMap from 'organisms/popup/map';
 import { appStorage } from 'utils/storage';
 
+const elementId = 'o-map';
+
 export default {
   name: 'o-map',
   components: { OPopupMap },
@@ -36,40 +38,47 @@ export default {
       'eventId',
       'event',
       'eventBasicInformation',
+      'points',
     ]),
   },
+  watch: {
+    points () {
+      this.createFeatures();
+    },
+  },
   mounted () {
-    const pointList = this.$store.getters['event/points'];
-
     map.create({
-      elementId: 'o-map',
+      elementId,
       lat: this.event.mapLatitude,
       lon: this.event.mapLongitude,
       zoom: this.event.mapZoom,
     });
-
-    map.points.create({
-      list: pointList,
-    });
-
-    map.lines.create({
-      list: this.$store.getters['user/collectedPoints'],
-    });
-
+    this.createFeatures();
     // Map popup have to define after map creating.
     this.$refs.mapPopup && this.$refs.mapPopup.definePopup();
-
     map.realMap.on('moveend', this.saveLastMapPositionToStorage);
   },
-
   beforeUnmount () {
-    map.realMap.un('moveend', this.saveLastMapPositionToStorage);
+    if (map.realMap) {
+      map.realMap.un('moveend', this.saveLastMapPositionToStorage);
+    }
+    map.destroy(elementId);
   },
   methods: {
     ...mapMutations('event', [
       'setMapPosition',
       'setMapZoom',
     ]),
+    createFeatures () {
+      const pointList = this.$store.getters['event/pointsVisibleOnMap'];
+      map.points.create({
+        list: pointList,
+      });
+
+      map.lines.create({
+        list: this.$store.getters['user/collectedPoints'],
+      });
+    },
     saveLastMapPositionToStorage () {
       const mapView = map.realMap.getView();
       const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
