@@ -67,17 +67,10 @@ const getFinalPoints = (appearance: PointCategoryAppearance, fill: Fill, stroke:
   const pointValues = {
     fill,
     stroke,
-    points: 20,
-    radius: 10,
-    angle: 20,
+    ...mapConfig.points.shapes.point,
   };
   if (appearance.shape === pointCategoryUtils.availableShapes.star) {
-    Object.assign(pointValues, {
-      points: 5,
-      radius: 12,
-      radius2: 4,
-      angle: 0,
-    });
+    Object.assign(pointValues, mapConfig.points.shapes.star);
   }
   return new Style({
     image: new RegularShape(pointValues),
