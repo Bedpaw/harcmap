@@ -20,9 +20,10 @@ interface MyPositionFeature {
 }
 /**
  * Return distance in meters
+ * Based on: https://cloud.google.com/blog/products/maps-platform/how-calculate-distances-map-maps-javascript-api
+ * For full version better use openLayers: https://stackoverflow.com/questions/10109620/openlayers-how-to-calculate-distance-between-two-points
  * */
 function getDistanceBetweenTwoCoords (mk1: {latitude: number, longitude: number}, mk2: {latitude: number, longitude: number}) {
-  // https://cloud.google.com/blog/products/maps-platform/how-calculate-distances-map-maps-javascript-api
   const R = 6371.0710; // Radius of the Earth in miles
   const rlat1 = mk1.latitude * (Math.PI / 180); // Convert degrees to radians
   const rlat2 = mk2.latitude * (Math.PI / 180); // Convert degrees to radians
