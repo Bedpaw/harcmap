@@ -25,12 +25,14 @@
     "server:watch": "cd server && npm run watch",
     "server:tests": "cd server && npm run tests",
     "server:tests:watch": "cd server && npm run tests:watch",
+    "server:unit-tests": "cd server && npm run unit-tests",
     "mongo": "cd server && npm run mongo",
     "mongo:fresh": "cd server && npm run mongo:fresh",
     "mongo:fresh:windows": "cd server && npm run mongo:fresh:windows",
     "mongo:fresh:custom-dump": "cd server && npm run mongo:fresh:custom-dump",
     "mongo:windows": "cd server && npm run mongo:windows",
-    "mongo:tests": "cd server && npm run mongo:tests"
+    "mongo:tests": "cd server && npm run mongo:tests",
+    "prepare": "husky install"
   },
   "engines": {
     "node": ">=12.9.0",
@@ -44,14 +46,15 @@
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-friendly-formatter": "^4.0.1",
+    "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jest": "^24.4.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-vue": "^7.19.1",
     "eslint-webpack-plugin": "^3.0.1",
-    "eslint-loader": "^4.0.2",
-    "eslint-plugin-jest": "^24.4.0",
+    "husky": "^7.0.4",
     "typescript": "^4.4.4"
   }
 }

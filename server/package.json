@@ -14,6 +14,7 @@
 		"watch": "nodemon --exec npm start",
 		"tests": "jest --coverage=true",
 		"tests:watch": "jest --watch",
+		"unit-tests": "echo 'ok '",
 		"mongo": "docker run --name harcmap-mongo --rm -p 27017:27017 -v `pwd`/.db:/data/db -v `pwd`/bin/mongodb/__mongo-dump.js:/docker-entrypoint-initdb.d/mongo-dump.js mongo",
 		"mongo:windows": "docker run --name harcmap-mongo --rm -p 27017:27017 -v %cd%/.db:/data/db -v %cd%/bin/mongodb/init:/docker-entrypoint-initdb.d mongo",
 		"mongo:clean": "rm -R ./.db",
