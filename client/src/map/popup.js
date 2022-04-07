@@ -2,11 +2,7 @@ import Overlay from 'ol/Overlay';
 import { store } from 'store';
 import { fromLonLat } from 'ol/proj';
 import { map } from 'src/map/index';
-import { DATE_FORMATS, displayDate } from 'utils/date';
-import { pointUtils } from 'utils/point';
-import { materialIcons } from '@dbetka/vue-material-icons';
-
-const ICONS = materialIcons.names;
+import { mapPointPopupConfig } from 'config/map-point-popup-config';
 
 export class Popup {
   constructor ({ container }) {
@@ -57,53 +53,11 @@ export class Popup {
     if (point === undefined) return;
 
     const coordinates = fromLonLat([point.pointLongitude, point.pointLatitude]);
-    const details = pointUtils.isPermanent(point)
-      ? this.getPermanentPointDetails(point)
-      : this.getTimeoutPointDetails(point);
+    const details = mapPointPopupConfig.getPointOptions(point);
     store.commit('mapPopup/setData', details);
     store.commit('mapPopup/setPointId', point.pointId);
 
     this.overlay.setPosition(coordinates);
     this.container.style.visibility = 'visible';
-  }
-
-  getTimeoutPointDetails (point) {
-    const { pointName, pointAppearanceTime, pointExpirationTime } = point;
-    return [
-      {
-        icon: ICONS.place,
-        value: pointUtils.getLonLatAsString(point),
-      },
-      {
-        icon: ICONS.title,
-        value: pointName,
-      },
-      {
-        icon: ICONS.watch_later,
-        value: displayDate.inFormat(pointAppearanceTime, DATE_FORMATS.HHmmDDMMYYYY),
-      },
-      {
-        icon: ICONS.history_toggle_off,
-        value: displayDate.inFormat(pointExpirationTime, DATE_FORMATS.HHmmDDMMYYYY),
-      },
-    ];
-  }
-
-  getPermanentPointDetails (point) {
-    const { pointName, pointKey } = point;
-    const detailsList = [];
-    detailsList.push({
-      icon: ICONS.place,
-      value: pointUtils.getLonLatAsString(point),
-    });
-    pointName && detailsList.push({
-      icon: ICONS.title,
-      value: pointName,
-    });
-    detailsList.push({
-      icon: ICONS.vpn_key,
-      value: pointKey,
-    });
-    return detailsList;
   }
 }
