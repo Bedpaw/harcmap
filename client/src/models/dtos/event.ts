@@ -1,4 +1,5 @@
 import { InvitationKeys } from 'models/invitations';
+import { GameRuleEntryDTO } from 'models/game-rules';
 
 export interface EventDuration {
   startDate: number;
@@ -15,7 +16,8 @@ export interface EventDTOCreate {
   eventDuration: EventDuration;
   mapProperties: MapProperties;
   inviteKeys: InvitationKeys;
-  eventRefreshTime: number
+  eventRefreshTime: number;
+  eventSettings: GameRuleEntryDTO[]
 }
 
 export interface EventDTO extends EventDTOCreate {

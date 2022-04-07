@@ -96,7 +96,7 @@ export default {
     },
   },
   beforeUnmount () {
-    this.popup.destroy();
+    this.popup?.destroy();
   },
   beforeUpdate () {
     this.itemRefs = [];

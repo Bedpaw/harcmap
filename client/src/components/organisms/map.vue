@@ -21,6 +21,7 @@ import { mapMutations, mapGetters } from 'vuex';
 import { toLonLat } from 'ol/proj';
 import OPopupMap from 'organisms/popup/map';
 import { appStorage } from 'utils/storage';
+import { featureToggles } from 'utils/dev-mode/feature-toggle';
 
 const elementId = 'o-map';
 
@@ -62,6 +63,7 @@ export default {
     if (map.realMap) {
       map.realMap.un('moveend', this.saveLastMapPositionToStorage);
     }
+    map.myPosition.stopTrackingPosition();
     map.destroy(elementId);
   },
   methods: {
@@ -71,13 +73,12 @@ export default {
     ]),
     createFeatures () {
       const pointList = this.$store.getters['event/pointsVisibleOnMap'];
-      map.points.create({
-        list: pointList,
-      });
-
-      map.lines.create({
-        list: this.$store.getters['user/collectedPoints'],
-      });
+      const pointsCollectedByUser = this.$store.getters['team/collectedPoints'];
+      if (featureToggles.FEATURE_TOGGLE_NAVIGATION()) {
+        map.myPosition.trackPosition(false, pointList);
+      }
+      map.points.create(pointList);
+      map.lines.create(pointsCollectedByUser);
     },
     saveLastMapPositionToStorage () {
       const mapView = map.realMap.getView();

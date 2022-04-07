@@ -23,7 +23,7 @@ export const eventController = {
   updateEvent (event: Event) {
     return httpService.put({
       url: urls.updateEvent(event.eventId),
-      body: { ...Mapper.mapEventOut(event), eventSettings: [] },
+      body: { ...Mapper.mapEventOut(event) },
       errorOptions: API_ERRORS.updateEvent,
     });
   },
@@ -56,7 +56,7 @@ export const eventController = {
     return httpService.post<EventDTO, Event>({
       url: urls.addEvent,
       // TODO Add admin nickname to event form
-      body: { ...Mapper.mapEventOut(event), nickname: 'Creator nickname', userId, eventSettings: [] },
+      body: { ...Mapper.mapEventOut(event), nickname: 'Creator nickname', userId },
       errorOptions: API_ERRORS.addEvent,
     });
   },

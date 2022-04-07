@@ -4,6 +4,7 @@ import { EventDTO, EventDTOCreate, EventDTOUpdate } from 'models/dtos/event';
 import { Event } from 'models/event';
 import { UserDTO } from 'models/dtos/user';
 import { User, UserInEvent } from 'models/user';
+import { gameRulesUtils } from 'utils/game-rules';
 
 export class Mapper {
 
@@ -50,6 +51,7 @@ export class Mapper {
       mapZoom: eventIn.mapProperties.zoom,
       eventKey: eventIn.eventKey,
       inviteKeys: eventIn.inviteKeys,
+      eventSettings: gameRulesUtils.mapEventConfigIn(eventIn.eventSettings),
     };
   }
 
@@ -67,6 +69,7 @@ export class Mapper {
         zoom: eventOut.mapZoom,
       },
       inviteKeys: eventOut.inviteKeys,
+      eventSettings: eventOut.eventSettings.map(rule => ({ ruleId: rule.ruleId, ruleValue: rule.ruleValue })),
     };
   }
 
