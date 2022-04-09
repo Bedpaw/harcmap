@@ -34,6 +34,12 @@ components:
       format: password
       pattern: /^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,24}$/
       example: 'Password1'
+    newPassword:
+      description: 'User new password'
+      type: string
+      format: password
+      pattern: /^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,24}$/
+      example: 'newPassword2'
     isActive:
       description: 'User account is active (in creating user, default: false)'
       type: boolean
@@ -64,6 +70,16 @@ components:
             $ref: '#/components/props/role'
           isBanned:
             $ref: '#/components/props/isBanned'
+    userEventsEdit:
+      description: 'List of events in which to change nickname'
+      type: array
+      items:
+        type: object
+        properties:
+          eventId:
+            $ref: '#/components/props/id'
+          nickname:
+            $ref: '#/components/props/nickname'
     error:
       description: 'Error code name'
       type: number
