@@ -44,7 +44,7 @@ async function editUser (request, data) {
     // checks if allUserEvents contains sent userEvents
     for (const event of userEvents) {
       isAssigned = false;
-      const checkEvent = await UsersEvents.get({ _id: ObjectId(event.userEventId) });
+      const checkEvent = await UsersEvents.get({ _id: ObjectId(event.eventId) });
 
       for (let i = 0; i < userEvents.length; i++) {
         if (allUserEvents.length >= userEvents.length) {
@@ -74,7 +74,7 @@ async function editUser (request, data) {
     }
 
     for (const event of userEvents) {
-      await UsersEvents.update({ _id: ObjectId(event.userEventId) }, {
+      await UsersEvents.update({ _id: ObjectId(event.eventId) }, {
         nickname: event.nickname,
       });
     }

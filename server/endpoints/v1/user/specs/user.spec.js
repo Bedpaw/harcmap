@@ -116,11 +116,11 @@ describe('/api/v1/user', () => {
         userId: '100000000000000000000003',
         userEvents: [
           {
-            userEventId: '200000000000000000000003',
+            eventId: '200000000000000000000003',
             nickname: 'User33',
           },
           {
-            userEventId: '200000000000000000000002',
+            eventId: '200000000000000000000002',
             nickname: 'User31',
           },
         ],
@@ -146,7 +146,7 @@ describe('/api/v1/user', () => {
         userId: '100000000000000000000003',
         userEvents: [
           {
-            userEventId: '200000000000000000000002',
+            eventId: '200000000000000000000002',
             nickname: 'User33',
           },
         ],
@@ -185,11 +185,11 @@ describe('/api/v1/user', () => {
         newPassword: 'newPassword2',
         userEvents: [
           {
-            userEventId: '200000000000000000000003',
+            eventId: '200000000000000000000003',
             nickname: 'Nick 4 test1',
           },
           {
-            userEventId: '200000000000000000000004',
+            eventId: '200000000000000000000004',
             nickname: 'Nick 4 test2',
           },
         ],

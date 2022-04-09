@@ -96,7 +96,7 @@ const eventSettings = Joi
 const userEventsEdit = Joi
   .array()
   .items(Joi.object({
-    userEventId: objectIdInRequest.required(),
+    eventId: objectIdInRequest.required(),
     nickname: nickname.required(),
   }));
 
