@@ -93,6 +93,12 @@ const eventSettings = Joi
     ruleValue: ruleValue.required(),
   }))
   .allow(null);
+const userEventsEdit = Joi
+  .array()
+  .items(Joi.object({
+    userEventId: objectIdInRequest.required(),
+    nickname: nickname.required(),
+  }));
 
 /**
  * Points props
@@ -156,4 +162,5 @@ module.exports = {
   ruleId,
   ruleValue,
   eventSettings,
+  userEventsEdit,
 };
