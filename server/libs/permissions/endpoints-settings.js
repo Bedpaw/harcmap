@@ -30,6 +30,7 @@ const endpointsAccessConfig = {
   '/api/v1/auth/sign-up': users.guest,
   '/api/v1/auth/sign-out': users.guest,
   // users endpoints
+  '/api/v1/user': users.authenticated,
   '/api/v1/users': admins,
   '/api/v1/users/:userId': admins,
   '/api/v1/users/account-activation/:key': {
