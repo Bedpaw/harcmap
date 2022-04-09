@@ -1,0 +1,45 @@
+paths:
+  /api/v1/user:
+    put:
+      summary: 'Update user account data (SECURED)'
+      description: 'Special privilege required'
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  $ref: '#/components/props/id'
+                email:
+                  $ref: '#/components/props/email'
+                oldPassword:
+                  $ref: '#/components/props/password'
+                newPassword:
+                  $ref: '#/components/props/newPassword'
+                userEvents:
+                  $ref: '#/components/props/userEventsEdit'
+      responses:
+        200:
+          description: 'Result of operation'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    $ref: '#/components/props/success'
+        400:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/400'
+        401:
+          description: 'No permissions'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/401'
