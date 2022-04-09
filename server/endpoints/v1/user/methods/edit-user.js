@@ -59,7 +59,7 @@ async function editUser (request, data) {
 
           if (allUserEvents[i].teamId.toString() === checkEvent.teamId.toString() &&
               allUserEvents[i].eventId.toString() === checkEvent.eventId.toString()) {
-            allUserEvents[i].teamId = null;
+            if (allUserEvents[i].teamId === 'tempId') allUserEvents[i].teamId = null;
             isAssigned = true;
             break;
           }
