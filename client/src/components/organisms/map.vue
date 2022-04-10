@@ -17,13 +17,7 @@
 
 <script>
 import { map } from 'map';
-import { mapMutations, mapGetters } from 'vuex';
-import { toLonLat } from 'ol/proj';
 import OPopupMap from 'organisms/popup/map';
-import { appStorage } from 'utils/storage';
-import { featureToggles } from 'utils/dev-mode/feature-toggle';
-
-const elementId = 'o-map';
 
 export default {
   name: 'o-map',
@@ -34,70 +28,12 @@ export default {
       default: true,
     },
   },
-  computed: {
-    ...mapGetters('event', [
-      'eventId',
-      'event',
-      'eventBasicInformation',
-      'points',
-    ]),
-  },
-  watch: {
-    points () {
-      this.createFeatures();
-    },
-  },
   mounted () {
-    map.create({
-      elementId,
-      lat: this.event.mapLatitude,
-      lon: this.event.mapLongitude,
-      zoom: this.event.mapZoom,
-    });
-    this.createFeatures();
-    // Map popup have to define after map creating.
-    this.$refs.mapPopup && this.$refs.mapPopup.definePopup();
-    map.realMap.on('moveend', this.saveLastMapPositionToStorage);
+    this.$store.commit('mapPopup/setPopupOrganismRef', this.$refs.mapPopup);
+    map.createMapWithFeatures();
   },
   beforeUnmount () {
-    if (map.realMap) {
-      map.realMap.un('moveend', this.saveLastMapPositionToStorage);
-    }
-    map.myPosition.stopTrackingPosition();
-    map.destroy(elementId);
-  },
-  methods: {
-    ...mapMutations('event', [
-      'setMapPosition',
-      'setMapZoom',
-    ]),
-    createFeatures () {
-      const pointList = this.$store.getters['event/pointsVisibleOnMap'];
-      const pointsCollectedByUser = this.$store.getters['team/collectedPoints'];
-      if (featureToggles.FEATURE_TOGGLE_NAVIGATION()) {
-        map.myPosition.trackPosition(false, pointList);
-      }
-      map.points.create(pointList);
-      map.lines.create(pointsCollectedByUser);
-    },
-    saveLastMapPositionToStorage () {
-      const mapView = map.realMap.getView();
-      const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
-      const mapZoom = mapView.getZoom();
-
-      this.setMapPosition({
-        mapLatitude,
-        mapLongitude,
-      });
-      this.setMapZoom(mapZoom);
-
-      const dataForStorage = {
-        mapLatitude,
-        mapLongitude,
-        mapZoom,
-      };
-      appStorage.setItem(appStorage.appKeys.mapPosition, dataForStorage, appStorage.getIds.eventIdAndEmail());
-    },
+    map.destroyMapWithFeatures();
   },
 };
 </script>
