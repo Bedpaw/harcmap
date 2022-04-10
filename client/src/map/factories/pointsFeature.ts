@@ -10,7 +10,7 @@ import { mapConfig } from '../config';
 
 export function createPoints (list: PointType[] = []) {
   const listOfFeatures = [];
-
+  list = list.filter(mapConfig.points.pointsVisibilityCondition);
   for (const point of list) {
     const lat = point.pointLatitude;
     const lon = point.pointLongitude;

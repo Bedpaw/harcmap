@@ -6,6 +6,7 @@ import { PointType } from 'models/point';
 import { mapConfig } from '../config';
 
 export function createLinesFeature (list: PointType[] = []): Feature<LineString>[] | false {
+  list = list.filter(mapConfig.points.pointsVisibilityCondition);
   const notEnoughPoints = list.length < 2;
   if (!mapConfig.lineConnectingPoints.visible) return false;
   if (notEnoughPoints) return false;
@@ -16,7 +17,6 @@ export function createLinesFeature (list: PointType[] = []): Feature<LineString>
 
   const feature = new Feature(polyline);
   feature.setStyle(getLineStyle());
-
   return [feature];
 }
 

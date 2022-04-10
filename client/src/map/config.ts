@@ -24,6 +24,7 @@ export const mapConfig = {
   },
   points: {
     collectedPointOpacity: 0.3,
+    pointsVisibilityCondition: () => true,
     shapes: {
       // https://openlayers.org/en/latest/apidoc/module-ol_style_RegularShape-RegularShape.html
       point: {
