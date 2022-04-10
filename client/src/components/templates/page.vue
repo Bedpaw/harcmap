@@ -30,7 +30,7 @@ export default defineComponent({
     const store = useStore();
     const router = useRouter();
 
-    const isLogin = store.getters['user/isLogin'];
+    const isAfterEventChoose = store.getters['event/eventId'];
     const menuIsOpen = store.getters['menu/isOpen'];
 
     onMounted(() => {
@@ -47,13 +47,12 @@ export default defineComponent({
     });
 
     function openMenu () {
-      if (props.letSwipeMenu && isLogin) {
+      if (props.letSwipeMenu && isAfterEventChoose) {
         store.commit('menu/open');
       }
     }
 
     return {
-      isLogin,
       menuIsOpen,
       openMenu,
     };
