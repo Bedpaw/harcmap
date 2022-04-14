@@ -4,8 +4,18 @@ dayjs.extend(require('dayjs/plugin/duration'));
 const { Table } = require('console-table-printer');
 
 class AppConsoleFramePlugin {
-  constructor (config = { appName, appVersion, target }) {
+  constructor (config = { appName, appVersion, target, terminate, start }) {
     this.config = config;
+  }
+
+  stopProgressBarPlugin () {
+    const terminate = this.config.terminate;
+    terminate();
+  }
+
+  startProgressBarPlugin () {
+    const start = this.config.start;
+    start();
   }
 
   apply (compiler) {
@@ -23,6 +33,7 @@ class AppConsoleFramePlugin {
       this.newLine();
       this.write(`  ${mode} - ${targetText} - ${watch}`);
       this.newLine(2);
+      this.startProgressBarPlugin();
       callback();
     };
 
@@ -38,8 +49,12 @@ class AppConsoleFramePlugin {
 
     compiler.hooks.done.tapAsync(pluginName,
       (stats, callback) => {
-        callback();
-        return;
+        if (stats.compilation.errors.length > 0 || stats.compilation.warnings.length > 0) {
+          this.newLine(2);
+          this.stopProgressBarPlugin();
+          callback();
+          return;
+        }
 
         const time = Math.abs(dayjs(stats.startTime).diff(stats.endTime, 'second', true));
 
@@ -56,6 +71,7 @@ class AppConsoleFramePlugin {
             }
           }, 100);
         });
+        callback();
       },
     );
   }
@@ -76,8 +92,6 @@ class AppConsoleFramePlugin {
   }
 
   writeAssetsSizes (stats) {
-    return;
-
     const table = new Table(this.tableConfig());
     const availableExt = ['js'];
     const isProductionMode = stats.compilation.compiler.options.mode === 'production';
@@ -112,7 +126,7 @@ class AppConsoleFramePlugin {
   }
 
   clear () {
-    console.clear();
+    process.stdout.write('\x1Bc');
   }
 
   tableConfig () {
