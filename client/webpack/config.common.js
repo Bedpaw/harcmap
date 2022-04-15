@@ -3,10 +3,10 @@ const getAppVersion = require('./options/utils').getAppVersionFromPackageJSON;
 const resolve = require('./options/utils').resolve;
 
 const { VueLoaderPlugin } = require('vue-loader');
-const AppConsoleFramePlugin = require('./plugins/app-console-frame');
-const ESLintConfig = require('./plugins/eslint-config');
-const ImageConfig = require('./plugins/image-config');
-const HtmlWebpackConfig = require('./plugins/html-webpack-config');
+const { appConsoleFramePlugin } = require('@dbetka/wdk/lib/webpack/app-console-frame');
+const ESLintConfig = require('./configs/eslint-config');
+const ImageConfig = require('./configs/image-config');
+const HtmlWebpackConfig = require('./configs/html-webpack-config');
 
 const optimization = require('./options/optimization');
 const rules = require('./options/rules');
@@ -53,11 +53,11 @@ module.exports = (env) => ({
     extensions: ['.ts', '.js', '.vue', '.sass', '.css'],
   },
   plugins: [
-    ...(new AppConsoleFramePlugin({
+    ...appConsoleFramePlugin({
       appName,
       appVersion,
       target: env.target,
-    })),
+    }),
     new ESLintConfig(),
     new HtmlWebpackConfig({ capacitor: env.target === TARGETS.mobileApp }),
     new ImageConfig(),
