@@ -18,6 +18,8 @@ interface PointsFeature {
 }
 
 function getFeatures () {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   return (points.layer as unknown as VectorLayer<VectorSource<Point>>).getSource().getFeatures();
 }
 
@@ -42,6 +44,8 @@ export const points: PointsFeature = {
   },
   removeByOlUid (olUid: string) {
     const feature = getFeatureByOlUid(olUid);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     (points.layer as unknown as VectorLayer<VectorSource<Point>>).getSource().removeFeature(feature);
   },
 };
