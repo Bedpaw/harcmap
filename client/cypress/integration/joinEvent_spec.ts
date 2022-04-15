@@ -10,7 +10,7 @@ describe('Join event', () => {
       intercept.events.joinEvent(role);
       intercept.events.checkEvent(role);
 
-      const invitationCode = 'xxxx';
+      const invitationCode = 'K3y3';
       const nickname = 'Nickname';
       const teamName = 'TeamName';
 

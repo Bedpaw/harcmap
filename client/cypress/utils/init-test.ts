@@ -2,6 +2,7 @@ import { testSelectors } from '../../data/selectors';
 import { apiResources } from '../../data/api-resources';
 import { intercept } from './interceptions';
 import { urls } from './urls';
+
 export class Page {
   static roles = {
     teamLeader: 'teamLeader',
@@ -17,11 +18,12 @@ export class Page {
     stubServer = Cypress.env('stubServer'),
     openEvent = true,
     role = this.roles.teamLeader,
+    loginData = null,
   }) {
     if (stubServer) {
       this.stubServerInit({ role, openEvent });
     } else {
-      this.localServerInit({ role, openEvent });
+      this.localServerInit({ role, openEvent, loginData });
     }
   }
 
@@ -42,7 +44,7 @@ export class Page {
 
   }
 
-  static localServerInit ({ role, openEvent }) {
+  static localServerInit ({ role, openEvent, loginData }) {
     cy.intercept(urls.withBackendPrefix(apiResources.auth.signIn)).as('signIn');
 
     cy.visit('/sign-in');
@@ -51,7 +53,7 @@ export class Page {
     cy.wait('@signIn').then(() => {
 
       // Enter credentials
-      const loginData = this.getLoginData(role);
+      loginData = loginData ?? this.getLoginData(role);
       cy.dataCy(this.selectors.inputs.email).type(loginData.email);
       cy.dataCy(this.selectors.inputs.password).type(loginData.password);
       const afterLogInResponsePromise = cy.dataCy(this.selectors.buttons.signInSubmit).click().then(() => cy.wait('@signIn'));
