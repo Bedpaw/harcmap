@@ -2,20 +2,33 @@ const chalk = require('chalk');
 const dayjs = require('dayjs');
 dayjs.extend(require('dayjs/plugin/duration'));
 const { Table } = require('console-table-printer');
+const ProgressBarPlugin = require('./progress-bar-plugin');
 
 class AppConsoleFramePlugin {
-  constructor (config = { appName, appVersion, target, terminate, start }) {
+  constructor (config = { appName, appVersion, target }) {
+    const progressBarPlugin = new ProgressBarPlugin();
+
     this.config = config;
+    this.config.progressBarPlugin = progressBarPlugin;
+
+    if (typeof config.appName !== 'string') throw new Error('AppConsoleFramePlugin: `appName` should be string');
+    if (typeof config.appVersion !== 'string') throw new Error('AppConsoleFramePlugin: `appVersion` should be string');
+    if (typeof config.target !== 'string') throw new Error('AppConsoleFramePlugin: `target` should be string');
+
+    return [
+      this,
+      progressBarPlugin.plugin,
+    ];
   }
 
   stopProgressBarPlugin () {
-    const terminate = this.config.terminate;
-    terminate();
+    const plugin = this.config.progressBarPlugin;
+    plugin && plugin.stop();
   }
 
   startProgressBarPlugin () {
-    const start = this.config.start;
-    start();
+    const plugin = this.config.progressBarPlugin;
+    plugin && plugin.start();
   }
 
   apply (compiler) {
@@ -25,7 +38,7 @@ class AppConsoleFramePlugin {
     const targetText = this.capitalizeFirstChar(target);
     const watch = this.capitalizeFirstChar(compiler.options.watch ? 'watch' : 'single run');
 
-    const makeLogo = (compilation, callback) => {
+    const makeLogo = () => {
       this.time = dayjs();
       this.clear();
       this.newLine();
@@ -34,15 +47,14 @@ class AppConsoleFramePlugin {
       this.write(`  ${mode} - ${targetText} - ${watch}`);
       this.newLine(2);
       this.startProgressBarPlugin();
-      callback();
     };
 
     if (compiler.options.watch) {
-      compiler.hooks.watchRun.tapAsync(pluginName,
+      compiler.hooks.watchRun.tap(pluginName,
         makeLogo,
       );
     } else {
-      compiler.hooks.beforeRun.tapAsync(pluginName,
+      compiler.hooks.beforeRun.tap(pluginName,
         makeLogo,
       );
     }

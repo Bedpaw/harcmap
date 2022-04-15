@@ -4,7 +4,6 @@ const resolve = require('./options/utils').resolve;
 
 const { VueLoaderPlugin } = require('vue-loader');
 const AppConsoleFramePlugin = require('./plugins/app-console-frame');
-const ProgressBarPlugin = require('./plugins/progress-bar-plugin');
 const ESLintConfig = require('./plugins/eslint-config');
 const ImageConfig = require('./plugins/image-config');
 const HtmlWebpackConfig = require('./plugins/html-webpack-config');
@@ -19,8 +18,6 @@ const { TARGETS } = require('./options/enums');
 const appName = 'HarcMap';
 const appVersion = getAppVersion();
 const publicPath = '../../public';
-
-const { progressBarPlugin, terminate, start } = new ProgressBarPlugin();
 
 module.exports = (env) => ({
   mode: 'development',
@@ -56,8 +53,11 @@ module.exports = (env) => ({
     extensions: ['.ts', '.js', '.vue', '.sass', '.css'],
   },
   plugins: [
-    new AppConsoleFramePlugin({ appName, appVersion, target: env.target, terminate, start }),
-    progressBarPlugin,
+    ...(new AppConsoleFramePlugin({
+      appName,
+      appVersion,
+      target: env.target,
+    })),
     new ESLintConfig(),
     new HtmlWebpackConfig({ capacitor: env.target === TARGETS.mobileApp }),
     new ImageConfig(),

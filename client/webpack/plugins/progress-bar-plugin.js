@@ -54,12 +54,12 @@ function ProgressBarWebpackPlugin (options) {
   const bar = new ProgressBar(barFormat, barOptions);
 
   let running = false;
-  let stop = false;
+  let stopDisplaying = false;
   let startTime = 0;
   let lastPercent = 0;
 
-  const progressBarPlugin = new webpack.ProgressPlugin(function (percent, msg) {
-    if (stop) {
+  const plugin = new webpack.ProgressPlugin(function (percent, msg) {
+    if (stopDisplaying) {
       return;
     }
 
@@ -106,13 +106,9 @@ function ProgressBarWebpackPlugin (options) {
   });
 
   return {
-    progressBarPlugin,
-    terminate () {
-      stop = true;
-    },
-    start () {
-      stop = false;
-    },
+    plugin,
+    stop: () => (stopDisplaying = true),
+    start: () => (stopDisplaying = false),
   };
 }
 
