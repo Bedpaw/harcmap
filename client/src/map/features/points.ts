@@ -18,9 +18,10 @@ interface PointsFeature {
 }
 
 function getFeatures () {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  return (points.layer as unknown as VectorLayer<VectorSource<Point>>).getSource().getFeatures();
+  const layer = (points.layer as unknown as VectorLayer<VectorSource<Point>>);
+  const source = layer.getSource();
+  if (source !== null) return source.getFeatures();
+  else return [];
 }
 
 function getFeatureByOlUid (olUid: string): Feature<Point> {
@@ -44,8 +45,8 @@ export const points: PointsFeature = {
   },
   removeByOlUid (olUid: string) {
     const feature = getFeatureByOlUid(olUid);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    (points.layer as unknown as VectorLayer<VectorSource<Point>>).getSource().removeFeature(feature);
+    const layer = (points.layer as unknown as VectorLayer<VectorSource<Point>>);
+    const source = layer.getSource();
+    if (source !== null) source.removeFeature(feature);
   },
 };
