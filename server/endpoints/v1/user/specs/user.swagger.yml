@@ -18,7 +18,7 @@ paths:
                 oldPassword:
                   $ref: '#/components/props/password'
                 newPassword:
-                  $ref: '#/components/props/newPassword'
+                  $ref: '#/components/props/password'
                 userEvents:
                   $ref: '#/components/props/userEventsEdit'
       responses:

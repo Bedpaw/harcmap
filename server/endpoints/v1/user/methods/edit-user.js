@@ -21,25 +21,25 @@ async function editUser (request, data) {
 
   // checks if user wants to change password
   let passwordToChange = false;
+  const newPasswordHash = newPassword ? getSHA(newPassword) : null;
+
   if (newPassword) {
     if (userPassword !== getSHA(oldPassword)) {
-      throw new AppError(errorCodes.CANNOT_UPDATE_USER_PASSWORD, {
+      throw new AppError(errorCodes.PASSWORDS_DO_NOT_MATCH, {
         httpStatus: 400,
-        details: 'passwords do not match',
       });
-    } else if (userPassword === getSHA(newPassword)) {
-      throw new AppError(errorCodes.CANNOT_UPDATE_USER_PASSWORD, {
+    } else if (userPassword === newPasswordHash) {
+      throw new AppError(errorCodes.OLD_AND_NEW_PASSWORD_ARE_EQUAL, {
         httpStatus: 400,
-        details: 'old and new passwords are equal',
       });
     }
     passwordToChange = true;
   }
 
   // checks if user has joined to any event
-  const noUserEvents = allUserEvents.length === 1 && !allUserEvents[0].eventId;
+  const isUserEventsExist = (allUserEvents.length === 1 && !allUserEvents[0].eventId) || !userEvents;
 
-  if (!noUserEvents && userEvents) {
+  if (!isUserEventsExist) {
     let isAssigned;
     // checks if allUserEvents contains sent userEvents
     for (const event of userEvents) {
@@ -66,23 +66,22 @@ async function editUser (request, data) {
         }
       }
       if (!isAssigned) {
-        throw new AppError(errorCodes.CANNOT_UPDATE_USEREVENTS_NICKNAME, {
+        throw new AppError(errorCodes.USER_DOES_NOT_BELONG_TO_SELECTED_EVENT, {
           httpStatus: 400,
-          details: 'user is not assigned to at least one of the given events',
         });
       }
     }
 
-    for (const event of userEvents) {
+    await Promise.all(userEvents.map(async (event) => {
       await UsersEvents.update({ _id: ObjectId(event.eventId) }, {
         nickname: event.nickname,
       });
-    }
+    }));
   }
 
   return await Users.update({ _id: ObjectId(userId) }, {
     email: newEmail || oldEmail,
-    password: passwordToChange ? getSHA(newPassword) : userPassword,
+    password: passwordToChange ? newPasswordHash : userPassword,
   });
 }
 
