@@ -69,6 +69,7 @@ const availabilities = {
   seeAllTimeOutPoints: [creator, admin],
   seeAdminStartView: [creator, admin, observer],
   editOrDeletePoints: [creator, admin],
+  seeAllTeamsTracks: [creator, admin, observer],
 };
 
 const checkIfCan = (permittedRoles: string[]) => permittedRoles.includes(store.getters['event/role']);
@@ -95,6 +96,7 @@ export const userUtils = {
     seeAllTimeOutPoints: () => checkIfCan(availabilities.seeAllTimeOutPoints),
     seeAdminStartView: () => checkIfCan(availabilities.seeAdminStartView),
     editOrDeletePoints: () => checkIfCan(availabilities.editOrDeletePoints),
+    seeAllTeamsTracks: () => checkIfCan(availabilities.seeAllTeamsTracks),
   },
 };
 
