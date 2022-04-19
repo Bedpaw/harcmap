@@ -1,10 +1,13 @@
 import { Module } from 'vuex';
 import { TeamDTO } from 'models/dtos/team';
 import { PointType } from 'models/point';
+import { api } from 'api';
+import { Team } from 'models/team';
 
 const initState = () => ({
   teamId: '',
   teamName: '',
+  teamColor: '#447744',
   collectedPoints: [],
   teamMembers: [],
 });
@@ -19,6 +22,7 @@ export const team:Module<TeamDTO, object> = {
     teamId: state => state.teamId,
     teamMembers: state => state.teamMembers,
     teamName: state => state.teamName,
+    teamColor: state => state.teamColor,
     collectedPoints (state, getters, rootState, rootGetters): PointType[] {
       const collectedPoints = [];
       for (const pointId of getters.collectedPointsIds) {
@@ -35,9 +39,10 @@ export const team:Module<TeamDTO, object> = {
     },
   },
   mutations: {
-    setTeam: (state, { teamId, teamName, collectedPoints, teamMembers }) => {
+    setTeam: (state, { teamId, teamName, collectedPoints, teamMembers, teamColor }) => {
       state.teamId = teamId;
       state.teamName = teamName;
+      state.teamColor = teamColor;
       state.collectedPoints = collectedPoints;
       state.teamMembers = teamMembers;
     },
@@ -46,6 +51,18 @@ export const team:Module<TeamDTO, object> = {
     },
     resetTeamState: (state) => {
       Object.assign(state, initState());
+    },
+  },
+  actions: {
+    downloadTeam (context, { eventId, teamId }) {
+      return new Promise((resolve, reject) => {
+        (api.getTeamByEventId(eventId, teamId) as Promise<Team>)
+          .then((team) => {
+            context.commit('setTeam', { ...team, teamId });
+            resolve(team);
+          })
+          .catch(reject);
+      });
     },
   },
 };
