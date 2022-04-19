@@ -111,6 +111,7 @@ export const plPL = {
       categoryName: 'Nazwa kategorii',
       nickname: 'Nazwa użytkownika',
       teamName: 'Nazwa drużyny',
+      teamColor: 'Kolor drużyny',
     },
     assist: {
       pointId: 'Kod punktu jest generowany automatycznie',

@@ -21,14 +21,21 @@
           :placeholder="$t('form.field.nickname')"
           :tests-selector="testSelectors.inputs.nickname"
         />
-        <m-field-text
-          v-if="shouldDisplayTeamNameInput"
-          v-model="teamName"
-          :disabled="blockForm"
-          :rules="validationRules.userTeam"
-          :placeholder="$t('form.field.teamName')"
-          :tests-selector="testSelectors.inputs.teamName"
-        />
+        <template v-if="shouldDisplayTeamDetails">
+          <m-field-text
+            v-model="teamName"
+            :disabled="blockForm"
+            :rules="validationRules.userTeam"
+            :placeholder="$t('form.field.teamName')"
+            :tests-selector="testSelectors.inputs.teamName"
+          />
+          <m-select
+            v-model="teamColor"
+            :options="availableColors"
+            :placeholder="$t('form.field.teamColor')"
+            :disabled="blockForm"
+          />
+        </template>
         <a-button-submit
           :disabled="blockForm"
           :is-sending="isSending"
@@ -43,6 +50,7 @@
       :team-name="teamName"
       :event-key="invitationKey"
       :nickname="nickname"
+      :team-color="teamColor"
     />
   </t-page>
 </template>
@@ -51,6 +59,7 @@
 import TPage from 'templates/page';
 import OForm from 'organisms/form';
 import AButtonSubmit from 'atoms/button/submit';
+import MSelect from 'molecules/select';
 import OPopupEventConfirmation from 'organisms/popup/event-confirmation';
 import { onMounted, ref, computed } from 'vue';
 import { useForm } from 'plugins/form';
@@ -61,6 +70,7 @@ import { ACCOUNT_TYPES } from 'utils/permissions';
 import { useStore } from 'vuex';
 import { urlUtils } from 'utils/url';
 import { testSelectors } from 'data/selectors';
+import { colorsUtils } from 'utils/macros/colors';
 
 export default {
   name: 'p-join-event',
@@ -70,18 +80,20 @@ export default {
     TPage,
     OForm,
     AButtonSubmit,
+    MSelect,
   },
   setup () {
     const eventKeyRequiredLength = 4;
     const invitationKey = ref('');
     const teamName = ref('');
+    const teamColor = ref('');
     const nickname = ref('');
     const event = ref(null);
     const eventConfirmationPopUp = ref(null);
     const form = useForm();
     const store = useStore();
 
-    const shouldDisplayTeamNameInput = computed(() => event?.value?.role === ACCOUNT_TYPES.teamLeader);
+    const shouldDisplayTeamDetails = computed(() => event?.value?.role === ACCOUNT_TYPES.teamLeader);
 
     const getEvent = async () => {
       event.value = null;
@@ -112,9 +124,11 @@ export default {
       openPopUp,
       getEvent,
       teamName,
+      teamColor,
       nickname,
-      shouldDisplayTeamNameInput,
+      shouldDisplayTeamDetails,
       testSelectors,
+      availableColors: colorsUtils.colorsSelectValues,
     };
   },
 };
