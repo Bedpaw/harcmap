@@ -40,6 +40,12 @@ const app = express();
 const { Router } = express;
 const apiv1 = Router();
 
+app.use('*', (req, res, next) => {
+  console.log(req);
+
+  next();
+});
+
 // Middlewares
 app.use(express.json());
 // Requests body, get validation
@@ -104,6 +110,8 @@ if (SWAGGER_DOC === 'true') {
 
 // index rewrite
 app.get('*', (req, res) => {
+  console.log(req);
+
   res.sendFile(path.resolve(__dirname, '../public/index.html'));
 });
 

@@ -33,7 +33,7 @@
 	"dependencies": {
 		"connect-mongo": "^4.5.0",
 		"dotenv": "^8.2.0",
-		"express": "^5.0.0-alpha.8",
+		"express": "5.0.0-alpha.8",
 		"express-session": "^1.17.2",
 		"joi": "^17.4.0",
 		"mongodb": "^3.6.6",
