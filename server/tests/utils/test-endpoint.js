@@ -4,7 +4,7 @@ const supertest = require('supertest');
 require('dotenv').config({ path: path.join(__dirname, '../../.env.tests') });
 
 const authUser = require('./auth-user');
-const database = require('./database');
+const database = require('../../bin/mongodb/utils');
 const app = require('../../app');
 
 /**
