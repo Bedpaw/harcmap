@@ -41,7 +41,7 @@ describe('Reset password', () => {
 
                 // Set new password
                 cy.get(':nth-child(1) > [data-cy="input"]').type(newPassword);
-                cy.get(':nth-child(2) > [data-cy="input"]').type(newPassword);
+                cy.get(':nth-child(2) > [data-cy="input"]').type(newPassword, { force: true });
                 cy.get('[data-cy="button-submit"]').click();
 
                 Page.initTest({

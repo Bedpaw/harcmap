@@ -19,4 +19,16 @@
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+  on('task', {
+    'resetDb': () => {
+      const { env } = process;
+      env.MONGO_HOST = 'localhost';
+      env.MONGO_USER = 'user';
+      env.MONGO_PASSWORD = 'password';
+      env.MONGO_DATABASE = 'harcmap';
+      env.MONGO_PORT = 27017;
+      const database = require('../../../server/tests/utils/database');
+      return database.clearToDefault().then(() => null);
+    },
+  });
 };
