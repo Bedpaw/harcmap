@@ -20,9 +20,14 @@
       <div class="a-text f-title f-table">
         {{ $t('page.collectedPoints.listTitle') }}
       </div>
-      <div class="m-row f-header f-point">
+      <div
+        :class="checkIsObserver() ? 'f-admin' : 'f-common' "
+        class="m-row f-header f-point"
+      >
         <div>{{ $t('table.shortCategory') }}</div>
-        <div>{{ $t('table.shortPointId') }}</div>
+        <div v-if="checkIsObserver()">
+          {{ $t('table.shortPointId') }}
+        </div>
         <div>{{ $t('table.value') }}</div>
         <div>{{ $t('table.place') }}</div>
         <div>{{ $t('table.expand') }}</div>
