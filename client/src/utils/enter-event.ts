@@ -14,11 +14,12 @@ export function enterEvent (role: string, eventId: string, teamId: string | null
 }
 
 export function updateStorageAfterSuccessLogIn (eventId: string) {
-  // TODO Refactor guide;
   appStorage.setItem(appStorage.appKeys.recentEvent, eventId, appStorage.getIds.email());
+  // TODO Refactor guide;
+  /*
   const isFirstLogIn = appStorage.getItem(appStorage.appKeys.firstLogin, appStorage.getIds.eventIdAndEmail()) === null;
   if (isFirstLogIn) {
     store.commit('guide/open');
     appStorage.setItem(appStorage.appKeys.firstLogin, true, appStorage.getIds.eventIdAndEmail());
-  }
+  } */
 }
