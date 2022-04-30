@@ -9,6 +9,7 @@ import { PointType } from 'models/point';
 
 import { GeolocationAvailabilityOptions, Rules } from 'models/game-rules';
 import { gameRulesUtils } from 'utils/game-rules';
+import { store } from 'src/store';
 
 interface MyPositionFeature {
   destroyAll: () => void,
@@ -106,11 +107,8 @@ export const myPosition: MyPositionFeature = {
       const { latitude, longitude } = pos.coords;
 
       // Check accuracy
+      store.commit('addMapLog', `accuracy: ${pos.coords.accuracy}`);
       console.log('accuracy: ', pos.coords.accuracy);
-      if (pos.coords.accuracy > 25) {
-        console.warn('Accuracy is too low, cannot handle position');
-        // should return
-      }
       const minDistanceToPoint = getDistanceToClosestPoint(points, { latitude, longitude });
 
       setStylesIfCloseToPoint(minDistanceToPoint);
@@ -122,6 +120,8 @@ export const myPosition: MyPositionFeature = {
         latitude,
         longitude,
       });
+    }, (error) => {
+      store.commit('addMapLog', error.message);
     });
   },
   stopTrackingPosition () {

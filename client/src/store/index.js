@@ -12,6 +12,7 @@ import guide from './guide';
 import { team } from 'store/team';
 import { invitations } from 'store/invitations';
 
+// TODO Remove mapLogs after test navigation
 export const store = createStore({
   modules: {
     menu,
@@ -30,14 +31,18 @@ export const store = createStore({
   state: {
     isLoading: true,
     routerId: 0,
+    mapLogs: [],
   },
   getters: {
     isLoading: state => state.isLoading,
     routerId: state => state.routerId,
+    mapLogs: state => state.mapLogs,
   },
   mutations: {
     setIsLoading: (state, payload) => (state.isLoading = payload),
     increaseRouterId: (state) => state.routerId++,
+    addMapLog: (state, log) => state.mapLogs.push(log),
+    clearMapLogs: (state) => (state.mapLogs = []),
   },
   actions: {
     resetState (context) {
