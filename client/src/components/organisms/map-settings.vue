@@ -34,6 +34,14 @@
     v-model="featuresConfig.lineWidth"
     placeholder="Szerokość trasy"
   />
+  <ol>
+    <li v-for="log in $store.state.mapLogs" :key=log>
+      {{ log }}
+    </li>
+  </ol>
+  <a-button-primary @click="$store.commit('clearMapLogs')">
+    Clear logs
+  </a-button-primary>
 
   <a-button-primary @click="applyChanges">
     Zapisz zmiany
