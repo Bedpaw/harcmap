@@ -30,10 +30,11 @@
       class="m-panel f-header f-side f-right"
     >
       <a-icon
-        v-if="$route.name === ROUTES.eventsList.name"
+        v-if="$route.name === ROUTES.eventsList.name && !eventId"
         :name="$icons.names.logout"
         outlined
         size="28"
+        class="f-header"
         @click="signOut"
       />
       <a-icon
