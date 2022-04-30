@@ -4,9 +4,9 @@ import { autoUpdate } from 'utils/auto-update';
 import router from 'src/router';
 import { ROUTES } from 'config/routes-config';
 
-export function enterEvent (role: string, eventId: string, teamId: string | null = null) {
+export function enterEvent (role: string, eventId: string, nickname: string, teamId: string | null = null) {
   store.commit('event/setId', eventId);
-  return store.dispatch('event/download', { eventId, teamId, role })
+  return store.dispatch('event/download', { eventId, teamId, role, nickname })
     .then(() => {
       autoUpdate.run();
       router.push(ROUTES.start.path).then(() => updateStorageAfterSuccessLogIn(eventId));

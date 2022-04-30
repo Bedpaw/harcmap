@@ -5,7 +5,7 @@
     :class="isOpen ? 'f-open' : ''"
   >
     <div class="a-text f-title f-menu">
-      {{ $t('general.hello') }}, {{ $store.getters['user/userTeam'] }}
+      {{ $t('general.hello') }}, {{ $store.getters['event/nickname'] }}
     </div>
 
     <div
@@ -14,7 +14,7 @@
     >
       {{ $t('general.alreadyCollectedShort') }}
       <span class="f-text-primary-contrast">
-        {{ $store.getters['user/sumOfCollectedPoints'] }} {{ $t('general.pointUnit') }}
+        {{ $store.getters['team/sumOfCollectedPoints'] }} {{ $t('general.pointUnit') }}
       </span>
     </div>
     <div

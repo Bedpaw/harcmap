@@ -20,7 +20,8 @@ export default {
         .then(event => {
           // TODO Backend responses are not consistent
           this.$store.commit('user/addUserEvent', { ...event, role: ACCOUNT_TYPES.creator });
-          enterEvent(ACCOUNT_TYPES.creator, event.eventId);
+          // TODO creator nickname
+          enterEvent(ACCOUNT_TYPES.creator, event.eventId, 'Twórca');
           return null;
         });
     },
