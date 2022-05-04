@@ -75,6 +75,7 @@ export default {
         eventEndDate,
         role,
       } = this.event;
+
       return [
         {
           label: 'form.field.eventName',
@@ -121,7 +122,7 @@ export default {
       });
       // TODO Backend responses not consistent
       this.$store.commit('user/addUserEvent', event);
-      enterEvent(event.role, this.event.eventId, event.teamId);
+      enterEvent(event.role, this.event.eventId, this.nickname, event.teamId);
     },
   },
 };

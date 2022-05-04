@@ -21,9 +21,8 @@
           <div class="f-pl-1 f-py-1 f-text-subtext f-text-14 f-line-24 f-overflow-hidden">
             {{ user.email }}
           </div>
-          <!-- TODO v2.1 Admin user management endpoint -->
           <a-button-icon
-            v-if="false"
+            v-if="featureToggles.FEATURE_TOGGLE_USER_LIST_POPUP()"
             @click="openDetails(user)"
           >
             <a-icon :name="$icons.names.more_vert" />
@@ -45,6 +44,7 @@ import TSearch from 'templates/search';
 import AButtonIcon from 'atoms/button/icon';
 import OPopupUserDetails from 'organisms/popup/user-details';
 import { userUtils } from 'config/users-config';
+import { featureToggles } from 'utils/dev-mode/feature-toggle';
 
 export default {
   name: 'p-users-list',
@@ -55,6 +55,7 @@ export default {
   },
   data: () => ({
     selectedUser: null,
+    featureToggles,
   }),
   computed: {
     ...mapGetters('groups', ['users']),

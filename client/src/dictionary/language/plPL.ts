@@ -118,7 +118,7 @@ export const plPL = {
       userTeam: 'Nazwa patrolu musi być unikatowa',
       joinEventCode: 'Wpisz kod zaproszenia do wydarzenia, do którego chcesz dołączyć',
       searchPoint: 'Szukaj po kodzie lub nazwie punktu',
-      searchUser: 'Szukaj po e-mailu lub nazwie drużyny',
+      searchUser: 'Szukaj po e-mailu lub nicku',
     },
     button: {
       save: 'Zapisz',

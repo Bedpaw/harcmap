@@ -10,7 +10,7 @@
         <div>{{ $t('table.sumOfValues') }}</div>
       </div>
       <m-row-category-sum
-        v-for="category in permanentCategories"
+        v-for="category in categories"
         :key="category.categoryId"
         :category="category"
         :collected-points="collectedPoints"
@@ -20,9 +20,14 @@
       <div class="a-text f-title f-table">
         {{ $t('page.collectedPoints.listTitle') }}
       </div>
-      <div class="m-row f-header f-point">
+      <div
+        :class="checkIsObserver() ? 'f-admin' : 'f-common' "
+        class="m-row f-header f-point"
+      >
         <div>{{ $t('table.shortCategory') }}</div>
-        <div>{{ $t('table.shortPointId') }}</div>
+        <div v-if="checkIsObserver()">
+          {{ $t('table.shortPointId') }}
+        </div>
         <div>{{ $t('table.value') }}</div>
         <div>{{ $t('table.place') }}</div>
         <div>{{ $t('table.expand') }}</div>
@@ -61,7 +66,7 @@ export default {
   },
   computed: {
     ...mapGetters('event', [
-      'permanentCategories',
+      'categories',
     ]),
   },
 };

@@ -1,11 +1,18 @@
 <template>
   <div>
-    <div class="m-grid f-point">
+    <div
+      :class="checkIsObserver() ? 'f-admin' : 'f-common' "
+      class="m-grid f-point"
+    >
       <div>
         <a-icon-category :category-id="point.pointCategoryId" />
       </div>
-      <div>{{ point.pointKey }}</div>
-      <div>{{ getCategoryById(point.pointCategoryId).pointValue }} {{ $t('general.pointUnit') }}</div>
+      <div v-if="checkIsObserver()">
+        {{ point.pointKey }}
+      </div>
+      <div>
+        {{ getCategoryById(point.pointCategoryId).pointValue }} {{ $t('general.pointUnit') }}
+      </div>
       <div>
         <a-icon
           :name="$icons.names.map"
