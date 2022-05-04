@@ -13,10 +13,6 @@ export default {
       return state.categories.find(category => category.categoryId === categoryId);
     },
     categories: state => state.categories,
-    permanentCategories: state => state.categories
-      .filter(category => category.pointValue !== 0),
-    timeoutCategories: state => state.categories
-      .filter(category => category.pointValue === 0),
   },
   mutations: {
     addCategory: (state, pointCategory) => {

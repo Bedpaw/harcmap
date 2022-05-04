@@ -30,17 +30,18 @@
       class="m-panel f-header f-side f-right"
     >
       <a-icon
-        v-if="$route.name === ROUTES.eventsList.name"
+        v-if="$route.name === ROUTES.eventsList.name && eventId === null"
         :name="$icons.names.logout"
         outlined
         size="28"
+        class="f-header"
         @click="signOut"
       />
       <a-icon
         :name="ROUTES.collectedPoints.icon"
         size="28"
         class="f-header"
-        :class="{ 'f-hidden': !eventId }"
+        :class="{ 'f-hidden': eventId === null }"
         @click="redirectToCollectedPointsOrScoreboard"
       />
     </div>
@@ -93,7 +94,7 @@ export default {
   },
   methods: {
     redirectToCollectedPointsOrScoreboard () {
-      const route = this.checkIsAdmin() ? ROUTES.scoreboard : ROUTES.collectedPoints;
+      const route = this.checkIsObserver() ? ROUTES.scoreboard : ROUTES.collectedPoints;
       this.$router.push(route.path);
     },
     signOut () {

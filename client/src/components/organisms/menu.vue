@@ -5,7 +5,7 @@
     :class="isOpen ? 'f-open' : ''"
   >
     <div class="a-text f-title f-menu">
-      {{ $t('general.hello') }}, {{ $store.getters['user/userTeam'] }}
+      {{ $t('general.hello') }}, {{ $store.getters['event/nickname'] }}
     </div>
 
     <div
@@ -14,7 +14,7 @@
     >
       {{ $t('general.alreadyCollectedShort') }}
       <span class="f-text-primary-contrast">
-        {{ $store.getters['user/sumOfCollectedPoints'] }} {{ $t('general.pointUnit') }}
+        {{ $store.getters['team/sumOfCollectedPoints'] }} {{ $t('general.pointUnit') }}
       </span>
     </div>
     <div
@@ -42,7 +42,7 @@
     </router-link>
 
     <a-link-menu
-      v-if="checkIsCommonUser()"
+      v-if="checkIsCommonUser() && featureToggles.FEATURE_TOGGLE_OLD_GUIDE()"
       :icon="$icons.names.help"
       :text="$t('features.guide.howAppWorks')"
       @click="openGuide()"
@@ -77,6 +77,7 @@ import router from 'src/router';
 import ALinkMenu from 'atoms/link-menu';
 import { APP_VERSION } from 'config/app-env';
 import { userUtils } from 'config/users-config';
+import { featureToggles } from '../../utils/dev-mode/feature-toggle';
 
 export default {
   name: 'o-menu',
@@ -85,6 +86,7 @@ export default {
     THEMES,
     APP_VERSION,
     canToggleTheme: true,
+    featureToggles,
   }),
   computed: {
     ...mapGetters('menu', [

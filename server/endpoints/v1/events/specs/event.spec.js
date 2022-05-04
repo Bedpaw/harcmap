@@ -13,6 +13,7 @@ describe('/api/v1/events/300000000000000000000001', () => {
       expect: {
         eventName: 'Wydarzenie 1',
         eventRefreshTime: 60,
+        eventSettings: [],
         eventDuration: {
           startDate: 1577870639000,
           endDate: 2537560799000,

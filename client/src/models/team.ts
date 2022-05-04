@@ -8,6 +8,7 @@ export interface TeamMember {
 export interface Team {
   teamId: string;
   teamName: string;
+  teamColor: string;
   collectedPoints: string[]
   teamMembers: TeamMember[]
 }
