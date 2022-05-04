@@ -61,7 +61,6 @@ describe('/api/v1/user', () => {
       expect: {
         error: 1606,
         message: 'passwords do not match',
-        // errorDetails: 'passwords do not match',
       },
     },
     expectInDb: {
@@ -128,7 +127,6 @@ describe('/api/v1/user', () => {
       expect: {
         error: 1218,
         message: 'user does not belong to selected event',
-        // errorDetails: 'user is not assigned to at least one of the given events',
       },
     },
     resetDbToDefault: true,
