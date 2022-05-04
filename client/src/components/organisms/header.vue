@@ -30,7 +30,7 @@
       class="m-panel f-header f-side f-right"
     >
       <a-icon
-        v-if="$route.name === ROUTES.eventsList.name && !eventId"
+        v-if="$route.name === ROUTES.eventsList.name && eventId === null"
         :name="$icons.names.logout"
         outlined
         size="28"
@@ -41,7 +41,7 @@
         :name="ROUTES.collectedPoints.icon"
         size="28"
         class="f-header"
-        :class="{ 'f-hidden': !eventId }"
+        :class="{ 'f-hidden': eventId === null }"
         @click="redirectToCollectedPointsOrScoreboard"
       />
     </div>

@@ -7,7 +7,9 @@
       <div>
         <a-icon-category :category-id="point.pointCategoryId" />
       </div>
-      <div v-if="checkIsObserver()">{{ point.pointKey }}</div>
+      <div v-if="checkIsObserver()">
+        {{ point.pointKey }}
+      </div>
       <div>
         {{ getCategoryById(point.pointCategoryId).pointValue }} {{ $t('general.pointUnit') }}
       </div>
