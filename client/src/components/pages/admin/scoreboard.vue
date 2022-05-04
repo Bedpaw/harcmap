@@ -4,15 +4,15 @@
       {{ $t('page.scoreboard.completionLevelOfTheGame') }}
     </div>
     <div class="f-pt-1">
-      <template v-for="[key, {categoryId, pointFillColor}] of permanentCategories.entries()">
+      <template v-for="[key, {categoryId, pointFillColor}] of categories.entries()">
         <m-circle-progress
-          v-if="numberOfPointsByCategoryId(categoryId) > 0"
+          v-if="numberOfPermanentPointsByCategoryId(categoryId) > 0"
           :key="`circle-progress${key}`"
           class="f-mr-1"
           :class="{'f-ml-1': key === 0}"
           :number-of-completed="numberOfCollectedPointsByCategoryId(categoryId)"
           :progress="percentageProgressByCategoryId(categoryId)"
-          :max-range="numberOfPointsByCategoryId(categoryId)"
+          :max-range="numberOfPermanentPointsByCategoryId(categoryId)"
           :color="pointFillColor"
         />
       </template>
@@ -73,9 +73,9 @@ export default {
       'scoreByTeam',
     ]),
     ...mapGetters('event', [
-      'permanentCategories',
+      'categories',
       'numberOfCollectedPointsByCategoryId',
-      'numberOfPointsByCategoryId',
+      'numberOfPermanentPointsByCategoryId',
       'percentageProgressByCategoryId',
       'eventId',
     ]),

@@ -10,7 +10,7 @@
         <div>{{ $t('table.sumOfValues') }}</div>
       </div>
       <m-row-category-sum
-        v-for="category in permanentCategories"
+        v-for="category in categories"
         :key="category.categoryId"
         :category="category"
         :collected-points="collectedPoints"
@@ -66,7 +66,7 @@ export default {
   },
   computed: {
     ...mapGetters('event', [
-      'permanentCategories',
+      'categories',
     ]),
   },
 };

@@ -1,4 +1,5 @@
 import { uCheck } from '@dbetka/utils';
+import { MACROS } from '../../utils/macros';
 const initState = () => ({
 });
 export default {
@@ -16,11 +17,11 @@ export default {
     },
     percentageProgressByCategoryId: (state, getters, rootState, rootGetters) => categoryId => {
       return rootGetters['event/numberOfCollectedPointsByCategoryId'](categoryId) /
-        rootGetters['event/numberOfPointsByCategoryId'](categoryId) * 100;
+        rootGetters['event/numberOfPermanentPointsByCategoryId'](categoryId) * 100;
     },
-    numberOfPointsByCategoryId: (state, getters, rootState, rootGetters) => categoryId => {
+    numberOfPermanentPointsByCategoryId: (state, getters, rootState, rootGetters) => categoryId => {
       const listOfPoints = rootGetters['event/points'].filter(point => {
-        return point.pointCategoryId === categoryId;
+        return point.pointCategoryId === categoryId && point.pointType === MACROS.pointType.permanent;
       });
       return (listOfPoints || []).length;
     },
