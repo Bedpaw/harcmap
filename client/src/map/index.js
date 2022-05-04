@@ -7,6 +7,8 @@ import { uCheck } from '@dbetka/utils';
 import { lines } from 'map/features/lines';
 import { points } from 'map/features/points';
 import { myPosition } from 'map/features/myPosition';
+import { featureToggles } from 'utils/dev-mode/feature-toggle';
+import { appStorage } from 'utils/storage';
 
 export const map = {
   realMap: null,
@@ -18,7 +20,7 @@ export const map = {
     if (map.realMap) {
       map.realMap.setTarget(null);
       map.realMap = null;
-      document.getElementById(elementId).firstChild?.remove();
+      document.getElementById(elementId)?.firstChild?.remove();
     }
   },
   panTo ({ latitude, longitude, zoom }) {
@@ -76,6 +78,60 @@ export const map = {
       }
     });
     return promise;
+  },
+  createMapFeatures () {
+    const pointList = store.getters['event/pointsVisibleOnMap'];
+    const pointsCollectedByUser = store.getters['team/collectedPoints'];
+    if (featureToggles.FEATURE_TOGGLE_NAVIGATION()) {
+      map.myPosition.trackPosition(false, pointList);
+    }
+    map.points.create(pointList);
+    map.lines.create(pointsCollectedByUser);
+  },
+  refreshMap () {
+    map.destroyMapWithFeatures();
+    map.createMapWithFeatures();
+  },
+  createMapWithFeatures () {
+    const event = store.getters['event/event'];
+    map.create({
+      elementId: 'o-map',
+      lat: event.mapLatitude,
+      lon: event.mapLongitude,
+      zoom: event.mapZoom,
+    });
 
+    this.createMapFeatures();
+
+    // Map popup have to define after map creating.\
+    const mapPopup = store.getters['mapPopup/popupReference'];
+    mapPopup && mapPopup.definePopup();
+
+    map.realMap.on('moveend', this.saveLastMapPositionToStorage);
+  },
+  destroyMapWithFeatures () {
+    if (map.realMap) {
+      map.realMap.un('moveend', this.saveLastMapPositionToStorage);
+    }
+    map.myPosition.stopTrackingPosition();
+    map.destroy('o-map');
+  },
+  saveLastMapPositionToStorage () {
+    const mapView = map.realMap.getView();
+    const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
+    const mapZoom = mapView.getZoom();
+
+    store.commit('event/setMapPosition', {
+      mapLatitude,
+      mapLongitude,
+    });
+    store.commit('event/setMapZoom', mapZoom);
+
+    const dataForStorage = {
+      mapLatitude,
+      mapLongitude,
+      mapZoom,
+    };
+    appStorage.setItem(appStorage.appKeys.mapPosition, dataForStorage, appStorage.getIds.eventIdAndEmail());
   },
 };

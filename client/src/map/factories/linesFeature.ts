@@ -8,6 +8,7 @@ import { Team } from 'models/team';
 import { userUtils } from 'config/users-config';
 
 export function createLinesFeature (list: PointType[] = []) {
+  list = list.filter(mapConfig.points.pointsVisibilityCondition);
   if (!mapConfig.lineConnectingPoints.visible) return false;
 
   const features = [] as Feature<LineString>[];

@@ -63,7 +63,7 @@ export default {
     itemRefs: [],
   }),
   computed: {
-    ...mapGetters('mapPopup', ['data']),
+    ...mapGetters('mapPopup', ['data', 'pointId']),
     getEditPointButton () {
       return {
         icon: this.$icons.names.edit,
@@ -71,7 +71,7 @@ export default {
         method: () => {
           this.$router.push({
             name: this.ROUTES.editPoint.name,
-            params: { pointId: this.$store.getters['mapPopup/pointId'] },
+            params: { pointId: this.pointId },
           });
         },
       };
@@ -84,7 +84,7 @@ export default {
           if (confirm(translator.t('communicate.map.confirmPointRemove'))) {
             communicates.showSuccess(translator.t('communicate.map.pointRemovingInProgress'));
             this.popup.hide();
-            this.$store.dispatch('event/removePoint', this.$store.getters['mapPopup/pointId'])
+            this.$store.dispatch('event/removePoint', this.pointId)
               .then(() => communicates.showSuccessTemporary(translator.t('communicate.map.pointRemoved')))
               .catch(em => em.showMessage());
           }
@@ -97,6 +97,7 @@ export default {
   },
   beforeUnmount () {
     this.popup?.destroy();
+    this.$store.commit('mapPopup/removePopupOrganismRef');
   },
   beforeUpdate () {
     this.itemRefs = [];

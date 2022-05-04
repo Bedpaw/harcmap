@@ -5,6 +5,7 @@
   >
     <o-map />
     <m-banner-timer />
+    <o-map-settings-toggler v-if="featureToggles.FEATURE_TOGGLE_MAP_MENU()" />
   </t-page>
 </template>
 
@@ -12,13 +13,18 @@
 import TPage from 'templates/page';
 import OMap from 'organisms/map';
 import MBannerTimer from 'molecules/banner-timer';
-
+import OMapSettingsToggler from 'organisms/map-settings-toggler';
+import { featureToggles } from '../../utils/dev-mode/feature-toggle';
 export default {
   name: 'p-map',
   components: {
     MBannerTimer,
     OMap,
     TPage,
+    OMapSettingsToggler,
   },
+  data: () => ({
+    featureToggles,
+  }),
 };
 </script>
