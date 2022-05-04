@@ -94,7 +94,7 @@ export default {
   },
   methods: {
     redirectToCollectedPointsOrScoreboard () {
-      const route = this.checkIsAdmin() ? ROUTES.scoreboard : ROUTES.collectedPoints;
+      const route = this.checkIsObserver() ? ROUTES.scoreboard : ROUTES.collectedPoints;
       this.$router.push(route.path);
     },
     signOut () {
