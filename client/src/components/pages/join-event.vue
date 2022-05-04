@@ -93,7 +93,7 @@ export default {
     const form = useForm();
     const store = useStore();
 
-    const shouldDisplayTeamDetails = computed(() => event?.value?.role === ACCOUNT_TYPES.teamLeader);
+    const shouldDisplayTeamDetails = computed(() => event.value?.role === ACCOUNT_TYPES.teamLeader);
 
     const getEvent = async () => {
       event.value = null;

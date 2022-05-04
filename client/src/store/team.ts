@@ -7,7 +7,7 @@ import { Team } from 'models/team';
 const initState = () => ({
   teamId: '',
   teamName: '',
-  teamColor: '#447744',
+  teamColor: '',
   collectedPoints: [],
   teamMembers: [],
 });
