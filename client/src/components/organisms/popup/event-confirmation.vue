@@ -75,6 +75,7 @@ export default {
         eventEndDate,
         role,
       } = this.event;
+      console.log(this.event);
       return [
         {
           label: 'form.field.eventName',

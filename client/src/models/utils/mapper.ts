@@ -1,6 +1,6 @@
 import { PointDTO, PointDTOCreate, PointDTOUpdate } from 'models/dtos/point';
 import { PointType } from 'models/point';
-import { EventDTO, EventDTOCreate, EventDTOUpdate } from 'models/dtos/event';
+import { EventCheckDTO, EventCheckDTOMapped, EventDTO, EventDTOCreate, EventDTOUpdate } from 'models/dtos/event';
 import { Event } from 'models/event';
 import { UserDTO } from 'models/dtos/user';
 import { User, UserInEvent } from 'models/user';
@@ -52,6 +52,19 @@ export class Mapper {
       eventKey: eventIn.eventKey,
       inviteKeys: eventIn.inviteKeys,
       eventSettings: gameRulesUtils.mapEventConfigIn(eventIn.eventSettings),
+    };
+  }
+
+  public static mapEventCheck (eventIn: EventCheckDTO): EventCheckDTOMapped {
+    return {
+      eventId: eventIn.eventId,
+      eventName: eventIn.eventName,
+      role: eventIn.role,
+      teamColor: eventIn.teamColor,
+      teamId: eventIn.teamId,
+      teamName: eventIn.teamName,
+      eventEndDate: eventIn.eventDuration.endDate,
+      eventStartDate: eventIn.eventDuration.startDate,
     };
   }
 

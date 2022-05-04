@@ -1,7 +1,7 @@
 import { API_ERRORS } from 'src/utils/macros/errors';
 import { httpService } from 'config/http-service';
 import { Mapper } from 'models/utils/mapper';
-import { EventDTO, JoinEventParams } from 'models/dtos/event';
+import { EventCheckDTO, EventCheckDTOMapped, EventDTO, JoinEventParams } from 'models/dtos/event';
 import { Event } from 'models/event';
 
 const urls = {
@@ -28,12 +28,13 @@ export const eventController = {
     });
   },
   checkEvent (eventKey: string, userId: string) {
-    return httpService.post({
+    return httpService.post<EventCheckDTO, EventCheckDTOMapped>({
       url: urls.checkEvent,
       body: {
         eventKey,
         userId,
       },
+      successCallback: data => Mapper.mapEventCheck(data),
       errorOptions: API_ERRORS.checkEvent,
     });
   },
