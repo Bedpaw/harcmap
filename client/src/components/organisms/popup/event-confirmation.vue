@@ -58,6 +58,11 @@ export default {
       type: String,
       default: null,
     },
+    teamColor: {
+      required: false,
+      type: String,
+      default: null,
+    },
   },
   data: () => ({
     events: [],
@@ -119,6 +124,7 @@ export default {
         eventKey: this.eventKey,
         teamName: this.teamName,
         nickname: this.nickname,
+        teamColor: this.teamColor,
       });
       // TODO Backend responses not consistent
       this.$store.commit('user/addUserEvent', event);

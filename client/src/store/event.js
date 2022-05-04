@@ -107,12 +107,9 @@ export default {
           .then(categories => (event.categories = categories))
           .then(() => {
             if (teamId) {
-              return api.getTeamByEventId(eventId, teamId);
-            }
-          })
-          .then((data) => {
-            if (data) {
-              return context.commit('team/setTeam', { ...data, teamId }, { root: true });
+              return context.dispatch('team/downloadTeam', { eventId, teamId }, { root: true });
+            } else {
+              return context.dispatch('groups/downloadTeams', eventId, { root: true });
             }
           })
           .then(() => {

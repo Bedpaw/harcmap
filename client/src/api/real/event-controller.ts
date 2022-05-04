@@ -42,8 +42,7 @@ export const eventController = {
     let body;
     const { userId, eventKey, nickname, teamColor, teamName } = params;
     if (teamName || teamColor) {
-      // TODO v2.1
-      body = { ...params, teamColor: '#555555' };
+      body = params;
     } else {
       body = { userId, eventKey, nickname };
     }
