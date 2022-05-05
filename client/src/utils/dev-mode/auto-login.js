@@ -38,6 +38,7 @@ export const autoLogin = {
   teamMember: () => login(users.teamMember),
   observer: () => login(users.observer),
   admin: () => login(users.admin),
+  custom: (email, password = users.teamLeader.password) => login({ email, password }),
 };
 
 export const DEV_USERS_LIST = users;
