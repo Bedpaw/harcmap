@@ -5,7 +5,7 @@ const team1 = {
   eventId: ObjectId('300000000000000000000001'),
   teamName: 'Team 1',
   teamColor: '#C863DE',
-  collectedPoints: [ObjectId('600000000000000000000001'), ObjectId('600000000000000000000002'), ObjectId('600000000000000000000003')],
+  collectedPoints: [ObjectId('600000000000000000000001'), ObjectId('600000000000000000000003')],
 };
 
 const team2 = {
@@ -29,7 +29,7 @@ const team4 = {
   eventId: ObjectId('300000000000000000000003'),
   teamName: 'Team 4',
   teamColor: '#007700',
-  collectedPoints: [ObjectId('600000000000000000000010'), ObjectId('600000000000000000000011')],
+  collectedPoints: [ObjectId('600000000000000000000011')],
 };
 
 module.exports = [
