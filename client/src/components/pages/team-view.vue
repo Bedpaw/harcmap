@@ -1,12 +1,15 @@
 <template>
   <t-page>
-    <div class="f-line-24 f-text-28 f-bold f-text-center f-mb-2"
-         :style="{ color: teamColor }"
+    <div
+      class="f-line-24 f-text-28 f-bold f-text-center f-mb-2"
+      :style="{ color: teamColor }"
     >
       {{ teamName }}
     </div>
-    <div class="f-text-22 f-text-center f-mb-5"
-         :style="{ color: teamColor }">
+    <div
+      class="f-text-22 f-text-center f-mb-5"
+      :style="{ color: teamColor }"
+    >
       {{ $t('page.teamView.mainHeaderPartOne') }}
       <span class="f-bold">{{ sumOfCollectedPoints }}</span>
       {{ $t('page.teamView.mainHeaderPartTwo') }}
