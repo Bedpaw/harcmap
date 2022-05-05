@@ -101,7 +101,7 @@ export default {
       values,
       onSubmit,
       ...form,
-      availableColors: colorsUtils.colorsSelectValues,
+      availableColors: colorsUtils.getAllColorsSelectValues,
       circleStyle,
     };
   },
