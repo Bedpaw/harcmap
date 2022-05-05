@@ -59,6 +59,7 @@ export const plPL = {
     edit: 'Edytuj',
     logout: 'Wyloguj',
     remove: 'Usuń',
+    add: 'Dodaj',
     copied: 'Skopiowano do schowka',
     copiedShort: 'Skopiowano',
     hello: 'Cześć',
