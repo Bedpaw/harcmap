@@ -49,6 +49,16 @@ export const timeUnitConversion = {
   msToSeconds: (seconds: number): number => seconds * msInSeconds,
 };
 
+function isCurrentHour (timeToCompare: DateType) {
+  if (!compareDate.isToday(timeToCompare)) {
+    return false;
+  } else {
+    const currentHour = dayjs().hour();
+    const hourToCompare = dayjs(timeToCompare).hour();
+    if (currentHour === hourToCompare) return true;
+  }
+}
+
 export function isBeforeLastGapEndTime (refreshIntervalInSeconds: number, timeToCompare: number): boolean {
   /**
    * Name = example value | [possible range]
@@ -65,10 +75,17 @@ export function isBeforeLastGapEndTime (refreshIntervalInSeconds: number, timeTo
    * for mapRefreshTimeInMinutes = 10 => [0, 10, 20, 30, 40, 50]
    * ]
    * */
+  if (isCurrentHour(timeToCompare) === false) {
+    // At full hour is always update, we need to check only if hour is the same;
+    return true;
+  }
   const mapRefreshTimeInMinutes = refreshIntervalInSeconds / secondsInMinute;
   const minutesAfterLastGapTime = getDate.minutesAfterFull() % mapRefreshTimeInMinutes;
   const lastGapEndTime = getDate.minutesAfterFull() - minutesAfterLastGapTime;
-  return dayjs(timeToCompare).isBefore(lastGapEndTime);
+
+  const minuteOfCompareTime = dayjs(timeToCompare).minute();
+
+  return minuteOfCompareTime < lastGapEndTime;
 }
 
 export function getTimeComponents (date = dayjs()): string[] {

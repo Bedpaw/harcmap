@@ -39,7 +39,7 @@ export function createPoints (list: PointType[] = []) {
   return listOfFeatures;
 }
 
-const shouldBeShownAsCollected = (point: PointType) => store.getters['event/pointsDisplayedAsCollected']
+const shouldBeShownAsCollected = (point: PointType) => !!store.getters['event/pointsDisplayedAsCollected']
   .find((pointFromList: PointType) => pointFromList.pointId === point.pointId);
 
 const changeColorForTeam = (point: PointType, appearance: PointCategoryAppearance) => {
