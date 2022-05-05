@@ -21,8 +21,9 @@ export const authController = {
     });
   },
   checkYourLoginSession () {
-    return httpService.post({
+    return httpService.post<UserDTO, User>({
       url: urls.signIn,
+      successCallback: (data) => Mapper.mapUserIn(data),
       errorOptions: API_ERRORS.checkYourLoginSession,
     });
   },

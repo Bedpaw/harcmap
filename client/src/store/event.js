@@ -15,6 +15,7 @@ const initState = () => ({
   eventStartDate: null,
   eventEndDate: null,
   role: '',
+  nickname: '',
   inviteKeys: [],
   eventSettings: { ...DEFAULT_EVENT_CONFIG.gameRules },
 });
@@ -32,6 +33,7 @@ export default {
     eventEndDate: state => state.eventEndDate,
     eventId: state => state.eventId,
     role: state => state.role,
+    nickname: state => state.nickname,
     eventSettings: state => state.eventSettings,
     eventBasicInformation: (state) => ({
       eventId: state.eventId,
@@ -59,6 +61,7 @@ export default {
       state.mapDefaultLongitude = data.mapLongitude;
       state.mapDefaultZoom = data.mapZoom;
       state.role = data.role;
+      state.nickname = data.nickname;
       const storageData = appStorage.getItem(appStorage.appKeys.mapPosition, appStorage.getIds.eventIdAndEmail());
       if (storageData) {
         const { mapLatitude, mapLongitude, mapZoom } = storageData;
@@ -82,7 +85,7 @@ export default {
       context.commit('resetMapState');
       context.commit('resetCategoriesState');
     },
-    download (context, { eventId, teamId, role }) {
+    download (context, { eventId, teamId, role, nickname }) {
       return new Promise((resolve, reject) => {
         let event;
         api.getEventById(eventId)
@@ -104,12 +107,9 @@ export default {
           .then(categories => (event.categories = categories))
           .then(() => {
             if (teamId) {
-              return api.getTeamByEventId(eventId, teamId);
-            }
-          })
-          .then((data) => {
-            if (data) {
-              return context.commit('team/setTeam', { ...data, teamId }, { root: true });
+              return context.dispatch('team/downloadTeam', { eventId, teamId }, { root: true });
+            } else {
+              return context.dispatch('groups/downloadTeams', eventId, { root: true });
             }
           })
           .then(() => {
@@ -120,7 +120,7 @@ export default {
           })
           .then(points => {
             event.points = points.map(point => ({ ...point }));
-            context.commit('setEvent', { ...event, role });
+            context.commit('setEvent', { ...event, role, nickname });
             context.commit('setId', eventId);
             resolve(event);
           })

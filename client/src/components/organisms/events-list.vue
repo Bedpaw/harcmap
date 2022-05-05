@@ -132,8 +132,8 @@ export default {
       };
     },
     signInToEvent (eventId) {
-      const { teamId, role } = this.userEvents.find(event => event.eventId === eventId);
-      enterEvent(role, eventId, teamId);
+      const { teamId, role, nickname } = this.userEvents.find(event => event.eventId === eventId);
+      enterEvent(role, eventId, nickname, teamId);
     },
 
     navigateToCreateEvent () {

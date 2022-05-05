@@ -33,3 +33,14 @@ export interface JoinEventParams {
   teamColor?: string,
 }
 export type EventDTOUpdate = EventDTOCreate;
+
+export interface EventCheckDTO {
+  eventDuration: EventDuration;
+  eventId: string;
+  eventName: string;
+  role: string;
+  teamColor: string | null;
+  teamId: string | null;
+  teamName: string | null;
+}
+export type EventCheckDTOMapped = Omit<EventCheckDTO, 'eventDuration'> & { eventStartDate: number, eventEndDate: number }
