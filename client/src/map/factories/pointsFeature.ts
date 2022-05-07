@@ -46,13 +46,7 @@ const changeColorForTeam = (point: PointType, appearance: PointCategoryAppearanc
   const collectedPoints = store.getters['team/collectedPoints'] as PointType[];
 
   if ((collectedPoints).map(p => p.pointId).includes(point.pointId)) {
-    let teamColor = store.getters['team/teamColor'];
-    if (teamColor.length === 4) {
-      // Expand 3 char color to 6 char = #EEE => #EEEEEE
-      // TODO Remove after normalize color backend mock -> It should be always 6 char
-      teamColor += teamColor.slice(1, 4);
-    }
-    appearance.pointStrokeColor = teamColor;
+    appearance.pointStrokeColor = store.getters['team/teamColor'];
   }
 };
 
