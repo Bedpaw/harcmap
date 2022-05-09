@@ -21,9 +21,10 @@ async function editUser (request, data) {
 
   // checks if user wants to change password
   let passwordToChange = false;
-  const newPasswordHash = newPassword ? getSHA(newPassword) : null;
+  let newPasswordHash;
 
   if (newPassword) {
+    newPasswordHash = getSHA(newPassword);
     if (userPassword !== getSHA(oldPassword)) {
       throw new AppError(errorCodes.PASSWORDS_DO_NOT_MATCH, {
         httpStatus: 400,
@@ -48,18 +49,7 @@ async function editUser (request, data) {
 
       for (let i = 0; i < userEvents.length; i++) {
         if (allUserEvents.length >= userEvents.length) {
-          if (allUserEvents[i].teamId == null && checkEvent.teamId == null) {
-            isAssigned = true;
-            break;
-          }
-
-          // resolves problem when teamId == null (can't do .toString() on null value)
-          if (allUserEvents[i].teamId == null) allUserEvents[i].teamId = 'tempId';
-          if (checkEvent.teamId == null) checkEvent.teamId = 'tempId';
-
-          if (allUserEvents[i].teamId.toString() === checkEvent.teamId.toString() &&
-              allUserEvents[i].eventId.toString() === checkEvent.eventId.toString()) {
-            if (allUserEvents[i].teamId === 'tempId') allUserEvents[i].teamId = null;
+          if (allUserEvents[i].eventId.toString() === checkEvent.eventId.toString()) {
             isAssigned = true;
             break;
           }
