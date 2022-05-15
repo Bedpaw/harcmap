@@ -10,6 +10,24 @@ import { materialIcons } from '@dbetka/vue-material-icons';
 import { initApp } from 'config';
 import { ROUTES } from 'config/routes-config';
 import '@dbetka/vue-material-icons/dist/vue-material-icons.css';
+import { Http } from '@capacitor-community/http';
+
+window.doLogin = async () => {
+  const res = await Http.post({
+    url: 'https://dev.harcmap.pl/api/v1/auth/sign-in',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: {
+      email: 'user7@harcmap.pl',
+      password: 'Password1',
+    },
+    webFetchExtra: {
+      credentials: 'include',
+    },
+  });
+  return res;
+};
 
 export const TEST_MODE = () => false; // true when use cypress
 initApp();

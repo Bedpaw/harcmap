@@ -3,6 +3,10 @@
 	"appName": "HarcMap",
 	"webDir": "../public",
 	"bundledWebRuntime": false,
+	"server": {
+		"hostname": "app.harcmap.pl",
+		"androidScheme": "https"
+	},
 	"plugins": {
 		"LocalNotifications": {
 			"smallIcon": "ic_stat_icon_config_sample",
