@@ -35,7 +35,10 @@
     placeholder="Szerokość trasy"
   />
   <ol>
-    <li v-for="log in $store.state.mapLogs" :key=log>
+    <li
+      v-for="log in $store.state.mapLogs"
+      :key="log"
+    >
       {{ log }}
     </li>
   </ol>
