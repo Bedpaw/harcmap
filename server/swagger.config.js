@@ -29,6 +29,9 @@ const options = {
       name: 'Users',
       description: 'Endpoint do obsługi użytkowników',
     }, {
+      name: 'User',
+      description: 'Endpoint do obsługi użytkownika',
+    }, {
       name: 'Events',
       description: 'Endpoint do obsługi wydarzeń',
     }, {

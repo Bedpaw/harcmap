@@ -27,6 +27,7 @@ const cookieSecure = COOKIE_SECURE !== 'false';
 // Endpoints sources
 const about = require('./endpoints/v1/about');
 const users = require('./endpoints/v1/users');
+const user = require('./endpoints/v1/user');
 const events = require('./endpoints/v1/events');
 const teams = require('./endpoints/v1/teams');
 const auth = require('./endpoints/v1/auth');
@@ -88,6 +89,7 @@ app.use(express.static('../vendors', {
 
 // API
 apiv1.use('/users', users);
+apiv1.use('/user', user);
 apiv1.use('/events', teams);
 apiv1.use('/events', categories);
 apiv1.use('/events', points);
