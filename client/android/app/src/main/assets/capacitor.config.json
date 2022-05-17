@@ -4,7 +4,7 @@
 	"webDir": "../public",
 	"bundledWebRuntime": false,
 	"server": {
-		"hostname": "app.harcmap.pl",
+		"hostname": "dev.harcmap.pl",
 		"androidScheme": "https"
 	},
 	"plugins": {

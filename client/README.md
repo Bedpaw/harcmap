@@ -6,6 +6,22 @@
 ### Run android and iOS after checkout on branch without it
 If you check out on branch without android and iOS configuration, run `npx cap init`.
 
+### Generate icons for Android and iOS
+First, install cordova-res:
+```
+npm install -g cordova-res
+```
+cordova-res expects a Cordova-like structure: place one icon and one splash screen file in a top-level resources folder within your project, like so:
+```
+resources/
+├── icon.png
+└── splash.png
+```
+Next, run the following to generate all images then copy them into the native projects:
+```bash
+cordova-res ios --skip-config --copy
+cordova-res android --skip-config --copy
+```
 
 ___
 ## Website app on mobile device
