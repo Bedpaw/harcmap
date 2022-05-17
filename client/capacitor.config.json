@@ -14,13 +14,13 @@
       "sound": "beep.wav"
     },
     "SplashScreen": {
-      "launchShowDuration": 1000,
+      "launchShowDuration": 1500,
       "launchAutoHide": true,
       "backgroundColor": "#07632c",
       "androidSplashResourceName": "splash",
       "androidScaleType": "CENTER_CROP",
-      "splashFullScreen": true,
-      "splashImmersive": true,
+      "splashFullScreen": false,
+      "splashImmersive": false,
       "layoutName": "launch_screen"
     }
   }
