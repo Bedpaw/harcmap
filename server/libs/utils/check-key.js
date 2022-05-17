@@ -6,7 +6,7 @@ const {
 // TODO check if team doesnt exist
 
 function checkIfGivenUserIdOwnToAuthorizedUser (sessionData, requestedUserId) {
-  if (!sessionData || (sessionData && sessionData._id !== requestedUserId)) {
+  if (!sessionData || (sessionData && sessionData._id.toString() !== requestedUserId)) {
     throw new AppError(errorCodes.THIS_USER_ID_DOESNT_BELONG_TO_YOU, {
       httpStatus: 400,
     });

@@ -1,17 +1,28 @@
 import { createMap } from 'src/map/create';
-import { points } from 'map/points';
 import { ROUTES } from 'config/routes-config';
 import { store } from 'store';
 import router from 'src/router';
-import { lines } from 'map/lines';
 import { fromLonLat, toLonLat } from 'ol/proj';
 import { uCheck } from '@dbetka/utils';
+import { lines } from 'map/features/lines';
+import { points } from 'map/features/points';
+import { myPosition } from 'map/features/myPosition';
+import { featureToggles } from 'utils/dev-mode/feature-toggle';
+import { appStorage } from 'utils/storage';
 
 export const map = {
   realMap: null,
   points,
   lines,
+  myPosition,
   create: config => createMap(map, config),
+  destroy (elementId) {
+    if (map.realMap) {
+      map.realMap.setTarget(null);
+      map.realMap = null;
+      document.getElementById(elementId)?.firstChild?.remove();
+    }
+  },
   panTo ({ latitude, longitude, zoom }) {
     function panToView () {
       const view = map.realMap.getView();
@@ -59,15 +70,68 @@ export const map = {
     const eventId = store.getters['event/eventId'];
     const teamId = store.getters['team/teamId'];
     const role = store.getters['event/role'];
-    const promise = store.dispatch('event/download', { eventId, teamId, role });
+    const nickname = store.getters['event/role'];
+    const promise = store.dispatch('event/download', { eventId, teamId, role, nickname });
     promise.then(() => {
       if (uCheck.isObject(map.realMap)) {
-        map.points.create({
-          list: store.getters['event/pointsVisibleOnMap'],
-        });
+        map.points.create(store.getters['event/pointsVisibleOnMap']);
       }
     });
     return promise;
+  },
+  createMapFeatures () {
+    const pointList = store.getters['event/pointsVisibleOnMap'];
+    const pointsCollectedByUser = store.getters['team/collectedPoints'];
+    if (featureToggles.FEATURE_TOGGLE_NAVIGATION()) {
+      map.myPosition.trackPosition(false, pointList);
+    }
+    map.points.create(pointList);
+    map.lines.create(pointsCollectedByUser);
+  },
+  refreshMap () {
+    map.destroyMapWithFeatures();
+    map.createMapWithFeatures();
+  },
+  createMapWithFeatures () {
+    const event = store.getters['event/event'];
+    map.create({
+      elementId: 'o-map',
+      lat: event.mapLatitude,
+      lon: event.mapLongitude,
+      zoom: event.mapZoom,
+    });
 
+    this.createMapFeatures();
+
+    // Map popup have to define after map creating.\
+    const mapPopup = store.getters['mapPopup/popupReference'];
+    mapPopup && mapPopup.definePopup();
+
+    map.realMap.on('moveend', this.saveLastMapPositionToStorage);
+  },
+  destroyMapWithFeatures () {
+    if (map.realMap) {
+      map.realMap.un('moveend', this.saveLastMapPositionToStorage);
+    }
+    map.myPosition.stopTrackingPosition();
+    map.destroy('o-map');
+  },
+  saveLastMapPositionToStorage () {
+    const mapView = map.realMap.getView();
+    const [mapLongitude, mapLatitude] = toLonLat(mapView.getCenter());
+    const mapZoom = mapView.getZoom();
+
+    store.commit('event/setMapPosition', {
+      mapLatitude,
+      mapLongitude,
+    });
+    store.commit('event/setMapZoom', mapZoom);
+
+    const dataForStorage = {
+      mapLatitude,
+      mapLongitude,
+      mapZoom,
+    };
+    appStorage.setItem(appStorage.appKeys.mapPosition, dataForStorage, appStorage.getIds.eventIdAndEmail());
   },
 };

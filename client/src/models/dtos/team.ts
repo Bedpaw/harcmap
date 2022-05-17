@@ -8,6 +8,7 @@ export interface TeamMemberDTO {
 export interface TeamDTO {
   teamId: string;
   teamName: string;
+  teamColor: string;
   collectedPoints: string[]
   teamMembers: TeamMemberDTO[]
 }

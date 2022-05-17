@@ -2,6 +2,7 @@ import { testSelectors } from '../../data/selectors';
 import { apiResources } from '../../data/api-resources';
 import { intercept } from './interceptions';
 import { urls } from './urls';
+
 export class Page {
   static roles = {
     teamLeader: 'teamLeader',
@@ -11,17 +12,25 @@ export class Page {
     creator: 'creator',
   };
 
+  static macros = {
+    mockData: {
+      event1Id: '300000000000000000000001',
+      event3TeamLeaderInvitationKey: 'K33e',
+    },
+  }
+
   static selectors = testSelectors;
 
   static initTest ({
     stubServer = Cypress.env('stubServer'),
     openEvent = true,
     role = this.roles.teamLeader,
+    loginData = null,
   }) {
     if (stubServer) {
       this.stubServerInit({ role, openEvent });
     } else {
-      this.localServerInit({ role, openEvent });
+      this.localServerInit({ role, openEvent, loginData });
     }
   }
 
@@ -42,7 +51,7 @@ export class Page {
 
   }
 
-  static localServerInit ({ role, openEvent }) {
+  static localServerInit ({ role, openEvent, loginData }) {
     cy.intercept(urls.withBackendPrefix(apiResources.auth.signIn)).as('signIn');
 
     cy.visit('/sign-in');
@@ -51,7 +60,7 @@ export class Page {
     cy.wait('@signIn').then(() => {
 
       // Enter credentials
-      const loginData = this.getLoginData(role);
+      loginData = loginData ?? this.getLoginData(role);
       cy.dataCy(this.selectors.inputs.email).type(loginData.email);
       cy.dataCy(this.selectors.inputs.password).type(loginData.password);
       const afterLogInResponsePromise = cy.dataCy(this.selectors.buttons.signInSubmit).click().then(() => cy.wait('@signIn'));
@@ -79,16 +88,8 @@ export class Page {
   }
 
   private static getLoginData (role) {
-    if (role === this.roles.admin) {
-      return { email: Cypress.env('admin_email'), password: Cypress.env('login_password') };
-    } else if (role === this.roles.teamLeader) {
-      return { email: Cypress.env('teamLeader_email'), password: Cypress.env('login_password') };
-    } else if (role === this.roles.teamMember) {
-      return { email: Cypress.env('teamMember_email'), password: Cypress.env('login_password') };
-    } else if (role === this.roles.creator) {
-      return { email: Cypress.env('creator_email'), password: Cypress.env('login_password') };
-    } else if (role === this.roles.observer) {
-      return { email: Cypress.env('observer_email'), password: Cypress.env('login_password') };
-    }
+    const email = Cypress.env(role + '_email');
+    const password = Cypress.env('login_password');
+    return { email, password };
   }
 }

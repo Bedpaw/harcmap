@@ -4,12 +4,8 @@ import { api } from 'api';
 import { autoUpdate } from 'utils/auto-update';
 import { Module } from 'vuex';
 import { User } from 'models/user';
-import { urlUtils } from 'utils/url';
-import router from 'src/router';
+import { postSignInActions, router } from 'src/router';
 import { ROUTES } from 'config/routes-config';
-import { appStorage } from 'utils/storage';
-import { enterEvent } from 'utils/enter-event';
-import { RouteLocationNormalized } from 'vue-router';
 
 export const user:Module<User, object> = {
   namespaced: true,
@@ -44,47 +40,24 @@ export const user:Module<User, object> = {
     },
   },
   actions: {
-    signIn (context, credentialsOrStartPath: RouteLocationNormalized | { email: string, password: string }) {
+    signIn (context, credentials: { email: string, password: string }) {
       return new Promise((resolve, reject) => {
-        const appFirstRun = urlUtils.checkIfRouteLocationNormalized(credentialsOrStartPath);
-        const signInPromise = (appFirstRun
-          ? api.checkYourLoginSession()
-          : api.signIn(credentialsOrStartPath)) as Promise<User>;
-        const routeInfo = appFirstRun ? (credentialsOrStartPath as RouteLocationNormalized) : undefined;
-
-        signInPromise
+        (api.signIn(credentials) as Promise<User>)
           .then(userData => {
             context.commit('setUser', userData);
-
-            // Invitation key redirect
-            const invitationKey = urlUtils.getInvitationKey();
-            if (invitationKey) {
-              router.push({
-                name: ROUTES.joinEvent.name,
-                query: { invitationKey },
-              });
-              resolve(true);
-              return;
-            }
-
-            // wantsAutoLoginToEvent redirect
-            const wantsAutoLoginToEvent = appStorage.getItem(appStorage.appKeys.wantsAutoLoginToEvent, appStorage.getIds.email());
-            const recentEventId = appStorage.getItem(appStorage.appKeys.recentEvent, appStorage.getIds.email());
-            if (recentEventId && wantsAutoLoginToEvent) {
-              const recentEvent = userData.userEvents.find(event => event.eventId === recentEventId);
-              if (recentEvent) {
-                const { role, eventId, teamId } = recentEvent;
-                enterEvent(role, eventId, teamId, routeInfo);
-                resolve(true);
-                return;
-              }
-            }
-
-            // default redirect
-            router.push({
-              name: ROUTES.eventsList.name,
+            postSignInActions(userData).then(({ wantsEnterEvent, path }) => {
+              router.push(wantsEnterEvent ? ROUTES.start.path : path as string).then(() => resolve(userData));
             });
-            resolve(true);
+          })
+          .catch(reject);
+      });
+    },
+    checkoutSession: function (context) {
+      return new Promise((resolve, reject) => {
+        (api.checkYourLoginSession() as Promise<User>)
+          .then(userData => {
+            context.commit('setUser', userData);
+            resolve(userData);
           })
           .catch(reject);
       });

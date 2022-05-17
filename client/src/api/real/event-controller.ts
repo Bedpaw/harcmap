@@ -1,7 +1,7 @@
 import { API_ERRORS } from 'src/utils/macros/errors';
 import { httpService } from 'config/http-service';
 import { Mapper } from 'models/utils/mapper';
-import { EventDTO, JoinEventParams } from 'models/dtos/event';
+import { EventCheckDTO, EventCheckDTOMapped, EventDTO, JoinEventParams } from 'models/dtos/event';
 import { Event } from 'models/event';
 
 const urls = {
@@ -23,17 +23,18 @@ export const eventController = {
   updateEvent (event: Event) {
     return httpService.put({
       url: urls.updateEvent(event.eventId),
-      body: Mapper.mapEventOut(event),
+      body: { ...Mapper.mapEventOut(event) },
       errorOptions: API_ERRORS.updateEvent,
     });
   },
   checkEvent (eventKey: string, userId: string) {
-    return httpService.post({
+    return httpService.post<EventCheckDTO, EventCheckDTOMapped>({
       url: urls.checkEvent,
       body: {
         eventKey,
         userId,
       },
+      successCallback: data => Mapper.mapEventCheck(data),
       errorOptions: API_ERRORS.checkEvent,
     });
   },
@@ -41,8 +42,7 @@ export const eventController = {
     let body;
     const { userId, eventKey, nickname, teamColor, teamName } = params;
     if (teamName || teamColor) {
-      // TODO v2.1
-      body = { ...params, teamColor: '#555555' };
+      body = params;
     } else {
       body = { userId, eventKey, nickname };
     }

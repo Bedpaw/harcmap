@@ -29,7 +29,7 @@ const point2 = {
   pointKey: 'Poi2',
   pointName: null,
   pointType: 'timeout',
-  pointCollectedDate: new Date(2022, 0, 2, 5, 35, 45).getTime(),
+  pointCollectedDate: null,
   pointDuration: {
     startDate: new Date(2021, 0, 14, 13, 32, 54).getTime(),
     endDate: new Date(2050, 0, 14, 13, 32, 54).getTime(),
@@ -166,7 +166,7 @@ const point10 = {
   pointKey: 'Po1i',
   pointName: null,
   pointType: 'timeout',
-  pointCollectedDate: new Date(2021, 11, 1, 23, 1, 31).getTime(),
+  pointCollectedDate: null,
   pointDuration: {
     startDate: new Date(2021, 9, 23, 15, 34, 23).getTime(),
     endDate: new Date(2022, 0, 7, 17, 12, 42).getTime(),

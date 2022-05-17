@@ -25,13 +25,12 @@
       <transition name="fade">
         <o-game-advanced-rules
           v-if="showAdvancedOptions"
-          :advanced-game-rules="eventRules"
+          :advanced-game-rules="eventSettings"
           :block-form="blockForm"
         />
       </transition>
-      <!-- TODO v2.1 Game settings -->
       <a-button
-        v-if="false"
+        v-if="featureToggles.FEATURE_TOGGLE_NAVIGATION()"
         add-class="f-clear"
         add-area-class="f-mt-0"
         @click="showAdvancedOptions = !showAdvancedOptions"
@@ -85,6 +84,7 @@ import { eventUtils } from 'utils/event';
 import { computed, ref, onMounted, toRefs } from 'vue';
 import { useForm } from 'plugins/form';
 import { translator } from 'dictionary';
+import { featureToggles } from 'utils/dev-mode/feature-toggle';
 
 export default {
   name: 't-event-form',
@@ -123,7 +123,7 @@ export default {
       mapLongitude: null,
       mapZoom: null,
     });
-    const eventRules = ref(DEFAULT_EVENT_CONFIG.gameRules);
+    const eventSettings = ref(DEFAULT_EVENT_CONFIG.gameRules);
 
     const mapRefreshTimeOptions = ref(DEFAULT_EVENT_CONFIG.mapRefreshTimeOptions);
     const eventPositionIsSetting = ref(false);
@@ -146,7 +146,7 @@ export default {
       }
       onSave.value(eventUtils.convertEventToSend({
         ...values.value,
-        eventRules: eventRules.value,
+        eventSettings: eventSettings.value,
       }))
         .then(onSuccessOccurs)
         .catch(onErrorOccurs);
@@ -154,14 +154,14 @@ export default {
 
     onMounted(() => {
       const newValues = eventUtils.convertEventToForm(defaultValues.value);
-      Object.assign(eventRules.value, newValues.eventRules || {});
-      delete newValues.eventRules;
+      Object.assign(eventSettings.value, newValues.eventSettings || {});
+      delete newValues.eventSettings;
       Object.assign(values.value, newValues);
     });
 
     return {
       values,
-      eventRules,
+      eventSettings,
       saveNewPosition,
       onSubmit,
       ...form,
@@ -169,6 +169,7 @@ export default {
       eventPositionIsSetting,
       hasSetPosition,
       showAdvancedOptions,
+      featureToggles,
     };
   },
 };

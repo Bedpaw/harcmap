@@ -2,6 +2,9 @@
   "baseUrl": "http://localhost:3030",
   "viewportHeight": 720,
   "viewportWidth": 360,
+  "defaultCommandTimeout": 30000,
+  "responseTimeout": 30000,
+  "requestTimeout": 30000,
   "env": {
     "backendServerRoot": "/api/v1/",
     "stubServer": false,

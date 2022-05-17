@@ -22,4 +22,27 @@ export const mapConfig = {
     color: '#008844',
     width: 4,
   },
+  points: {
+    collectedPointOpacity: 0.3,
+    pointsVisibilityCondition: () => true,
+    shapes: {
+      // https://openlayers.org/en/latest/apidoc/module-ol_style_RegularShape-RegularShape.html
+      point: {
+        points: 20,
+        radius: 10,
+        angle: 20,
+      },
+      star: {
+        points: 5,
+        radius: 12,
+        radius2: 4,
+        angle: 0,
+      },
+    },
+  },
+  myPosition: {
+    strokeColor: '#000',
+    strokeWidth: 2,
+    fillColor: '#FFF',
+  },
 };

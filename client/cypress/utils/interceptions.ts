@@ -19,10 +19,11 @@ const getFixture = ({ role, name }) => {
 const createInterception = (data: CreateInterceptionData) => {
   const fixture = getFixture({ role: data.role, name: data.fixtureName });
   const resourcePath = urls.withBackendPrefix(data.resourcePath);
+  const response = Cypress.env('stubServer') ? { fixture } : undefined;
 
   return data.alias
-    ? cy.intercept(resourcePath, { fixture }).as(data.alias)
-    : cy.intercept(resourcePath, { fixture });
+    ? cy.intercept(resourcePath, response).as(data.alias)
+    : cy.intercept(resourcePath, response);
 };
 
 const testId = '100000000000000000000001';
@@ -61,8 +62,8 @@ export const intercept = {
     }),
   },
   points: {
-    collectPoint: (role, pointKey) => createInterception({
-      resourcePath: apiResources.points.collectPoint(testId),
+    collectPoint: (role, eventId = testId) => createInterception({
+      resourcePath: apiResources.points.collectPoint(eventId),
       fixtureName: fixtures.points.collectPoint,
       role,
       alias: 'collectPoint',

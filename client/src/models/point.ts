@@ -2,8 +2,8 @@ export type PointType = {
   pointId: string
   pointKey: string | null
   pointName: string | null
-  pointLongitude: number | null
-  pointLatitude: number | null
+  pointLongitude: number
+  pointLatitude: number
   pointType: string
   pointCategoryId: string
   pointCollectionTime: number | null

@@ -25,7 +25,7 @@ export default {
       return Object.assign({}, this.$store.getters['event/getCategoryById'](this.pointCategoryId));
     },
   },
-  mounted () {
+  created () {
     this.pointCategoryId = this.$route.params.pointCategoryId;
   },
   methods: {

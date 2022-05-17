@@ -26,9 +26,10 @@ export const pointCategoryController = {
     });
   },
   updatePointCategory (category: PointCategoryDTOUpdate, categoryId: string, eventId: string) {
+    const { pointStrokeColor, pointFillColor, pointValue, categoryName } = category;
     return httpService.put({
       url: urls.updatePointCategory(eventId, categoryId),
-      body: category,
+      body: { pointFillColor, pointStrokeColor, pointValue, categoryName },
       errorOptions: API_ERRORS.updatePointCategory,
     });
   },

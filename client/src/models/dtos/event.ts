@@ -1,4 +1,5 @@
 import { InvitationKeys } from 'models/invitations';
+import { GameRuleEntryDTO } from 'models/game-rules';
 
 export interface EventDuration {
   startDate: number;
@@ -15,7 +16,8 @@ export interface EventDTOCreate {
   eventDuration: EventDuration;
   mapProperties: MapProperties;
   inviteKeys: InvitationKeys;
-  eventRefreshTime: number
+  eventRefreshTime: number;
+  eventSettings: GameRuleEntryDTO[]
 }
 
 export interface EventDTO extends EventDTOCreate {
@@ -31,3 +33,14 @@ export interface JoinEventParams {
   teamColor?: string,
 }
 export type EventDTOUpdate = EventDTOCreate;
+
+export interface EventCheckDTO {
+  eventDuration: EventDuration;
+  eventId: string;
+  eventName: string;
+  role: string;
+  teamColor: string | null;
+  teamId: string | null;
+  teamName: string | null;
+}
+export type EventCheckDTOMapped = Omit<EventCheckDTO, 'eventDuration'> & { eventStartDate: number, eventEndDate: number }

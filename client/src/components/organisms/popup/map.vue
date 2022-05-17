@@ -27,7 +27,7 @@
       </div>
     </div>
     <div
-      v-for="[key, button] of buttons.entries()"
+      v-for="[key, button] of modifyPointButtons.entries()"
       :key="'popup-map-button-' + key"
       class="m-list-element f-popup"
       @click="button.method(data.entries())"
@@ -51,6 +51,7 @@ import { actionUtils } from 'utils/action';
 import AIconClosePopup from 'atoms/icon/close-popup';
 import { translator } from 'src/dictionary';
 import { communicates } from 'utils/communicates';
+import { userUtils } from 'config/users-config';
 
 export default {
   name: 'o-popup-map',
@@ -62,38 +63,41 @@ export default {
     itemRefs: [],
   }),
   computed: {
-    ...mapGetters('mapPopup', ['data']),
-    buttons () {
-      const buttons = [
-        {
-          icon: this.$icons.names.edit,
-          label: this.$t('general.edit'),
-          method: () => {
-            this.$router.push({
-              name: this.ROUTES.editPoint.name,
-              params: { pointId: this.$store.getters['mapPopup/pointId'] },
-            });
-          },
+    ...mapGetters('mapPopup', ['data', 'pointId']),
+    getEditPointButton () {
+      return {
+        icon: this.$icons.names.edit,
+        label: this.$t('general.edit'),
+        method: () => {
+          this.$router.push({
+            name: this.ROUTES.editPoint.name,
+            params: { pointId: this.pointId },
+          });
         },
-        {
-          icon: this.$icons.names.delete,
-          label: this.$t('general.remove'),
-          method: () => {
-            if (confirm(translator.t('communicate.map.confirmPointRemove'))) {
-              communicates.showSuccess(translator.t('communicate.map.pointRemovingInProgress'));
-              this.popup.hide();
-              this.$store.dispatch('event/removePoint', this.$store.getters['mapPopup/pointId'])
-                .then(() => communicates.showSuccessTemporary(translator.t('communicate.map.pointRemoved')))
-                .catch(em => em.showMessage());
-            }
-          },
+      };
+    },
+    getDeletePointButton () {
+      return {
+        icon: this.$icons.names.delete,
+        label: this.$t('general.remove'),
+        method: () => {
+          if (confirm(translator.t('communicate.map.confirmPointRemove'))) {
+            communicates.showSuccess(translator.t('communicate.map.pointRemovingInProgress'));
+            this.popup.hide();
+            this.$store.dispatch('event/removePoint', this.pointId)
+              .then(() => communicates.showSuccessTemporary(translator.t('communicate.map.pointRemoved')))
+              .catch(em => em.showMessage());
+          }
         },
-      ];
-      return this.checkIsAdmin ? buttons : [];
+      };
+    },
+    modifyPointButtons () {
+      return userUtils.can.editOrDeletePoints() ? [this.getEditPointButton, this.getDeletePointButton] : [];
     },
   },
   beforeUnmount () {
-    this.popup.destroy();
+    this.popup?.destroy();
+    this.$store.commit('mapPopup/removePopupOrganismRef');
   },
   beforeUpdate () {
     this.itemRefs = [];

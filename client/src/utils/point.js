@@ -87,19 +87,20 @@ export const pointUtils = {
   },
 
   pointIsDisplayedAsCollected (point, { pointsCollectedByTeam, mapRefreshTime }) {
-    // Timeout points always not collected
+    // Status: All points
+    // Filter: Timeout points always not collected
     if (pointUtils.isTimeOut(point)) return false;
-
-    // Point is not collected
+    // Status: All permanent points
+    // Filter: Point is not collected
     if (this.pointIsNotCollected(point)) return false;
-
-    // Admin can see all collected points on map without time delay
+    // Status: All permanent collected points
+    // Filter: Admin can see all collected points on map without time delay
     if (userUtils.can.seeAllPointsOnMap()) return true;
-
-    // Point collected by team and is displayed as collected immediately
+    // Status: All permanent collected points seen by common user
+    // Filter: Point collected by team and is displayed as collected immediately
     if (this.isPointIdOnList(pointsCollectedByTeam, point)) return true;
-
-    // Point is permanent and collected, but team don't know it to next gap time
+    // Status: Permanent collected points seen by common user, but not collected by him
+    // Filter: Point is permanent and collected, but team don't know it to next gap time
     // Gap time is last full time from mapRefreshTime counting from full hours
     return isBeforeLastGapEndTime(mapRefreshTime, point.pointCollectionTime) === true;
   },

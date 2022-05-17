@@ -72,6 +72,7 @@ export const plPL = {
     collectTime: 'Czas zebrania',
     errorAppear: 'Wystąpił błąd',
     defaultPointCategoryName: 'Podstawowy',
+    look: 'Wygląd',
   },
   colors: {
     'purple': 'Fioletowy',
@@ -110,6 +111,7 @@ export const plPL = {
       categoryName: 'Nazwa kategorii',
       nickname: 'Nazwa użytkownika',
       teamName: 'Nazwa drużyny',
+      teamColor: 'Kolor drużyny',
     },
     assist: {
       pointId: 'Kod punktu jest generowany automatycznie',
@@ -117,7 +119,7 @@ export const plPL = {
       userTeam: 'Nazwa patrolu musi być unikatowa',
       joinEventCode: 'Wpisz kod zaproszenia do wydarzenia, do którego chcesz dołączyć',
       searchPoint: 'Szukaj po kodzie lub nazwie punktu',
-      searchUser: 'Szukaj po e-mailu lub nazwie drużyny',
+      searchUser: 'Szukaj po e-mailu lub nicku',
     },
     button: {
       save: 'Zapisz',
