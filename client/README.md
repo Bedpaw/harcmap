@@ -23,6 +23,10 @@ cordova-res ios --skip-config --copy
 cordova-res android --skip-config --copy
 ```
 
+## Color and styles in android
+`client/android/app/src/main/res/values/colors.xml`
+`client/android/app/src/main/res/values/styles.xml`
+
 ___
 ## Website app on mobile device
 
