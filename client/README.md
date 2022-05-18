@@ -9,16 +9,14 @@ If you check out on branch without android and iOS configuration, run `npx cap i
 ### Generate icons for Android and iOS
 `cordova-res` expects a Cordova-like structure: place one icon and one splash screen file in a top-level resources folder within your project, like so:
 ```
-resources/
-├── icon.png
+mobile-resources/
+├── icon-android.png
+├── icon-ios.png
 └── splash.png
 ```
 Next, run the following to generate all images then copy them into the native projects:
 ```bash
-cd ~/Projects/harcmap
 npm run make:icons:mobile
-cd client
-npx cap sync
 ```
 
 ## Color and styles in android
