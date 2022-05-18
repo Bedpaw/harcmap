@@ -22,8 +22,8 @@ npx cap sync
 ```
 
 ## Color and styles in android
-`client/android/app/src/main/res/values/colors.xml`
-`client/android/app/src/main/res/values/styles.xml`
+File for theme colors `client/android/app/src/main/res/values/colors.xml`
+File for theme appearance `client/android/app/src/main/res/values/styles.xml`
 
 ___
 ## Website app on mobile device
