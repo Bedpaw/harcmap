@@ -7,6 +7,6 @@ export const adaptStatusBarToApp = async () => {
 
   if (info.platform === 'ios') {
     document.body.style.marginTop = insets.top + 'px';
-    document.body.style.marginBottom = insets.bottom + 'px';
+    // document.body.style.marginBottom = insets.bottom + 'px';
   }
 };
