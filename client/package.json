@@ -11,12 +11,9 @@
     "build:prod:watch": "npx webpack --config ./webpack/config.prod.js --watch",
     "build:prod:analyse": "npx webpack --config ./webpack/config.analyse.js",
     "import:sass:watch": "sass-watcher --config sass-watcher.json",
+    "make:icons:mobile": "bash mobile-resources/make-all-icons.sh",
     "cypress:stub": "cypress open --config-file cypress/cypress.stub.json",
-    "cypress:local": "cypress open --config-file cypress/cypress.local.json",
-    "make:icons:all": "npm run make:icons:ios && npm run make:icons:android",
-    "make:icons:ios": "cordova-res ios --skip-config --copy",
-    "make:icons:android": "npm run prepare:icons:android && cordova-res android --skip-config --copy",
-    "prepare:icons:android": "cp resources/icon.png resources/android/icon-background.png && cp resources/icon.png resources/android/icon-foreground.png"
+    "cypress:local": "cypress open --config-file cypress/cypress.local.json"
   },
   "dependencies": {
     "@capacitor/android": "^3.4.3",
