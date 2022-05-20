@@ -3,10 +3,10 @@ import { map } from 'map';
 import { eventStoreModules as Modules } from 'store/event-modules';
 import { api } from 'api';
 import { pointUtils } from 'utils/point';
-import { permissions } from 'utils/permissions';
 import { appStorage } from 'utils/storage';
 import { DEFAULT_EVENT_CONFIG } from 'config/event-config';
 import { pointCategoryUtils } from 'utils/point-category';
+import { userUtils } from 'config/users-config';
 
 const initState = () => ({
   eventId: null,
@@ -85,11 +85,18 @@ export default {
       context.commit('resetCategoriesState');
     },
     async download (context, { eventId, teamId, role, nickname }) {
+      let teamsPromise;
       const eventPromise = api.getEventById(eventId);
       const categoriesPromise = api.getCategoriesByEventId(eventId);
-      const teamsPromise = teamId
-        ? context.dispatch('team/downloadTeam', { eventId, teamId }, { root: true })
-        : context.dispatch('groups/downloadTeams', eventId, { root: true });
+
+      if (userUtils.can.fetchAllTeamsData(role) && teamId) {
+        teamsPromise = context.dispatch('groups/downloadTeams', eventId, { root: true });
+      } else {
+        teamsPromise = context.dispatch('team/downloadTeam', {
+          eventId,
+          teamId,
+        }, { root: true });
+      }
 
       let [event, categories] = await Promise.all([
         eventPromise,
@@ -97,7 +104,7 @@ export default {
         teamsPromise,
       ]);
 
-      const shouldNotSeePoints = eventUtils.isBeforeStart(event) && permissions.checkIsCommonUser();
+      const shouldNotSeePoints = eventUtils.isBeforeStart(event) && userUtils.can.seePointsBeforeEventStart(role);
       const points = shouldNotSeePoints ? [] : await api.getPointsByEventId(eventId);
 
       categories = await pointCategoryUtils.getDefaultCategoriesIfEmpty(categories, eventId);

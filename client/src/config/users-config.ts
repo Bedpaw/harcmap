@@ -70,9 +70,11 @@ const availabilities = {
   seeAdminStartView: [creator, admin, observer],
   editOrDeletePoints: [creator, admin],
   seeAllTeamsTracks: [creator, admin, observer],
+  fetchAllTeamsData: [creator, admin, observer],
+  seePointsBeforeEventStart: [creator, admin, observer],
 };
 
-const checkIfCan = (permittedRoles: string[]) => permittedRoles.includes(store.getters['event/role']);
+const checkIfCan = (permittedRoles: string[], role?: string) => permittedRoles.includes(role ?? store.getters['event/role']);
 
 export const userUtils = {
   getOrderedMembers: (teamMembers: TeamMember[]) => {
@@ -88,15 +90,15 @@ export const userUtils = {
   getNameKey: (role: string) => accountTypeInfo[role].nameKey,
   getMenuLinks: (role = store.getters['event/role']) => accountTypeInfo[role].menuLinks,
   getMenuCentralButton: (role = store.getters['event/role']) => accountTypeInfo[role].menuCentralButton,
-
   isOrganizer: (user: { role: string }) => user.role === creator,
-
   can: {
     seeAllPointsOnMap: () => checkIfCan(availabilities.seeAllPointsOnMap),
     seeAllTimeOutPoints: () => checkIfCan(availabilities.seeAllTimeOutPoints),
     seeAdminStartView: () => checkIfCan(availabilities.seeAdminStartView),
     editOrDeletePoints: () => checkIfCan(availabilities.editOrDeletePoints),
     seeAllTeamsTracks: () => checkIfCan(availabilities.seeAllTeamsTracks),
+    fetchAllTeamsData: (role?: string) => checkIfCan(availabilities.fetchAllTeamsData, role),
+    seePointsBeforeEventStart: (role?: string) => checkIfCan(availabilities.seePointsBeforeEventStart, role),
   },
 };
 
