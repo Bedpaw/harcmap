@@ -128,7 +128,7 @@ export default {
       nickname,
       shouldDisplayTeamDetails,
       testSelectors,
-      availableColors: colorsUtils.colorsSelectValues,
+      availableColors: colorsUtils.getTeamColorsSelectValues,
     };
   },
 };
