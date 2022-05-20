@@ -2,7 +2,7 @@
   <transition name="long-fade">
     <div
       v-if="showLoading"
-      class="o-loading"
+      class="o-loading f-flex f-flex-col"
     >
       <svg
         :id="elementId"
@@ -25,6 +25,25 @@
           />
         </g>
       </svg>
+      <div class="f-flex-1" />
+      <div class="f-text-white f-text-14 f-bold">
+        <transition name="longer-delay-fade">
+          <div
+            v-if="loadingCounter > 3"
+            class="a-text-status-loading"
+          >
+            {{ 'Sprawdź połączenie z internetem' }}
+          </div>
+        </transition>
+        <transition name="longer-fade">
+          <div
+            v-if="loadingCounter > 1 && loadingCounter <= 3"
+            class="a-text-status-loading"
+          >
+            {{ 'Oczekiwanie na połączenie z serwerem' }}
+          </div>
+        </transition>
+      </div>
     </div>
   </transition>
 </template>
@@ -39,6 +58,7 @@ export default {
   data: () => ({
     elementId: 'harcmap-animated-logo',
     showLoading: true,
+    loadingCounter: 0,
   }),
   computed: {
     ...mapGetters({
@@ -117,6 +137,7 @@ export default {
     animation.on('complete', () => {
       svgElement.classList.remove('f-after-hiding');
       svgElement.classList.add('f-hide');
+      this.loadingCounter++;
 
       promise.timeout(500)
         .then(() => { if (this.appIsLoading === false) throw new Error(); })

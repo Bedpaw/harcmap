@@ -1,12 +1,18 @@
-.fade-enter-active, .fade-leave-active
-  transition: opacity .3s
+=vue-transition($name, $time, $delay: 0)
+  .#{$name}-enter-active, .#{$name}-leave-active
+    transition: opacity $time
+    transition-delay: $delay
 
-.fade-enter, .fade-leave-to
-  opacity: 0
+  .#{$name}-enter-from, .#{$name}-leave-to
+    opacity: 0
 
+  .#{$name}-enter-to, .#{$name}-leave-from
+    opacity: 1
 
-.long-fade-enter-active, .long-fade-leave-active
-  transition: opacity .5s
++vue-transition(fade, 300ms)
 
-.long-fade-enter, .long-fade-leave-to
-  opacity: 0
++vue-transition(long-fade, 500ms)
+
++vue-transition(longer-fade, 1s)
+
++vue-transition(longer-delay-fade, 1s, 1s)
