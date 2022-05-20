@@ -19,9 +19,22 @@ async function editUser (request, data) {
   // fields from database
   const { email: oldEmail, password: userPassword, userEvents: allUserEvents } = user;
 
+  let emailToChange = false;
+
+  if (newEmail) {
+    if (userPassword !== getSHA(oldPassword)) {
+      throw new AppError(errorCodes.PASSWORDS_DO_NOT_MATCH, {
+        httpStatus: 400,
+      });
+    }
+    emailToChange = true;
+  }
+
   // checks if user wants to change password
   let passwordToChange = false;
   let newPasswordHash;
+
+  // TODO change eventId from usereventId to real eventId
 
   if (newPassword) {
     newPasswordHash = getSHA(newPassword);
@@ -70,7 +83,7 @@ async function editUser (request, data) {
   }
 
   return await Users.update({ _id: ObjectId(userId) }, {
-    email: newEmail || oldEmail,
+    email: emailToChange ? newEmail : oldEmail,
     password: passwordToChange ? newPasswordHash : userPassword,
   });
 }
