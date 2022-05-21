@@ -85,10 +85,17 @@ async function editUser (request, data) {
     }));
   }
 
-  return await Users.update({ _id: ObjectId(userId) }, {
-    email: emailToChange ? newEmail : oldEmail,
-    password: passwordToChange ? newPasswordHash : userPassword,
-  });
+  const newUserData = {};
+
+  if (emailToChange) {
+    newUserData.email = newEmail;
+  }
+
+  if (passwordToChange) {
+    newUserData.password = newPasswordHash;
+  }
+
+  return await Users.update({ _id: ObjectId(userId) }, newUserData);
 }
 
 module.exports = editUser;
