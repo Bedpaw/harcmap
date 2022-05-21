@@ -2,18 +2,18 @@ const Users = require('../../../../models/users');
 const UsersEvents = require('../../../../models/users-events');
 const { checkIfGivenUserIdOwnToAuthorizedUser } = require('../../../../libs/utils');
 const { ObjectId } = require('mongodb');
-const getUserAggregation = require('../../../../aggregations/get-user');
+const getUserEventsAggregation = require('../../../../aggregations/get-user-events');
 const { AppError, errorCodes } = require('../../../../libs/errors');
 const { getSHA } = require('../../../../libs/utils');
 
 async function editUser (request, data) {
-  const { email: newEmail, newPassword, oldPassword, userEvents, userId } = data;
+  const { email: newEmail, newPassword, oldPassword, userEvents: receivedUserEvents, userId } = data;
 
   // check if userId equals SSID
   checkIfGivenUserIdOwnToAuthorizedUser(request.user, userId);
 
   const user = await Users.get({ _id: ObjectId(userId) }, {
-    aggregationPipeline: getUserAggregation,
+    aggregationPipeline: getUserEventsAggregation,
   });
 
   // fields from database
@@ -21,7 +21,7 @@ async function editUser (request, data) {
 
   let emailToChange = false;
 
-  if (newEmail) {
+  if (newEmail && oldPassword) {
     if (userPassword !== getSHA(oldPassword)) {
       throw new AppError(errorCodes.PASSWORDS_DO_NOT_MATCH, {
         httpStatus: 400,
@@ -34,9 +34,7 @@ async function editUser (request, data) {
   let passwordToChange = false;
   let newPasswordHash;
 
-  // TODO change eventId from usereventId to real eventId
-
-  if (newPassword) {
+  if (newPassword && oldPassword) {
     newPasswordHash = getSHA(newPassword);
     if (userPassword !== getSHA(oldPassword)) {
       throw new AppError(errorCodes.PASSWORDS_DO_NOT_MATCH, {
@@ -51,21 +49,26 @@ async function editUser (request, data) {
   }
 
   // checks if user has joined to any event
-  const isUserEventsExist = (allUserEvents.length === 1 && !allUserEvents[0].eventId) || !userEvents;
+  const isUserEventsExist = (allUserEvents.length === 1 && !allUserEvents[0].eventId) || !receivedUserEvents;
 
   if (!isUserEventsExist) {
-    let isAssigned;
-    // checks if allUserEvents contains sent userEvents
-    for (const event of userEvents) {
-      isAssigned = false;
-      const checkEvent = await UsersEvents.get({ _id: ObjectId(event.eventId) });
 
-      for (let i = 0; i < userEvents.length; i++) {
-        if (allUserEvents.length >= userEvents.length) {
-          if (allUserEvents[i].eventId.toString() === checkEvent.eventId.toString()) {
-            isAssigned = true;
-            break;
-          }
+    // create array of objects (userEventId, nickname) from given eventId's
+    const userEventsData = [];
+
+    for (const received of receivedUserEvents) {
+      let isAssigned = false;
+
+      for (const userEvent of allUserEvents) {
+        if (userEvent.eventId.toString() === received.eventId) {
+          const eventToChange = {
+            userEventId: userEvent.userEventsId,
+            nickname: received.nickname,
+          };
+          userEventsData.push(eventToChange);
+          isAssigned = true;
+
+          break;
         }
       }
       if (!isAssigned) {
@@ -75,8 +78,8 @@ async function editUser (request, data) {
       }
     }
 
-    await Promise.all(userEvents.map(async (event) => {
-      await UsersEvents.update({ _id: ObjectId(event.eventId) }, {
+    await Promise.all(userEventsData.map(async (event) => {
+      await UsersEvents.update({ _id: ObjectId(event.userEventId) }, {
         nickname: event.nickname,
       });
     }));
