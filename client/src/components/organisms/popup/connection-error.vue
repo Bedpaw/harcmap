@@ -32,19 +32,23 @@
 <script>
 import OPopupEmpty from 'organisms/popup/empty';
 import { REPORT_EMAIL } from 'config/app-env';
+import { ref } from 'vue';
 
 export default {
   name: 'o-popup-connection-error',
   components: { OPopupEmpty },
   setup (props, { expose }) {
+    const popup = ref();
+
     const reloadPage = () => window.location.reload();
-    const showPopup = () => this.$refs.popup && this.$refs.popup.show();
+    const showPopup = () => popup.value && popup.value.show();
 
     expose({ show: showPopup });
 
     return {
       reportEmail: REPORT_EMAIL,
       reloadPage,
+      popup,
     };
   },
 };

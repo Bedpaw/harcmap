@@ -6,6 +6,7 @@
       @click="showPopup()"
     >
       <m-loading-app
+        :test-mode="config.testMode"
         :app-is-loading="appIsLoading"
         :count-for-pending="config.loadingCountForPending"
         :count-for-error="config.loadingCountForError"
@@ -53,6 +54,7 @@ export default {
   components: { MLoadingApp, OPopupConnectionError },
   setup () {
     const config = {
+      testMode: false,
       loadingCountForPending: 1,
       loadingCountForError: 6,
       timeToShowErrorPopup: 6000,
@@ -69,8 +71,10 @@ export default {
     const appIsLoading = computed(() => useStore().getters.isLoading);
 
     function showPopup () {
-      state.errorPopupViewed = true;
-      state.error && errorPopup && errorPopup.value.show();
+      if (state.error && errorPopup) {
+        state.errorPopupViewed = true;
+        errorPopup.value.show();
+      }
     }
 
     const onPending = () => (state.pending = true);

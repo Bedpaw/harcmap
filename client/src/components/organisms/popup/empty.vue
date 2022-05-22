@@ -2,7 +2,7 @@
   <div
     v-if="detailsAreOpen"
     class="m-cover f-popup"
-    @click="toggle"
+    @click.stop="toggle"
   >
     <div
       :class="['o-popup f-empty', addClass]"

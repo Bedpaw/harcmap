@@ -31,13 +31,14 @@ import { promise } from '@dbetka/wdk/lib/promise';
 export default {
   name: 'm-loading-app',
   props: {
+    testMode: { type: Boolean, required: true },
     appIsLoading: { type: Boolean, required: true },
     countForPending: { type: Number, required: true },
     countForError: { type: Number, required: true },
   },
   emits: ['pending', 'pending-error', 'before-hide', 'complete'],
   setup (props, { emit }) {
-    const { appIsLoading, countForPending, countForError } = toRefs(props);
+    const { testMode, appIsLoading, countForPending, countForError } = toRefs(props);
 
     const elementId = 'harcmap-animated-logo';
     const loadingCounter = ref(0);
@@ -75,7 +76,7 @@ export default {
         svgElement.classList.add('f-hide');
 
         promise.timeout(500)
-          .then(() => { if (appIsLoading.value === false) throw new Error(); })
+          .then(() => { if (appIsLoading.value === false && testMode.value === false) throw new Error(); })
           .then(() => promise.timeout(1300))
           .then(() => {
             animation.erase();
