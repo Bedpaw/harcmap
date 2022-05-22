@@ -4,6 +4,7 @@ export const APP_BASE_URL = __APP_BASE_URL__;
 export const API_URL = __APP_API_URL__;
 export const PRODUCTION_MODE = __APP_PRODUCTION_MODE__;
 export const DEVELOPMENT_MODE = __APP_PRODUCTION_MODE__ === false;
+export const REPORT_EMAIL = __REPORT_EMAIL__;
 
 export const TEAM_LEADER_LOGIN_DATA = __APP_TEAM_LEADER_LOGIN_DATA__;
 export const ADMIN_LOGIN_DATA = __APP_ADMIN_LOGIN_DATA__;

@@ -33,6 +33,12 @@ export default {
     toggle () {
       this.detailsAreOpen = (this.detailsAreOpen === false);
     },
+    show () {
+      this.detailsAreOpen = true;
+    },
+    hide () {
+      this.detailsAreOpen = false;
+    },
   },
 };
 </script>

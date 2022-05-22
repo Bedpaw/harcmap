@@ -364,6 +364,13 @@ export const plPL = {
     more: 'Więcej',
   },
   communicate: {
+    loading: {
+      waitingForConnection: 'Oczekiwanie na połączenie z serwerem',
+      serverError: 'Brak połączenia z serwerem',
+      checkConnection: 'Sprawdź połączenie z internetem i spróbuj ponownie połączyć się z serwerem.',
+      tryAgain: 'Ponów próbę połączenia',
+      reportProblem: 'Jeśli problem wciąż występuje mimo dobrego połączenia z internetem, zgłoś problem na',
+    },
     pointCategory: {
       confirmPointCategoryRemove: 'Czy na pewno chcesz usunąć tą kategorię punktu?',
       pointCategoryRemovingInProgress: 'Trwa usuwanie kategorii punktu...',
