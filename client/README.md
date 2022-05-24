@@ -6,6 +6,10 @@
 - `npx cap open ios` to open iOS app in Xcode - available only on macOS.
 
 
+### SSL certificates for Android app
+Copy certificate for domain `mobile.harcmap.pl` to `client/android/app/src/main/res/raw` and name it `cert.pem`.
+
+
 ### Color and styles in android
 File for theme colors `client/android/app/src/main/res/values/colors.xml`  
 File for theme appearance `client/android/app/src/main/res/values/styles.xml`
