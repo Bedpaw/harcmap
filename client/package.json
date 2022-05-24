@@ -5,8 +5,10 @@
   "scripts": {
     "build:dev": "npx webpack --config ./webpack/config.dev.js",
     "build:dev:watch": "npx webpack --config ./webpack/config.dev.js --watch",
-    "build:mobile": "npx webpack --config ./webpack/config.mobile.js",
-    "build:mobile:watch": "npx webpack --config ./webpack/config.mobile.js --watch",
+    "build:dev:mobile": "npx webpack --config ./webpack/config.dev.mobile.js",
+    "build:dev:mobile:watch": "npx webpack --config ./webpack/config.dev.mobile.js --watch",
+    "build:prod:mobile": "npx webpack --config ./webpack/config.prod.mobile.js",
+    "build:prod:mobile:watch": "npx webpack --config ./webpack/config.prod.mobile.js --watch",
     "build:prod": "npx webpack --config ./webpack/config.prod.js",
     "build:prod:watch": "npx webpack --config ./webpack/config.prod.js --watch",
     "build:prod:analyse": "npx webpack --config ./webpack/config.analyse.js",
