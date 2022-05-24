@@ -1,15 +1,28 @@
-## Important commands for capacitor:
-- `npx cap sync` to synchronise web and android app.
-- `npx cap open android` to open android app in Android Studio.
-- `npx cap open ios` to open iOS app in Xcode - available only on macOS.
-- 
-### Run android and iOS after checkout on branch without it
-If you check out on branch without android and iOS configuration, run `npx cap init`.
+# Capacitor documentation
 
-### Generate icons for Android and iOS
-`cordova-res` expects a Cordova-like structure: place one icon and one splash screen file in a top-level resources folder within your project, like so:
+### Important commands for capacitor:
+- `npx cap sync` to copy client files into Android and iOS apps source codes.
+- `npx cap open android` to open android app source code in Android Studio (recommended to not install from Intellij Toolbox).
+- `npx cap open ios` to open iOS app in Xcode - available only on macOS.
+
+
+### SSL certificates for Android app
+Copy certificate for domain `mobile.harcmap.pl` to `client/android/app/src/main/res/raw` and name it `cert.pem`.
+
+
+### Color and styles in android
+File for theme colors `client/android/app/src/main/res/values/colors.xml`  
+File for theme appearance `client/android/app/src/main/res/values/styles.xml`
+
+### Color and styles in android
+File for theme colors `client/src/style/ios.sass`  
+File for theme appearance `client/src/config/index.ts`
+
+
+### Generate icons and splash screens for Android and iOS
+Script to generate icons and splash screens expects structure like:
 ```
-mobile-resources/
+client/mobile-resources/
 ├── icon-android.png
 ├── icon-ios.png
 └── splash.png
@@ -18,10 +31,6 @@ Next, run the following to generate all images then copy them into the native pr
 ```bash
 npm run make:icons:mobile
 ```
-
-## Color and styles in android
-File for theme colors `client/android/app/src/main/res/values/colors.xml`
-File for theme appearance `client/android/app/src/main/res/values/styles.xml`
 
 ___
 ## Website app on mobile device

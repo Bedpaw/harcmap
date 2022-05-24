@@ -14,9 +14,8 @@
 			"sound": "beep.wav"
 		},
 		"SplashScreen": {
-			"launchShowDuration": 1500,
-			"launchAutoHide": true,
-			"androidSplashResourceName": "splash",
+			"launchAutoHide": false,
+			"backgroundColor": "#07632C",
 			"androidScaleType": "CENTER_CROP",
 			"splashFullScreen": false,
 			"splashImmersive": false,

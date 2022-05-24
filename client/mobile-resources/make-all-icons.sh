@@ -1,15 +1,18 @@
 #!/bin/bash
 
+# Set start script dir
 cd "$(dirname "$0")"
 
-grn=$'\e[1;32m'
+# Colors for console output texts
+green=$'\e[1;32m'
 end=$'\e[0m'
 
 clear
 
 printf "\n"
-printf "%s\n" "Making iOS icons...${grn}"
+printf "%s\n" "Making iOS icons...${green}"
 
+# Generate and copy iOS icons and splash screens from mobile-resources
 cordova-res ios \
   --skip-config \
   --copy \
@@ -19,8 +22,9 @@ cordova-res ios \
   --ios-project ../ios
 
 printf "\n"
-printf "%s\n" "${end}Making Android icons...${grn}"
+printf "%s\n" "${end}Making Android icons...${green}"
 
+# Generate and copy Android icons and splash screens from mobile-resources
 cordova-res android \
   --skip-config \
   --copy \

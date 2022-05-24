@@ -47,7 +47,8 @@
 import { useStore } from 'vuex';
 import OPopupConnectionError from 'organisms/popup/connection-error';
 import MLoadingApp from 'molecules/loading-app';
-import { computed, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 export default {
   name: 'o-loading-app',
@@ -88,6 +89,10 @@ export default {
         config.timeToShowErrorPopup,
       );
     };
+
+    onMounted(() => {
+      SplashScreen.hide();
+    });
 
     return {
       config,
