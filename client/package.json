@@ -16,6 +16,7 @@
     "cypress:local": "cypress open --config-file cypress/cypress.local.json"
   },
   "dependencies": {
+    "@capacitor-community/http": "^1.4.1",
     "@capacitor/android": "^3.4.3",
     "@capacitor/app": "^1.1.1",
     "@capacitor/cli": "^3.4.3",
@@ -28,7 +29,7 @@
     "@dbetka/sass-watcher": "^0.1.6",
     "@dbetka/utils": "^0.1.3",
     "@dbetka/vue-material-icons": "^0.3.2",
-    "@dbetka/wdk": "^0.2.5",
+    "@dbetka/wdk": "^0.2.7",
     "@egjs/flicking-plugins": "^4.3.0",
     "@egjs/vue3-flicking": "^4.5.2",
     "@vuelidate/core": "^2.0.0-alpha.32",
