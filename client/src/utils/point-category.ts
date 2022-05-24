@@ -2,18 +2,14 @@ import { store } from 'store';
 import { MACROS } from 'utils/macros';
 import { translator } from 'dictionary';
 import { PointCategory } from 'models/point';
+import { api } from 'src/api';
+import { colorsUtils } from './macros/colors';
 
 export interface PointCategoryAppearance {
   pointStrokeColor: string,
   pointFillColor: string,
   shape: string,
 }
-const availableColors = {
-  stroke: 'stroke',
-  danger: 'danger',
-  warning: 'warning',
-  info: 'info',
-};
 const availableShapes = {
   star: 'star',
   dot: 'dot',
@@ -39,9 +35,22 @@ function getPointAppearance (pointCategoryId: string, pointType = MACROS.pointTy
   };
 }
 
+async function getDefaultCategoriesIfEmpty (categories: PointCategory[], eventId: string) {
+  if (categories.length === 0) {
+    const defaultCategory = await api.addPointCategory({
+      pointValue: 1,
+      pointFillColor: colorsUtils.appColors.red,
+      categoryName: translator.t('general.defaultPointCategoryName'),
+      pointStrokeColor: colorsUtils.appColors.black,
+    }, eventId);
+    categories.push(defaultCategory);
+  }
+  return categories;
+}
+
 export const pointCategoryUtils = {
   getPointAppearance,
   getCategoriesSelectOptions,
-  availableColors,
+  getDefaultCategoriesIfEmpty,
   availableShapes,
 };

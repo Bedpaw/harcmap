@@ -3,11 +3,10 @@ import { map } from 'map';
 import { eventStoreModules as Modules } from 'store/event-modules';
 import { api } from 'api';
 import { pointUtils } from 'utils/point';
-import { permissions } from 'utils/permissions';
 import { appStorage } from 'utils/storage';
-import { colorsUtils } from 'utils/macros/colors';
-import { translator } from 'dictionary';
 import { DEFAULT_EVENT_CONFIG } from 'config/event-config';
+import { pointCategoryUtils } from 'utils/point-category';
+import { userUtils } from 'config/users-config';
 
 const initState = () => ({
   eventId: null,
@@ -85,47 +84,34 @@ export default {
       context.commit('resetMapState');
       context.commit('resetCategoriesState');
     },
-    download (context, { eventId, teamId, role, nickname }) {
-      return new Promise((resolve, reject) => {
-        let event;
-        api.getEventById(eventId)
-          .then(data => (event = { ...data, eventId }))
-          .then(() => context.commit('invitations/setInvitationKeys', event.inviteKeys, { root: true }))
-          .then(() => api.getCategoriesByEventId(eventId))
-          .then((categories) => {
-            if (categories.length > 0) {
-              return categories;
-            } else {
-              return api.addPointCategory({
-                pointValue: 1,
-                pointFillColor: colorsUtils.appColors.red,
-                categoryName: translator.t('general.defaultPointCategoryName'),
-                pointStrokeColor: colorsUtils.appColors.black,
-              }, eventId).then(category => [category]);
-            }
-          })
-          .then(categories => (event.categories = categories))
-          .then(() => {
-            if (teamId) {
-              return context.dispatch('team/downloadTeam', { eventId, teamId }, { root: true });
-            } else {
-              return context.dispatch('groups/downloadTeams', eventId, { root: true });
-            }
-          })
-          .then(() => {
-            const IsBeforeStart = eventUtils.isBeforeStart(event);
-            const IsCommonUser = permissions.checkIsCommonUser();
-            if (IsBeforeStart && IsCommonUser) return [];
-            else return api.getPointsByEventId(eventId);
-          })
-          .then(points => {
-            event.points = points.map(point => ({ ...point }));
-            context.commit('setEvent', { ...event, role, nickname });
-            context.commit('setId', eventId);
-            resolve(event);
-          })
-          .catch(reject);
-      });
+    async download (context, { eventId, teamId, role, nickname }) {
+      let teamsPromise;
+      const eventPromise = api.getEventById(eventId);
+      const categoriesPromise = api.getCategoriesByEventId(eventId);
+
+      if (userUtils.can.fetchAllTeamsData(role) && teamId) {
+        teamsPromise = context.dispatch('groups/downloadTeams', eventId, { root: true });
+      } else {
+        teamsPromise = context.dispatch('team/downloadTeam', {
+          eventId,
+          teamId,
+        }, { root: true });
+      }
+
+      let [event, categories] = await Promise.all([
+        eventPromise,
+        categoriesPromise,
+        teamsPromise,
+      ]);
+
+      const shouldNotSeePoints = eventUtils.isBeforeStart(event) && userUtils.can.seePointsBeforeEventStart(role);
+      const points = shouldNotSeePoints ? [] : await api.getPointsByEventId(eventId);
+
+      categories = await pointCategoryUtils.getDefaultCategoriesIfEmpty(categories, eventId);
+      event = { ...event, eventId, categories, points, role, nickname };
+      context.commit('invitations/setInvitationKeys', event.inviteKeys, { root: true });
+      context.commit('setEvent', event);
+      return event;
     },
     collectPoint (context, pointKey) {
       return new Promise((resolve, reject) => {
