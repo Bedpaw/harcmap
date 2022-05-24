@@ -11,7 +11,7 @@ const HtmlWebpackConfig = require('./configs/html-webpack-config');
 const optimization = require('./options/optimization');
 const rules = require('./options/rules');
 const alias = require('./options/alias');
-const { runCommand, isMobile } = require('./options/utils');
+const { runInShell, isMobile } = require('./options/utils');
 
 // -------------------------------------- //
 
@@ -58,7 +58,7 @@ module.exports = (env) => ({
       appVersion,
       target: env.target,
       onBuildDone: isMobile(env.target)
-        ? [{ name: 'Sync mobile apps sources', method: () => runCommand('npx cap sync') }]
+        ? [{ name: 'Sync mobile apps sources', method: () => runInShell('npx cap sync') }]
         : undefined,
     }),
     new ESLintConfig(),

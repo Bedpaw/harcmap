@@ -23,7 +23,7 @@ function isMobile (target) {
   return target === TARGETS.mobileApp;
 }
 
-function runCommand (command) {
+function runInShell (command) {
   return new Promise((resolve, reject) => {
     exec(command, (error, stdout, stderr) => {
       if (error) return reject(error.message);
@@ -37,6 +37,6 @@ function runCommand (command) {
 module.exports = {
   resolve,
   getAppVersionFromPackageJSON,
-  runCommand,
+  runInShell,
   isMobile,
 };
