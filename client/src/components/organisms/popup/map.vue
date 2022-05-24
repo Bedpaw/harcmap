@@ -12,6 +12,7 @@
       v-for="[key, singleData] of data.entries()"
       :key="'popup-map-data-' + key"
       class="m-list-element f-popup"
+      :style="singleData.style"
       @click="copyToClipboard(key)"
     >
       <a-icon

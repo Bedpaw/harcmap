@@ -1,45 +1,50 @@
 <template>
-  <div class="m-grid f-point-category-list">
-    <div class="m-row f-header">
-      {{ $t('general.look') }}
+  <t-page class="f-text-center f-p-0">
+    <div class="m-grid f-point-category-list">
+      <div class="m-row f-header">
+        {{ $t('general.look') }}
+      </div>
+      <div class="m-row f-header">
+        {{ $t('general.name') }}
+      </div>
+      <div class="m-row f-header">
+        {{ $t('table.value') }}
+      </div>
+      <div class="m-row f-header">
+        {{ $t('general.edit') }}
+      </div>
+      <div class="m-row f-header">
+        {{ $t('general.remove') }}
+      </div>
     </div>
-    <div class="m-row f-header">
-      {{ $t('general.name') }}
+    <div
+      v-for="c in categories"
+      :key="c.categoryId"
+      class="m-grid f-point-category-list"
+    >
+      <a-draw-point
+        :circle-style="{
+          backgroundColor: c.pointFillColor,
+          borderColor: c.pointStrokeColor,
+          width: '40px',
+          height: '40px',
+        }"
+      />
+      <div>{{ c.categoryName }}</div>
+      <div>{{ c.pointValue }}</div>
+      <a-icon
+        :name="$icons.names.edit"
+        @click="pushToEditPoint(c.categoryId)"
+      />
+      <a-icon
+        :name="$icons.names.delete"
+        @click="deleteCategory(c.categoryId)"
+      />
     </div>
-    <div class="m-row f-header">
-      {{ $t('table.value') }}
-    </div>
-    <div class="m-row f-header">
-      {{ $t('general.edit') }}
-    </div>
-    <div class="m-row f-header">
-      {{ $t('general.remove') }}
-    </div>
-  </div>
-  <div
-    v-for="c in categories"
-    :key="c.categoryId"
-    class="m-grid f-point-category-list"
-  >
-    <a-draw-point
-      :circle-style="{
-        backgroundColor: c.pointFillColor,
-        borderColor: c.pointStrokeColor,
-        width: '40px',
-        height: '40px',
-      }"
-    />
-    <div>{{ c.categoryName }}</div>
-    <div>{{ c.pointValue }}</div>
-    <a-icon
-      :name="$icons.names.edit"
-      @click="pushToEditPoint(c.categoryId)"
-    />
-    <a-icon
-      :name="$icons.names.delete"
-      @click="deleteCategory(c.categoryId)"
-    />
-  </div>
+    <a-button-primary @click="$router.push(ROUTES.newPointCategory.path)">
+      {{ $t('general.add') }}
+    </a-button-primary>
+  </t-page>
 </template>
 
 <script>
@@ -47,11 +52,15 @@ import { mapGetters } from 'vuex';
 import ADrawPoint from 'atoms/draw-point';
 import { translator } from 'dictionary';
 import { communicates } from 'utils/communicates';
+import AButtonPrimary from 'atoms/button/primary';
+import TPage from 'templates/page';
 
 export default {
   name: 'p-point-category-list',
   components: {
+    AButtonPrimary,
     ADrawPoint,
+    TPage,
   },
   computed: {
     ...mapGetters('event', [

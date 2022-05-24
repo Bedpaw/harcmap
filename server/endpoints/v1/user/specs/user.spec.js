@@ -115,11 +115,11 @@ describe('/api/v1/user', () => {
         userId: '100000000000000000000003',
         userEvents: [
           {
-            eventId: '200000000000000000000003',
+            eventId: '300000000000000000000001',
             nickname: 'User33',
           },
           {
-            eventId: '200000000000000000000002',
+            eventId: '300000000000000000000002',
             nickname: 'User31',
           },
         ],
@@ -144,7 +144,7 @@ describe('/api/v1/user', () => {
         userId: '100000000000000000000003',
         userEvents: [
           {
-            eventId: '200000000000000000000002',
+            eventId: '300000000000000000000001',
             nickname: 'User33',
           },
         ],
@@ -169,6 +169,28 @@ describe('/api/v1/user', () => {
   });
 
   testEndpoint('/api/v1/user', {
+    description: 'Shouldn\'t update user email if given password doesn\'t match those in database',
+    method: 'PUT',
+    signIn: {
+      email: 'user4@harcmap.pl',
+      password: 'Password1',
+    },
+    expectedStatus: 400,
+    body: {
+      send: {
+        userId: '100000000000000000000004',
+        email: 'test4@harcmap.pl',
+        oldPassword: 'Password2',
+      },
+      expect: {
+        error: 1606,
+        message: 'passwords do not match',
+      },
+    },
+    resetDbToDefault: true,
+  });
+
+  testEndpoint('/api/v1/user', {
     description: 'Should update user email, password and nickname in given events',
     method: 'PUT',
     signIn: {
@@ -183,11 +205,11 @@ describe('/api/v1/user', () => {
         newPassword: 'newPassword2',
         userEvents: [
           {
-            eventId: '200000000000000000000003',
+            eventId: '300000000000000000000001',
             nickname: 'Nick 4 test1',
           },
           {
-            eventId: '200000000000000000000004',
+            eventId: '300000000000000000000002',
             nickname: 'Nick 4 test2',
           },
         ],

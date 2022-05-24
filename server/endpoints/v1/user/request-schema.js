@@ -16,6 +16,4 @@ const update = {
   }),
 };
 
-module.exports = {
-  update,
-};
+module.exports = update;

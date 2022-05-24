@@ -44,6 +44,7 @@
         :key="option.value"
         class="a-option"
         :class="{ 'f-selected': option.value === vModel, 'f-pointed': pointedOption === index }"
+        :style="option.style"
         @click="chooseOption(option)"
       >
         {{ option.label }}
