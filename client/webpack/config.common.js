@@ -66,6 +66,7 @@ module.exports = (env) => ({
       '__APP_NAME__': JSON.stringify(appName),
       '__APP_VERSION__': JSON.stringify(appVersion),
       '__APP_BASE_URL__': JSON.stringify(process.env.BASE_URL),
+      '__DEVICE_TARGET__': JSON.stringify(env.target),
     }),
   ],
 });

@@ -13,7 +13,7 @@ module.exports = merge(commonConfig, {
   },
   plugins: [
     new webpack.DefinePlugin({
-      '__APP_API_URL__': JSON.stringify('https://app.harcmap.pl'),
+      '__APP_API_URL__': JSON.stringify('https://staging.harcmap.pl'),
       ...getGlobals.prod(),
     }),
   ],

@@ -2,6 +2,7 @@ export const APP_NAME = __APP_NAME__;
 export const APP_VERSION = __APP_VERSION__;
 export const APP_BASE_URL = __APP_BASE_URL__;
 export const API_URL = __APP_API_URL__;
+export const DEVICE_TARGET = __DEVICE_TARGET__;
 export const PRODUCTION_MODE = __APP_PRODUCTION_MODE__;
 export const DEVELOPMENT_MODE = __APP_PRODUCTION_MODE__ === false;
 export const REPORT_EMAIL = __REPORT_EMAIL__;
