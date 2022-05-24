@@ -1,5 +1,7 @@
 const path = require('path');
 const fs = require('fs');
+const { exec } = require('child_process');
+const { TARGETS } = require('./enums');
 
 function resolve (dir) {
   return path.resolve(path.join(__dirname, '..'), dir);
@@ -17,7 +19,24 @@ function getAppVersionFromPackageJSON (filePath = '../package.json') {
   throw new Error('Error: package.json file is unreachable');
 }
 
+function isMobile (target) {
+  return target === TARGETS.mobileApp;
+}
+
+function runCommand (command) {
+  return new Promise((resolve, reject) => {
+    exec(command, (error, stdout, stderr) => {
+      if (error) return reject(error.message);
+      if (stderr) return reject(stderr);
+
+      resolve(stdout);
+    });
+  });
+}
+
 module.exports = {
   resolve,
   getAppVersionFromPackageJSON,
+  runCommand,
+  isMobile,
 };
