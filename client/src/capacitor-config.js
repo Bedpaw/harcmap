@@ -1,5 +1,16 @@
-// import { App as NativeApp } from '@capacitor/app';
+import { App as NativeApp } from '@capacitor/app';
+import router from 'src/router';
 // import { LocalNotifications } from '@capacitor/local-notifications';
+
+NativeApp.addListener('appUrlOpen', function (event) {
+  const slug = event.url.split('harcmap.pl').pop();
+
+  if (slug) {
+    router.push({
+      path: slug,
+    });
+  }
+});
 
 // LocalNotifications.schedule({
 //   notifications: [

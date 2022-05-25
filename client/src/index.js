@@ -12,6 +12,7 @@ import { ROUTES } from 'config/routes-config';
 import '@dbetka/vue-material-icons/dist/vue-material-icons.css';
 import { DEVICE_TARGET } from 'config/app-env';
 import { TARGETS } from '../webpack/options/enums';
+import './capacitor-config';
 
 export const TEST_MODE = () => false; // true when use cypress
 export const MOBILE_TARGET = () => DEVICE_TARGET === TARGETS.mobileApp;
