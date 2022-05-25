@@ -14,6 +14,7 @@
     "build:mobile:staging:watch": "npx webpack --config ./webpack/config.mobile.staging.js --watch",
     "build:mobile:prod": "npx webpack --config ./webpack/config.mobile.prod.js",
     "build:mobile:prod:watch": "npx webpack --config ./webpack/config.mobile.prod.js --watch",
+    "generate:android:apk": "cd android && clear && ./gradlew assembleDebug && echo 'Path to build: client/android/app/build/outputs/apk/debug/app-debug.apk'",
     "import:sass:watch": "sass-watcher --config sass-watcher.json",
     "make:icons:mobile": "bash mobile-resources/make-all-icons.sh",
     "cypress:stub": "cypress open --config-file cypress/cypress.stub.json",

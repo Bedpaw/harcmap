@@ -24,6 +24,7 @@
     "build:mobile:prod:watch": "cd client && npm run build:mobile:prod:watch",
     "build:prod": "cd client && npm run build:prod",
     "build:prod:watch": "cd client && npm run build:prod:watch",
+    "generate:android:apk": "cd client && npm run generate:android:apk",
     "import:sass:watch": "cd client && npm run import:sass:watch",
     "make:icons:mobile": "cd client && npm run make:icons:mobile",
     "server:start": "cd server && npm run start",
