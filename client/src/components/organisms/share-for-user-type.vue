@@ -30,19 +30,12 @@
     />
     <div>
       <a-button-primary
+        v-if="isShareAvailable"
         add-area-class="f-mt-0"
-        :disabled="isNotMobileDevice"
         @click="shareEvent()"
       >
         {{ $t('page.shareEvent.button.shareByApp') }}
       </a-button-primary>
-
-      <div
-        v-if="isNotMobileDevice"
-        class="a-assist f-button"
-      >
-        {{ $t('page.shareEvent.button.shareByAppNotAvailable') }}
-      </div>
     </div>
     <a-button-primary
       add-area-class="f-mt-0 f-pb-3"
@@ -62,6 +55,8 @@ import { computed, defineComponent, onMounted, PropType, ref } from 'vue';
 import { useStore } from 'vuex';
 import { USERS_DEFAULT_CONFIG } from 'config/users-config';
 import { AccountTypesStringType } from 'utils/permissions';
+import { Share } from '@capacitor/share';
+import { MOBILE_TARGET } from 'src/index';
 
 export default defineComponent({
   name: 'o-share-for-user-type',
@@ -76,8 +71,11 @@ export default defineComponent({
   setup (props) {
     const store = useStore();
 
-    const isMobileDevice = ref(false);
-    const isNotMobileDevice = computed(() => isMobileDevice.value === false);
+    const isMobile = MOBILE_TARGET();
+    const isAppShare = ref(false);
+    const isWebShare = ref(false);
+
+    const isShareAvailable = ref(false);
     const detailsVisible = ref(props.rolledUp === false);
     const accountTypeInfo = USERS_DEFAULT_CONFIG.accountTypeInfo;
 
@@ -85,19 +83,27 @@ export default defineComponent({
       return accountTypeInfo[props.type].icon;
     });
 
-    onMounted(() => {
-      if (navigator.share !== undefined) {
-        isMobileDevice.value = true;
+    onMounted(async () => {
+      const appShareAvailable = (await Share.canShare()).value;
+      const webShareAvailable = navigator.share !== undefined;
+
+      isAppShare.value = isMobile && appShareAvailable;
+      isWebShare.value = isMobile === false && webShareAvailable;
+
+      if (isAppShare.value || isWebShare.value) {
+        isShareAvailable.value = true;
       }
     });
 
-    function shareEvent () {
+    async function shareEvent () {
       const eventName = store.getters['event/eventName'];
+      const title = translator.t('page.shareEvent.joinToEventMessage', { eventName });
+      const url = props.eventShareLink;
 
-      isMobileDevice.value && navigator.share({
-        title: translator.t('page.shareEvent.joinToEventMessage', { eventName }),
-        url: props.eventShareLink,
-      })
+      isAppShare.value && Share.share({ title, dialogTitle: title, text: title, url })
+        .catch(console.error);
+
+      isWebShare.value && navigator.share({ title, url })
         .catch(console.error);
     }
 
@@ -109,7 +115,7 @@ export default defineComponent({
 
     return {
       getCurrentIcon,
-      isNotMobileDevice,
+      isShareAvailable,
       detailsVisible,
       showDetails,
       shareEvent,

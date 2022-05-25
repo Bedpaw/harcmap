@@ -15,6 +15,7 @@ import TPage from 'templates/page.vue';
 import OShareForUserType from 'organisms/share-for-user-type.vue';
 import { ROUTES } from 'config/routes-config';
 import { useStore } from 'vuex';
+import { API_URL } from 'config/app-env';
 
 export default defineComponent({
   name: 'p-share-team',
@@ -27,7 +28,8 @@ export default defineComponent({
 
     const teamShareCodes = computed(() => store.getters['invitations/forShareTeam']);
     function generateLink (key:string) {
-      return document.location.origin + ROUTES.invitation.path.replace(':key', key);
+      const origin = API_URL || document.location.origin;
+      return origin + ROUTES.invitation.path.replace(':key', key);
     }
     const teamShareLinks = computed(() => ({
       teamMember: generateLink(teamShareCodes.value.teamMember),
