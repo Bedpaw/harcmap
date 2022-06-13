@@ -61,7 +61,7 @@ app.use(expressSession({
     httpOnly: true,
     sameSite: true,
   },
-  resave: true,
+  resave: false,
   saveUninitialized: false,
   store: MONGO_SESSION_STORE === 'true'
     ? MongoStore.create({
