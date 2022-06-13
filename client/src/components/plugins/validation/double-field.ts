@@ -14,7 +14,11 @@ export const useDoubleFieldValidation = (props:ValidationProps, context:SetupCon
 
   const v$ = useVuelidate<DoubleModelRules, DoubleModelRefs>(
     {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       firstModel: validationRulesListToConfig([...props.rules, ...(firstRules || [])]),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       nextModel: validationRulesListToConfig(nextRules || []),
     },
     {

@@ -29,6 +29,8 @@ export const useFieldValidation = (props: ValidationProps, context: SetupContext
   const vModel = config.vModel ? config.vModel : useModelValue(props, context).vModel;
 
   const v$ = useVuelidate<VModelRules, VModelRefs>(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     { vModel: validationRulesListToConfig([...props.rules, ...(config.defaultRules || [])]) },
     { vModel },
   );
