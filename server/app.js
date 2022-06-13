@@ -4,6 +4,7 @@ const expressSession = require('express-session');
 const swaggerUi = require('swagger-ui-express');
 const MongoStore = require('connect-mongo');
 const path = require('path');
+const cors = require('cors');
 const specs = require('./swagger.config');
 
 const { connectionString } = require('./libs/mongodb');
@@ -20,9 +21,10 @@ const {
   SWAGGER_DOC,
   MONGO_SESSION_STORE,
   MAX_AGE,
+  SERVER_ADDRESS,
 } = process.env;
 const cookieMaxAge = parseInt(COOKIE_MAX_AGE, 10);
-const cookieSecure = COOKIE_SECURE !== 'false';
+const cookieSecure = COOKIE_SECURE === 'true';
 
 // Endpoints sources
 const about = require('./endpoints/v1/about');
@@ -41,6 +43,10 @@ const { Router } = express;
 const apiv1 = Router();
 
 // Middlewares
+app.use(cors({
+  credentials: true,
+  origin: [SERVER_ADDRESS, 'https://mobile.harcmap.pl'],
+}));
 app.use(express.json());
 // Requests body, get validation
 validateRequests(app);
@@ -48,13 +54,14 @@ validateRequests(app);
 app.use(expressSession({
   name: SESSION_COOKIE_NAME,
   secret: SESSION_SECRET,
+  proxy: true,
   cookie: {
     maxAge: cookieMaxAge,
     secure: cookieSecure,
     httpOnly: true,
     sameSite: true,
   },
-  resave: false,
+  resave: true,
   saveUninitialized: false,
   store: MONGO_SESSION_STORE === 'true'
     ? MongoStore.create({
