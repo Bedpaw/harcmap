@@ -7,33 +7,40 @@
   >
     Pokaż trasę wzdłuż zebranych punków
   </a-checkbox>
-
-  <h3 class="f-text-18">
-    Filtry
-  </h3>
-  <m-input
-    v-model="min"
-    placeholder="Minimalna wartość punktu"
+  <a-checkbox
+    v-model="featuresConfig.myPosition"
   >
-    Minimalna wartość punktu
-  </m-input>
-  <m-input
-    v-model="max"
-    placeholder="Maksymalna wartość punktu"
-  />
+    Pokazuj moją pozycję na mapie
+  </a-checkbox>
+  <template v-if="false">
+    <h3 class="f-text-18">
+      Filtry
+    </h3>
+    <m-input
+      v-model="min"
+      placeholder="Minimalna wartość punktu"
+    >
+      Minimalna wartość punktu
+    </m-input>
+    <m-input
+      v-model="max"
+      placeholder="Maksymalna wartość punktu"
+    />
 
-  <h3 class="f-text-18">
-    Wygląd
-  </h3>
-  <m-input
-    v-model="featuresConfig.pointRadius"
-    placeholder="Wielkość punktów na mapie"
-  />
-  <m-input
-    v-if="featuresConfig.lineVisibility"
-    v-model="featuresConfig.lineWidth"
-    placeholder="Szerokość trasy"
-  />
+    <h3 class="f-text-18">
+      Wygląd
+    </h3>
+    <m-input
+      v-model="featuresConfig.pointRadius"
+      placeholder="Wielkość punktów na mapie"
+    />
+    <m-input
+      v-if="featuresConfig.lineVisibility"
+      v-model="featuresConfig.lineWidth"
+      placeholder="Szerokość trasy"
+    />
+  </template>
+
   <ol>
     <li
       v-for="log in $store.state.mapLogs"
@@ -70,6 +77,7 @@ export default {
       pointRadius: mapConfig.points.shapes.point.radius,
       lineVisibility: mapConfig.lineConnectingPoints.visible,
       lineWidth: mapConfig.lineConnectingPoints.width,
+      myPosition: mapConfig.myPosition.isVisible,
     },
     min: 0,
     max: 0,
