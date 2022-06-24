@@ -9,6 +9,7 @@ import { store } from 'store';
 import { Attribution, defaults as defaultControls } from 'ol/control';
 import { mapConfig } from 'map/config';
 import { translator } from 'src/dictionary';
+import { GeolocationControl } from './controls/geolocation-control';
 
 export function createMap (map, config) {
   const {
@@ -23,7 +24,6 @@ export function createMap (map, config) {
     const errorMessage = new ErrorMessage(ERRORS.elementIdIsRequiredForMap);
     errorMessage.showMessage(translator.t('communicate.map.error'));
   }
-
   map.realMap = new Map({
     target: elementId,
     // Set collapsed information about map source
@@ -31,6 +31,7 @@ export function createMap (map, config) {
       new Attribution({
         collapsible: true,
       }),
+      new GeolocationControl(),
     ]),
     view: new View({
       center: olProj.fromLonLat([lon, lat]),

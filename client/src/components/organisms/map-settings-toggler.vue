@@ -53,6 +53,7 @@ export default {
 
 .open {
   left: 0;
+  padding: 20px;
   width: 100vw;
   background: white;
   opacity: 0.9;
