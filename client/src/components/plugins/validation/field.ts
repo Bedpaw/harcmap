@@ -28,6 +28,8 @@ export const fieldValidationMixin = {
 export const useFieldValidation = (props: ValidationProps, context: SetupContext, config: ConfigFieldValidation = {}) => {
   const vModel = config.vModel ? config.vModel : useModelValue(props, context).vModel;
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const v$ = useVuelidate<VModelRules, VModelRefs>(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

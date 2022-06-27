@@ -1,4 +1,9 @@
+const commonGlobals = {
+  '__REPORT_EMAIL__': JSON.stringify('kontakt@harcmap.pl'),
+};
+
 const getDevGlobals = () => ({
+  ...commonGlobals,
   '__APP_PRODUCTION_MODE__': JSON.stringify(false),
   '__APP_TEAM_LEADER_LOGIN_DATA__': JSON.stringify({
     email: 'user3@harcmap.pl',
@@ -21,6 +26,7 @@ const getDevGlobals = () => ({
 });
 
 const getProdGlobals = () => ({
+  ...commonGlobals,
   '__APP_PRODUCTION_MODE__': JSON.stringify(true),
   '__APP_TEAM_LEADER_LOGIN_DATA__': JSON.stringify({ email: '', password: '' }),
   '__APP_ADMIN_LOGIN_DATA__': JSON.stringify({ email: '', password: '' }),

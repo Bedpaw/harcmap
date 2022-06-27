@@ -12,6 +12,8 @@ export const useDoubleFieldValidation = (props:ValidationProps, context:SetupCon
   const [firstModel, firstRules] = first;
   const [nextModel, nextRules] = next;
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const v$ = useVuelidate<DoubleModelRules, DoubleModelRefs>(
     {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

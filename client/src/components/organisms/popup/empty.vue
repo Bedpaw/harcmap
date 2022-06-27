@@ -2,7 +2,7 @@
   <div
     v-if="detailsAreOpen"
     class="m-cover f-popup"
-    @click="toggle"
+    @click.stop="toggle"
   >
     <div
       :class="['o-popup f-empty', addClass]"
@@ -32,6 +32,12 @@ export default {
   methods: {
     toggle () {
       this.detailsAreOpen = (this.detailsAreOpen === false);
+    },
+    show () {
+      this.detailsAreOpen = true;
+    },
+    hide () {
+      this.detailsAreOpen = false;
     },
   },
 };

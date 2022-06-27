@@ -16,3 +16,4 @@ server/bin/mongodb/__mongo-dump.js
 
 client/node_modules
 client/package-lock.json
+client/android/app/src/main/res/raw/cert.pem

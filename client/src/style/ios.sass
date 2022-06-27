@@ -1,0 +1,20 @@
+$status-bar-ios-color: $color-mobile-status-bar
+$navigation-bar-ios-color: $color-mobile-navigation
+
+// Status bar
+html
+  background-color: $status-bar-ios-color
+
+// Navigation bar
+html::after
+  content: ''
+  position: fixed
+  left: 0
+  right: 0
+  bottom: 0
+  z-index: -1
+
+  display: block
+  height: 50px
+
+  background: $navigation-bar-ios-color

@@ -3,11 +3,23 @@
 	"appName": "HarcMap",
 	"webDir": "../public",
 	"bundledWebRuntime": false,
+	"server": {
+		"hostname": "app.harcmap.pl",
+		"androidScheme": "https"
+	},
 	"plugins": {
 		"LocalNotifications": {
 			"smallIcon": "ic_stat_icon_config_sample",
 			"iconColor": "#488AFF",
 			"sound": "beep.wav"
+		},
+		"SplashScreen": {
+			"launchAutoHide": false,
+			"backgroundColor": "#07632C",
+			"androidScaleType": "CENTER_CROP",
+			"splashFullScreen": false,
+			"splashImmersive": false,
+			"layoutName": "launch_screen"
 		}
 	}
 }

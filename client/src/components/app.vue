@@ -20,14 +20,14 @@
     <!-- o-guide `v-if` and `transition` must be here because of async dependencies -->
     <o-guide v-if="guideIsOpen" />
   </transition>
-  <o-loading v-if="!TEST_MODE" />
+  <o-loading-app v-if="!TEST_MODE" />
 </template>
 
 <script>
 import OHeader from 'organisms/header';
 import OMenu from 'organisms/menu';
 import OFooter from 'organisms/footer';
-import OLoading from 'organisms/loading';
+import OLoadingApp from 'organisms/loading-app';
 import { mapGetters, mapMutations } from 'vuex';
 import OPopup from 'organisms/popup';
 import MSnackbar from 'molecules/snackbar';
@@ -41,7 +41,7 @@ export default {
     OHeader,
     OMenu,
     OFooter,
-    OLoading,
+    OLoadingApp,
   },
   computed: {
     ...mapGetters([

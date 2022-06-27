@@ -7,12 +7,14 @@ const { getGlobals } = require('./options/env');
 const commonConfig = commonConfigFile({ target: TARGETS.mobileApp });
 
 module.exports = merge(commonConfig, {
-  mode: 'development',
-  devtool: 'inline-source-map',
+  mode: 'production',
+  performance: {
+    hints: false,
+  },
   plugins: [
     new webpack.DefinePlugin({
-      '__APP_API_URL__': JSON.stringify('https://localhost:3030'),
-      ...getGlobals.dev(),
+      '__APP_API_URL__': JSON.stringify('https://staging.harcmap.pl'),
+      ...getGlobals.prod(),
     }),
   ],
 });
