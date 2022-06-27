@@ -4,13 +4,13 @@
   "webDir": "../public",
   "bundledWebRuntime": false,
   "server": {
-    "hostname": "app.harcmap.pl",
+    "hostname": "mobile.harcmap.pl",
     "androidScheme": "https"
   },
   "plugins": {
     "LocalNotifications": {
       "smallIcon": "ic_stat_icon_config_sample",
-      "iconColor": "#488AFF",
+      "iconColor": "#07632C",
       "sound": "beep.wav"
     },
     "SplashScreen": {

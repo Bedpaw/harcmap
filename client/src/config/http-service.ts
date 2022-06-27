@@ -5,8 +5,10 @@ import { ErrorMessage } from 'utils/error-message';
 import { HttpService } from '@dbetka/wdk/lib/http-service';
 import { API_URL } from 'config/app-env';
 import { ApiError, ServerError } from 'models/errors';
+import { fetchProxy } from 'utils/fetchProxy';
 
 export const httpService = HttpService.createInstance<ApiError, ServerError>({
+  fetchProxy,
   apiUrl: API_URL + '/api/v1',
   defaultRequestConfig: {
     headers: {

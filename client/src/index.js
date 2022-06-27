@@ -10,8 +10,11 @@ import { materialIcons } from '@dbetka/vue-material-icons';
 import { initApp } from 'config';
 import { ROUTES } from 'config/routes-config';
 import '@dbetka/vue-material-icons/dist/vue-material-icons.css';
+import { DEVICE_TARGET } from 'config/app-env';
+import { TARGETS } from '../webpack/options/enums';
 
 export const TEST_MODE = () => false; // true when use cypress
+export const MOBILE_TARGET = () => DEVICE_TARGET === TARGETS.mobileApp;
 initApp();
 
 const app = createApp(App);
@@ -20,6 +23,7 @@ app.mixin({
     ROUTES: () => ROUTES,
     ACCOUNT_TYPES: () => ACCOUNT_TYPES,
     TEST_MODE,
+    MOBILE_TARGET,
   },
   methods: {
     checkPermissions: permissions.checkPermissions,

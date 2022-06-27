@@ -43,7 +43,7 @@ import { useForm } from 'plugins/form';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { DEVELOPMENT_MODE } from 'config/app-env';
-import { TEST_MODE } from 'src';
+import { TEST_MODE, MOBILE_TARGET } from 'src';
 import { testSelectors } from 'data/selectors';
 
 export default {
@@ -81,7 +81,7 @@ export default {
     }
 
     onMounted(() => {
-      if (DEVELOPMENT_MODE && !TEST_MODE()) {
+      if (DEVELOPMENT_MODE && TEST_MODE() === false && MOBILE_TARGET() === false) {
         signInAutomatically();
       }
     });
