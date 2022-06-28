@@ -44,6 +44,9 @@
     "node": ">=12.9.0",
     "npm": ">=6.0.0"
   },
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",

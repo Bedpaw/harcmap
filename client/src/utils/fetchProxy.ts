@@ -12,7 +12,7 @@ export function fetchProxy (url:string, options:RequestInit): Promise<Response> 
     const request = {} as HttpOptions;
     request.url = url;
     body && (request.data = body);
-    method && (request.method = method);
+    request.method = method;
     headers && Array.isArray(headers) === false && (request.headers = headers as Record<string, string>);
 
     Http.request(request)
