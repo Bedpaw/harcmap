@@ -1,5 +1,5 @@
 import OSM from 'ol/source/OSM';
-import { GeoAccuracy } from "utils/geolocation/geolocation-grade";
+import { GeoAccuracy } from 'utils/geolocation/geolocation-grade';
 
 export const mapConfig = {
   // sources can be only source object prepared for TileLayer class

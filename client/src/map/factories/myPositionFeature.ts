@@ -4,7 +4,7 @@ import * as Projection from 'ol/proj';
 import { Fill, RegularShape, Stroke, Style } from 'ol/style';
 import { mapConfig } from 'map/config';
 import { colorsUtils } from 'utils/colors';
-import { GeoAccuracy } from "utils/geolocation/geolocation-grade";
+import { GeoAccuracy } from 'utils/geolocation/geolocation-grade';
 
 export function createMyPositionFeature (myPosition: { latitude: number, longitude: number, accuracy: GeoAccuracy }) {
   const { latitude, longitude, accuracy } = myPosition;

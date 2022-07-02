@@ -2,8 +2,8 @@ import { gameRulesUtils } from 'utils/game-rules';
 import { GeolocationAvailabilityOptions, Rules } from 'models/game-rules';
 import { geolocationService } from 'config/geolocation-config';
 import { store } from 'store';
-import { GeoAccuracy, geolocationGrade } from "utils/geolocation/geolocation-grade";
-import { GeolocationControl } from "map/controls/geolocation-control";
+import { GeoAccuracy, geolocationGrade } from 'utils/geolocation/geolocation-grade';
+import { GeolocationControl } from 'map/controls/geolocation-control';
 
 export interface GeolocationPositionResult {
   rawResult: GeolocationPosition;
@@ -65,7 +65,7 @@ function trackPosition (callbacks: ((geolocationPositionResult: GeolocationPosit
       },
     };
 
-    geolocationUtils.lastPosition = geolocationPositionResult
+    geolocationUtils.lastPosition = geolocationPositionResult;
 
     callbacks.forEach((cb) => cb(geolocationPositionResult));
 

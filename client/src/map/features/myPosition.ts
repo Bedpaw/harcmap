@@ -4,9 +4,9 @@ import { Source } from 'ol/source';
 import { createMyPositionFeature } from 'map/factories/myPositionFeature';
 import { Map } from 'ol';
 import { map } from 'map';
-import { GeoAccuracy } from "utils/geolocation/geolocation-grade";
-import { GeolocationPositionResult } from "utils/geolocation/geolocation";
-import {mapConfig} from "map/config";
+import { GeoAccuracy } from 'utils/geolocation/geolocation-grade';
+import { GeolocationPositionResult } from 'utils/geolocation/geolocation';
+import { mapConfig } from 'map/config';
 
 interface MyPositionFeature {
   destroyAll: () => void,
@@ -25,12 +25,12 @@ function draw (positionResult: GeolocationPositionResult) {
       accuracy,
     },
     rawResult: {
-        coords: {
-          latitude,
-          longitude,
-        },
+      coords: {
+        latitude,
+        longitude,
+      },
     },
-  } = positionResult
+  } = positionResult;
 
   switch (lastAccuraciesGrade) {
     case GeoAccuracy.UNKNOWN:
