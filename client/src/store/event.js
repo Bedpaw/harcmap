@@ -91,7 +91,7 @@ export default {
 
       if (userUtils.can.fetchAllTeamsData(role)) {
         teamsPromise = context.dispatch('groups/downloadTeams', eventId, { root: true });
-      } else if (teamId) {
+      } else {
         teamsPromise = context.dispatch('team/downloadTeam', {
           eventId,
           teamId,

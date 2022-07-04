@@ -19,7 +19,7 @@ Copy certificate for domain `mobile.harcmap.pl` to `client/android/app/src/main/
 File for theme colors `client/android/app/src/main/res/values/colors.xml`  
 File for theme appearance `client/android/app/src/main/res/values/styles.xml`
 
-### Color and styles in android
+### Color and styles in iOS
 File for theme colors `client/src/style/ios.sass`  
 File for theme appearance `client/src/config/index.ts`
 

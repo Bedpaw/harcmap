@@ -49,6 +49,7 @@ import OPopupConnectionError from 'organisms/popup/connection-error';
 import MLoadingApp from 'molecules/loading-app';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { SplashScreen } from '@capacitor/splash-screen';
+import { promise } from '@dbetka/wdk/lib/promise';
 
 export default {
   name: 'o-loading-app',
@@ -91,7 +92,9 @@ export default {
     };
 
     onMounted(() => {
-      SplashScreen.hide();
+      promise
+        .timeout(300)
+        .then(() => SplashScreen.hide());
     });
 
     return {

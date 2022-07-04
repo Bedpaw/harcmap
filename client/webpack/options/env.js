@@ -1,5 +1,6 @@
 const commonGlobals = {
   '__REPORT_EMAIL__': JSON.stringify('kontakt@harcmap.pl'),
+  '__MAIN_DOMAIN__': JSON.stringify('harcmap.pl'),
 };
 
 const getDevGlobals = () => ({

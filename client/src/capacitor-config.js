@@ -1,9 +1,10 @@
 import { App as NativeApp } from '@capacitor/app';
 import router from 'src/router';
+import { MAIN_DOMAIN } from 'config/app-env';
 // import { LocalNotifications } from '@capacitor/local-notifications';
 
 NativeApp.addListener('appUrlOpen', function (event) {
-  const slug = event.url.split('harcmap.pl').pop();
+  const slug = event.url.split(MAIN_DOMAIN).pop();
 
   if (slug) {
     router.push({
