@@ -11,7 +11,7 @@ const HtmlWebpackConfig = require('./configs/html-webpack-config');
 const optimization = require('./options/optimization');
 const rules = require('./options/rules');
 const alias = require('./options/alias');
-const { TARGETS } = require('./options/enums');
+const { runInShell, isMobile } = require('./options/utils');
 
 // -------------------------------------- //
 
@@ -57,15 +57,19 @@ module.exports = (env) => ({
       appName,
       appVersion,
       target: env.target,
+      onBuildDone: isMobile(env.target)
+        ? [{ name: 'Sync mobile apps sources', method: () => runInShell('npx cap sync') }]
+        : undefined,
     }),
     new ESLintConfig(),
-    new HtmlWebpackConfig({ capacitor: env.target === TARGETS.mobileApp }),
+    new HtmlWebpackConfig({ capacitor: isMobile(env.target) }),
     new ImageConfig(),
     new VueLoaderPlugin(),
     new webpack.DefinePlugin({
       '__APP_NAME__': JSON.stringify(appName),
       '__APP_VERSION__': JSON.stringify(appVersion),
       '__APP_BASE_URL__': JSON.stringify(process.env.BASE_URL),
+      '__DEVICE_TARGET__': JSON.stringify(env.target),
     }),
   ],
 });
