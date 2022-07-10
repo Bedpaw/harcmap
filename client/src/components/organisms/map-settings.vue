@@ -1,18 +1,16 @@
 <template>
-  <h2 class="f-text-24">
-    Ustawienia mapy
+  <h2 class="f-text-28 f-m-0 f-text-normal f-pt-2 f-pb-3">
+    {{ $t('features.mapSettings.title') }}
   </h2>
-  <a-checkbox
-    v-model="featuresConfig.lineVisibility"
-  >
-    Pokaż trasę wzdłuż zebranych punków
+  <a-checkbox v-model="featuresConfig.lineVisibility">
+    {{ $t('features.mapSettings.features.lineVisibility') }}
   </a-checkbox>
-  <a-checkbox
-    v-model="featuresConfig.myPosition"
-  >
-    Pokazuj moją pozycję na mapie
+  <a-checkbox v-model="featuresConfig.myPosition">
+    {{ $t('features.mapSettings.features.myPosition') }}
   </a-checkbox>
+
   <template v-if="false">
+    <!-- TODO for future    -->
     <h3 class="f-text-18">
       Filtry
     </h3>
@@ -41,20 +39,26 @@
     />
   </template>
 
-  <ol>
-    <li
-      v-for="log in $store.state.mapLogs"
-      :key="log"
-    >
-      {{ log }}
-    </li>
-  </ol>
-  <a-button-primary @click="$store.commit('clearMapLogs')">
-    Clear logs
-  </a-button-primary>
+  <template v-if="false">
+    <!-- TODO for future    -->
+    <ol>
+      <li
+        v-for="log in $store.state.mapLogs"
+        :key="log"
+      >
+        {{ log }}
+      </li>
+    </ol>
+    <a-button-primary @click="$store.commit('clearMapLogs')">
+      Clear logs
+    </a-button-primary>
+  </template>
 
-  <a-button-primary @click="applyChanges">
-    Zapisz zmiany
+  <a-button-primary
+    add-area-class="f-mt-4"
+    @click="applyChanges"
+  >
+    {{ $t('form.button.save') }}
   </a-button-primary>
 </template>
 
@@ -95,6 +99,7 @@ export default {
       mapConfig.lineConnectingPoints.visible = this.featuresConfig.lineVisibility;
       mapConfig.points.shapes.point.radius = this.featuresConfig.pointRadius;
       mapConfig.lineConnectingPoints.width = this.featuresConfig.lineWidth;
+      mapConfig.myPosition.isVisible = this.featuresConfig.myPosition;
       mapConfig.points.pointsVisibilityCondition = this.createPointValueFilter(this.min, this.max);
       map.refreshMap();
     },

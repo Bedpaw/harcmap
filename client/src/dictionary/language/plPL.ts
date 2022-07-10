@@ -392,6 +392,12 @@ export const plPL = {
     addPoint: {
       positionIsRequired: 'Wymagane jest ustawienie lokalizacji punktu.',
     },
+    geolocation: {
+      initialize: 'Geolokalizacja w trakcie inicjalizacji',
+      inaccurate: 'Geolokalizacja działa niedokładnie',
+      blocked: 'Geolokalizacja jest zablokowana na Twoim urządzeniu',
+      success: 'Twoja aktualna pozycja!',
+    },
   },
   accountTypes: {
     admin: 'Administrator',
@@ -431,10 +437,17 @@ export const plPL = {
   },
   features: {
     timer: {
-      toUpdate: 'Aktualizacja',
+      toUpdate: 'Aktualizacja za',
     },
     bannerMap: {
       defaultSuccessMessage: 'Nowa pozycja została wybrana.',
+    },
+    mapSettings: {
+      title: 'Ustawienia mapy',
+      features: {
+        lineVisibility: 'Pokaż trasę wzdłuż zebranych punków',
+        myPosition: 'Pokaż moją pozycję na mapie',
+      },
     },
     guide: {
       howAppWorks: 'Jak to działa?',

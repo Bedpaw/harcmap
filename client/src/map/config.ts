@@ -42,16 +42,10 @@ export const mapConfig = {
     },
   },
   myPosition: {
-    strokeColor: '#000000',
+    strokeColor: '#FFFFFF',
     strokeWidth: 2,
-    fillColor: '#FFFFFF',
     isVisible: true,
-    getOpacity: (accuracy: GeoAccuracy) => {
-      if ([GeoAccuracy.HIGH, GeoAccuracy.MEDIUM].includes(accuracy)) {
-        return 1;
-      } else {
-        return 0.2;
-      }
-    },
+    getFillColor: (accuracy: GeoAccuracy) =>
+      [GeoAccuracy.HIGH, GeoAccuracy.MEDIUM].includes(accuracy) ? '#897AE7' : '#929292',
   },
 };

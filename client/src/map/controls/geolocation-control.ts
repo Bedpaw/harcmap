@@ -6,8 +6,7 @@ import { GeoAccuracy } from 'utils/geolocation/geolocation-grade';
 
 const locationIcons = {
   low: 'location_off',
-  medium: 'not_listed_location',
-  high: 'where_to_vote',
+  high: 'my_location',
   unknown: 'location_searching',
 };
 
@@ -17,21 +16,21 @@ export class GeolocationControl extends Control {
     const options = optOptions || {};
 
     const button = document.createElement('button');
-
     button.className = 'geolocation-control-button';
 
     const icon = document.createElement('i');
     icon.innerText = locationIcons.unknown;
     icon.className = 'a-icon';
+
     button.appendChild(icon);
 
-    const element = document.createElement('div');
-    element.className = 'geolocation-control-container ol-touch ol-unselectable ol-control f-hidden';
+    const container = document.createElement('div');
+    container.className = 'geolocation-control-container ol-touch ol-unselectable ol-control f-hidden';
 
-    element.appendChild(button);
+    container.appendChild(button);
 
     super({
-      element: element,
+      element: container,
       target: options.target,
     });
 
@@ -39,20 +38,26 @@ export class GeolocationControl extends Control {
   }
 
   showGeolocationGradeSnackbar () {
-    const { details: { lastAccuraciesGrade, accuracy }, rawResult: { coords: { latitude, longitude } } } = geolocationUtils.lastPosition;
+    if (geolocationUtils.lastPosition === null) {
+      communicates.showError('communicate.geolocation.blocked', true);
+      return;
+    }
+    const {
+      details: { lastAccuraciesGrade, accuracy },
+      rawResult: { coords: { latitude, longitude } },
+    } = geolocationUtils.lastPosition;
 
     switch (accuracy) {
-      case GeoAccuracy.VERY_LOW:
       case GeoAccuracy.LOW:
         if (lastAccuraciesGrade === GeoAccuracy.UNKNOWN) {
-          communicates.showMessageTemporary('Trwa inicjalizacja geolokalizacji');
+          communicates.showMessageTemporary('communicate.geolocation.initialize', true);
         } else {
-          communicates.showError('Wykryto problemy z geolokalizacją');
+          communicates.showError('communicate.geolocation.inaccurate', true);
         }
         break;
       case GeoAccuracy.HIGH:
       case GeoAccuracy.MEDIUM:
-        communicates.showSuccessTemporary('Geolokalizacja działa poprawnie!');
+        communicates.showSuccessTemporary('communicate.geolocation.success', true);
         map.panTo({ longitude, latitude });
         break;
     }
@@ -78,21 +83,14 @@ export class GeolocationControl extends Control {
     const icon = button?.querySelector('i');
 
     button?.classList.remove('low');
-    button?.classList.remove('high');
-    button?.classList.remove('medium');
 
     if (button && icon) {
       switch (accuracy) {
         case GeoAccuracy.HIGH:
-          button.classList.add('high');
+        case GeoAccuracy.MEDIUM:
           icon.innerText = locationIcons.high;
           break;
-        case GeoAccuracy.MEDIUM:
-          button.classList.add('medium');
-          icon.innerText = locationIcons.medium;
-          break;
         case GeoAccuracy.LOW:
-        case GeoAccuracy.VERY_LOW:
           if (lastAccuraciesGrade === GeoAccuracy.UNKNOWN) {
             icon.innerText = locationIcons.unknown;
           } else {
@@ -105,4 +103,12 @@ export class GeolocationControl extends Control {
 
   }
 
+  static setGeolocationControlErrorColor () {
+    const button = document.querySelector('.geolocation-control-button');
+    const icon = button?.querySelector('i');
+    if (button && icon) {
+      icon.innerText = locationIcons.low;
+      button.classList.add('low');
+    }
+  }
 }

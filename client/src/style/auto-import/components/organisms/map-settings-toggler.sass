@@ -1,0 +1,64 @@
+.f-map-settings-toggle-container
+  position: absolute
+  z-index: 10
+  top: 44px
+
+  width: 100%
+
+  display: flex
+  justify-content: flex-end
+
+  font-size: 14px
+  font-style: normal
+  font-weight: 700
+  line-height: 20px
+  text-align: center
+
+  &.open
+    top: 0
+    justify-content: flex-start
+    flex-direction: column
+    align-items: flex-end
+
+.f-map-settings-toggle-button
+  position: relative
+  right: 20px
+  top: -10px
+
+  width: 37px
+  height: 45px
+
+  background-color: white
+  border-bottom-left-radius: 30%
+  border-bottom-right-radius: 30%
+
+  &.opened
+    top: 34px
+
+  &:before, &:after
+    content: ''
+    position: absolute
+    height: 12px
+    width: 12px
+    border: 10px solid white
+    border-bottom: none
+    top: -3px
+
+  &:before
+    content: ''
+    left: -12px
+    border-top-right-radius: 100%
+    border-left: none
+
+  &:after
+    content: ''
+    left: 27px
+    border-top-left-radius: 100%
+    border-right: none
+
+  .arrow-down
+    position: relative
+    top: 10px
+    z-index: 1
+    color: black
+    background-color: transparent

@@ -89,7 +89,7 @@ export default {
       const eventPromise = api.getEventById(eventId);
       const categoriesPromise = api.getCategoriesByEventId(eventId);
 
-      if (userUtils.can.fetchAllTeamsData(role) && teamId) {
+      if (userUtils.can.fetchAllTeamsData(role)) {
         teamsPromise = context.dispatch('groups/downloadTeams', eventId, { root: true });
       } else {
         teamsPromise = context.dispatch('team/downloadTeam', {

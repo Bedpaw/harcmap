@@ -19,19 +19,21 @@ let trackSub: null | { unsubscribe: () => void } = null;
 let lastPositionTime = 0;
 
 function isValidResult () {
-  // only one result per second
-  const now = Number(new Date());
-
-  if (lastPositionTime === now) {
+  // only one result per 2 seconds
+  const now = Math.floor(Number(new Date()) / 1000);
+  if (lastPositionTime === now || lastPositionTime === (now - 1)) {
     return false;
   }
-
+  console.log(now);
   lastPositionTime = now;
 
   return true;
 }
 
-function trackPosition (callbacks: ((geolocationPositionResult: GeolocationPositionResult) => void)[]): void {
+function trackPosition (
+  successCallbacks: ((geolocationPositionResult: GeolocationPositionResult) => void)[],
+  errorCallbacks: ((geolocationPositionResult: GeolocationPositionError) => void)[],
+): void {
   if (gameRulesUtils.getRuleValueById(Rules.GeolocationAvailability) === GeolocationAvailabilityOptions.Forbidden) {
     // TODO handle it somehow in ui
     console.warn('Geolocation not allowed');
@@ -45,12 +47,13 @@ function trackPosition (callbacks: ((geolocationPositionResult: GeolocationPosit
   GeolocationControl.showButton();
 
   trackSub = geolocationService.subscribe((pos) => {
+
     if (!isValidResult()) {
       store.commit('addMapLog', 'skipped');
       return;
     }
     // TODO Check accuracy - remove after tests
-    store.commit('addMapLog', `accuracy: ${pos.coords.accuracy}`);
+    store.commit('addMapLog', `accuracy: ${pos.coords.accuracy.toFixed(2)}`);
 
     const accuracy = geolocationGrade.getAccuracyEnum(pos.coords.accuracy);
 
@@ -67,10 +70,12 @@ function trackPosition (callbacks: ((geolocationPositionResult: GeolocationPosit
 
     geolocationUtils.lastPosition = geolocationPositionResult;
 
-    callbacks.forEach((cb) => cb(geolocationPositionResult));
+    successCallbacks.forEach((cb) => cb(geolocationPositionResult));
 
   }, (error) => {
     store.commit('addMapLog', error.message);
+    geolocationUtils.lastPosition = null;
+    errorCallbacks.forEach((cb) => cb(error));
   });
 }
 
@@ -79,11 +84,13 @@ function stopTrackingPosition () {
     geolocationGrade.lastPositionsAccuracies = [];
     GeolocationControl.hideButton();
     trackSub.unsubscribe();
+    trackSub = null;
+    lastPositionTime = 0;
   }
 }
 
 export const geolocationUtils = {
   trackPosition,
   stopTrackingPosition,
-  lastPosition: {} as GeolocationPositionResult,
+  lastPosition: {} as GeolocationPositionResult | null,
 };

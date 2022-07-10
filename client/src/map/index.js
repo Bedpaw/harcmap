@@ -86,11 +86,17 @@ export const map = {
     const pointList = store.getters['event/pointsVisibleOnMap'];
     const pointsCollectedByUser = store.getters['team/collectedPoints'];
     if (featureToggles.FEATURE_TOGGLE_NAVIGATION()) {
-      geolocationUtils.trackPosition([
-        map.myPosition.draw,
-        geolocationDevHelper.consoleLogAccuracy,
-        GeolocationControl.setGeolocationControlColor,
-      ]);
+      geolocationUtils.trackPosition(
+        [
+          map.myPosition.draw,
+          geolocationDevHelper.consoleLogAccuracy,
+          GeolocationControl.setGeolocationControlColor,
+        ],
+        [
+          map.myPosition.destroyAll,
+          GeolocationControl.setGeolocationControlErrorColor,
+        ],
+      );
     }
     map.points.create(pointList);
     map.lines.create(pointsCollectedByUser);
@@ -121,6 +127,7 @@ export const map = {
       map.realMap.un('moveend', this.saveLastMapPositionToStorage);
     }
     geolocationUtils.stopTrackingPosition();
+    myPosition.destroyAll();
     map.destroy('o-map');
   },
   saveLastMapPositionToStorage () {

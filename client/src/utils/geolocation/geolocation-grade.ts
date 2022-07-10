@@ -2,7 +2,6 @@ export enum GeoAccuracy {
     HIGH,
     MEDIUM,
     LOW,
-    VERY_LOW,
     UNKNOWN,
 }
 
@@ -22,11 +21,9 @@ function addAccuracy (accuracy: GeoAccuracy) {
 function getAccuracyEnum (accuracy: number) {
   let accuracyEnum;
 
-  if (accuracy > 50) {
-    accuracyEnum = GeoAccuracy.VERY_LOW;
-  } else if (accuracy > 25) {
+  if (accuracy > 30) {
     accuracyEnum = GeoAccuracy.LOW;
-  } else if (accuracy > 10) {
+  } else if (accuracy > 15) {
     accuracyEnum = GeoAccuracy.MEDIUM;
   } else {
     accuracyEnum = GeoAccuracy.HIGH;
@@ -42,14 +39,11 @@ function getLastAccuraciesGrade () {
   const checkEvery = (enumVal: GeoAccuracy[]) => lastPositionsAccuracies.every((acc) => enumVal.includes(acc));
   const isLocationUnknown = lastPositionsAccuracies.length < ACCURACY_HISTORY_LENGTH && isInitialized === false;
 
-  if (isLocationUnknown && checkEvery([GeoAccuracy.VERY_LOW, GeoAccuracy.LOW])) {
+  if (isLocationUnknown && checkEvery([GeoAccuracy.LOW])) {
     return GeoAccuracy.UNKNOWN;
   }
 
-  if (checkEvery([GeoAccuracy.VERY_LOW])) {
-    return GeoAccuracy.VERY_LOW;
-  }
-  if (checkEvery([GeoAccuracy.VERY_LOW, GeoAccuracy.LOW])) {
+  if (checkEvery([GeoAccuracy.LOW])) {
     return GeoAccuracy.LOW;
   }
   if (checkEvery([GeoAccuracy.HIGH])) {
