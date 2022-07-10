@@ -35,7 +35,7 @@ function trackPosition (
   errorCallbacks: ((geolocationPositionResult: GeolocationPositionError) => void)[],
 ): void {
   if (gameRulesUtils.getRuleValueById(Rules.GeolocationAvailability) === GeolocationAvailabilityOptions.Forbidden) {
-    // TODO handle it somehow in ui
+    // TODO handle it somehow in ui when game options ready
     console.warn('Geolocation not allowed');
     return;
   }
