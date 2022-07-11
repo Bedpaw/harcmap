@@ -90,7 +90,7 @@ export default {
 
       animation.on('start', onAnimationStart);
       animation.on('complete', onAnimationComplete);
-      animation.paint();
+      promise.timeout(300).then(() => animation.paint());
     });
 
     const svgPaths = computed(() => {
