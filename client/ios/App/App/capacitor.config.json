@@ -1,5 +1,5 @@
 {
-	"appId": "com.harcmap.app",
+	"appId": "pl.harcmap.app",
 	"appName": "HarcMap",
 	"webDir": "../public",
 	"bundledWebRuntime": false,
