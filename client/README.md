@@ -5,6 +5,11 @@
 - `npx cap open android` to open android app source code in Android Studio (recommended to not install from Intellij Toolbox).
 - `npx cap open ios` to open iOS app in Xcode - available only on macOS.
 
+### Build Android APK
+```bash
+npm run generate:android:apk
+```
+
 
 ### SSL certificates for Android app
 Copy certificate for domain `mobile.harcmap.pl` to `client/android/app/src/main/res/raw` and name it `cert.pem`.
@@ -14,7 +19,7 @@ Copy certificate for domain `mobile.harcmap.pl` to `client/android/app/src/main/
 File for theme colors `client/android/app/src/main/res/values/colors.xml`  
 File for theme appearance `client/android/app/src/main/res/values/styles.xml`
 
-### Color and styles in android
+### Color and styles in iOS
 File for theme colors `client/src/style/ios.sass`  
 File for theme appearance `client/src/config/index.ts`
 
