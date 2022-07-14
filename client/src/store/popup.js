@@ -8,12 +8,14 @@ export default {
     isOpen: false,
     messages: [],
     icon: undefined,
+    classes: '',
   },
   getters: {
     isOpen: state => state.isOpen,
     listOfMessages: state => state.messages,
     fullMessage: state => state.messages.join(' \n'),
     icon: state => state.icon,
+    classes: state => state.classes,
   },
   mutations: {
     open: (state) => (state.isOpen = true),
@@ -21,11 +23,13 @@ export default {
     toggle: (state) => (state.isOpen = state.isOpen === false),
     addMessage: (state, payload) => state.messages.push(payload),
     setMessages: (state, payload) => (state.messages = payload),
+    setClasses: (state, payload) => (state.classes = payload),
     setIcon: (state, payload) => (state.icon = payload),
   },
   actions: {
-    open (context, { messages, icon }) {
+    open (context, { messages, icon, classes }) {
       context.commit('setMessages', messages);
+      context.commit('setClasses', classes);
       context.commit('setIcon', icon);
       context.commit('open');
     },

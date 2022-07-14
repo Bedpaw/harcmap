@@ -9,6 +9,8 @@ export type PointType = {
   pointCollectionTime: number | null
   pointAppearanceTime: number | null
   pointExpirationTime: number | null
+  pointDescription: string | null
+  pointSuccessMessage: string | null
 }
 
 export interface PointCategory {

@@ -74,6 +74,7 @@ export const plPL = {
     errorAppear: 'Wystąpił błąd',
     defaultPointCategoryName: 'Podstawowy',
     look: 'Wygląd',
+    openDetails: 'Pokaż szczegóły',
   },
   colors: {
     'purple': 'Fioletowy',
@@ -103,6 +104,8 @@ export const plPL = {
       pointDateAndAppearanceTime: 'Data i czas pojawienia się punktu',
       pointDateAndExpirationTime: 'Data i czas wygaśnięcia punktu',
       pointCategory: 'Kategoria punktu',
+      pointDescription: 'Opis punktu',
+      pointSuccessMessage: 'Wiadomość po zebraniu punktu',
       mapRefreshTime: 'Odświeżanie punktów na mapie co',
       eventStartDate: 'Data i czas rozpoczęcia wydarzenia',
       eventEndDate: 'Data i czas zakończenia wydarzenia',

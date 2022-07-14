@@ -42,7 +42,21 @@
         :placeholder="$t('form.field.pointCategory')"
         :disabled="blockForm"
       />
-
+      <m-field-textarea
+        v-model="values.pointDescription"
+        :label="$t('form.field.pointDescription')"
+        :disabled="blockForm"
+        :rules="validationRules.pointDescription"
+        :assist="$t('form.assist.fieldNotRequired')"
+      />
+      <m-field-textarea
+        v-if="isPermanent"
+        v-model="values.pointSuccessMessage"
+        :label="$t('form.field.pointSuccessMessage')"
+        :disabled="blockForm"
+        :rules="validationRules.pointSuccessMessage"
+        :assist="$t('form.assist.fieldNotRequired')"
+      />
       <a-button-secondary
         :disabled="blockForm"
         class="f-text-center f-mt-0"
@@ -90,10 +104,12 @@ import { useStore } from 'vuex';
 import { translator } from 'dictionary';
 import MFieldDatetimeRange from 'molecules/field/datetime-range';
 import { pointCategoryUtils } from 'utils/point-category';
+import MFieldTextarea from '../molecules/field/textarea';
 
 export default {
   name: 't-point-form',
   components: {
+    MFieldTextarea,
     MFieldDatetimeRange,
     OAdminSetNewPointPosition,
     OFloatContainer,

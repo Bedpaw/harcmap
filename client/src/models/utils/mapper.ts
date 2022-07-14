@@ -5,10 +5,16 @@ import { Event } from 'models/event';
 import { UserDTO } from 'models/dtos/user';
 import { User, UserInEvent } from 'models/user';
 import { gameRulesUtils } from 'utils/game-rules';
+import { appStorage } from 'utils/storage';
 
 export class Mapper {
 
   public static mapPointIn (pointIn: PointDTO): PointType {
+    // TODO mock before backend
+    const mockDes = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+    const mockMessage = 'Lorem ipsum dolor sit amet. Etiam malesuada nibh sit amet dolor varius, et venenatis justo mattis. Ut commodo mi nec augue placerat, eget convallis diam ultricies.';
+    const fakeDBGET = (pointId: string, prop: string) => appStorage.getItem(prop + pointId);
+
     return {
       pointAppearanceTime: pointIn.pointDuration.startDate,
       pointCategoryId: pointIn.pointCategoryId,
@@ -20,10 +26,14 @@ export class Mapper {
       pointLongitude: pointIn.pointPosition.longitude,
       pointName: pointIn.pointName,
       pointType: pointIn.pointType,
+      pointDescription: pointIn.pointDescription ?? fakeDBGET(pointIn.pointId, 'pointDescription') ?? mockDes,
+      pointSuccessMessage: pointIn.pointSuccessMessage ?? fakeDBGET(pointIn.pointId, 'pointSuccessMessage') ?? mockMessage,
     };
   }
 
   public static mapPointOut (pointOut: PointType): PointDTOCreate | PointDTOUpdate {
+    appStorage.setItem(`pointDescription${pointOut.pointId}`, pointOut.pointDescription);
+    appStorage.setItem(`pointSuccessMessage${pointOut.pointId}`, pointOut.pointSuccessMessage);
     return {
       pointCategoryId: pointOut.pointCategoryId,
       pointDuration: {
