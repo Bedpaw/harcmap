@@ -2,6 +2,8 @@ const Joi = require('joi');
 const {
   pointName,
   pointType,
+  pointDescription,
+  pointSuccessMessage,
   dateWithNull,
   longitude,
   latitude,
@@ -22,6 +24,8 @@ const onePoint = {
       latitude,
     },
     pointCategoryId: objectIdInRequest,
+    pointDescription: pointDescription,
+    pointSuccessMessage: pointSuccessMessage,
   }),
   DELETE: Joi.object({}),
 };
@@ -46,6 +50,8 @@ const allPoints = {
       latitude: latitude.required(),
     },
     pointCategoryId: objectIdInRequest.required(),
+    pointDescription: pointDescription,
+    pointSuccessMessage: pointSuccessMessage,
   }),
 };
 
