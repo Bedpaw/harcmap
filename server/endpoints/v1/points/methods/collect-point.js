@@ -41,6 +41,8 @@ async function collectPoint (request, eventId, pointKey) {
             pointDuration: point.pointDuration,
             pointPosition: point.pointPosition,
             pointCategoryId: point.pointCategoryId,
+            pointDescription: point.pointDescription,
+            pointSuccessMessage: point.pointSuccessMessage,
           };
         } else {
           throw new AppError(errorCodes.CANNOT_UPDATE_TEAM_COLLECTED_POINTS, {
