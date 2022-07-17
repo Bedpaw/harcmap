@@ -19,6 +19,8 @@ const point1 = {
     longitude: 18.542,
     latitude: 54.469,
   },
+  pointDescription: 'Lorem ipsum dolor sit amet',
+  pointSuccessMessage: 'Lorem ipsum dolor sit amet',
 };
 
 // Wydarzenie 1
@@ -38,6 +40,8 @@ const point2 = {
     longitude: 18.543,
     latitude: 54.470,
   },
+  pointDescription: null,
+  pointSuccessMessage: 'Lorem ipsum dolor sit amet',
 };
 
 // Wydarzenie 1
@@ -54,6 +58,8 @@ const point3 = {
     longitude: 18.541,
     latitude: 54.464,
   },
+  pointDescription: 'Lorem ipsum dolor sit amet',
+  pointSuccessMessage: null,
 };
 
 // Wydarzenie 1
@@ -70,6 +76,8 @@ const point4 = {
     longitude: 18.540,
     latitude: 54.469,
   },
+  pointDescription: null,
+  pointSuccessMessage: null,
 };
 
 // Wydarzenie 1
@@ -89,6 +97,8 @@ const point5 = {
     longitude: 18.548,
     latitude: 54.473,
   },
+  pointDescription: 'Lorem ipsum dolor sit amet',
+  pointSuccessMessage: 'Lorem ipsum dolor sit amet',
 };
 
 // Wydarzenie 1
@@ -105,6 +115,8 @@ const point6 = {
     longitude: 18.545,
     latitude: 54.466,
   },
+  pointDescription: 'Lorem ipsum dolor sit amet',
+  pointSuccessMessage: 'Lorem ipsum dolor sit amet',
 };
 
 // Wydarzenie 1
@@ -124,6 +136,8 @@ const point7 = {
     longitude: 18.548,
     latitude: 54.461,
   },
+  pointDescription: 'Lorem ipsum dolor sit amet',
+  pointSuccessMessage: 'Lorem ipsum dolor sit amet',
 };
 
 // Wydarzenie 2
@@ -140,6 +154,8 @@ const point8 = {
     longitude: 18.540,
     latitude: 54.460,
   },
+  pointDescription: 'Lorem ipsum dolor sit amet',
+  pointSuccessMessage: 'Lorem ipsum dolor sit amet',
 };
 
 // Wydarzenie 2
@@ -156,6 +172,8 @@ const point9 = {
     longitude: 18.545,
     latitude: 54.465,
   },
+  pointDescription: 'Lorem ipsum dolor sit amet',
+  pointSuccessMessage: 'Lorem ipsum dolor sit amet',
 };
 
 // Wydarzenie 3
@@ -175,6 +193,8 @@ const point10 = {
     longitude: 18.543,
     latitude: 54.479,
   },
+  pointDescription: null,
+  pointSuccessMessage: 'Lorem ipsum dolor sit amet',
 };
 
 // Wydarzenie 3
@@ -191,6 +211,8 @@ const point11 = {
     longitude: 18.549,
     latitude: 54.479,
   },
+  pointDescription: null,
+  pointSuccessMessage: 'Lorem ipsum dolor sit amet',
 };
 
 // Wydarzenie 3
@@ -207,6 +229,8 @@ const point12 = {
     longitude: 18.540,
     latitude: 54.470,
   },
+  pointDescription: 'Lorem ipsum dolor sit amet',
+  pointSuccessMessage: null,
 };
 
 module.exports = [
