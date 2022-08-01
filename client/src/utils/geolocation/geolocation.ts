@@ -41,7 +41,6 @@ function trackPosition (
 
   if (trackSub) return;
 
-
   GeolocationControl.showButton();
 
   trackSub = geolocationService.subscribe((pos) => {

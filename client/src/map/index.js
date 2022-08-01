@@ -7,7 +7,6 @@ import { uCheck } from '@dbetka/utils';
 import { lines } from 'map/features/lines';
 import { points } from 'map/features/points';
 import { myPosition } from 'map/features/myPosition';
-import { featureToggles } from 'utils/dev-mode/feature-toggle';
 import { appStorage } from 'utils/storage';
 import { geolocationUtils } from '../utils/geolocation/geolocation';
 import { GeolocationControl } from './controls/geolocation-control';
