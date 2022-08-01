@@ -193,8 +193,8 @@ describe('/api/v1/events/300000000000000000000002/points/60000000000000000000000
         pointCollectedDate: null,
         pointKey: expect.any(String),
         pointDuration: {
-          endDate: 1641571962000,
-          startDate: 1610035962000,
+          endDate: 1641593562000,
+          startDate: 1610057562000,
         },
         pointName: 'Punkt 5',
         pointPosition: {
@@ -203,7 +203,7 @@ describe('/api/v1/events/300000000000000000000002/points/60000000000000000000000
         },
         pointType: 'timeout',
         pointDescription: 'Lorem ipsum dolor sit amet',
-        pointSuccessMessage: 'Lorem ipsum dolor sit amet',
+        pointSuccessMessage: null,
       },
     },
     resetDbToDefault: true,
@@ -229,8 +229,8 @@ describe('/api/v1/events/300000000000000000000002/points/60000000000000000000000
         pointCollectedDate: null,
         pointKey: expect.any(String),
         pointDuration: {
-          endDate: 1641571962000,
-          startDate: 1610035962000,
+          endDate: 1641593562000,
+          startDate: 1610057562000,
         },
         pointName: 'Punkt 5',
         pointPosition: {
@@ -239,7 +239,7 @@ describe('/api/v1/events/300000000000000000000002/points/60000000000000000000000
         },
         pointType: 'timeout',
         pointDescription: 'Lorem ipsum dolor sit amet',
-        pointSuccessMessage: 'Lorem ipsum dolor sit amet',
+        pointSuccessMessage: null,
       },
     },
     resetDbToDefault: true,

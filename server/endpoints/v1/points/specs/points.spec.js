@@ -14,7 +14,7 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
         'pointKey': 'Poi1',
         'pointName': 'Punkt 1',
         'pointType': 'permanent',
-        'pointCollectedDate': 1640991600000,
+        'pointCollectedDate': 1641013200000,
         'pointDuration': {
           'startDate': null,
           'endDate': null,
@@ -31,10 +31,10 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
         'pointKey': 'Poi2',
         'pointName': null,
         'pointType': 'timeout',
-        'pointCollectedDate': 1641098145000,
+        'pointCollectedDate': null,
         'pointDuration': {
-          'startDate': 1610627574000,
-          'endDate': 2525776374000,
+          'startDate': 1610649174000,
+          'endDate': 2525797974000,
         },
         'pointPosition': {
           'longitude': 18.543,
@@ -42,7 +42,7 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
         },
         'pointCategoryId': '700000000000000000000002',
         'pointDescription': null,
-        'pointSuccessMessage': 'Lorem ipsum dolor sit amet',
+        'pointSuccessMessage': null,
       }, {
         'pointId': '600000000000000000000003',
         'pointKey': 'Poi3',
@@ -93,7 +93,7 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
         },
         'pointCategoryId': '700000000000000000000002',
         'pointDescription': 'Lorem ipsum dolor sit amet',
-        'pointSuccessMessage': 'Lorem ipsum dolor sit amet',
+        'pointSuccessMessage': null,
       }, {
         'pointId': '600000000000000000000006',
         'pointKey': 'Poi6',
@@ -127,7 +127,7 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
         },
         'pointCategoryId': '700000000000000000000001',
         'pointDescription': 'Lorem ipsum dolor sit amet',
-        'pointSuccessMessage': 'Lorem ipsum dolor sit amet',
+        'pointSuccessMessage': null,
       }],
     },
   });
@@ -173,7 +173,7 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
         },
         'pointCategoryId': '700000000000000000000002',
         'pointDescription': null,
-        'pointSuccessMessage': 'Lorem ipsum dolor sit amet',
+        'pointSuccessMessage': null,
       }, {
         'pointId': '600000000000000000000003',
         'pointKey': null,
@@ -224,7 +224,7 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
         },
         'pointCategoryId': '700000000000000000000002',
         'pointDescription': 'Lorem ipsum dolor sit amet',
-        'pointSuccessMessage': 'Lorem ipsum dolor sit amet',
+        'pointSuccessMessage': null,
       }, {
         'pointId': '600000000000000000000006',
         'pointKey': null,
@@ -258,7 +258,7 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
         },
         'pointCategoryId': '700000000000000000000001',
         'pointDescription': 'Lorem ipsum dolor sit amet',
-        'pointSuccessMessage': 'Lorem ipsum dolor sit amet',
+        'pointSuccessMessage': null,
       }],
     },
   });
