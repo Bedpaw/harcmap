@@ -30,7 +30,9 @@ export const map = {
     function panToView () {
       const view = map.realMap.getView();
       view.setCenter(fromLonLat([longitude, latitude]));
-      view.setZoom(zoom);
+      if (view.getZoom() < zoom) {
+        view.setZoom(zoom);
+      }
     }
 
     const mapPosition = {

@@ -64,6 +64,7 @@ export class GeolocationControl extends Control {
   }
 
   static getControl () : HTMLElement {
+    // TODO Refactor condition
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return map.realMap.getControls().getArray().find((instance: Control) => instance instanceof GeolocationControl).element;

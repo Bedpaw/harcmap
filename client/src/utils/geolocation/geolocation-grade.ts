@@ -33,8 +33,7 @@ function getAccuracyEnum (accuracy: number) {
 }
 
 function getLastAccuraciesGrade () {
-  // eslint-disable-next-line no-return-assign
-  setTimeout(() => isInitialized = true, timeToInitialize);
+  setTimeout(() => (isInitialized = true), timeToInitialize);
 
   const checkEvery = (enumVal: GeoAccuracy[]) => lastPositionsAccuracies.every((acc) => enumVal.includes(acc));
   const isLocationUnknown = lastPositionsAccuracies.length < ACCURACY_HISTORY_LENGTH && isInitialized === false;

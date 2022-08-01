@@ -24,7 +24,6 @@ function isValidResult () {
   if (lastPositionTime === now || lastPositionTime === (now - 1)) {
     return false;
   }
-  console.log(now);
   lastPositionTime = now;
 
   return true;
@@ -40,9 +39,8 @@ function trackPosition (
     return;
   }
 
-  if (trackSub) {
-    return;
-  }
+  if (trackSub) return;
+
 
   GeolocationControl.showButton();
 
