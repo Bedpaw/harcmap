@@ -41,7 +41,7 @@ const point2 = {
     latitude: 54.470,
   },
   pointDescription: null,
-  pointSuccessMessage: 'Lorem ipsum dolor sit amet',
+  pointSuccessMessage: null,
 };
 
 // Wydarzenie 1
@@ -98,7 +98,7 @@ const point5 = {
     latitude: 54.473,
   },
   pointDescription: 'Lorem ipsum dolor sit amet',
-  pointSuccessMessage: 'Lorem ipsum dolor sit amet',
+  pointSuccessMessage: null,
 };
 
 // Wydarzenie 1
@@ -137,7 +137,7 @@ const point7 = {
     latitude: 54.461,
   },
   pointDescription: 'Lorem ipsum dolor sit amet',
-  pointSuccessMessage: 'Lorem ipsum dolor sit amet',
+  pointSuccessMessage: null,
 };
 
 // Wydarzenie 2
@@ -194,7 +194,7 @@ const point10 = {
     latitude: 54.479,
   },
   pointDescription: null,
-  pointSuccessMessage: 'Lorem ipsum dolor sit amet',
+  pointSuccessMessage: null,
 };
 
 // Wydarzenie 3
