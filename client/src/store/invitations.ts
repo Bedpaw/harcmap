@@ -1,6 +1,7 @@
 import { Module } from 'vuex';
-import { InvitationKeys, SingleInvitationKey } from 'models/invitations';
+import { InvitationKeys, SingleInvitationKey, SingleInvitationKeyClass } from 'models/invitations';
 import { USERS_DEFAULT_CONFIG } from 'config/users-config';
+import { api } from 'api';
 
 const roles = USERS_DEFAULT_CONFIG.accountTypes;
 
@@ -16,21 +17,23 @@ export const invitations:Module<InvitationKeys, object> = {
     forTeamLeader: state => state.invitationKeys.filter(item => item.role === roles.teamLeader) || [],
     forTeamMember: state => state.invitationKeys.filter(item => item.role === roles.teamMember) || [],
     forShareEvent: (state, getters) => {
-      const adminList = getters.forAdmin;
-      const observerList = getters.forAdmin;
-      const teamLeaderList = getters.forAdmin;
+      const admin = new SingleInvitationKeyClass(getters.forAdmin[getters.forAdmin.length - 1]);
+      const observer = new SingleInvitationKeyClass(getters.forObserver[getters.forObserver.length - 1]);
+      const teamLeader = new SingleInvitationKeyClass(getters.forTeamLeader[getters.forTeamLeader.length - 1]);
 
       return {
-        admin: adminList[adminList.length - 1]?.key || '',
-        observer: observerList[observerList.length - 1]?.key || '',
-        teamLeader: teamLeaderList[teamLeaderList.length - 1]?.key || '',
+        admin,
+        observer,
+        teamLeader,
       };
     },
-    forShareTeam: (state, getters, rootState, rootGetters) => ({
-      teamMember: getters.forTeamMember.find(
-        (item:SingleInvitationKey) => item.teamId === rootGetters['team/teamId'],
-      )?.key || '',
-    }),
+    forShareTeam: (state, getters, rootState, rootGetters) => {
+      const teamMember = new SingleInvitationKeyClass(
+        getters.forTeamMember.find((item:SingleInvitationKey) => item.teamId === rootGetters['team/teamId']),
+      );
+
+      return { teamMember };
+    },
   },
   mutations: {
     setInvitationKeys: (state, payload) => {
@@ -38,6 +41,15 @@ export const invitations:Module<InvitationKeys, object> = {
     },
     clearStore: (state) => {
       state.invitationKeys = [];
+    },
+  },
+  actions: {
+    resetInvitation ({ rootGetters, dispatch }, keyId:string) {
+      const event = rootGetters['event/event'];
+      const promise = api.resetInvitation(event.eventId, keyId);
+      promise.then(() => dispatch('event/download', event, { root: true }));
+
+      return promise;
     },
   },
 };

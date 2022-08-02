@@ -36,6 +36,9 @@ const EVENT_API_ERRORS: ApiErrors = {
   joinEvent: {
     defaultError: T.event('joinEvent'),
   },
+  resetInvitation: {
+    defaultError: T.event('resetInvitation'),
+  },
 };
 const POINT_API_ERRORS: ApiErrors = {
   collectPoint: {

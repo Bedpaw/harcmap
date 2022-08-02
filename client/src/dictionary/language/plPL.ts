@@ -318,8 +318,9 @@ export const plPL = {
       getEventById: 'Pobieranie danych wydarzenia się nie powiodło.',
       updateEvent: 'Edycja danych dla wybranego wydarzenia się nie powiodła.',
       addEvent: 'Dodanie nowego wydarzenia nie powiodło się.',
-      checkEvent: 'Sprawdzenie danych wydarzenia nie powiodło się',
-      joinEvent: 'Dołączenie do danego wydarzenia nie powiodło się',
+      checkEvent: 'Sprawdzenie danych wydarzenia nie powiodło się.',
+      joinEvent: 'Dołączenie do danego wydarzenia nie powiodło się.',
+      resetInvitation: 'Zresetowanie kodu zaproszenia nie powiodło się.',
     },
     point: {
       collectPoint: 'Zebranie punktu nie powiodło się',
