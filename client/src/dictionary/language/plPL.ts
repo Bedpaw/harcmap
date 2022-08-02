@@ -400,6 +400,10 @@ export const plPL = {
     addPoint: {
       positionIsRequired: 'Wymagane jest ustawienie lokalizacji punktu.',
     },
+    resetInvitation: {
+      processing: 'Trwa generowanie nowego kodu i linku zaproszenia.',
+      success: 'Nowy kod i link zaproszenia zostały wygenerowane.',
+    },
   },
   accountTypes: {
     admin: 'Administrator',

@@ -2,6 +2,9 @@ import { Module } from 'vuex';
 import { InvitationKeys, SingleInvitationKey, SingleInvitationKeyClass } from 'models/invitations';
 import { USERS_DEFAULT_CONFIG } from 'config/users-config';
 import { api } from 'api';
+import { communicates } from 'utils/communicates';
+import { promise as promiseUtils } from '@dbetka/wdk/lib/promise';
+import { translator } from 'dictionary';
 
 const roles = USERS_DEFAULT_CONFIG.accountTypes;
 
@@ -47,7 +50,11 @@ export const invitations:Module<InvitationKeys, object> = {
     resetInvitation ({ rootGetters, dispatch }, keyId:string) {
       const event = rootGetters['event/event'];
       const promise = api.resetInvitation(event.eventId, keyId);
-      promise.then(() => dispatch('event/download', event, { root: true }));
+      communicates.showMessage(translator.t('communicate.resetInvitation.processing'));
+      promise
+        .then(() => dispatch('event/download', event, { root: true }))
+        .then(() => promiseUtils.timeout(1000))
+        .then(() => communicates.showSuccessTemporary(translator.t('communicate.resetInvitation.success')));
 
       return promise;
     },
