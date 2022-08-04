@@ -3,6 +3,7 @@ const {
   categoryName,
   pointValue,
   color,
+  categoryDescription,
 } = require('../libs/common-schemas');
 const Model = require('../libs/model');
 
@@ -13,6 +14,7 @@ const userSchema = {
   pointValue,
   pointStrokeColor: color,
   pointFillColor: color,
+  categoryDescription,
 };
 
 // Create model
