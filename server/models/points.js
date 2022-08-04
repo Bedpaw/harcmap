@@ -6,6 +6,8 @@ const {
   dateWithNull,
   longitude,
   latitude,
+  pointDescription,
+  pointSuccessMessage,
 } = require('../libs/common-schemas');
 const Model = require('../libs/model');
 
@@ -25,6 +27,8 @@ const userSchema = {
     longitude,
     latitude,
   },
+  pointDescription: pointDescription,
+  pointSuccessMessage: pointSuccessMessage,
 };
 
 // Create model

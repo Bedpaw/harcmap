@@ -14,6 +14,8 @@ async function getPoints (request, eventId) {
     pointDuration: point.pointDuration,
     pointPosition: point.pointPosition,
     pointCategoryId: point.pointCategoryId,
+    pointDescription: point.pointDescription,
+    pointSuccessMessage: point.pointSuccessMessage,
   }));
 
   return results;

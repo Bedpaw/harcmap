@@ -27,6 +27,8 @@ describe('/api/v1/events/300000000000000000000002/points/collect', () => {
           'latitude': 54.46,
         },
         'pointCategoryId': '700000000000000000000004',
+        'pointDescription': 'Lorem ipsum dolor sit amet',
+        'pointSuccessMessage': 'Lorem ipsum dolor sit amet',
       },
     },
     expectInDb: [{
@@ -48,6 +50,8 @@ describe('/api/v1/events/300000000000000000000002/points/collect', () => {
           longitude: 18.54,
         },
         pointType: 'permanent',
+        pointDescription: 'Lorem ipsum dolor sit amet',
+        pointSuccessMessage: 'Lorem ipsum dolor sit amet',
       },
     }, {
       collectionName: 'teams',
@@ -56,7 +60,7 @@ describe('/api/v1/events/300000000000000000000002/points/collect', () => {
         _id: ObjectId('400000000000000000000003'),
         eventId: ObjectId('300000000000000000000002'),
         teamName: 'Team 3',
-        teamColor: '#660044',
+        teamColor: '#7308A5',
         collectedPoints: [ObjectId('600000000000000000000008')],
       },
     }, {
@@ -66,7 +70,7 @@ describe('/api/v1/events/300000000000000000000002/points/collect', () => {
         _id: ObjectId('400000000000000000000002'),
         eventId: ObjectId('300000000000000000000001'),
         teamName: 'Team 2',
-        teamColor: '#444',
+        teamColor: '#777777',
         collectedPoints: [ObjectId('600000000000000000000004')],
       },
     }],
@@ -109,6 +113,8 @@ describe('/api/v1/events/300000000000000000000002/points/collect', () => {
           longitude: 18.54,
         },
         pointType: 'permanent',
+        pointDescription: 'Lorem ipsum dolor sit amet',
+        pointSuccessMessage: 'Lorem ipsum dolor sit amet',
       },
     }, {
       collectionName: 'teams',
@@ -117,7 +123,7 @@ describe('/api/v1/events/300000000000000000000002/points/collect', () => {
         _id: ObjectId('400000000000000000000003'),
         eventId: ObjectId('300000000000000000000002'),
         teamName: 'Team 3',
-        teamColor: '#660044',
+        teamColor: '#7308A5',
         collectedPoints: [],
       },
     }, {
@@ -127,7 +133,7 @@ describe('/api/v1/events/300000000000000000000002/points/collect', () => {
         _id: ObjectId('400000000000000000000002'),
         eventId: ObjectId('300000000000000000000001'),
         teamName: 'Team 2',
-        teamColor: '#444',
+        teamColor: '#777777',
         collectedPoints: [ObjectId('600000000000000000000004')],
       },
     }],
@@ -170,6 +176,8 @@ describe('/api/v1/events/300000000000000000000002/points/collect', () => {
           longitude: 18.54,
         },
         pointType: 'permanent',
+        pointDescription: 'Lorem ipsum dolor sit amet',
+        pointSuccessMessage: 'Lorem ipsum dolor sit amet',
       },
     }, {
       collectionName: 'teams',
@@ -178,7 +186,7 @@ describe('/api/v1/events/300000000000000000000002/points/collect', () => {
         _id: ObjectId('400000000000000000000003'),
         eventId: ObjectId('300000000000000000000002'),
         teamName: 'Team 3',
-        teamColor: '#660044',
+        teamColor: '#7308A5',
         collectedPoints: [],
       },
     }, {
@@ -188,7 +196,7 @@ describe('/api/v1/events/300000000000000000000002/points/collect', () => {
         _id: ObjectId('400000000000000000000002'),
         eventId: ObjectId('300000000000000000000001'),
         teamName: 'Team 2',
-        teamColor: '#444',
+        teamColor: '#777777',
         collectedPoints: [ObjectId('600000000000000000000004')],
       },
     }],
@@ -251,6 +259,8 @@ describe('/api/v1/events/300000000000000000000002/points/collect', () => {
           longitude: 18.543,
         },
         pointType: 'timeout',
+        pointDescription: null,
+        pointSuccessMessage: null,
       },
     }, {
       collectionName: 'teams',
