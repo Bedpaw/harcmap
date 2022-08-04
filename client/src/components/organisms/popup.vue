@@ -11,6 +11,7 @@
       class="o-popup"
       :class="[classes]"
     >
+      <a-icon-close-popup/>
       <div
         v-for="[key, message] of listOfMessages.entries()"
         :key="key"
@@ -30,9 +31,11 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import AIconClosePopup from 'atoms/icon/close-popup';
 
 export default {
   name: 'o-popup',
+  components: { AIconClosePopup },
   computed: {
     ...mapGetters('popup', [
       'isOpen',
