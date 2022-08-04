@@ -80,7 +80,7 @@ export default {
   }),
   computed: {
     ...mapGetters('mapPopup', ['data', 'pointId']),
-    ...mapGetters('event', ['getPointById']),
+    ...mapGetters('event', ['getPointById', 'getCategoryById']),
     getEditPointButton () {
       return {
         icon: this.$icons.names.edit,
@@ -113,7 +113,11 @@ export default {
     },
     isDetailsButtonVisible () {
       const point = this.getPointById(this.pointId);
-      return point && (point.pointDescription || point.pointSuccessMessage);
+
+      if (!point) return false;
+
+      const pointCategory = this.getCategoryById(point.pointCategoryId);
+      return point.pointDescription || point.pointSuccessMessage || pointCategory.categoryDescription;
     },
   },
   beforeUnmount () {

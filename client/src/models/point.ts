@@ -19,4 +19,5 @@ export interface PointCategory {
   pointValue: number;
   pointFillColor: string;
   pointStrokeColor: string;
+  pointCategory: string | null;
 }

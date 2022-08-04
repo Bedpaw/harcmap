@@ -8,6 +8,12 @@
         {{ pointData.pointName }}
       </h3>
       <div class="f-pb-2 f-text-bold f-text-16">
+        {{ $t('form.field.categoryDescription') }}:
+      </div>
+      <div class="f-pb-2 f-text-14 f-text-justify">
+        {{ pointCategoryDescription }}
+      </div>
+      <div class="f-pb-2 f-text-bold f-text-16">
         {{ $t('form.field.pointDescription') }}:
       </div>
       <div class="f-pb-2 f-text-14 f-text-justify">
@@ -41,7 +47,7 @@ export default {
   }),
   computed: {
     ...mapGetters('event', [
-      'getPointById',
+      'getPointById', 'getCategoryById',
     ]),
     ...mapGetters('team', [
       'collectedPointsIds',
@@ -51,6 +57,9 @@ export default {
     ]),
     pointData () {
       return this.getPointById(this.pointId);
+    },
+    pointCategoryDescription () {
+      return this.getCategoryById(this.pointData.pointCategoryId).categoryDescription;
     },
     shouldSeenSuccessMessage () {
       if (['', null].includes(this.pointData.pointSuccessMessage)) {

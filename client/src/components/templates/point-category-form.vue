@@ -31,6 +31,13 @@
         :rules="validationRules.pointValue"
         :disabled="blockForm"
       />
+      <m-field-textarea
+        v-model="values.categoryDescription"
+        :label="$t('form.field.categoryDescription')"
+        :disabled="blockForm"
+        :rules="validationRules.categoryDescription"
+        :assist="$t('form.assist.fieldNotRequired')"
+      />
       <a-button-submit
         :disabled="blockForm"
         :is-sending="isSending"
@@ -50,10 +57,12 @@ import { ref, onMounted, toRefs, computed } from 'vue';
 import { useForm } from 'plugins/form';
 import ADrawPoint from 'atoms/draw-point';
 import { colorsUtils } from 'utils/macros/colors';
+import MFieldTextarea from '../molecules/field/textarea';
 
 export default {
   name: 't-point-category-form',
   components: {
+    MFieldTextarea,
     ADrawPoint,
     MFieldText,
     TPage,
@@ -78,6 +87,7 @@ export default {
       pointFillColor: colorsUtils.appColors.purple,
       pointStrokeColor: colorsUtils.appColors.black,
       pointValue: 1,
+      categoryDescription: null,
     });
 
     const form = useForm();
@@ -93,7 +103,12 @@ export default {
     onMounted(() => Object.assign(values.value, defaultValues.value));
 
     function onSubmit () {
-      onSave.value(values.value)
+      // TODO change backend validation
+      const categoryDescriptionValue = values.value.categoryDescription;
+      const categoryDescription = categoryDescriptionValue !== '' ? categoryDescriptionValue : null;
+      const saveData = { ...values.value, categoryDescription };
+
+      onSave.value(saveData)
         .then(onSuccessOccurs)
         .catch(onErrorOccurs);
     }

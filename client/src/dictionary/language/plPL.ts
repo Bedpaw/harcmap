@@ -113,6 +113,7 @@ export const plPL = {
       strokeColor: 'Kolor konturu',
       pointValue: 'Wartość punktu',
       categoryName: 'Nazwa kategorii',
+      categoryDescription: 'Opis kategorii',
       nickname: 'Nazwa użytkownika',
       teamName: 'Nazwa drużyny',
       teamColor: 'Kolor drużyny',

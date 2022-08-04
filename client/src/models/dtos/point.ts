@@ -13,8 +13,8 @@ export interface PointDTOCreate {
   pointDuration: PointDuration;
   pointPosition: PointPosition;
   pointCategoryId: string;
-  pointDescription?: string | null;
-  pointSuccessMessage?: string | null;
+  pointDescription: string | null;
+  pointSuccessMessage: string | null;
 }
 
 export interface PointDTO extends PointDTOCreate{
@@ -30,6 +30,7 @@ export interface PointCategoryDTOCreate {
   pointValue: number;
   pointStrokeColor: string;
   pointFillColor: string;
+  categoryDescription: string | null;
 }
 export type PointCategoryDTOUpdate = PointCategoryDTOCreate;
 
