@@ -1,3 +1,5 @@
+<!-- TODO FIX IT -->
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <div
     v-if="isOpen"

@@ -1,3 +1,5 @@
+<!-- TODO FIX IT -->
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <o-popup-empty ref="popup">
     <article class="f-text-16 f-text-normal f-p-2">
@@ -23,9 +25,10 @@
         <div class="f-pb-2 f-text-bold">
           {{ $t('form.field.pointSuccessMessage') }}:
         </div>
-        <div class="f-pb-2 f-text-14 f-text-justify">
-          {{ pointData.pointSuccessMessage }}
-        </div>
+        <div
+          class="f-pb-2 f-text-14 f-text-justify"
+          v-html="stringUtils.linkify(pointData.pointSuccessMessage)"
+        />
       </template>
     </article>
   </o-popup-empty>
@@ -36,6 +39,7 @@ import OPopupEmpty from 'organisms/popup/empty';
 import { userUtils } from 'config/users-config';
 import { pointUtils } from 'utils/point';
 import { mapGetters } from 'vuex';
+import { stringUtils } from '../../../utils/string';
 
 export default {
   name: 'o-popup-point-details',
@@ -44,6 +48,7 @@ export default {
   data: () => ({
     userUtils,
     pointUtils,
+    stringUtils,
   }),
   computed: {
     ...mapGetters('event', [

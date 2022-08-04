@@ -1,5 +1,5 @@
 /* eslint no-useless-escape: 0 */
-
+// TODO REMOVE LINKIFY OR CHANGE
 export const stringUtils = {
   linkify (inputText: string) {
     let replacedText, replacePattern1, replacePattern2, replacePattern3;
