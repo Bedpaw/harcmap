@@ -14,20 +14,20 @@ describe('/api/v1/events/:eventId/categories', () => {
         categoryId: '700000000000000000000001',
         categoryName: 'Kategoria 1',
         pointValue: 2,
-        pointStrokeColor: '#00ff00',
-        pointFillColor: '#ff0000',
+        pointStrokeColor: '#007700',
+        pointFillColor: '#FF0000',
       }, {
         categoryId: '700000000000000000000002',
         categoryName: 'Kategoria 2',
         pointValue: 4,
-        pointStrokeColor: '#ff00ff',
-        pointFillColor: '#f0ff00',
+        pointStrokeColor: '#C863DE',
+        pointFillColor: '#3AA5FF',
       }, {
         categoryId: '700000000000000000000003',
         categoryName: 'Kategoria 3',
         pointValue: 5,
-        pointStrokeColor: '#00ffff',
-        pointFillColor: '#0000ff',
+        pointStrokeColor: '#000000',
+        pointFillColor: '#FEB300',
       }],
     },
   });
@@ -165,7 +165,7 @@ describe('/api/v1/events/:eventId/categories', () => {
 
   testEndpoint('/api/v1/events/300000000000000000000001/categories', {
     description: 'Should return 500 status for others http methods',
-    method: ['PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    method: ['PUT', 'DELETE', 'PATCH'],
     expectedStatus: 500,
     body: {
       expect: {
