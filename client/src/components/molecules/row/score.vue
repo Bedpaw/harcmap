@@ -5,27 +5,15 @@
         {{ team.teamName }}
       </div>
       <div>{{ teamScore }} {{ $t('general.pointUnit') }}</div>
-      <div>
-        <a-icon
-          :name="$icons.names.more_vert"
-          @click="toggleDetails"
-        />
-      </div>
     </div>
-    <o-popup-score
-      ref="popupScore"
-      :team="team"
-    />
   </div>
 </template>
 
 <script>
-import OPopupScore from 'organisms/popup/score';
 
 export default {
   name: 'm-row-score',
   components: {
-    OPopupScore,
   },
   props: {
     team: {
