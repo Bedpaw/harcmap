@@ -5,7 +5,7 @@
   >
     <o-map />
     <m-banner-timer />
-    <o-map-settings-toggler v-if="featureToggles.FEATURE_TOGGLE_MAP_MENU()" />
+    <o-map-settings-toggler />
   </t-page>
 </template>
 

@@ -32,6 +32,8 @@ paths:
                       $ref: '#/components/props/pointStrokeColor'
                     pointFillColor:
                       $ref: '#/components/props/pointFillColor'
+                    categoryDescription:
+                      $ref: '#/components/props/categoryDescription'
         400:
           description: 'Validation error'
           content:
@@ -76,6 +78,8 @@ paths:
                   $ref: '#/components/props/pointStrokeColor'
                 pointFillColor:
                   $ref: '#/components/props/pointFillColor'
+                categoryDescription:
+                  $ref: '#/components/props/categoryDescription'
               required:
                 - categoryName
                 - pointValue
@@ -99,6 +103,8 @@ paths:
                     $ref: '#/components/props/pointStrokeColor'
                   pointFillColor:
                     $ref: '#/components/props/pointFillColor'
+                  categoryDescription:
+                    $ref: '#/components/props/categoryDescription'
         400:
           description: 'Validation error'
           content:
@@ -150,6 +156,8 @@ paths:
                   $ref: '#/components/props/pointStrokeColor'
                 pointFillColor:
                   $ref: '#/components/props/pointFillColor'
+                categoryDescription:
+                  $ref: '#/components/props/categoryDescription'
       responses:
         200:
           description: 'Return result of operation'
