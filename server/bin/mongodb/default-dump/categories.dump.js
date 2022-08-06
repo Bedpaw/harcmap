@@ -8,6 +8,7 @@ const category1 = {
   pointValue: 2,
   pointStrokeColor: '#007700',
   pointFillColor: '#FF0000',
+  categoryDescription: 'Lorem ipsum dolor sit amet',
 };
 
 // Wydarzenie 1
@@ -18,6 +19,7 @@ const category2 = {
   pointValue: 4,
   pointStrokeColor: '#C863DE',
   pointFillColor: '#3AA5FF',
+  categoryDescription: 'Lorem ipsum dolor sit amet',
 };
 
 // Wydarzenie 1
@@ -28,6 +30,7 @@ const category3 = {
   pointValue: 5,
   pointStrokeColor: '#000000',
   pointFillColor: '#FEB300',
+  categoryDescription: null,
 };
 
 // Wydarzenie 2
@@ -38,6 +41,7 @@ const category4 = {
   pointValue: 3,
   pointStrokeColor: '#000000',
   pointFillColor: '#FEB300',
+  categoryDescription: null,
 };
 
 // Wydarzenie 2
@@ -48,6 +52,7 @@ const category5 = {
   pointValue: 1,
   pointStrokeColor: '#007700',
   pointFillColor: '#000000',
+  categoryDescription: 'Lorem ipsum dolor sit amet',
 };
 
 // Wydarzenie 3
@@ -58,6 +63,7 @@ const category6 = {
   pointValue: 7,
   pointStrokeColor: '#000000',
   pointFillColor: '#007700',
+  categoryDescription: 'Lorem ipsum dolor sit amet',
 };
 
 // Wydarzenie 3
@@ -68,6 +74,7 @@ const category7 = {
   pointValue: 6,
   pointStrokeColor: '#7308A5',
   pointFillColor: '#FF0000',
+  categoryDescription: 'Lorem ipsum dolor sit amet',
 };
 
 module.exports = [
