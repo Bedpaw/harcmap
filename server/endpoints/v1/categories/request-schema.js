@@ -3,6 +3,7 @@ const {
   categoryName,
   pointValue,
   color,
+  categoryDescription,
 } = require('../../../libs/common-schemas');
 
 const allCategories = {
@@ -12,6 +13,7 @@ const allCategories = {
     pointValue: pointValue.required(),
     pointStrokeColor: color.required(),
     pointFillColor: color.required(),
+    categoryDescription: categoryDescription,
   }),
 };
 
@@ -21,6 +23,7 @@ const oneCategory = {
     pointValue: pointValue,
     pointStrokeColor: color,
     pointFillColor: color,
+    categoryDescription: categoryDescription,
   }),
   DELETE: Joi.object({}),
 };

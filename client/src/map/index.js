@@ -7,8 +7,10 @@ import { uCheck } from '@dbetka/utils';
 import { lines } from 'map/features/lines';
 import { points } from 'map/features/points';
 import { myPosition } from 'map/features/myPosition';
-import { featureToggles } from 'utils/dev-mode/feature-toggle';
 import { appStorage } from 'utils/storage';
+import { geolocationUtils } from '../utils/geolocation/geolocation';
+import { GeolocationControl } from './controls/geolocation-control';
+import { geolocationDevHelper } from '../utils/dev-mode/geolocation-helper';
 
 export const map = {
   realMap: null,
@@ -23,11 +25,13 @@ export const map = {
       document.getElementById(elementId)?.firstChild?.remove();
     }
   },
-  panTo ({ latitude, longitude, zoom }) {
+  panTo ({ latitude, longitude, zoom = 16 }) {
     function panToView () {
       const view = map.realMap.getView();
       view.setCenter(fromLonLat([longitude, latitude]));
-      view.setZoom(zoom);
+      if (view.getZoom() < zoom) {
+        view.setZoom(zoom);
+      }
     }
 
     const mapPosition = {
@@ -82,9 +86,19 @@ export const map = {
   createMapFeatures () {
     const pointList = store.getters['event/pointsVisibleOnMap'];
     const pointsCollectedByUser = store.getters['team/collectedPoints'];
-    if (featureToggles.FEATURE_TOGGLE_NAVIGATION()) {
-      map.myPosition.trackPosition(false, pointList);
-    }
+
+    geolocationUtils.trackPosition(
+      [
+        map.myPosition.draw,
+        geolocationDevHelper.consoleLogAccuracy,
+        GeolocationControl.setGeolocationControlColor,
+      ],
+      [
+        map.myPosition.destroyAll,
+        GeolocationControl.setGeolocationControlErrorColor,
+      ],
+    );
+
     map.points.create(pointList);
     map.lines.create(pointsCollectedByUser);
   },
@@ -113,7 +127,8 @@ export const map = {
     if (map.realMap) {
       map.realMap.un('moveend', this.saveLastMapPositionToStorage);
     }
-    map.myPosition.stopTrackingPosition();
+    geolocationUtils.stopTrackingPosition();
+    myPosition.destroyAll();
     map.destroy('o-map');
   },
   saveLastMapPositionToStorage () {

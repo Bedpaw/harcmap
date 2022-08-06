@@ -16,18 +16,21 @@ describe('/api/v1/events/:eventId/categories', () => {
         pointValue: 2,
         pointStrokeColor: '#007700',
         pointFillColor: '#FF0000',
+        categoryDescription: 'Lorem ipsum dolor sit amet',
       }, {
         categoryId: '700000000000000000000002',
         categoryName: 'Kategoria 2',
         pointValue: 4,
         pointStrokeColor: '#C863DE',
         pointFillColor: '#3AA5FF',
+        categoryDescription: 'Lorem ipsum dolor sit amet',
       }, {
         categoryId: '700000000000000000000003',
         categoryName: 'Kategoria 3',
         pointValue: 5,
         pointStrokeColor: '#000000',
         pointFillColor: '#FEB300',
+        categoryDescription: null,
       }],
     },
   });
@@ -64,6 +67,7 @@ describe('/api/v1/events/:eventId/categories', () => {
         pointStrokeColor: '#999900',
         pointFillColor: '#999900',
         pointValue: 9999,
+        categoryDescription: null,
       },
     },
     expectInDb: {
@@ -76,6 +80,7 @@ describe('/api/v1/events/:eventId/categories', () => {
         'pointStrokeColor': '#999900',
         'pointFillColor': '#999900',
         'pointValue': 9999,
+        'categoryDescription': null,
       },
     },
     resetDbToDefault: true,
