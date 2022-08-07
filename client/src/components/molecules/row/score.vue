@@ -23,10 +23,12 @@
 </template>
 
 <script>
+import OPopupScore from 'organisms/popup/score';
 
 export default {
   name: 'm-row-score',
   components: {
+    OPopupScore,
   },
   props: {
     team: {
