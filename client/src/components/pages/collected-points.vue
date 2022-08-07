@@ -1,19 +1,15 @@
 <template>
-  <t-page class="f-text-center">
-    <o-collected-points :collected-points="collectedPoints" />
-  </t-page>
+  <t-scoreboard :admin-details="false" />
 </template>
 
 <script>
-import TPage from 'templates/page';
-import OCollectedPoints from 'organisms/collected-points';
 import { mapGetters } from 'vuex';
+import TScoreboard from 'templates/scoreboard';
 
 export default {
   name: 'p-collected-points',
   components: {
-    OCollectedPoints,
-    TPage,
+    TScoreboard,
   },
   computed: {
     ...mapGetters('team', ['collectedPoints']),
