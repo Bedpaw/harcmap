@@ -142,7 +142,7 @@ describe(endpoint, () => {
 
   testEndpoint(endpoint, {
     description: 'Should return 500 status for others http methods',
-    method: ['GET', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    method: ['GET', 'PUT', 'DELETE', 'PATCH'],
     expectedStatus: 500,
     body: {
       expect: {

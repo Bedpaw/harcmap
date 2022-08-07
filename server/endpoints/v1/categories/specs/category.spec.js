@@ -279,7 +279,7 @@ describe('/api/v1/events/:eventId/categories/:categoryId', () => {
 
   testEndpoint('/api/v1/events/300000000000000000000001/categories/700000000000000000000001', {
     description: 'Should return 500 status for others http methods',
-    method: ['GET', 'POST', 'OPTIONS', 'PATCH'],
+    method: ['GET', 'POST', 'PATCH'],
     expectedStatus: 500,
     body: {
       expect: {

@@ -12,7 +12,7 @@ describe('/api/v1/events/:eventId/teams', () => {
       expect: [{
         teamName: 'Team 1',
         teamId: '400000000000000000000001',
-        teamColor: '#eee',
+        teamColor: '#C863DE',
         teamMembers: [
           {
             userId: '100000000000000000000003',
@@ -42,13 +42,12 @@ describe('/api/v1/events/:eventId/teams', () => {
         ],
         collectedPoints: [
           '600000000000000000000001',
-          '600000000000000000000002',
           '600000000000000000000003',
         ],
       }, {
         teamName: 'Team 2',
         teamId: '400000000000000000000002',
-        teamColor: '#444',
+        teamColor: '#777777',
         teamMembers: [
           {
             userId: '100000000000000000000005',
@@ -107,7 +106,7 @@ describe('/api/v1/events/:eventId/teams', () => {
 
   testEndpoint('/api/v1/events/300000000000000000000001/teams', {
     description: 'Should return 500 status for others http methods',
-    method: ['POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    method: ['POST', 'PUT', 'DELETE', 'PATCH'],
     expectedStatus: 500,
     body: {
       expect: {

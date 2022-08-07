@@ -35,7 +35,7 @@ describe('/api/v1/user', () => {
           key: null,
           date: null,
         },
-        accountCreated: 1609525363000.0,
+        accountCreated: 1609503763000,
         userEvents: [
           ObjectId('200000000000000000000001'),
         ],
@@ -78,7 +78,7 @@ describe('/api/v1/user', () => {
           key: null,
           date: null,
         },
-        accountCreated: 1609525363000.0,
+        accountCreated: 1609503763000,
         userEvents: [
           ObjectId('200000000000000000000001'),
         ],
@@ -234,7 +234,7 @@ describe('/api/v1/user', () => {
             key: null,
             date: null,
           },
-          accountCreated: 1609525363000.0,
+          accountCreated: 1609503763000,
           userEvents: [
             ObjectId('200000000000000000000003'),
             ObjectId('200000000000000000000004'),
@@ -271,7 +271,7 @@ describe('/api/v1/user', () => {
 
   testEndpoint('/api/v1/user', {
     description: 'Should return 500 status for others http methods',
-    method: ['GET', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
+    method: ['GET', 'POST', 'DELETE', 'PATCH'],
     expectedStatus: 500,
     body: {
       expect: {
