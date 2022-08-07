@@ -62,7 +62,7 @@ const endpointsAccessConfig = {
     DELETE: admins,
   },
   // teamss
-  '/api/v1/events/:eventId/teams': admins,
+  '/api/v1/events/:eventId/teams': allUsers,
   '/api/v1/events/:eventId/teams/:teamId': {
     GET: allUsers,
   },

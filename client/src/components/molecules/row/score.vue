@@ -1,11 +1,14 @@
 <template>
   <div>
-    <div class="m-grid f-score">
+    <div
+      class="m-grid"
+      :class="adminDetails ? 'f-score' : 'f-score-trim'"
+    >
       <div class="f-text-left">
         {{ team.teamName }}
       </div>
       <div>{{ teamScore }} {{ $t('general.pointUnit') }}</div>
-      <div>
+      <div v-if="adminDetails">
         <a-icon
           :name="$icons.names.more_vert"
           @click="toggleDetails"
@@ -35,6 +38,10 @@ export default {
     teamScore: {
       type: Number,
       required: true,
+    },
+    adminDetails: {
+      type: Boolean,
+      required: false,
     },
   },
   methods: {

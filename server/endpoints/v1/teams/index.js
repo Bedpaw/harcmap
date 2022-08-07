@@ -12,7 +12,7 @@ addEndpointValidation('/api/v1/events/:eventId/teams/:teamId', oneTeam);
 router.route('/:eventId/teams')
   .get(async (request, response) => {
     const { eventId } = request.params;
-    const result = await getTeams(eventId);
+    const result = await getTeams(eventId, request);
 
     response.send(result);
   });
