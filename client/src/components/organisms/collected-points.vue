@@ -51,7 +51,6 @@
 import { mapGetters } from 'vuex';
 import MRowCategorySum from 'molecules/row/category-sum';
 import MRowPoint from 'molecules/row/point';
-
 export default {
   name: 'o-collected-points',
   components: {

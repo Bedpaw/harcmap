@@ -1,8 +1,9 @@
 const Teams = require('../../../../models/teams');
 const aggregationPipeline = require('../../../../aggregations/get-teams');
 const { ObjectId } = require('mongodb');
+const { secureField } = require('../../../../libs/utils');
 
-async function getTeams (eventId) {
+async function getTeams (eventId, request) {
   const results = await Teams.getMany({ eventId: ObjectId(eventId) }, {
     aggregationPipeline,
   });
@@ -23,7 +24,7 @@ async function getTeams (eventId) {
       teamName,
       teamColor,
       teamMembers,
-      inviteKeys: parsedInviteKeys,
+      inviteKeys: secureField(parsedInviteKeys, eventId, request),
       collectedPoints: collectedPoints.map(id => id.toString()),
     };
   });
