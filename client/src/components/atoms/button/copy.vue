@@ -18,6 +18,7 @@
 import AButtonSecondary from 'atoms/button/secondary.vue';
 import { computed, defineComponent, ref } from 'vue';
 import { translator } from 'dictionary';
+import { Clipboard } from '@capacitor/clipboard';
 
 export default defineComponent({
   name: 'a-button-copy',
@@ -43,18 +44,18 @@ export default defineComponent({
     });
 
     function copy () {
-      navigator.clipboard.writeText(props.textToCopy).then(
-        () => {
+      Clipboard.write({ string: props.textToCopy })
+        .then(() => {
           showedMessage.value = true;
           clearTimeout(timeoutIdForMessage);
           timeoutIdForMessage = setTimeout(() => {
             showedMessage.value = false;
           }, 1000);
-        },
-        () => {
+        })
+        .catch(err => {
+          console.error(err);
           showedError.value = true;
-        },
-      );
+        });
     }
 
     return {
