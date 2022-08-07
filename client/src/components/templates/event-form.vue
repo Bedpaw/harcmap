@@ -30,7 +30,6 @@
         />
       </transition>
       <a-button
-        v-if="featureToggles.FEATURE_TOGGLE_NAVIGATION()"
         add-class="f-clear"
         add-area-class="f-mt-0"
         @click="showAdvancedOptions = !showAdvancedOptions"
