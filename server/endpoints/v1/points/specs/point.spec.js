@@ -36,6 +36,8 @@ describe('/api/v1/events/300000000000000000000002/points/60000000000000000000000
           longitude: 18.54,
         },
         pointType: 'permanent',
+        pointDescription: 'Lorem ipsum dolor sit amet',
+        pointSuccessMessage: 'Lorem ipsum dolor sit amet',
       },
     },
     resetDbToDefault: true,
@@ -77,6 +79,8 @@ describe('/api/v1/events/300000000000000000000002/points/60000000000000000000000
           longitude: 18.54,
         },
         pointType: 'permanent',
+        pointDescription: 'Lorem ipsum dolor sit amet',
+        pointSuccessMessage: 'Lorem ipsum dolor sit amet',
       },
     },
     resetDbToDefault: true,
@@ -118,6 +122,8 @@ describe('/api/v1/events/300000000000000000000002/points/60000000000000000000000
           longitude: 18.54,
         },
         pointType: 'permanent',
+        pointDescription: 'Lorem ipsum dolor sit amet',
+        pointSuccessMessage: 'Lorem ipsum dolor sit amet',
       },
     },
     resetDbToDefault: true,
@@ -196,6 +202,8 @@ describe('/api/v1/events/300000000000000000000002/points/60000000000000000000000
           longitude: 18.548,
         },
         pointType: 'timeout',
+        pointDescription: 'Lorem ipsum dolor sit amet',
+        pointSuccessMessage: null,
       },
     },
     resetDbToDefault: true,
@@ -230,6 +238,8 @@ describe('/api/v1/events/300000000000000000000002/points/60000000000000000000000
           longitude: 18.548,
         },
         pointType: 'timeout',
+        pointDescription: 'Lorem ipsum dolor sit amet',
+        pointSuccessMessage: null,
       },
     },
     resetDbToDefault: true,
@@ -237,7 +247,7 @@ describe('/api/v1/events/300000000000000000000002/points/60000000000000000000000
 
   testEndpoint('/api/v1/events/300000000000000000000001/points/600000000000000000000005', {
     description: 'Should return 500 status for others http methods',
-    method: ['GET', 'OPTIONS', 'PATCH'],
+    method: ['GET', 'PATCH'],
     expectedStatus: 500,
     body: {
       expect: {

@@ -70,7 +70,7 @@ describe('/api/v1/events/check', () => {
 
   testEndpoint('/api/v1/events/check', {
     description: 'Should return 500 status for others http methods',
-    method: ['GET', 'DELETE', 'OPTIONS', 'PATCH'],
+    method: ['GET', 'DELETE', 'PATCH'],
     expectedStatus: 500,
     body: {
       expect: {
