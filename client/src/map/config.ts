@@ -1,4 +1,5 @@
 import OSM from 'ol/source/OSM';
+import { GeoAccuracy } from 'utils/geolocation/geolocation-grade';
 
 export const mapConfig = {
   // sources can be only source object prepared for TileLayer class
@@ -41,8 +42,10 @@ export const mapConfig = {
     },
   },
   myPosition: {
-    strokeColor: '#000',
+    strokeColor: '#FFFFFF',
     strokeWidth: 2,
-    fillColor: '#FFF',
+    isVisible: true,
+    getFillColor: (accuracy: GeoAccuracy) =>
+      [GeoAccuracy.HIGH, GeoAccuracy.MEDIUM].includes(accuracy) ? '#897AE7' : '#929292',
   },
 };

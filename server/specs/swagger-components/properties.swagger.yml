@@ -281,6 +281,22 @@ components:
       minLength: 4
       maxLength: 7
       example: '#922eb4'
+    pointDescription:
+      description: 'Point description'
+      type: string
+      minLength: 10
+      maxLength: 300
+      default: null
+      nullable: true
+      example: 'My new description'
+    pointSuccessMessage:
+      description: 'Point success message'
+      type: string
+      minLength: 10
+      maxLength: 300
+      default: null
+      nullable: true
+      example: 'My new success message'
     categoryDescription:
       description: 'Category description'
       type: string

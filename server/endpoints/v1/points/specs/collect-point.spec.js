@@ -233,7 +233,7 @@ describe('/api/v1/events/300000000000000000000002/points/collect', () => {
     expectedStatus: 400,
     body: {
       send: {
-        pointKey: 'Po1i',
+        pointKey: 'Po2i',
       },
       expect: {
         error: 1301,
@@ -242,25 +242,25 @@ describe('/api/v1/events/300000000000000000000002/points/collect', () => {
     },
     expectInDb: [{
       collectionName: 'points',
-      query: { _id: ObjectId('600000000000000000000010') },
+      query: { _id: ObjectId('600000000000000000000011') },
       document: {
-        _id: ObjectId('600000000000000000000010'),
+        _id: ObjectId('600000000000000000000011'),
         eventId: ObjectId('300000000000000000000003'),
-        pointCategoryId: ObjectId('700000000000000000000006'),
-        pointCollectedDate: 1638396091000,
-        pointKey: 'Po1i',
+        pointCategoryId: ObjectId('700000000000000000000007'),
+        pointCollectedDate: 1637841854000,
+        pointKey: 'Po2i',
         pointDuration: {
-          endDate: 1641571962000,
-          startDate: 1634996063000,
+          endDate: null,
+          startDate: null,
         },
         pointName: null,
         pointPosition: {
           latitude: 54.479,
-          longitude: 18.543,
+          longitude: 18.549,
         },
-        pointType: 'timeout',
+        pointType: 'permanent',
         pointDescription: null,
-        pointSuccessMessage: null,
+        pointSuccessMessage: 'Lorem ipsum dolor sit amet',
       },
     }, {
       collectionName: 'teams',
@@ -269,8 +269,8 @@ describe('/api/v1/events/300000000000000000000002/points/collect', () => {
         _id: ObjectId('400000000000000000000004'),
         eventId: ObjectId('300000000000000000000003'),
         teamName: 'Team 4',
-        teamColor: '#00f400',
-        collectedPoints: [ObjectId('600000000000000000000010'), ObjectId('600000000000000000000011')],
+        teamColor: '#007700',
+        collectedPoints: [ObjectId('600000000000000000000011')],
       },
     }],
     resetDbToDefault: true,
@@ -278,7 +278,7 @@ describe('/api/v1/events/300000000000000000000002/points/collect', () => {
 
   testEndpoint('/api/v1/events/300000000000000000000003/points/collect', {
     description: 'Should return 500 status for others http methods',
-    method: ['GET', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    method: ['GET', 'PUT', 'DELETE', 'PATCH'],
     expectedStatus: 500,
     body: {
       expect: {

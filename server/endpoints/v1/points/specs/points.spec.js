@@ -14,7 +14,7 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
         'pointKey': 'Poi1',
         'pointName': 'Punkt 1',
         'pointType': 'permanent',
-        'pointCollectedDate': 1641013200000,
+        'pointCollectedDate': 1640991600000,
         'pointDuration': {
           'startDate': null,
           'endDate': null,
@@ -29,12 +29,12 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
       }, {
         'pointId': '600000000000000000000002',
         'pointKey': 'Poi2',
-        'pointName': null,
+        'pointName': 'Point 2',
         'pointType': 'timeout',
         'pointCollectedDate': null,
         'pointDuration': {
-          'startDate': 1610649174000,
-          'endDate': 2525797974000,
+          'startDate': 1610627574000,
+          'endDate': 2525776374000,
         },
         'pointPosition': {
           'longitude': 18.543,
@@ -160,9 +160,9 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
       }, {
         'pointId': '600000000000000000000002',
         'pointKey': null,
-        'pointName': null,
+        'pointName': 'Point 2',
         'pointType': 'timeout',
-        'pointCollectedDate': 1641098145000,
+        'pointCollectedDate': null,
         'pointDuration': {
           'startDate': 1610627574000,
           'endDate': 2525776374000,
@@ -423,7 +423,7 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
 
   testEndpoint('/api/v1/events/300000000000000000000001/points', {
     description: 'Should return 500 status for others http methods',
-    method: ['PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    method: ['PUT', 'DELETE', 'PATCH'],
     expectedStatus: 500,
     body: {
       expect: {
