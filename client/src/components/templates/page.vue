@@ -1,6 +1,5 @@
 <template>
   <div
-    v-touch:swipe.left="openMenu"
     class="t-page"
   >
     <slot />
