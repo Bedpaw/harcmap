@@ -24,12 +24,14 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
           'latitude': 54.469,
         },
         'pointCategoryId': '700000000000000000000001',
+        'pointDescription': 'Lorem ipsum dolor sit amet',
+        'pointSuccessMessage': 'Lorem ipsum dolor sit amet',
       }, {
         'pointId': '600000000000000000000002',
         'pointKey': 'Poi2',
-        'pointName': null,
+        'pointName': 'Point 2',
         'pointType': 'timeout',
-        'pointCollectedDate': 1641098145000,
+        'pointCollectedDate': null,
         'pointDuration': {
           'startDate': 1610627574000,
           'endDate': 2525776374000,
@@ -39,6 +41,8 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
           'latitude': 54.47,
         },
         'pointCategoryId': '700000000000000000000002',
+        'pointDescription': null,
+        'pointSuccessMessage': null,
       }, {
         'pointId': '600000000000000000000003',
         'pointKey': 'Poi3',
@@ -54,6 +58,8 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
           'latitude': 54.464,
         },
         'pointCategoryId': '700000000000000000000001',
+        'pointDescription': 'Lorem ipsum dolor sit amet',
+        'pointSuccessMessage': null,
       }, {
         'pointId': '600000000000000000000004',
         'pointKey': 'Poi4',
@@ -69,6 +75,8 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
           'latitude': 54.469,
         },
         'pointCategoryId': '700000000000000000000001',
+        'pointDescription': null,
+        'pointSuccessMessage': null,
       }, {
         'pointId': '600000000000000000000005',
         'pointKey': 'Poi5',
@@ -84,6 +92,8 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
           'latitude': 54.473,
         },
         'pointCategoryId': '700000000000000000000002',
+        'pointDescription': 'Lorem ipsum dolor sit amet',
+        'pointSuccessMessage': null,
       }, {
         'pointId': '600000000000000000000006',
         'pointKey': 'Poi6',
@@ -99,6 +109,8 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
           'latitude': 54.466,
         },
         'pointCategoryId': '700000000000000000000003',
+        'pointDescription': 'Lorem ipsum dolor sit amet',
+        'pointSuccessMessage': 'Lorem ipsum dolor sit amet',
       }, {
         'pointId': '600000000000000000000007',
         'pointKey': 'Poi7',
@@ -114,6 +126,8 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
           'latitude': 54.461,
         },
         'pointCategoryId': '700000000000000000000001',
+        'pointDescription': 'Lorem ipsum dolor sit amet',
+        'pointSuccessMessage': null,
       }],
     },
   });
@@ -141,12 +155,14 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
           'latitude': 54.469,
         },
         'pointCategoryId': '700000000000000000000001',
+        'pointDescription': 'Lorem ipsum dolor sit amet',
+        'pointSuccessMessage': 'Lorem ipsum dolor sit amet',
       }, {
         'pointId': '600000000000000000000002',
         'pointKey': null,
-        'pointName': null,
+        'pointName': 'Point 2',
         'pointType': 'timeout',
-        'pointCollectedDate': 1641098145000,
+        'pointCollectedDate': null,
         'pointDuration': {
           'startDate': 1610627574000,
           'endDate': 2525776374000,
@@ -156,6 +172,8 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
           'latitude': 54.47,
         },
         'pointCategoryId': '700000000000000000000002',
+        'pointDescription': null,
+        'pointSuccessMessage': null,
       }, {
         'pointId': '600000000000000000000003',
         'pointKey': null,
@@ -171,6 +189,8 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
           'latitude': 54.464,
         },
         'pointCategoryId': '700000000000000000000001',
+        'pointDescription': 'Lorem ipsum dolor sit amet',
+        'pointSuccessMessage': null,
       }, {
         'pointId': '600000000000000000000004',
         'pointKey': null,
@@ -186,6 +206,8 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
           'latitude': 54.469,
         },
         'pointCategoryId': '700000000000000000000001',
+        'pointDescription': null,
+        'pointSuccessMessage': null,
       }, {
         'pointId': '600000000000000000000005',
         'pointKey': null,
@@ -201,6 +223,8 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
           'latitude': 54.473,
         },
         'pointCategoryId': '700000000000000000000002',
+        'pointDescription': 'Lorem ipsum dolor sit amet',
+        'pointSuccessMessage': null,
       }, {
         'pointId': '600000000000000000000006',
         'pointKey': null,
@@ -216,6 +240,8 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
           'latitude': 54.466,
         },
         'pointCategoryId': '700000000000000000000003',
+        'pointDescription': 'Lorem ipsum dolor sit amet',
+        'pointSuccessMessage': 'Lorem ipsum dolor sit amet',
       }, {
         'pointId': '600000000000000000000007',
         'pointKey': null,
@@ -231,6 +257,8 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
           'latitude': 54.461,
         },
         'pointCategoryId': '700000000000000000000001',
+        'pointDescription': 'Lorem ipsum dolor sit amet',
+        'pointSuccessMessage': null,
       }],
     },
   });
@@ -283,6 +311,7 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
           longitude: 1,
         },
         pointType: 'permanent',
+        pointDescription: 'Lorem ipsum dolor sit amet',
       },
       expect: {
         pointCategoryId: '700000000000000000000002',
@@ -299,6 +328,8 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
           longitude: 1,
         },
         pointType: 'permanent',
+        pointDescription: 'Lorem ipsum dolor sit amet',
+        pointSuccessMessage: null,
       },
       expectInDb: {
         collectionName: 'points',
@@ -318,6 +349,8 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
             longitude: 1,
           },
           pointType: 'permanent',
+          pointDescription: 'Lorem ipsum dolor sit amet',
+          pointSuccessMessage: null,
         },
       },
       resetDbToDefault: true,
@@ -390,7 +423,7 @@ describe('/api/v1/events/300000000000000000000001/points', () => {
 
   testEndpoint('/api/v1/events/300000000000000000000001/points', {
     description: 'Should return 500 status for others http methods',
-    method: ['PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    method: ['PUT', 'DELETE', 'PATCH'],
     expectedStatus: 500,
     body: {
       expect: {

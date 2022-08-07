@@ -3,7 +3,11 @@ const { ObjectId } = require('mongodb');
 
 async function addCategory (eventIdString, data) {
   const eventId = ObjectId(eventIdString);
-  const dataToInsert = { ...data, eventId };
+  const dataToInsert = {
+    ...data,
+    eventId,
+    categoryDescription: data.categoryDescription || null,
+  };
   // TODO create ONE
   const results = await Categories.create(dataToInsert);
   // created only one category so take only one result

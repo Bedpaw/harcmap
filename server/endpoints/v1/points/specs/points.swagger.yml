@@ -38,6 +38,10 @@ paths:
                       $ref: '#/components/props/pointPosition'
                     pointCategoryId:
                       $ref: '#/components/props/id'
+                    pointDescription:
+                      $ref: '#/components/props/pointDescription'
+                    pointSuccessMessage:
+                      $ref: '#/components/props/pointSuccessMessage'
         400:
           description: 'Validation error'
           content:
@@ -84,6 +88,10 @@ paths:
                   $ref: '#/components/props/pointPosition'
                 pointCategoryId:
                   $ref: '#/components/props/id'
+                pointDescription:
+                  $ref: '#/components/props/pointDescription'
+                pointSuccessMessage:
+                  $ref: '#/components/props/pointSuccessMessage'
               required:
                 - pointType
                 - pointPosition
@@ -113,6 +121,10 @@ paths:
                     $ref: '#/components/props/pointPosition'
                   pointCategoryId:
                     $ref: '#/components/props/id'
+                  pointDescription:
+                    $ref: '#/components/props/pointDescription'
+                  pointSuccessMessage:
+                    $ref: '#/components/props/pointSuccessMessage'
         400:
           description: 'Validation error'
           content:
@@ -176,6 +188,10 @@ paths:
                     $ref: '#/components/props/pointPosition'
                   pointCategoryId:
                     $ref: '#/components/props/id'
+                  pointDescription:
+                    $ref: '#/components/props/pointDescription'
+                  pointSuccessMessage:
+                    $ref: '#/components/props/pointSuccessMessage'
         400:
           description: 'Validation error'
           content:
@@ -229,6 +245,10 @@ paths:
                   $ref: '#/components/props/pointPosition'
                 pointCategoryId:
                   $ref: '#/components/props/id'
+                pointDescription:
+                  $ref: '#/components/props/pointDescription'
+                pointSuccessMessage:
+                  $ref: '#/components/props/pointSuccessMessage'
       responses:
         200:
           description: 'Result of operation'

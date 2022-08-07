@@ -112,6 +112,16 @@ const pointName = Joi
 const pointType = Joi
   .string()
   .equal('timeout', 'permanent');
+const pointDescription = Joi
+  .string()
+  .min(10)
+  .max(300)
+  .allow(null);
+const pointSuccessMessage = Joi
+  .string()
+  .min(10)
+  .max(300)
+  .allow(null);
 
 /**
  * Category props
@@ -129,6 +139,11 @@ const categoryName = Joi
 const color = Joi
   .string()
   .pattern(/^#[a-fA-F0-9]{3,6}$/); // hex color value
+const categoryDescription = Joi
+  .string()
+  .min(10)
+  .max(300)
+  .allow(null);
 /**
  * Keys props
  */
@@ -157,10 +172,13 @@ module.exports = {
   pointName,
   pointType,
   collectedPoints,
+  categoryDescription,
   keysRole,
   nickname,
   ruleId,
   ruleValue,
   eventSettings,
   userEventsEdit,
+  pointDescription,
+  pointSuccessMessage,
 };
