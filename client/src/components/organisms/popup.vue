@@ -11,7 +11,7 @@
       class="o-popup"
       :class="[classes]"
     >
-      <a-icon-close-popup/>
+      <a-icon-close-popup />
       <div
         v-for="[key, message] of listOfMessages.entries()"
         :key="key"

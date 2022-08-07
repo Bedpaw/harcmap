@@ -9,18 +9,26 @@
       >
         {{ pointData.pointName }}
       </h3>
-      <div class="f-pb-2 f-text-bold f-text-16">
-        {{ $t('form.field.categoryDescription') }}:
-      </div>
-      <div class="f-pb-2 f-text-14 f-text-justify">
-        {{ pointCategoryDescription }}
-      </div>
-      <div class="f-pb-2 f-text-bold f-text-16">
-        {{ $t('form.field.pointDescription') }}:
-      </div>
-      <div class="f-pb-2 f-text-14 f-text-justify">
-        {{ pointData.pointDescription }}
-      </div>
+
+      <template v-if="pointCategoryDescription">
+        <div class="f-pb-2 f-text-bold f-text-16">
+          {{ $t('form.field.categoryDescription') }}:
+        </div>
+        <div class="f-pb-2 f-text-14 f-text-justify">
+          {{ pointCategoryDescription }}
+        </div>
+      </template>
+
+      <template v-if="pointData.pointDescription">
+        <div class="f-pb-2 f-text-bold f-text-16">
+          {{ $t('form.field.pointDescription') }}:
+        </div>
+        <div
+          class="f-pb-2 f-text-14 f-text-justify"
+          v-html="stringUtils.linkify(pointData.pointDescription)"
+        />
+      </template>
+
       <template v-if="shouldSeenSuccessMessage">
         <div class="f-pb-2 f-text-bold">
           {{ $t('form.field.pointSuccessMessage') }}:
