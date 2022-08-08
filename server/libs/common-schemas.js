@@ -36,26 +36,26 @@ const objectIdInDatabase = Joi
 const email = Joi
   .string()
   .email()
-  .max(50)
+  .max(100)
   .trim();
 const password = Joi
   .string()
-  .pattern(/^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,24}$/);
+  .pattern(/^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,64}$/);
 const role = Joi
   .string()
   .equal('creator', 'admin', 'observer', 'teamLeader', 'teamMember');
 const nickname = Joi
   .string()
-  .min(3)
-  .max(24);
+  .min(1)
+  .max(36);
 
 /**
  * Teams props
  */
 const teamName = Joi
   .string()
-  .min(3)
-  .max(24)
+  .min(1)
+  .max(36)
   .trim();
 const collectedPoints = Joi
   .array()
@@ -67,7 +67,7 @@ const collectedPoints = Joi
 const eventName = Joi
   .string()
   .min(3)
-  .max(50);
+  .max(64);
 const eventRefreshTime = Joi
   .number()
   .min(0)
@@ -105,8 +105,8 @@ const userEventsEdit = Joi
  */
 const pointName = Joi
   .string()
-  .min(3)
-  .max(24)
+  .min(1)
+  .max(64)
   .trim()
   .allow(null);
 const pointType = Joi
@@ -114,12 +114,12 @@ const pointType = Joi
   .equal('timeout', 'permanent');
 const pointDescription = Joi
   .string()
-  .min(10)
+  .min(0)
   .max(300)
   .allow(null);
 const pointSuccessMessage = Joi
   .string()
-  .min(10)
+  .min(0)
   .max(300)
   .allow(null);
 
@@ -133,15 +133,15 @@ const pointValue = Joi
   .max(9999999999);
 const categoryName = Joi
   .string()
-  .min(3)
-  .max(24)
+  .min(1)
+  .max(64)
   .trim();
 const color = Joi
   .string()
   .pattern(/^#[a-fA-F0-9]{3,6}$/); // hex color value
 const categoryDescription = Joi
   .string()
-  .min(10)
+  .min(0)
   .max(300)
   .allow(null);
 /**
