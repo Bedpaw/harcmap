@@ -258,8 +258,8 @@ components:
     categoryName:
       description: 'Category name'
       type: string
-      minLength: 3
-      maxLength: 24
+      minLength: 1
+      maxLength: 64
       example: 'Czerwone'
     pointType:
       description: 'Point type'
