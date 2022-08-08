@@ -26,13 +26,13 @@ components:
       description: 'User email. Used also as login'
       type: string
       format: email
-      maxLength: 50
+      maxLength: 100
       example: 'user1@harcmap.pl'
     password:
       description: 'User password'
       type: string
       format: password
-      pattern: /^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,24}$/
+      pattern: /^(?=.*[0-9])(?=[a-z]*)(?=.*[A-Z]).{8,64}$/
       example: 'Password1'
     isActive:
       description: 'User account is active (in creating user, default: false)'
@@ -98,6 +98,8 @@ components:
     nickname:
       description: 'User nick per event'
       type: string
+      minLength: 1
+      maxLength: 36
       example: 'teamLeader'
     roleNullable:
       description: 'Describe permissions in app'
@@ -109,7 +111,7 @@ components:
       type: string
       example: 'Wydarzenie 1'
       minLength: 3
-      maxLength: 50
+      maxLength: 64
     eventKey:
       description: 'Event access key'
       type: string
@@ -171,8 +173,8 @@ components:
       description: 'Team name'
       type: string
       example: 'Zespół 1'
-      minLength: 3
-      maxLength: 24
+      minLength: 1
+      maxLength: 36
     teamColor:
       description: 'Team color'
       type: string
@@ -211,8 +213,8 @@ components:
     pointName:
       description: 'Point name'
       type: string
-      minLength: 3
-      maxLength: 24
+      minLength: 1
+      maxLength: 64
       nullable: true
       example: 'Nazwa punktu'
     pointCollectedDate:
@@ -284,7 +286,7 @@ components:
     pointDescription:
       description: 'Point description'
       type: string
-      minLength: 10
+      minLength: 0
       maxLength: 300
       default: null
       nullable: true
@@ -292,7 +294,7 @@ components:
     pointSuccessMessage:
       description: 'Point success message'
       type: string
-      minLength: 10
+      minLength: 0
       maxLength: 300
       default: null
       nullable: true
@@ -300,7 +302,7 @@ components:
     categoryDescription:
       description: 'Category description'
       type: string
-      minLength: 10
+      minLength: 0
       maxLength: 300
       default: null
       nullable: true
