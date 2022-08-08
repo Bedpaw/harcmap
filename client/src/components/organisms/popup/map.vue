@@ -28,6 +28,21 @@
       </div>
     </div>
     <div
+      v-if="isDetailsButtonVisible"
+      key="popup-map-button-details"
+      class="m-list-element f-popup"
+      @click="openPointDetailsPopup"
+    >
+      <a-icon
+        class="a-icon f-list"
+        :name="$icons.names.info"
+        size="20"
+      />
+      <div class="f-flex-1 f-pl-1  f-py-1">
+        {{ $t('general.openDetails') }}
+      </div>
+    </div>
+    <div
       v-for="[key, button] of modifyPointButtons.entries()"
       :key="'popup-map-button-' + key"
       class="m-list-element f-popup"
@@ -65,6 +80,7 @@ export default {
   }),
   computed: {
     ...mapGetters('mapPopup', ['data', 'pointId']),
+    ...mapGetters('event', ['getPointById', 'getCategoryById']),
     getEditPointButton () {
       return {
         icon: this.$icons.names.edit,
@@ -95,6 +111,14 @@ export default {
     modifyPointButtons () {
       return userUtils.can.editOrDeletePoints() ? [this.getEditPointButton, this.getDeletePointButton] : [];
     },
+    isDetailsButtonVisible () {
+      const point = this.getPointById(this.pointId);
+
+      if (!point) return false;
+
+      const pointCategory = this.getCategoryById(point.pointCategoryId);
+      return point.pointDescription || point.pointSuccessMessage || pointCategory.categoryDescription;
+    },
   },
   beforeUnmount () {
     this.popup?.destroy();
@@ -119,6 +143,10 @@ export default {
       actionUtils.copyToClipboard(element);
       communicates.showSuccessTemporary(this.$t('general.copied'));
       this.popup.hide();
+    },
+    openPointDetailsPopup () {
+      const mapPopup = this.$store.getters['mapPopup/popupPointReference'];
+      mapPopup.toggle();
     },
   },
 };

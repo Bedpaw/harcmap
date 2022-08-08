@@ -8,6 +8,7 @@
           class="a-field f-textarea"
           :class="additionalClasses"
           @input="resize"
+          @focus="resize"
         />
       </template>
     </m-resize-auto>

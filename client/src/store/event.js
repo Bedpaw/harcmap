@@ -119,7 +119,7 @@ export default {
           .then((point) => {
             context.commit('updatePoint', point);
             context.commit('team/addCollectedPoint', point.pointId, { root: true });
-            resolve();
+            resolve(point);
           })
           .catch(error => {
             reject(error);

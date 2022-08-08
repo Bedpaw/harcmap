@@ -20,10 +20,13 @@ export class Mapper {
       pointLongitude: pointIn.pointPosition.longitude,
       pointName: pointIn.pointName,
       pointType: pointIn.pointType,
+      pointDescription: pointIn.pointDescription,
+      pointSuccessMessage: pointIn.pointSuccessMessage,
     };
   }
 
   public static mapPointOut (pointOut: PointType): PointDTOCreate | PointDTOUpdate {
+    const toNullIfEmptyString = (v: string | null) => v === '' ? null : v;
     return {
       pointCategoryId: pointOut.pointCategoryId,
       pointDuration: {
@@ -36,6 +39,8 @@ export class Mapper {
         latitude: pointOut.pointLatitude,
       },
       pointType: pointOut.pointType,
+      pointDescription: toNullIfEmptyString(pointOut.pointDescription),
+      pointSuccessMessage: toNullIfEmptyString(pointOut.pointSuccessMessage),
     };
   }
 

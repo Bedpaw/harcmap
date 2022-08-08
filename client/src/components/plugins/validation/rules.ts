@@ -19,7 +19,9 @@ export const validationRules = {
   userTeam: [required, minLength(4), maxLength(30)],
 
   eventName: [required, maxLength(45)],
-
+  pointDescription: [minLength(10), maxLength(300)],
+  categoryDescription: [minLength(10), maxLength(300)],
+  pointSuccessMessage: [minLength(10), maxLength(300)],
   pointId: [required, minLength(4), maxLength(4)],
   required: [required],
   requiredName: [required, maxLength(128)],

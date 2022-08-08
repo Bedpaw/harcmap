@@ -72,6 +72,7 @@ const availabilities = {
   seeAllTeamsTracks: [creator, admin, observer],
   fetchAllTeamsData: [creator, admin, observer],
   seePointsBeforeEventStart: [creator, admin, observer],
+  seePointsSuccessMessageDescription: [creator, admin, observer],
 };
 
 const checkIfCan = (permittedRoles: string[], role?: string) => permittedRoles.includes(role ?? store.getters['event/role']);
@@ -99,6 +100,7 @@ export const userUtils = {
     seeAllTeamsTracks: () => checkIfCan(availabilities.seeAllTeamsTracks),
     fetchAllTeamsData: (role?: string) => checkIfCan(availabilities.fetchAllTeamsData, role),
     seePointsBeforeEventStart: (role?: string) => checkIfCan(availabilities.seePointsBeforeEventStart, role),
+    seePointsSuccessMessageDescription: () => checkIfCan(availabilities.seePointsSuccessMessageDescription),
   },
 };
 

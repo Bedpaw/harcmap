@@ -12,16 +12,18 @@
       v-if="pointOptions"
       ref="mapPopup"
     />
+    <o-popup-point-details ref="pointDetailsPopup" />
   </div>
 </template>
 
 <script>
 import { map } from 'map';
 import OPopupMap from 'organisms/popup/map';
+import OPopupPointDetails from './popup/point-details';
 
 export default {
   name: 'o-map',
-  components: { OPopupMap },
+  components: { OPopupPointDetails, OPopupMap },
   props: {
     pointOptions: {
       type: Boolean,
@@ -30,6 +32,7 @@ export default {
   },
   mounted () {
     this.$store.commit('mapPopup/setPopupOrganismRef', this.$refs.mapPopup);
+    this.$store.commit('mapPopup/setPopupPointOrganismRef', this.$refs.pointDetailsPopup);
     map.createMapWithFeatures();
   },
   beforeUnmount () {

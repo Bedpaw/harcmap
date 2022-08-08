@@ -21,9 +21,10 @@ export const pointController = {
     });
   },
   collectPoint (eventId: string, pointKey: string) {
-    return httpService.post({
+    return httpService.post<PointDTO, PointType>({
       url: urls.collectPoint(eventId),
       errorOptions: API_ERRORS.collectPoint,
+      successCallback: (point) => Mapper.mapPointIn(point),
       body: { pointKey },
     });
   },

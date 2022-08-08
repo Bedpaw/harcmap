@@ -1,6 +1,7 @@
 import { store } from 'store';
 import { ErrorMessage } from 'utils/error-message';
 import { ADMIN_LOGIN_DATA, TEAM_LEADER_LOGIN_DATA, TEAM_MEMBER_LOGIN_DATA, OBSERVER_LOGIN_DATA } from 'config/app-env';
+import { stringUtils } from 'utils/string';
 
 const users = Object.freeze({
   teamLeader: TEAM_LEADER_LOGIN_DATA,
@@ -38,7 +39,12 @@ export const autoLogin = {
   teamMember: () => login(users.teamMember),
   observer: () => login(users.observer),
   admin: () => login(users.admin),
-  custom: (email, password = users.teamLeader.password) => login({ email, password }),
+  custom: (email, password = users.teamLeader.password) => {
+    if (email.length === 1) {
+      email = stringUtils.replaceAt(users.teamLeader.email, email, 4);
+    }
+    login({ email, password });
+  },
 };
 
 export const DEV_USERS_LIST = users;

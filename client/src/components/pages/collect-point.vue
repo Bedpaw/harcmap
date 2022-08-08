@@ -34,6 +34,7 @@ import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { map } from 'map';
 import { testSelectors } from 'data/selectors';
+import { stringUtils } from 'utils/string';
 
 export default {
   name: 'p-collect-point',
@@ -53,14 +54,24 @@ export default {
     const router = useRouter();
     const icons = useIcons();
 
-    function onCollectPoint () {
-      store.dispatch('popup/openTemporary', {
-        messages: [
-          translator.t('communicate.collectPoint.congratulation'),
-          translator.t('communicate.collectPoint.youCollectedPoint'),
-        ],
-        icon: icons.names.check_circle_outline,
-      })
+    const getStandardSuccessMessageTemplate = () => ({
+      messages: [
+        translator.t('communicate.collectPoint.congratulation'),
+        translator.t('communicate.collectPoint.youCollectedPoint'),
+      ],
+      icon: icons.names.check_circle_outline,
+    });
+
+    function onCollectPoint (point) {
+      const messageDetails = getStandardSuccessMessageTemplate();
+
+      if (point.pointSuccessMessage) {
+        messageDetails.classes = 'f-success-message';
+        messageDetails.messages.push(stringUtils.linkify(point.pointSuccessMessage));
+        messageDetails.icon = null;
+      }
+
+      store.dispatch('popup/open', messageDetails)
         .then(() => {
           isSending.value = false;
           blockForm.value = false;
