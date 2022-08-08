@@ -411,7 +411,7 @@ export const plPL = {
     geolocation: {
       initialize: 'Geolokalizacja w trakcie inicjalizacji.',
       inaccurate: 'Geolokalizacja działa niedokładnie.',
-      blocked: 'Geolokalizacja jest niedostępna na Twoim urządzeniu.',
+      blocked: 'Geolokalizacja jest wyłączona na Twoim urządzeniu.',
       success: 'Twoja aktualna pozycja!',
     },
   },

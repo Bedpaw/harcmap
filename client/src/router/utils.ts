@@ -7,7 +7,7 @@ export class AppRoute {
   public name: string; // !!!camelCase!!!
   public path = '';
   public meta: EnterPermissionOptions;
-  public icon = '' as string;
+  public icon = '';
   public label: string | null = null;
   public shortLabel: string | null = null;
 
