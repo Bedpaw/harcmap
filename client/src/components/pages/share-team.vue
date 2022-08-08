@@ -3,8 +3,9 @@
     <o-share-for-user-type
       type="teamMember"
       :description="$t('page.shareEvent.teamMember')"
-      :event-share-code="teamShareCodes.teamMember"
-      :event-share-link="teamShareLinks.teamMember"
+      :event-invitation="teamShareCodes.teamMember"
+      :event-invitation-link="teamShareLinks.teamMember"
+      :reset-available="false"
     />
   </t-page>
 </template>
@@ -32,7 +33,7 @@ export default defineComponent({
       return origin + ROUTES.invitation.path.replace(':key', key);
     }
     const teamShareLinks = computed(() => ({
-      teamMember: generateLink(teamShareCodes.value.teamMember),
+      teamMember: generateLink(teamShareCodes.value.teamMember.key),
     }));
 
     return {

@@ -318,8 +318,9 @@ export const plPL = {
       getEventById: 'Pobieranie danych wydarzenia się nie powiodło.',
       updateEvent: 'Edycja danych dla wybranego wydarzenia się nie powiodła.',
       addEvent: 'Dodanie nowego wydarzenia nie powiodło się.',
-      checkEvent: 'Sprawdzenie danych wydarzenia nie powiodło się',
-      joinEvent: 'Dołączenie do danego wydarzenia nie powiodło się',
+      checkEvent: 'Sprawdzenie danych wydarzenia nie powiodło się.',
+      joinEvent: 'Dołączenie do danego wydarzenia nie powiodło się.',
+      resetInvitation: 'Zresetowanie kodu zaproszenia nie powiodło się.',
     },
     point: {
       collectPoint: 'Zebranie punktu nie powiodło się',
@@ -398,6 +399,10 @@ export const plPL = {
     },
     addPoint: {
       positionIsRequired: 'Wymagane jest ustawienie lokalizacji punktu.',
+    },
+    resetInvitation: {
+      processing: 'Trwa generowanie nowego kodu i linku zaproszenia.',
+      success: 'Nowy kod i link zaproszenia zostały wygenerowane.',
     },
     geolocation: {
       initialize: 'Geolokalizacja w trakcie inicjalizacji',

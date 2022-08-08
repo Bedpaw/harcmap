@@ -44,3 +44,7 @@ export interface EventCheckDTO {
   teamName: string | null;
 }
 export type EventCheckDTOMapped = Omit<EventCheckDTO, 'eventDuration'> & { eventStartDate: number, eventEndDate: number }
+
+export interface EventWithKeyCheckDTO extends EventCheckDTO {
+  key: string;
+}

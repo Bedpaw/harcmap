@@ -3,20 +3,20 @@
     <o-share-for-user-type
       type="admin"
       :description="$t('page.admin.shareEvent.admin')"
-      :event-share-code="eventShareCodes.admin"
-      :event-share-link="eventShareLinks.admin"
+      :event-invitation="eventShareCodes.admin"
+      :event-invitation-link="eventShareLinks.admin"
     />
     <o-share-for-user-type
       type="teamLeader"
       :description="$t('page.admin.shareEvent.teamLeader')"
-      :event-share-code="eventShareCodes.teamLeader"
-      :event-share-link="eventShareLinks.teamLeader"
+      :event-invitation="eventShareCodes.teamLeader"
+      :event-invitation-link="eventShareLinks.teamLeader"
     />
     <o-share-for-user-type
       type="observer"
       :description="$t('page.admin.shareEvent.observer')"
-      :event-share-code="eventShareCodes.observer"
-      :event-share-link="eventShareLinks.observer"
+      :event-invitation="eventShareCodes.observer"
+      :event-invitation-link="eventShareLinks.observer"
     />
   </t-page>
 </template>
@@ -41,9 +41,9 @@ export default defineComponent({
       return document.location.origin + ROUTES.invitation.path.replace(':key', key);
     }
     const eventShareLinks = computed(() => ({
-      admin: generateLink(eventShareCodes.value.admin),
-      observer: generateLink(eventShareCodes.value.observer),
-      teamLeader: generateLink(eventShareCodes.value.teamLeader),
+      admin: generateLink(eventShareCodes.value.admin.key),
+      observer: generateLink(eventShareCodes.value.observer.key),
+      teamLeader: generateLink(eventShareCodes.value.teamLeader.key),
     }));
 
     return {

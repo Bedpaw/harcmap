@@ -1,7 +1,7 @@
 import { API_ERRORS } from 'src/utils/macros/errors';
 import { httpService } from 'config/http-service';
 import { Mapper } from 'models/utils/mapper';
-import { EventCheckDTO, EventCheckDTOMapped, EventDTO, JoinEventParams } from 'models/dtos/event';
+import { EventCheckDTO, EventCheckDTOMapped, EventDTO, EventWithKeyCheckDTO, JoinEventParams } from 'models/dtos/event';
 import { Event } from 'models/event';
 
 const urls = {
@@ -10,6 +10,7 @@ const urls = {
   updateEvent: (eventId: string) => `/events/${eventId}`,
   checkEvent: '/events/check',
   joinEvent: '/events/join',
+  resetInvitation: (eventId: string, keyId: string) => `/events/${eventId}/keys/${keyId}/refresh`,
 };
 
 export const eventController = {
@@ -58,6 +59,12 @@ export const eventController = {
       // TODO Add admin nickname to event form
       body: { ...Mapper.mapEventOut(event), nickname: 'Creator nickname', userId },
       errorOptions: API_ERRORS.addEvent,
+    });
+  },
+  resetInvitation (eventId: string, keyId: string) {
+    return httpService.post<undefined, EventWithKeyCheckDTO>({
+      url: urls.resetInvitation(eventId, keyId),
+      errorOptions: API_ERRORS.resetInvitation,
     });
   },
 };

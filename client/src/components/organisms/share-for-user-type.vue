@@ -19,12 +19,12 @@
   </div>
   <template v-if="detailsVisible">
     <a-button-copy
-      :text-to-copy="eventShareCode"
+      :text-to-copy="eventInvitation.key"
       :text="$t('page.shareEvent.button.invitationKey')"
       add-area-class="f-mt-0"
     />
     <a-button-copy
-      :text-to-copy="eventShareLink"
+      :text-to-copy="eventInvitationLink"
       :text="$t('page.shareEvent.button.invitationURL')"
       add-area-class="f-mt-0"
     />
@@ -38,9 +38,10 @@
       </a-button-primary>
     </div>
     <a-button-primary
+      v-if="resetAvailable"
       add-area-class="f-mt-0 f-pb-3"
       add-class="f-bg-danger"
-      disabled
+      @click="resetInvitation()"
     >
       {{ $t('page.shareEvent.button.resetInvitation') }}
     </a-button-primary>
@@ -57,6 +58,7 @@ import { USERS_DEFAULT_CONFIG } from 'config/users-config';
 import { AccountTypesStringType } from 'utils/permissions';
 import { Share } from '@capacitor/share';
 import { MOBILE_TARGET } from 'src/index';
+import { SingleInvitationKey } from 'models/invitations';
 
 export default defineComponent({
   name: 'o-share-for-user-type',
@@ -64,8 +66,9 @@ export default defineComponent({
   props: {
     rolledUp: { type: Boolean, default: false },
     description: { type: String, required: true },
-    eventShareCode: { type: String, required: true },
-    eventShareLink: { type: String, required: true },
+    eventInvitation: { type: Object as PropType<SingleInvitationKey>, required: true },
+    eventInvitationLink: { type: String, required: true },
+    resetAvailable: { type: Boolean, default: true },
     type: { type: String as PropType<AccountTypesStringType>, required: true },
   },
   setup (props) {
@@ -98,13 +101,18 @@ export default defineComponent({
     async function shareEvent () {
       const eventName = store.getters['event/eventName'];
       const title = translator.t('page.shareEvent.joinToEventMessage', { eventName });
-      const url = props.eventShareLink;
+      const url = props.eventInvitationLink;
 
       isAppShare.value && Share.share({ title, dialogTitle: title, text: title, url })
         .catch(console.error);
 
       isWebShare.value && navigator.share({ title, url })
         .catch(console.error);
+    }
+
+    async function resetInvitation () {
+      const keyId = props.eventInvitation.keyId;
+      return await store.dispatch('invitations/resetInvitation', keyId);
     }
 
     function showDetails () {
@@ -119,6 +127,7 @@ export default defineComponent({
       detailsVisible,
       showDetails,
       shareEvent,
+      resetInvitation,
     };
   },
 });
