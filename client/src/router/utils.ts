@@ -1,16 +1,13 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { materialIcons } from '@dbetka/vue-material-icons';
 import { AppRouteParams, EnterPermissionOptions } from 'models/routes';
 import { translator } from 'dictionary';
-
-const ICONS = materialIcons.names;
 
 export class AppRoute {
   public name: string; // !!!camelCase!!!
   public path = '';
   public meta: EnterPermissionOptions;
-  public icon = ICONS.success as string;
+  public icon = '' as string;
   public label: string | null = null;
   public shortLabel: string | null = null;
 

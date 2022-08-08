@@ -4,7 +4,6 @@
     <router-view :key="routerId" />
   </div>
   <o-footer
-    v-touch:swipe.left="openMenuIfLogin"
     v-touch:swipe.right="closeMenu"
   />
   <o-menu v-if="role" />

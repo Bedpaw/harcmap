@@ -104,7 +104,7 @@ export default {
         teamsPromise,
       ]);
 
-      const shouldNotSeePoints = eventUtils.isBeforeStart(event) && userUtils.can.seePointsBeforeEventStart(role);
+      const shouldNotSeePoints = eventUtils.isBeforeStart(event) && userUtils.can.seePointsBeforeEventStart(role) === false;
       const points = shouldNotSeePoints ? [] : await api.getPointsByEventId(eventId);
 
       categories = await pointCategoryUtils.getDefaultCategoriesIfEmpty(categories, eventId);

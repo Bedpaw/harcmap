@@ -70,7 +70,7 @@ function trackPosition (
     successCallbacks.forEach((cb) => cb(geolocationPositionResult));
 
   }, (error) => {
-    store.commit('addMapLog', error.message);
+    store.commit('addMapLog', error?.message);
     geolocationUtils.lastPosition = null;
     errorCallbacks.forEach((cb) => cb(error));
   });
@@ -89,5 +89,5 @@ function stopTrackingPosition () {
 export const geolocationUtils = {
   trackPosition,
   stopTrackingPosition,
-  lastPosition: {} as GeolocationPositionResult | null,
+  lastPosition: null as GeolocationPositionResult | null,
 };

@@ -409,9 +409,9 @@ export const plPL = {
       success: 'Nowy kod i link zaproszenia zostały wygenerowane.',
     },
     geolocation: {
-      initialize: 'Geolokalizacja w trakcie inicjalizacji',
-      inaccurate: 'Geolokalizacja działa niedokładnie',
-      blocked: 'Geolokalizacja jest zablokowana na Twoim urządzeniu',
+      initialize: 'Geolokalizacja w trakcie inicjalizacji.',
+      inaccurate: 'Geolokalizacja działa niedokładnie.',
+      blocked: 'Geolokalizacja jest niedostępna na Twoim urządzeniu.',
       success: 'Twoja aktualna pozycja!',
     },
   },

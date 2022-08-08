@@ -8,9 +8,9 @@ import { lines } from 'map/features/lines';
 import { points } from 'map/features/points';
 import { myPosition } from 'map/features/myPosition';
 import { appStorage } from 'utils/storage';
-import { geolocationUtils } from '../utils/geolocation/geolocation';
+import { geolocationUtils } from 'utils/geolocation/geolocation';
 import { GeolocationControl } from './controls/geolocation-control';
-import { geolocationDevHelper } from '../utils/dev-mode/geolocation-helper';
+import { geolocationDevHelper } from 'utils/dev-mode/geolocation-helper';
 
 export const map = {
   realMap: null,
