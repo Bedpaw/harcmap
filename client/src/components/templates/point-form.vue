@@ -131,16 +131,20 @@ export default {
     },
   },
   setup (props) {
+    const store = useStore();
     const { defaultValues, onSave } = toRefs(props);
-    const availableCategories = useStore().getters['event/categories'];
+    const availableCategories = store.getters['event/categories'];
+
+    const eventStartDate = new Date(store.getters['event/eventStartDate']);
+    const eventEndDate = new Date(store.getters['event/eventEndDate']);
 
     const generateDefaultValues = () => ({
       pointKey: null,
       pointName: '',
       pointCategoryId: availableCategories[0].categoryId,
       pointType: MACROS.pointType.permanent,
-      pointAppearanceTime: null,
-      pointExpirationTime: null,
+      pointAppearanceTime: eventStartDate,
+      pointExpirationTime: eventEndDate,
       pointLongitude: null,
       pointLatitude: null,
       pointCollectionTime: null,
