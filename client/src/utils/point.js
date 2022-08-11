@@ -2,6 +2,7 @@ import { MACROS } from 'utils/macros';
 import { compareDate, displayDate, getDate, isBeforeLastGapEndTime, sortObjectsListByTime } from 'utils/date';
 import { generalConfigUtils } from 'src/config/general-config';
 import { userUtils } from 'config/users-config';
+import { store } from 'store';
 
 const { isActual, isPast, isFuture, isToday } = compareDate;
 const { timePeriods, order, pointType: pointTypes } = MACROS;
@@ -75,6 +76,22 @@ export const pointUtils = {
   pointIsVisibleOnMap (point, hiddenPointId) {
     // Hide if it's hide point (point edit mode)
     if (point.pointId === hiddenPointId) return false;
+
+    // TODO Temporary for event!
+    if (point.pointDescription) {
+      const search = (tag) => point.pointDescription.search(tag) !== -1;
+      const eventEnd = store.getters['event/event'].eventEndDate;
+      const oneHourInMs = 3600000;
+      const now = new Date().getTime();
+
+      if (search('LekkoSpóźniony')) {
+        return now + 2 * oneHourInMs > eventEnd;
+      } else if (search('BardzoSpóźniony')) {
+        return now + oneHourInMs > eventEnd;
+      } else if (search('Spóźniony')) {
+        return now + 1.5 * oneHourInMs > eventEnd;
+      }
+    }
 
     // Admin can see all points on map
     if (userUtils.can.seeAllPointsOnMap()) return true;
