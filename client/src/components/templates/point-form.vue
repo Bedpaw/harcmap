@@ -144,6 +144,8 @@ export default {
       pointLongitude: null,
       pointLatitude: null,
       pointCollectionTime: null,
+      pointDescription: null,
+      pointSuccessMessage: null,
       ...pointUtils.convertPointToForm(defaultValues.value),
     });
     const values = ref(generateDefaultValues());
