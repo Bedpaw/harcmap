@@ -26,11 +26,18 @@ function getCategoriesSelectOptions (categories: PointCategory[]) {
   });
 }
 
-function getPointAppearance (pointCategoryId: string, pointType = MACROS.pointType.permanent): PointCategoryAppearance {
+function getPointAppearance (pointCategoryId: string, pointType = MACROS.pointType.permanent, pointDescription?: string | null): PointCategoryAppearance {
   const pointCategory = store.getters['event/getCategoryById'](pointCategoryId);
+  // TODO Only for Nowy porządek świata event
+  let pointStrokeColor = pointCategory.pointStrokeColor;
+  if (pointDescription) {
+    const changedPointColor = colorsUtils.getAllColorsSelectValues
+      .find(obj => pointDescription.search(`#${obj.label}`) !== -1)?.value;
+    pointStrokeColor = changedPointColor ?? pointCategory.pointStrokeColor;
+  }
   return {
     pointFillColor: pointCategory.pointFillColor,
-    pointStrokeColor: pointCategory.pointStrokeColor,
+    pointStrokeColor,
     shape: pointType === MACROS.pointType.permanent ? availableShapes.dot : availableShapes.star,
   };
 }

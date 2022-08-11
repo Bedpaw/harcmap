@@ -14,7 +14,7 @@ export const mapConfig = {
     maxZoom: 17,
   },
   features: {
-    defaultWidth: 2,
+    defaultWidth: 3,
     defaultCollectedPointOpacity: 0.3,
     zIndex: 10,
   },
