@@ -26,11 +26,12 @@ export const autoUpdate = {
       .then(versionCompatibility.check)
       .then(map.updateMapFeatures)
       .catch(error => {
+        // TODO: stop updating for no active app and update on change app state
         if (error instanceof ErrorMessage) {
           console.log(error);
-          error.showMessage();
+          // error.showMessage();
         } else {
-          (new ErrorMessage(error)).showMessage();
+          // (new ErrorMessage(error)).showMessage();
         }
       });
   },
