@@ -77,6 +77,9 @@ export const pointUtils = {
     // Hide if it's hide point (point edit mode)
     if (point.pointId === hiddenPointId) return false;
 
+    // Admin can see all points on map
+    if (userUtils.can.seeAllPointsOnMap()) return true;
+
     // TODO Temporary for event!
     if (point.pointDescription) {
       const search = (tag) => point.pointDescription.search(tag) !== -1;
@@ -84,17 +87,14 @@ export const pointUtils = {
       const oneHourInMs = 3600000;
       const now = new Date().getTime();
 
-      if (search('LekkoSpóźniony')) {
+      if (search('#LekkoSpóźniony')) {
         return now + 2 * oneHourInMs > eventEnd;
-      } else if (search('BardzoSpóźniony')) {
+      } else if (search('#BardzoSpóźniony')) {
         return now + oneHourInMs > eventEnd;
-      } else if (search('Spóźniony')) {
+      } else if (search('#Spóźniony')) {
         return now + 1.5 * oneHourInMs > eventEnd;
       }
     }
-
-    // Admin can see all points on map
-    if (userUtils.can.seeAllPointsOnMap()) return true;
 
     // Permanent points are always visible
     if (this.isPermanent(point)) return true;
