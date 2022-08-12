@@ -185,8 +185,11 @@ export default {
       for (const color of colorsHashtagsList) {
         const filteredPoints = store.getters['event/points']
           .filter(point => {
-            if (point.pointDescription === null) return false;
-            else return point.pointDescription.search('#' + translator.t('colors.' + color)) !== -1;
+            if (point.pointDescription) {
+              return point.pointDescription.search('#' + translator.t('colors.' + color)) !== -1;
+            } else {
+              return false;
+            }
           });
         result[color] = filteredPoints.length;
       }
@@ -198,8 +201,11 @@ export default {
       for (const hashtag of lateHashtagsList) {
         const filteredPoints = store.getters['event/points']
           .filter(point => {
-            if (point.pointDescription === null) return false;
-            else return point.pointDescription.search('#' + hashtag.label) !== -1;
+            if (point.pointDescription) {
+              return point.pointDescription.search('#' + hashtag.label) !== -1;
+            } else {
+              return false;
+            }
           });
         result[hashtag.label] = filteredPoints.length;
       }
