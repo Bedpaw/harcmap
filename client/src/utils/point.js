@@ -3,6 +3,7 @@ import { compareDate, displayDate, getDate, isBeforeLastGapEndTime, sortObjectsL
 import { generalConfigUtils } from 'src/config/general-config';
 import { userUtils } from 'config/users-config';
 import { store } from 'store';
+import { hashtags } from 'utils/macros/hashtags';
 
 const { isActual, isPast, isFuture, isToday } = compareDate;
 const { timePeriods, order, pointType: pointTypes } = MACROS;
@@ -86,14 +87,11 @@ export const pointUtils = {
       const eventEnd = store.getters['event/event'].eventEndDate;
       const oneHourInMs = 3600000;
       const now = new Date().getTime();
+      const { little, normal, very } = hashtags.late;
 
-      if (search('#LekkoSpóźniony')) {
-        return now + 2 * oneHourInMs > eventEnd;
-      } else if (search('#BardzoSpóźniony')) {
-        return now + oneHourInMs > eventEnd;
-      } else if (search('#Spóźniony')) {
-        return now + 1.5 * oneHourInMs > eventEnd;
-      }
+      if (search('#' + little.label)) return now + little.time * oneHourInMs > eventEnd;
+      else if (search('#' + very.label)) return now + very.time * oneHourInMs > eventEnd;
+      else if (search('#' + normal.label)) return now + normal.time * oneHourInMs > eventEnd;
     }
 
     // Permanent points are always visible

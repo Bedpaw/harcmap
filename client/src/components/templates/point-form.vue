@@ -49,6 +49,38 @@
         :rules="validationRules.pointDescription"
         :assist="$t('form.assist.fieldNotRequired')"
       />
+      <div
+        class="a-assist f-mt--2 f-mb-2 f-text-bold f-text-underline"
+        @click="hashtagPopup.show()"
+      >
+        {{ 'Pokaż dostępne funkcjonalne hashtagi' }}
+      </div>
+      <o-popup-empty ref="hashtagPopup">
+        <div>Funkcjonalne hashtagi</div>
+        <div class="a-text f-popup f-pb-4">
+          <div class="f-text-bold f-pt-2 f-pb-1">
+            Opóźnienie punktu (pojawi się przed końcem wydarzenia):
+          </div>
+          <div
+            v-for="hashtag in lateHashtagsList"
+            :key="hashtag"
+            class="f-grid f-grid-12-18 f-pl-2"
+          >
+            <div>#{{ hashtag.label }}</div><div>{{ hashtag.time }} godz. przed końcem</div>
+          </div>
+          <div class="f-text-bold f-pt-2 f-pb-1">
+            Kolory obramowania:
+          </div>
+          <div class="f-grid f-grid-1-1">
+            <div
+              v-for="color in colorsHashtagsList"
+              :key="color"
+              class="f-pl-2"
+              v-text="'#' + $t('colors.' + color)"
+            />
+          </div>
+        </div>
+      </o-popup-empty>
       <m-field-textarea
         v-if="isPermanent"
         v-model="values.pointSuccessMessage"
@@ -105,10 +137,13 @@ import { translator } from 'dictionary';
 import MFieldDatetimeRange from 'molecules/field/datetime-range';
 import { pointCategoryUtils } from 'utils/point-category';
 import MFieldTextarea from '../molecules/field/textarea';
+import OPopupEmpty from 'organisms/popup/empty';
+import { hashtags } from 'utils/macros/hashtags';
 
 export default {
   name: 't-point-form',
   components: {
+    OPopupEmpty,
     MFieldTextarea,
     MFieldDatetimeRange,
     OAdminSetNewPointPosition,
@@ -137,6 +172,10 @@ export default {
 
     const eventStartDate = new Date(store.getters['event/eventStartDate']);
     const eventEndDate = new Date(store.getters['event/eventEndDate']);
+
+    const hashtagPopup = ref(null);
+    const colorsHashtagsList = hashtags.colorsList;
+    const lateHashtagsList = hashtags.lateList;
 
     const generateDefaultValues = () => ({
       pointKey: null,
@@ -215,6 +254,9 @@ export default {
       isPermanent,
       isTimeout,
       rulesForName,
+      hashtagPopup,
+      colorsHashtagsList,
+      lateHashtagsList,
       saveNewPosition,
       onSubmit,
       ...form,
