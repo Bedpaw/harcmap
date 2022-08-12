@@ -56,6 +56,7 @@
         {{ 'Pokaż dostępne funkcjonalne hashtagi' }}
       </div>
       <o-popup-empty ref="hashtagPopup">
+        <!-- TODO: Refactor and translations -->
         <div>Funkcjonalne hashtagi</div>
         <div class="a-text f-popup f-pb-4">
           <div class="f-text-bold f-pt-2 f-pb-1">
@@ -64,9 +65,9 @@
           <div
             v-for="hashtag in lateHashtagsList"
             :key="hashtag"
-            class="f-grid f-grid-12-18 f-pl-2"
+            class="f-grid f-grid-1-1 f-pl-2"
           >
-            <div>#{{ hashtag.label }}</div><div>{{ hashtag.time }} godz. przed końcem</div>
+            <div>#{{ hashtag.label + ` (${hashtagCount[hashtag.label]})` }}</div><div>{{ hashtag.time }} godz. przed końcem</div>
           </div>
           <div class="f-text-bold f-pt-2 f-pb-1">
             Kolory obramowania:
@@ -76,7 +77,7 @@
               v-for="color in colorsHashtagsList"
               :key="color"
               class="f-pl-2"
-              v-text="'#' + $t('colors.' + color)"
+              v-text="'#' + $t('colors.' + color) + ` (${colorsCount[color]})`"
             />
           </div>
         </div>
@@ -177,6 +178,34 @@ export default {
     const colorsHashtagsList = hashtags.colorsList;
     const lateHashtagsList = hashtags.lateList;
 
+    // TODO: Refactor
+
+    const colorsCount = computed(() => {
+      const result = {};
+      for (const color of colorsHashtagsList) {
+        const filteredPoints = store.getters['event/points']
+          .filter(point => {
+            if (point.pointDescription === null) return false;
+            else return point.pointDescription.search('#' + translator.t('colors.' + color)) !== -1;
+          });
+        result[color] = filteredPoints.length;
+      }
+      return result;
+    });
+
+    const hashtagCount = computed(() => {
+      const result = {};
+      for (const hashtag of lateHashtagsList) {
+        const filteredPoints = store.getters['event/points']
+          .filter(point => {
+            if (point.pointDescription === null) return false;
+            else return point.pointDescription.search('#' + hashtag.label) !== -1;
+          });
+        result[hashtag.label] = filteredPoints.length;
+      }
+      return result;
+    });
+
     const generateDefaultValues = () => ({
       pointKey: null,
       pointName: '',
@@ -257,6 +286,8 @@ export default {
       hashtagPopup,
       colorsHashtagsList,
       lateHashtagsList,
+      colorsCount,
+      hashtagCount,
       saveNewPosition,
       onSubmit,
       ...form,
