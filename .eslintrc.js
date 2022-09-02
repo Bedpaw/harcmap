@@ -24,6 +24,7 @@ module.exports = {
     'no-useless-call': 'warn',
     'no-useless-escape': 'warn',
     'padded-blocks': 'off',
+    'brace-style': 'off',
     'semi': [
       'error',
       'always',

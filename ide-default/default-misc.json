@@ -1,0 +1,28 @@
+{
+  "project": {
+    "$": {
+      "version": "4"
+    },
+    "component": [
+      {
+        "$": {
+          "name": "WebPackConfiguration"
+        },
+        "option": [
+          {
+            "$": {
+              "name": "mode",
+              "value": "MANUAL"
+            }
+          },
+          {
+            "$": {
+              "name": "path",
+              "value": "$PROJECT_DIR$/client/webpack/config.common.js"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
