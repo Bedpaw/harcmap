@@ -1,43 +1,38 @@
 const fs = require('fs');
-const parseStringPromise = require('xml2js').parseStringPromise;
 const xml2js = require('xml2js');
 const path = require('path');
 const chalk = require('chalk');
 
-function setDefaultXML ({
-  defaultJSONPath,
+async function setDefaultXML ({
+  defaultXMLPath,
   targetXMLPath,
   validator = () => true,
   modifier = data => data,
 }) {
-  if (fs.existsSync(defaultJSONPath) === false) throw new Error(`File "${defaultJSONPath}" must exists.`);
+  if (fs.existsSync(defaultXMLPath) === false) throw new Error(`File "${defaultXMLPath}" must exists.`);
 
-  const defaultJSON = JSON.parse(fs.readFileSync(defaultJSONPath, 'utf-8'));
+  const defaultXMLString = fs.readFileSync(defaultXMLPath, 'utf-8');
   const targetXMLExists = fs.existsSync(targetXMLPath);
   const dirnameTarget = path.dirname(targetXMLPath);
 
   if (targetXMLExists === false) {
-    const builder = new xml2js.Builder();
-    const xml = builder.buildObject(defaultJSON);
-
     fs.existsSync(dirnameTarget) === false && fs.mkdirSync(dirnameTarget, { recursive: true });
-    fs.writeFileSync(targetXMLPath, xml);
+    fs.writeFileSync(targetXMLPath, defaultXMLString);
   }
   else {
     const targetXML = fs.readFileSync(targetXMLPath, 'utf-8');
 
-    parseStringPromise(targetXML)
-      .then(json => {
-        if (validator(json)) throw new Error(`File "${targetXMLPath}" has invalid structure or is corrupted.`);
+    const targetJSON = await xml2js.parseStringPromise(targetXML);
+    if (validator(targetJSON)) throw new Error(`File "${targetXMLPath}" has invalid structure or is corrupted.`);
 
-        json = modifier(json);
+    const modifiedTargetJSON = modifier(targetJSON);
 
-        const builder = new xml2js.Builder();
-        const xml = builder.buildObject(json);
+    const builder = new xml2js.Builder();
+    const newTargetXML = builder.buildObject(modifiedTargetJSON);
 
-        fs.writeFileSync(targetXMLPath, xml);
-      });
+    fs.writeFileSync(targetXMLPath, newTargetXML);
   }
+
   console.log(chalk.green('    write ' + targetXMLPath));
 }
 

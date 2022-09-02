@@ -1,9 +1,19 @@
 const chalk = require('chalk');
+const { setDefaultESLint } = require('./set-default-eslint');
+const { setDefaultWebpack } = require('./set-default-webpack');
 
-console.clear();
-console.log(chalk.bold('\nInitialize Intellij configuration\n'));
+(async function () {
+  try {
+    console.clear();
+    console.log(chalk.bold('\nInitialize Intellij configuration\n'));
 
-require('./set-default-webpack');
-require('./set-default-eslint');
+    await setDefaultESLint();
+    await setDefaultWebpack();
 
-console.log(chalk.bold.green('\n  All done!'));
+    console.log(chalk.bold.green('\n  All done!'));
+  }
+  catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+})();
