@@ -8,8 +8,10 @@ async function signUp (body) {
   const activationKey = getSHA(generateRandomString(10));
   const { email, password, invitationKey } = body;
 
+  const parsedEmail = email.toLowerCase();
+
   const userObject = {
-    email,
+    email: parsedEmail,
     password: getSHA(password),
     accountActivation: {
       isActive: false,
