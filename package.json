@@ -14,7 +14,7 @@
   "author": "dbetka",
   "main": "server/app.js",
   "scripts": {
-    "init-intellij-config": "node ./ide-default/init-intellij-config.js",
+    "init-intellij-settings": "node ./ide-default/init-intellij-settings.js",
     "build:dev": "cd client && npm run build:dev",
     "build:dev:watch": "cd client && npm run build:dev:watch",
     "build:mobile:dev": "cd client && npm run build:mobile:dev",

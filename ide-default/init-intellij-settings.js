@@ -9,7 +9,7 @@ initIntellijSettings([
       json === null ||
       json.project === undefined ||
       json.project.component === undefined ||
-      Array.isArray(json.project.component[0].option) === true,
+      Array.isArray(json.project.component[0].option) === false,
     modifier: json => {
       const option = json.project.component[0].option;
 
