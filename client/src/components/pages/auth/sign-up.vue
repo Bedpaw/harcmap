@@ -75,7 +75,13 @@ export default {
       blockForm.value = false;
     }
 
+    function trimFields () {
+      values.email = values.email.toLowerCase().trim();
+      values.password = values.password.trim();
+    }
+
     function signUp () {
+      trimFields();
       isSending.value = true;
       blockForm.value = true;
       api.signUp({ ...values, invitationKey })

@@ -66,7 +66,13 @@ export default {
       password: '',
     });
 
+    function trimFields () {
+      values.email = values.email.toLowerCase().trim();
+      values.password = values.password.trim();
+    }
+
     function signIn () {
+      trimFields();
       isSending.value = true;
       blockForm.value = true;
       store.dispatch('user/signIn', values).catch(onErrorOccurs);
