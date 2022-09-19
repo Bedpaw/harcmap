@@ -7,6 +7,7 @@ server/.env
 server/.db
 server/coverage
 server/node_modules
+server/package-lock.json
 server/pm2-prod.config.js
 server/bin/publish-staging.sh
 server/bin/fresh-staging-mongo.js
