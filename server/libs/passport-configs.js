@@ -17,7 +17,9 @@ function setStrategy (passport) {
     usernameField: 'email',
     passwordField: 'password',
   }, (email, password, done) => {
-    Users.get({ email }, {
+    const parsedEmail = email.toLowerCase();
+
+    Users.get({ email: parsedEmail }, {
       aggregationPipeline: getUserAggregation,
     })
       .then((userData) => {
