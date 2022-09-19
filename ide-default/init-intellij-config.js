@@ -1,19 +1,39 @@
-const chalk = require('chalk');
-const { setDefaultESLint } = require('./set-default-eslint');
-const { setDefaultWebpack } = require('./set-default-webpack');
+const { initIntellijSettings } = require('@dbetka/wdk/lib/ide/init-intellij-settings');
 
-(async function () {
-  try {
-    console.clear();
-    console.log(chalk.bold('\nInitialize Intellij configuration\n'));
+initIntellijSettings([
+  {
+    name: 'ESLint',
+    defaultXMLPath: './ide-default/default-eslint.xml',
+    targetXMLPath: './.idea/jsLinters/eslint.xml',
+    validator: json =>
+      json === null ||
+      json.project === undefined ||
+      json.project.component === undefined ||
+      Array.isArray(json.project.component[0].option) === true,
+    modifier: json => {
+      const option = json.project.component[0].option;
 
-    await setDefaultESLint();
-    await setDefaultWebpack();
+      option.find(({ $: { name } }) => name === 'fix-on-save').$.value = 'true';
 
-    console.log(chalk.bold.green('\n  All done!'));
-  }
-  catch (err) {
-    console.error(err);
-    process.exit(1);
-  }
-})();
+      return json;
+    },
+  },
+  {
+    name: 'Webpack',
+    defaultXMLPath: './ide-default/default-misc.xml',
+    targetXMLPath: './.idea/misc.xml',
+    validator: json =>
+      json === null ||
+      json.project === undefined ||
+      json.project.component === undefined ||
+      Array.isArray(json.project.component[0].option) === false,
+    modifier: json => {
+      const option = json.project.component[0].option;
+
+      option.find(({ $: { name } }) => name === 'mode').$.value = 'MANUAL';
+      option.find(({ $: { name } }) => name === 'path').$.value = '$PROJECT_DIR$/client/webpack/config.common.js';
+
+      return json;
+    },
+  },
+]);
