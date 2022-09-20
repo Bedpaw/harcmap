@@ -49,7 +49,7 @@
     "dotenv": "^8.2.0"
   },
   "devDependencies": {
-    "@dbetka/wdk": "^0.3.0",
+    "@dbetka/wdk": "^0.4.0",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
     "@vue/eslint-config-standard": "^6.1.0",
