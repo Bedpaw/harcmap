@@ -14,7 +14,8 @@
   "author": "dbetka",
   "main": "server/app.js",
   "scripts": {
-    "init-intellij-settings": "node ./ide-default/init-intellij-settings.js",
+    "export-code-style-scheme": "npx export-intellij-settings codeStyleScheme ./idea-default/code-styles/scheme.xml",
+    "init-intellij-settings": "node ./idea-default/init-intellij-settings.js",
     "build:dev": "cd client && npm run build:dev",
     "build:dev:watch": "cd client && npm run build:dev:watch",
     "build:mobile:dev": "cd client && npm run build:mobile:dev",
@@ -49,7 +50,7 @@
     "dotenv": "^8.2.0"
   },
   "devDependencies": {
-    "@dbetka/wdk": "^0.4.0",
+    "@dbetka/wdk": "^0.5.2",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
     "@vue/eslint-config-standard": "^6.1.0",

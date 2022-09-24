@@ -4,8 +4,20 @@ const { defaultValidators } = require('@dbetka/wdk/lib/ide/default-validators');
 
 initIntellijSettings([
   {
+    name: 'Code style config',
+    defaultXMLPath: './idea-default/code-styles/config.xml',
+    targetXMLPath: './.idea/codeStyles/codeStyleConfig.xml',
+    replaceIfExists: true,
+  },
+  {
+    name: 'Code style scheme',
+    defaultXMLPath: './idea-default/code-styles/scheme.xml',
+    targetXMLPath: './.idea/codeStyles/Project.xml',
+    replaceIfExists: true,
+  },
+  {
     name: 'EsLint',
-    defaultXMLPath: '../wdk/share/ide/init-intellij-settings/default/eslint.xml',
+    defaultXMLPath: './node_modules/@dbetka/wdk/share/ide/init-intellij-settings/default/eslint.xml',
     targetXMLPath: './.idea/inspectionProfiles/Project_Default.xml',
     validator: defaultValidators.projectDefaultEslint(),
     modifier: defaultModifiers.projectDefaultEslint(),
@@ -13,7 +25,7 @@ initIntellijSettings([
   },
   {
     name: 'ESLint on save',
-    defaultXMLPath: '../wdk/share/ide/init-intellij-settings/default/eslint-on-save.xml',
+    defaultXMLPath: './node_modules/@dbetka/wdk/share/ide/init-intellij-settings/default/eslint-on-save.xml',
     targetXMLPath: './.idea/jsLinters/eslint.xml',
     validator: defaultValidators.eslintOnSave(),
     modifier: defaultModifiers.eslintOnSave({ enabled: 'true' }),
@@ -21,7 +33,7 @@ initIntellijSettings([
   },
   {
     name: 'Webpack',
-    defaultXMLPath: '../wdk/share/ide/init-intellij-settings/default/misc.xml',
+    defaultXMLPath: './node_modules/@dbetka/wdk/share/ide/init-intellij-settings/default/misc.xml',
     targetXMLPath: './.idea/misc.xml',
     validator: defaultValidators.webpack(),
     modifier: defaultModifiers.webpack({ dir: '$PROJECT_DIR$/client/webpack/config.common.js' }),
