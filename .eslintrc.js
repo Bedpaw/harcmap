@@ -1,7 +1,12 @@
 /**
- * !!! IMPORTANT BEFORE CHANGE !!!
- * Remember to update code style scheme for projected after any change here and apply rules to IDE.
- * script: npm run export-code-style-scheme
+ * !!! Before changes
+ * Remember to update code style scheme for project after any change here by following below instruction:
+ * 1. Run script `npm run init-intellij-settings`
+ * 2. Open `.eslintrc.js` file
+ * 3. Click right mouse button on the first line of the file
+ * 4. Click `Apply ESLint Code Style Rules` option
+ * 5. Restart IDE
+ * 6. Run script `npm run export-code-style-scheme`
  */
 
 module.exports = {
