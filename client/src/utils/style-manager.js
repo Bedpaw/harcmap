@@ -1,5 +1,5 @@
-import 'src/style/light';
-import 'src/style/dark';
+import 'src/style/light.sass';
+import 'src/style/dark.sass';
 import { appStorage } from 'utils/storage';
 
 const lastSheetId = document.styleSheets.length - 1;
