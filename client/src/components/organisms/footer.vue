@@ -52,7 +52,7 @@ export default {
     },
     getShortcuts () {
       const centralButton = {
-        ...userUtils.getMenuCentralButton(),
+        ...userUtils.getMenuCentralButton(this.$store.getters['event/role']),
         big: true,
       };
       const menuButton = {

@@ -1,10 +1,16 @@
-import { ACCOUNT_TYPES } from 'utils/permissions';
 import { materialIcons } from '@dbetka/vue-material-icons';
 import { ROUTES } from 'config/routes-config';
-import { store } from 'store';
 import { TeamMemberDTO as TeamMember } from 'models/dtos/team';
 
 const ICONS = materialIcons.names;
+
+export const ACCOUNT_TYPES = {
+  teamLeader: 'teamLeader',
+  admin: 'admin',
+  observer: 'observer',
+  teamMember: 'teamMember',
+  creator: 'creator',
+};
 
 const { teamMember, teamLeader, creator, admin, observer } = ACCOUNT_TYPES;
 const accountTypeInfo = {
@@ -65,8 +71,8 @@ const accountTypeInfo = {
 };
 
 const availabilities = {
-  seeAllPointsOnMap: [creator, admin],
-  seeAllTimeOutPoints: [creator, admin],
+  seeAllPointsOnMap: [creator, admin, observer],
+  seeAllTimeOutPoints: [creator, admin, observer],
   seeAdminStartView: [creator, admin, observer],
   editOrDeletePoints: [creator, admin],
   seeAllTeamsTracks: [creator, admin, observer],
@@ -75,7 +81,7 @@ const availabilities = {
   seePointsSuccessMessageDescription: [creator, admin, observer],
 };
 
-const checkIfCan = (permittedRoles: string[], role?: string) => permittedRoles.includes(role ?? store.getters['event/role']);
+const checkIfCan = (permittedRoles: string[], role: string) => permittedRoles.includes(role);
 
 export const userUtils = {
   getOrderedMembers: (teamMembers: TeamMember[]) => {
@@ -89,18 +95,18 @@ export const userUtils = {
   },
   getIcon: (obj: { role: string }) => accountTypeInfo[obj.role].icon,
   getNameKey: (role: string) => accountTypeInfo[role].nameKey,
-  getMenuLinks: (role = store.getters['event/role']) => accountTypeInfo[role].menuLinks,
-  getMenuCentralButton: (role = store.getters['event/role']) => accountTypeInfo[role].menuCentralButton,
+  getMenuLinks: (role: string) => accountTypeInfo[role].menuLinks,
+  getMenuCentralButton: (role: string) => accountTypeInfo[role].menuCentralButton,
   isOrganizer: (user: { role: string }) => user.role === creator,
   can: {
-    seeAllPointsOnMap: () => checkIfCan(availabilities.seeAllPointsOnMap),
-    seeAllTimeOutPoints: () => checkIfCan(availabilities.seeAllTimeOutPoints),
-    seeAdminStartView: () => checkIfCan(availabilities.seeAdminStartView),
-    editOrDeletePoints: () => checkIfCan(availabilities.editOrDeletePoints),
-    seeAllTeamsTracks: () => checkIfCan(availabilities.seeAllTeamsTracks),
-    fetchAllTeamsData: (role?: string) => checkIfCan(availabilities.fetchAllTeamsData, role),
-    seePointsBeforeEventStart: (role?: string) => checkIfCan(availabilities.seePointsBeforeEventStart, role),
-    seePointsSuccessMessageDescription: () => checkIfCan(availabilities.seePointsSuccessMessageDescription),
+    seeAllPointsOnMap: (role: string) => checkIfCan(availabilities.seeAllPointsOnMap, role),
+    seeAllTimeOutPoints: (role: string) => checkIfCan(availabilities.seeAllTimeOutPoints, role),
+    seeAdminStartView: (role: string) => checkIfCan(availabilities.seeAdminStartView, role),
+    editOrDeletePoints: (role: string) => checkIfCan(availabilities.editOrDeletePoints, role),
+    seeAllTeamsTracks: (role: string) => checkIfCan(availabilities.seeAllTeamsTracks, role),
+    fetchAllTeamsData: (role: string) => checkIfCan(availabilities.fetchAllTeamsData, role),
+    seePointsBeforeEventStart: (role: string) => checkIfCan(availabilities.seePointsBeforeEventStart, role),
+    seePointsSuccessMessageDescription: (role: string) => checkIfCan(availabilities.seePointsSuccessMessageDescription, role),
   },
 };
 

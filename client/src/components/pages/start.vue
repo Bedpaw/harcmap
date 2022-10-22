@@ -1,7 +1,7 @@
 <template>
   <t-start>
     <template #buttons>
-      <template v-if="userUtils.can.seeAdminStartView()">
+      <template v-if="userUtils.can.seeAdminStartView($store.getters['event/role'])">
         <a-button-fill-primary
           :text="$t('page.admin.start.checkScoreboard')"
           :tests-selector="testSelectors.buttons.navigateToScoreboard"
