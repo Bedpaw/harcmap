@@ -79,6 +79,7 @@ export const map = {
     promise.then(() => {
       if (uCheck.isObject(map.realMap)) {
         map.points.create(store.getters['event/pointsVisibleOnMap']);
+        map.lines.create(store.getters['team/collectedPoints']);
       }
     });
     return promise;
