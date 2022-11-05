@@ -26,9 +26,9 @@
 - Docker - version - **newest**
 
 ### How to prepare Intellij IDE (Webstorm) for front-end development
-1. You have to get into `Settings/Languages & Frameworks/JavaScript/Webpack` and set `client/webpack/config.common.js` as a config file.
-2. Open `Project Files` click by right button on `.eslintrc.js` file and click `Apply ESLint Code Style Rules` option.
-3. You have to get into `Settings/Editor/Code Style/HTML`, find `Do not indent children of` option and add `script` tag there.
+1. Go to root project dir
+2. Make `npm i`
+3. Make `npm run init-intellij-settings`
 4. Restart IDE
 
 
