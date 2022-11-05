@@ -35,7 +35,7 @@ module.exports = {
     'no-useless-call': 'warn',
     'no-useless-escape': 'warn',
     'padded-blocks': 'off',
-    'brace-style': ['error', 'stroustrup', { 'allowSingleLine': false }],
+    'brace-style': ['error', '1tbs', { 'allowSingleLine': false }],
     'operator-linebreak': ['error', 'before', { 'overrides': { '=': 'after' } }],
     'curly': ['error', 'multi-or-nest'],
     'semi': [
