@@ -74,9 +74,9 @@ export default {
         else return null;
       },
       set (value) {
-        if (value) {
+        if (value)
           context.emit('update:' + modelName, getDate.fromFormat(value, DATE_FORMATS.YYYYMMDDTHHmm));
-        } else return null;
+        else return null;
       },
     });
 

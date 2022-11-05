@@ -43,12 +43,12 @@ router.beforeEach(async (to, from, next) => {
 
   try {
     const { path, wantsEnterEvent } = await promise;
-    if (wantsEnterEvent && isEventOrAlwaysAllowedRoute(to) === false) {
+    if (wantsEnterEvent && isEventOrAlwaysAllowedRoute(to) === false)
       return next(ROUTES.start.path);
-    }
-    if (path && path !== to.path) {
+
+    if (path && path !== to.path)
       return next(path);
-    }
+
     checkRouteGuards(to, from, next);
   } catch (e) {
     checkRouteGuards(to, from, next);

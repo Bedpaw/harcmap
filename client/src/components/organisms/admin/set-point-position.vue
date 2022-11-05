@@ -41,9 +41,9 @@ export default {
   mounted () {
     this.$store.commit('event/setHidePoint', this.point);
     map.updateMapFeatures();
-    if (pointUtils.hasSetPosition(this.point)) {
+    if (pointUtils.hasSetPosition(this.point))
       map.panToPointLocationOnMap(this.point, { goToMap: false, zoom: mapConfig.settings.maxZoom });
-    }
+
   },
   beforeUnmount () {
     this.$store.commit('event/clearHidePoint');

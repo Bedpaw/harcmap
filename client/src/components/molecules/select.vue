@@ -127,11 +127,11 @@ export default {
     }));
 
     function resetPointedOption (value = vModel.value) {
-      if (logical.isNull(value)) {
+      if (logical.isNull(value))
         pointedOption.value = -1;
-      } else {
+      else
         pointedOption.value = options.value.findIndex(option => option.value === value);
-      }
+
     }
 
     const optionsElement = ref(null);
@@ -152,9 +152,9 @@ export default {
           const windowHeight = window.outerHeight;
           optionsAreOutsideWindow.value = optionsHeight + optionsTop + 8 >= windowHeight;
         });
-      } else {
+      } else
         optionsAreOutsideWindow.value = false;
-      }
+
     }
 
     const timeoutId = ref(null);
@@ -180,9 +180,9 @@ export default {
       return new Promise((resolve) => {
         setTimeout(() => {
           optionsAreOpen.value = false;
-          if (config.resetPointedOption) {
+          if (config.resetPointedOption)
             resetPointedOption();
-          }
+
           resolve();
         });
       });
@@ -191,9 +191,8 @@ export default {
     function chooseOption ({ value, index }) {
       if (disabled.value) return;
 
-      if (typeof index !== 'undefined') {
+      if (typeof index !== 'undefined')
         value = options.value[index].value;
-      }
 
       closeOptions({ resetPointedOption: false })
         .then(() => {
@@ -205,32 +204,32 @@ export default {
 
     function chooseAndToggleOptions () {
       const index = pointedOption.value;
-      if (optionsAreOpen.value && index >= 0) {
+      if (optionsAreOpen.value && index >= 0)
         chooseOption({ index });
-      } else {
+      else
         toggleOptions();
-      }
+
     }
 
     const optionSwitch = index => optionsAreOpen.value === false && chooseOption({ index });
 
     function optionUp () {
-      if (pointedOption.value - 1 < 0) {
+      if (pointedOption.value - 1 < 0)
         pointedOption.value = options.value.length - 1;
-      } else {
+      else
         pointedOption.value -= 1;
-      }
+
       optionSwitch(pointedOption.value);
     }
 
     function optionDown () {
       if (disabled.value) return;
 
-      if (pointedOption.value + 1 > options.value.length - 1) {
+      if (pointedOption.value + 1 > options.value.length - 1)
         pointedOption.value = 0;
-      } else {
+      else
         pointedOption.value += 1;
-      }
+
       optionSwitch(pointedOption.value);
     }
 

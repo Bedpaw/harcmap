@@ -1,5 +1,5 @@
-import 'src/style/light';
-import 'src/style/dark';
+import 'src/style/light.sass';
+import 'src/style/dark.sass';
 import { appStorage } from 'utils/storage';
 
 const lastSheetId = document.styleSheets.length - 1;
@@ -33,9 +33,9 @@ export const styleManager = {
       sheetsKeys.forEach(sheetName => {
         sheets[sheetName].disabled = name !== sheetName;
       });
-    } else {
+    } else
       throw new ErrorMessage('This styleSheet does not exist');
-    }
+
   },
   switchTo: {
     dark () {

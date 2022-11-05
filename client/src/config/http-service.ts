@@ -16,9 +16,9 @@ export const httpService = HttpService.createInstance<ApiError, ServerError>({
     },
   },
   defaultErrorCallback: (serverError, options) => {
-    const errorMessage = getSpecificError(serverError.error) ??
-      options?.defaultError ??
-      API_ERRORS.undefined.defaultError;
+    const errorMessage = getSpecificError(serverError.error)
+      ?? options?.defaultError
+      ?? API_ERRORS.undefined.defaultError;
     return new ErrorMessage(errorMessage, { code: serverError?.error });
   },
   connectionErrorCallback: () => {

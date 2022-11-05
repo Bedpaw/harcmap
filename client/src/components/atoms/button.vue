@@ -65,18 +65,17 @@ export default defineComponent({
     getClass () {
       const classes = [this.addClass];
 
-      if (this.loading) {
+      if (this.loading)
         classes.push('f-loading');
-      }
 
       return classes;
     },
   },
   methods: {
     emitClick (event:Event) {
-      if (this.disabled === false) {
+      if (this.disabled === false)
         this.$emit('click', event);
-      }
+
     },
   },
 });

@@ -27,9 +27,9 @@ class Model {
           fieldValue[nestedFieldName] = nestedFieldValue.required();
         });
         this.validationSchemaRequired[fieldName] = Joi.object(fieldValue);
-      } else {
+      } else
         this.validationSchemaRequired[fieldName] = fieldValue.required();
-      }
+
     });
 
     this.validationSchemaRequired = Joi.object(this.validationSchemaRequired);
@@ -74,9 +74,8 @@ class Model {
         foundDuplicates = duplicationUniqueField.length !== 0;
       }
 
-      if (!foundDuplicates) {
+      if (!foundDuplicates)
         insertResult = await collection.insertMany(itemsToCreate);
-      }
 
       // check if created all items
       if (insertResult.insertedCount === items.length) {
@@ -121,9 +120,8 @@ class Model {
       const aggregatedData = await collection.aggregate(aggregation).toArray();
 
       result = aggregatedData[0];
-    } else {
+    } else
       result = await collection.findOne(filters);
-    }
 
     return result;
   }
@@ -145,9 +143,8 @@ class Model {
       const aggregation = aggregationPipeline(filters);
 
       result = await collection.aggregate(aggregation).toArray();
-    } else {
+    } else
       result = await collection.find(filters).toArray();
-    }
 
     return result;
   }
@@ -191,9 +188,9 @@ class Model {
       const updateResult = await collection.updateMany(filters, query);
 
       // check if created all items
-      if (updateResult.matchedCount === 1) {
+      if (updateResult.matchedCount === 1)
         result.success = true;
-      } else {
+      else {
         result.error = errorCodes.MODEL_UPDATE_INCORRECT_LENGTH;
         result.errorDetails = updateResult;
       }

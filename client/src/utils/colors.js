@@ -11,23 +11,23 @@ export const colorsUtils = {
     const g = parseInt(hex.slice(3, 5), 16);
     const b = parseInt(hex.slice(5, 7), 16);
 
-    if (alpha) {
+    if (alpha)
       return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-    } else {
+    else
       return `rgb(${r}, ${g}, ${b})`;
-    }
+
   },
   hexOrRGBToRGB (hexOrRGB, alpha) {
-    if (hexOrRGB.includes('#')) {
+    if (hexOrRGB.includes('#'))
       return colorsUtils.hexToRGB(hexOrRGB, alpha);
-    }
+
     const RGBArray = colorsUtils.convertRGBToArray(hexOrRGB);
-    if (uCheck.isDefined(alpha)) {
+    if (uCheck.isDefined(alpha))
       return `rgba(${RGBArray[0]}, ${RGBArray[1]}, ${RGBArray[2]}, ${alpha})`;
-    }
-    if (uCheck.isDefined(RGBArray[3])) {
+
+    if (uCheck.isDefined(RGBArray[3]))
       return `rgba(${RGBArray[0]}, ${RGBArray[1]}, ${RGBArray[2]}, ${RGBArray[3]})`;
-    }
+
     return `rgb(${RGBArray[0]}, ${RGBArray[1]}, ${RGBArray[2]})`;
   },
 };

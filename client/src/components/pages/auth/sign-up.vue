@@ -100,9 +100,9 @@ export default {
           name: ROUTES.signIn.name,
           query: { invitationKey },
         });
-      } else {
+      } else
         router.push(ROUTES.signIn.path);
-      }
+
     }
 
     return {

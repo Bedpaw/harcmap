@@ -99,7 +99,7 @@ export default {
         ROUTES.map,
         ROUTES.eventsList,
       ];
-      return [...commonMenuLinks, ...userUtils.getMenuLinks()];
+      return [...commonMenuLinks, ...userUtils.getMenuLinks(this.$store.getters['event/role'])];
     },
     themeName () {
       return this.$store.getters['theme/name'];

@@ -23,6 +23,5 @@ export const api = {
   },
 };
 
-if (DEVELOPMENT_MODE) {
+if (DEVELOPMENT_MODE)
   window.api = api;
-}

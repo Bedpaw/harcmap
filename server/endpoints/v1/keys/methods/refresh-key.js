@@ -27,9 +27,8 @@ async function refreshKey (eventId, keyId) {
     key: newKey,
   });
 
-  if (!updatedKey.success) {
+  if (!updatedKey.success)
     throw new AppError(errorCodes.CANNOT_REFRESH_KEY);
-  }
 
   const {
     role,

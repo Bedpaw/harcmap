@@ -24,9 +24,9 @@ export class AppRoute {
   private setPath (path: string, dynamicParam: string | null) {
     const camelToKebab = (str: string): string => str.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`);
     let mainPath = path || '/' + camelToKebab(this.name);
-    if (dynamicParam) {
+    if (dynamicParam)
       mainPath += '/:' + dynamicParam;
-    }
+
     this.path = mainPath;
   }
 

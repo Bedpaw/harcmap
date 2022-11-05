@@ -87,9 +87,9 @@ export default {
     }
 
     onMounted(() => {
-      if (DEVELOPMENT_MODE && TEST_MODE() === false && MOBILE_TARGET() === false) {
+      if (DEVELOPMENT_MODE && TEST_MODE() === false && MOBILE_TARGET() === false)
         signInAutomatically();
-      }
+
     });
 
     return {

@@ -42,12 +42,12 @@ const multiStorage = {
 
 function createPrefix (ids: Identifiers = {}): string {
   let result = 'hm-';
-  if (ids.email) {
+  if (ids.email)
     result += ids.email + '-';
-  }
-  if (ids.eventId) {
+
+  if (ids.eventId)
     result += ids.eventId + '-';
-  }
+
   return result;
 }
 
