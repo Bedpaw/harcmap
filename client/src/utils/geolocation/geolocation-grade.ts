@@ -12,22 +12,21 @@ let isInitialized = false;
 const lastPositionsAccuracies: GeoAccuracy[] = [];
 
 function addAccuracy (accuracy: GeoAccuracy) {
-  if (lastPositionsAccuracies.length >= ACCURACY_HISTORY_LENGTH) {
+  if (lastPositionsAccuracies.length >= ACCURACY_HISTORY_LENGTH)
     lastPositionsAccuracies.pop();
-  }
+
   lastPositionsAccuracies.unshift(accuracy);
 }
 
 function getAccuracyEnum (accuracy: number) {
   let accuracyEnum;
 
-  if (accuracy > 30) {
+  if (accuracy > 30)
     accuracyEnum = GeoAccuracy.LOW;
-  } else if (accuracy > 15) {
+  else if (accuracy > 15)
     accuracyEnum = GeoAccuracy.MEDIUM;
-  } else {
+  else
     accuracyEnum = GeoAccuracy.HIGH;
-  }
 
   return accuracyEnum;
 }
@@ -38,16 +37,14 @@ function getLastAccuraciesGrade () {
   const checkEvery = (enumVal: GeoAccuracy[]) => lastPositionsAccuracies.every((acc) => enumVal.includes(acc));
   const isLocationUnknown = lastPositionsAccuracies.length < ACCURACY_HISTORY_LENGTH && isInitialized === false;
 
-  if (isLocationUnknown && checkEvery([GeoAccuracy.LOW])) {
+  if (isLocationUnknown && checkEvery([GeoAccuracy.LOW]))
     return GeoAccuracy.UNKNOWN;
-  }
 
-  if (checkEvery([GeoAccuracy.LOW])) {
+  if (checkEvery([GeoAccuracy.LOW]))
     return GeoAccuracy.LOW;
-  }
-  if (checkEvery([GeoAccuracy.HIGH])) {
+
+  if (checkEvery([GeoAccuracy.HIGH]))
     return GeoAccuracy.HIGH;
-  }
 
   return GeoAccuracy.MEDIUM;
 }

@@ -49,11 +49,11 @@ export class GeolocationControl extends Control {
 
     switch (accuracy) {
       case GeoAccuracy.LOW:
-        if (lastAccuraciesGrade === GeoAccuracy.UNKNOWN) {
+        if (lastAccuraciesGrade === GeoAccuracy.UNKNOWN)
           communicates.showMessageTemporary('communicate.geolocation.initialize', true);
-        } else {
+        else
           communicates.showError('communicate.geolocation.inaccurate', true);
-        }
+
         break;
       case GeoAccuracy.HIGH:
       case GeoAccuracy.MEDIUM:
@@ -92,9 +92,9 @@ export class GeolocationControl extends Control {
           icon.innerText = locationIcons.high;
           break;
         case GeoAccuracy.LOW:
-          if (lastAccuraciesGrade === GeoAccuracy.UNKNOWN) {
+          if (lastAccuraciesGrade === GeoAccuracy.UNKNOWN)
             icon.innerText = locationIcons.unknown;
-          } else {
+          else {
             icon.innerText = locationIcons.low;
             button.classList.add('low');
           }

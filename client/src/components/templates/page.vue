@@ -38,17 +38,17 @@ export default defineComponent({
       const title = route.label;
       store.commit('header/setPageTitle', title);
       store.commit('header/setBackRouteName', props.backRoute);
-      if (title) {
+      if (title)
         document.title = `${title} - ${APP_NAME}`;
-      } else {
+      else
         document.title = APP_NAME;
-      }
+
     });
 
     function openMenu () {
-      if (props.letSwipeMenu && isAfterEventChoose) {
+      if (props.letSwipeMenu && isAfterEventChoose)
         store.commit('menu/open');
-      }
+
     }
 
     return {

@@ -13,16 +13,14 @@ function getEndpointPermissions (config, path, httpMethod) {
   let listOfUsersWithAccess;
 
   // if endpointPermissions are object
-  if (endpointPermissions && endpointPermissions.constructor.name === 'Object') {
+  if (endpointPermissions && endpointPermissions.constructor.name === 'Object')
     endpointPermissions = endpointPermissions[httpMethod] || [];
-  }
 
   // parse permissions configuration to array
-  if (Array.isArray(endpointPermissions)) {
+  if (Array.isArray(endpointPermissions))
     listOfUsersWithAccess = endpointPermissions;
-  } else {
+  else
     listOfUsersWithAccess = [endpointPermissions];
-  }
 
   return listOfUsersWithAccess;
 }
@@ -61,21 +59,21 @@ function createSecuredEndpoints (app, config) {
       const usersWithAccessToEndpoint = getEndpointPermissions(config, endpointUrl, method);
 
       // endpoint is open for all
-      if (usersWithAccessToEndpoint.includes('guest')) {
+      if (usersWithAccessToEndpoint.includes('guest'))
         PASS = true;
-      } else
+      else
       // only logged users can request for this resource
-      if (usersWithAccessToEndpoint.includes('authenticated')) {
+      if (usersWithAccessToEndpoint.includes('authenticated'))
         PASS = isAuth;
-      } else
+      else
       // user role(in event scope) is in path permission object
       if (usersWithAccessToEndpoint.includes(userRole)) {
         // try to get resource for specified team - check if user is it member
-        if (teamId && !isAdminRole) {
+        if (teamId && !isAdminRole)
           PASS = teamId === userTeamId;
-        } else {
+        else
           PASS = true;
-        }
+
       }
 
       // request pass
@@ -96,21 +94,19 @@ function createSecuredEndpoints (app, config) {
     // }
 
     // if path don't refers to server api
-    if (!(/^\/api\/.*/.test(pathToLowerCase))) {
+    if (!(/^\/api\/.*/.test(pathToLowerCase)))
       request.PASS = true;
-    }
 
     // adds support for index.html
-    if (path === '/') {
+    if (path === '/')
       request.PASS = true;
-    }
 
     // check if request passed verification
     if (!request.PASS) {
       // request rejected - ERROR
-      if (typeof request.PASS !== 'boolean') {
+      if (typeof request.PASS !== 'boolean')
         throw new AppError(errorCodes.PERMISSION_MIDDLEWARE_CANNOT_FIND_PATH_IN_SETTINGS);
-      } else {
+      else {
         throw new AppError(errorCodes.NO_PERMISSION_TO_RESOURCE, {
           httpStatus: 401,
         });

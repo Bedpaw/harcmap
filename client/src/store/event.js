@@ -45,9 +45,9 @@ export default {
       mapRefreshTime: state.mapRefreshTime,
     }),
     pointsVisibleOnMap: (state, getters) =>
-      state.points.filter((point) => pointUtils.pointIsVisibleOnMap(point, getters.hidePoint.pointId)),
+      state.points.filter((point) => pointUtils.pointIsVisibleOnMap(point, getters.hidePoint.pointId, getters['event/role'])),
     pointsDisplayedAsCollected: (state, getters, rootState, rootGetters) =>
-      getters.pointsVisibleOnMap.filter(point => pointUtils.pointIsDisplayedAsCollected(point, {
+      getters.pointsVisibleOnMap.filter(point => pointUtils.pointIsDisplayedAsCollected(point, getters['event/role'], {
         pointsCollectedByTeam: rootGetters['team/collectedPointsIds'],
         mapRefreshTime: state.mapRefreshTime,
       })),
@@ -89,9 +89,9 @@ export default {
       const eventPromise = api.getEventById(eventId);
       const categoriesPromise = api.getCategoriesByEventId(eventId);
 
-      if (userUtils.can.fetchAllTeamsData(role)) {
+      if (userUtils.can.fetchAllTeamsData(role))
         teamsPromise = context.dispatch('groups/downloadTeams', eventId, { root: true });
-      } else {
+      else {
         teamsPromise = context.dispatch('team/downloadTeam', {
           eventId,
           teamId,

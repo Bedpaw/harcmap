@@ -19,9 +19,8 @@ function validateRequests (app) {
         : null;
 
       // secure from double verification in similar endpoints with dynamic url
-      if (request.validated) {
+      if (request.validated)
         return next();
-      }
 
       request.validated = true;
 
@@ -32,17 +31,15 @@ function validateRequests (app) {
         const { allowEmptyObject } = requestSchemaStore[endpointUrl];
 
         // data to validate for GET
-        if (method === 'GET') {
+        if (method === 'GET')
           data = query;
-        }
 
         const dataAreEmptyObject = Object.keys(data).length === 0;
         const validatedData = validateOne(data, endpointSchemaObject);
         const noValidationErrors = validatedData.errors.length === 0;
 
-        if ((allowEmptyObject && dataAreEmptyObject) || noValidationErrors) {
+        if ((allowEmptyObject && dataAreEmptyObject) || noValidationErrors)
           return next();
-        }
 
         throw new AppError(errorCodes.REQUEST_VALIDATION_ERROR, {
           httpStatus: 400,

@@ -42,6 +42,7 @@ async function getDefaultCategoriesIfEmpty (categories: PointCategory[], eventId
       pointFillColor: colorsUtils.appColors.red,
       categoryName: translator.t('general.defaultPointCategoryName'),
       pointStrokeColor: colorsUtils.appColors.black,
+      categoryDescription: null,
     }, eventId);
     categories.push(<PointCategory>defaultCategory);
   }

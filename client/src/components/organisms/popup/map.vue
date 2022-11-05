@@ -109,7 +109,7 @@ export default {
       };
     },
     modifyPointButtons () {
-      return userUtils.can.editOrDeletePoints() ? [this.getEditPointButton, this.getDeletePointButton] : [];
+      return userUtils.can.editOrDeletePoints(this.$store.getters['event/role']) ? [this.getEditPointButton, this.getDeletePointButton] : [];
     },
     isDetailsButtonVisible () {
       const point = this.getPointById(this.pointId);
@@ -129,9 +129,9 @@ export default {
   },
   methods: {
     setItemRef (el) {
-      if (el) {
+      if (el)
         this.itemRefs.push(el);
-      }
+
     },
     definePopup () {
       this.popup = new Popup({

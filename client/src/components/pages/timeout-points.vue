@@ -37,7 +37,7 @@ export default {
       'getTimeoutPoints',
     ]),
     points () {
-      return userUtils.can.seeAllTimeOutPoints()
+      return userUtils.can.seeAllTimeOutPoints(this.$store.getters['event/role'])
         ? this.getTimeoutPoints
         : pointUtils.getTodayPoints(this.getTimeoutPoints);
     },

@@ -12,12 +12,12 @@ export const vuexVModel = (config = {}) => {
     },
   } = config;
 
-  if (!mutation) {
+  if (!mutation)
     mutation = 'set' + getter[0].toUpperCase() + getter.slice(1);
-  }
-  if (module[module.length - 1] !== '/') {
+
+  if (module[module.length - 1] !== '/')
     module = module + '/';
-  }
+
   return {
     get () {
       return convertMethods.get(this.$store.getters[module + getter]);
@@ -26,9 +26,9 @@ export const vuexVModel = (config = {}) => {
       const method = nameOnChangeMethod === '' ? () => undefined : this[nameOnChangeMethod];
 
       this.$store.commit(module + mutation, convertMethods.set(value));
-      if (logical.isFunction(method)) {
+      if (logical.isFunction(method))
         method();
-      }
+
     },
   };
 };
