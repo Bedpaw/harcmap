@@ -6,6 +6,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2022-11-05
+### Added
+- Jest unit tests to project with ts support
+- Create script to set default es lint and webpack configuration in intellij ide
+- User scoreboard
+- Possible to reset event invitations
+- Category description
+- Point description and success message
+- Create account and add no-reply@harcmap.pl mail to envs
+- GPS show user position
+- Adapt backend to new server
+- Icon and splash screen for android and ios app
+- Team color in app
+- Team's tracks on map for admin
+- Cypress tests with emails poc
+- Map settings popup
+- Create user data edition endpoint
+- NPM husky
+- Geolocation distance detection
+- Map popup for not admin users
+
+### Fixed
+- Refresh lines to represent team paths
+- Invalid display of collected points
+- Trimming and to lower case
+- Parsing email to lower cases in sign-in and sign-up
+- Fields lengths in joi validations
+- Fixes before release 2.1.0
+- Semicolon problem for windows
+- Share event by apps on mobile app
+- Replace fetch with http plugin from capacitor for mobile apps
+- User data modification endpoint
+- Refactor download event
+- Points on map logic
+- Mocks
+- Small app logic changes
+- Routing and user
+- Webpack config is unable to read by IDE
+- Displaying errors and warnings while making build
+- Upgrade all npm dependencies april 2022
+- Block menu slide before event
+- Point category improvements
+- Frontend router before each process
+- Mock event settings
+
 ## [2.0.1] - 2022-03-16
 ### Fixed
 - Fix build production package
