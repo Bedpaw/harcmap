@@ -19,5 +19,5 @@ steps:
     npm install
     cd client
     npm install
-    npm run build:dev
+    npm run build:prod
   displayName: 'npm install and build'
