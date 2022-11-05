@@ -53,14 +53,6 @@ module.exports = (env) => ({
     extensions: ['.ts', '.js', '.vue', '.sass', '.css'],
   },
   plugins: [
-    ...appConsoleFramePlugin({
-      appName,
-      appVersion,
-      target: env.target,
-      onBuildDone: isMobile(env.target)
-        ? [{ name: 'Sync mobile apps sources', method: () => runInShell('npx cap sync') }]
-        : undefined,
-    }),
     new ESLintConfig(),
     new HtmlWebpackConfig({ capacitor: isMobile(env.target) }),
     new ImageConfig(),
