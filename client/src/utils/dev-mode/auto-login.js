@@ -12,11 +12,11 @@ const users = Object.freeze({
 let index = 0;
 const indexer = {
   next: () => {
-    if (index < 3) {
+    if (index < 3)
       index++;
-    } else {
+    else
       index = 0;
-    }
+
   },
 };
 
@@ -40,9 +40,9 @@ export const autoLogin = {
   observer: () => login(users.observer),
   admin: () => login(users.admin),
   custom: (email, password = users.teamLeader.password) => {
-    if (email.length === 1) {
+    if (email.length === 1)
       email = stringUtils.replaceAt(users.teamLeader.email, email, 4);
-    }
+
     login({ email, password });
   },
 };

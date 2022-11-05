@@ -75,13 +75,12 @@ export default {
       return this.getCategoryById(this.pointData.pointCategoryId).categoryDescription;
     },
     shouldSeenSuccessMessage () {
-      if (['', null].includes(this.pointData.pointSuccessMessage)) {
+      if (['', null].includes(this.pointData.pointSuccessMessage))
         return false;
-      }
 
-      if (userUtils.can.seePointsSuccessMessageDescription()) {
+      if (userUtils.can.seePointsSuccessMessageDescription())
         return true;
-      }
+
       return pointUtils.isPointIdOnList(this.collectedPointsIds, { pointId: this.pointId });
     },
   },

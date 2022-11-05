@@ -29,9 +29,9 @@ export const map = {
     function panToView () {
       const view = map.realMap.getView();
       view.setCenter(fromLonLat([longitude, latitude]));
-      if (view.getZoom() < zoom) {
+      if (view.getZoom() < zoom)
         view.setZoom(zoom);
-      }
+
     }
 
     const mapPosition = {
@@ -77,9 +77,9 @@ export const map = {
     const nickname = store.getters['event/role'];
     const promise = store.dispatch('event/download', { eventId, teamId, role, nickname });
     promise.then(() => {
-      if (uCheck.isObject(map.realMap)) {
+      if (uCheck.isObject(map.realMap))
         map.points.create(store.getters['event/pointsVisibleOnMap']);
-      }
+
     });
     return promise;
   },
@@ -124,9 +124,9 @@ export const map = {
     map.realMap.on('moveend', this.saveLastMapPositionToStorage);
   },
   destroyMapWithFeatures () {
-    if (map.realMap) {
+    if (map.realMap)
       map.realMap.un('moveend', this.saveLastMapPositionToStorage);
-    }
+
     geolocationUtils.stopTrackingPosition();
     myPosition.destroyAll();
     map.destroy('o-map');

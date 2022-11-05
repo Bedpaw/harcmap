@@ -10,11 +10,11 @@ export const versionCompatibility = {
       if (incompatibleVersionAfterReload === null) {
         appStorage.setItem(appStorage.appKeys.incompatibleVersionAfterReload, true);
         window.location.reload();
-      } else {
+      } else
         throw new ErrorMessage(translator.t('error.incompatibleAppVersion'), { hard: true });
-      }
-    } else {
+
+    } else
       appStorage.removeItem(appStorage.appKeys.incompatibleVersionAfterReload);
-    }
+
   },
 };

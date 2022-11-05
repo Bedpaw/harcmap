@@ -102,11 +102,11 @@ export default {
       'f-disabled': disabled.value,
     }));
     const getType = computed(() => {
-      if (isPassword.value) {
+      if (isPassword.value)
         return showPassword.value ? '' : type.value;
-      } else {
+      else
         return type.value;
-      }
+
     });
 
     onMounted(() => (id.value = fieldUidGenerator.getNext()));

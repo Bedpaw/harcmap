@@ -20,9 +20,9 @@ export const undefinedDoubleVuelidate = {
 
 export function validationRulesListToConfig (rulesList: RulesList) {
   const object: {[index: string]:ValidationRuleWithType} = {};
-  for (const rule of rulesList) {
+  for (const rule of rulesList)
     object[rule.$params.type] = rule;
-  }
+
   return object;
 }
 

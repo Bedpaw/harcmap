@@ -51,9 +51,9 @@ export default {
           this.minutes -= 1;
           this.seconds = 59;
         }
-      } else {
+      } else
         this.seconds -= 1;
-      }
+
     },
     setStartTime () {
       const now = new Date();

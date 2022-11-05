@@ -14,17 +14,17 @@ const getOptionsEnumAsArray = (rule: GameRule): string[] => {
   return optionsEnum ? getEnumValuesAsArray(optionsEnum) : [];
 };
 const getKeyFromOptions = (rule: GameRule): string | undefined => {
-  if (typeof rule.ruleValue !== 'boolean') {
+  if (typeof rule.ruleValue !== 'boolean')
     return getOptionsEnumAsArray(rule)[rule.ruleValue];
-  }
+
   return undefined;
 };
 
 export const gameRulesUtils = {
   getDescription (rule: GameRule) {
-    if (rule.ruleType === InputTypeEnum.Checkbox) {
+    if (rule.ruleType === InputTypeEnum.Checkbox)
       return gameRulesTranslation(rule.ruleId).description();
-    }
+
     return gameRulesTranslation(rule.ruleId, getKeyFromOptions(rule)).optionsDescription();
   },
   getRuleValueById: (ruleId: Rules) => {

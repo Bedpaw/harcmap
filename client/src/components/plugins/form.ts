@@ -19,9 +19,9 @@ export function useForm () {
     isServerError.value = false;
     isSending.value = false;
     blockForm.value = false;
-    if (message === null) {
+    if (message === null)
       return;
-    }
+
     showSuccessMessage(message);
   }
 

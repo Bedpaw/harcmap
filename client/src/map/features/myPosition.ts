@@ -20,9 +20,9 @@ interface MyPositionFeature {
 }
 
 function draw (positionResult: GeolocationPositionResult) {
-  if (mapConfig.myPosition.isVisible === false) {
+  if (mapConfig.myPosition.isVisible === false)
     return;
-  }
+
   const {
     details: { lastAccuraciesGrade, accuracy },
     rawResult: { coords: { latitude, longitude } },

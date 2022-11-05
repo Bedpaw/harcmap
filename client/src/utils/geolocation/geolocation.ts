@@ -21,9 +21,9 @@ let lastPositionTime = 0;
 function isValidResult () {
   // only one result per 2 seconds
   const now = Math.floor(Number(new Date()) / 1000);
-  if (lastPositionTime === now || lastPositionTime === (now - 1)) {
+  if (lastPositionTime === now || lastPositionTime === (now - 1))
     return false;
-  }
+
   lastPositionTime = now;
 
   return true;

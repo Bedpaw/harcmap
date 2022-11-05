@@ -44,9 +44,9 @@ export default {
           message: translator.t('error.correctForm'),
           error: true,
         });
-      } else {
+      } else
         onSubmit.value();
-      }
+
     }
 
     return {
