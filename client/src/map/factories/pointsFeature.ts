@@ -17,7 +17,6 @@ export function createPoints (list: PointType[] = []) {
     const appearance = pointCategoryUtils.getPointAppearance(
       point.pointCategoryId,
       point.pointType,
-      point.pointDescription,
     );
     const showCollected = shouldBeShownAsCollected(point);
     changeColorForTeam(point, appearance);
