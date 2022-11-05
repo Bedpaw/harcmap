@@ -14,9 +14,9 @@ const options = {
     return callback();
   },
   onAuth (auth, session, callback) {
-    if (auth.username !== 'mail@harcmap.pl' || auth.password !== 'Password1') {
+    if (auth.username !== 'mail@harcmap.pl' || auth.password !== 'Password1')
       return callback(new Error('Invalid username or password'));
-    }
+
     callback(null, { user: 'mail@harcmap.pl' });
   },
 };

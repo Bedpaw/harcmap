@@ -49,9 +49,9 @@ const shouldBeShownAsCollected = (point: PointType) => !!store.getters['event/po
 const changeColorForTeam = (point: PointType, appearance: PointCategoryAppearance) => {
   const collectedPoints = store.getters['team/collectedPoints'] as PointType[];
 
-  if ((collectedPoints).map(p => p.pointId).includes(point.pointId)) {
+  if ((collectedPoints).map(p => p.pointId).includes(point.pointId))
     appearance.pointStrokeColor = store.getters['team/teamColor'];
-  }
+
 };
 
 const getStroke = (
@@ -70,9 +70,9 @@ const getFill = (appearance: PointCategoryAppearance, isCollected: boolean) => {
 };
 
 const getColorWithOpacity = (color: string, isCollected: boolean) => {
-  if (isCollected) {
+  if (isCollected)
     return colorsUtils.hexOrRGBToRGB(color, mapConfig.features.defaultCollectedPointOpacity);
-  }
+
   return color;
 };
 
@@ -82,9 +82,9 @@ const getFinalPoints = (appearance: PointCategoryAppearance, fill: Fill, stroke:
     stroke,
     ...mapConfig.points.shapes.point,
   };
-  if (appearance.shape === pointCategoryUtils.availableShapes.star) {
+  if (appearance.shape === pointCategoryUtils.availableShapes.star)
     Object.assign(pointValues, mapConfig.points.shapes.star);
-  }
+
   return new Style({
     image: new RegularShape(pointValues),
   });

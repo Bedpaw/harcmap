@@ -42,11 +42,11 @@ export const eventController = {
   joinEvent (params: JoinEventParams) {
     let body;
     const { userId, eventKey, nickname, teamColor, teamName } = params;
-    if (teamName || teamColor) {
+    if (teamName || teamColor)
       body = params;
-    } else {
+    else
       body = { userId, eventKey, nickname };
-    }
+
     return httpService.post({
       url: urls.joinEvent,
       body,

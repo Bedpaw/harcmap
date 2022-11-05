@@ -37,9 +37,9 @@ export class Popup {
   }
 
   destroy () {
-    if (map.realMap) {
+    if (map.realMap)
       map.realMap.un('singleclick', this.bindOnClick);
-    }
+
   }
 
   hide () {

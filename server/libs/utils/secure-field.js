@@ -30,9 +30,9 @@ function secureInviteKeys (inviteKeys, eventId, request) {
 
       return !!secureField(inviteKey, eventId, request, rolesWithAccessToKey);
     });
-  } else {
+  } else
     return null;
-  }
+
 }
 
 module.exports = {

@@ -93,9 +93,9 @@ export default defineComponent({
       isAppShare.value = isMobile && appShareAvailable;
       isWebShare.value = isMobile === false && webShareAvailable;
 
-      if (isAppShare.value || isWebShare.value) {
+      if (isAppShare.value || isWebShare.value)
         isShareAvailable.value = true;
-      }
+
     });
 
     async function shareEvent () {
@@ -116,9 +116,9 @@ export default defineComponent({
     }
 
     function showDetails () {
-      if (props.rolledUp) {
+      if (props.rolledUp)
         detailsVisible.value = detailsVisible.value === false;
-      }
+
     }
 
     return {

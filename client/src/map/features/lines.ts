@@ -20,8 +20,8 @@ export const lines: LinesFeature = {
     lines,
   ),
   destroyAll () {
-    if (!!map.realMap && !!lines.layer) {
+    if (!!map.realMap && !!lines.layer)
       (map.realMap as unknown as Map).removeLayer(lines.layer.get('name'));
-    }
+
   },
 };

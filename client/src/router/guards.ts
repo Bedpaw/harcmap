@@ -45,12 +45,12 @@ const getRedirectPath = () => {
   const isNotLogIn = store.getters['user/isLogin'] === false;
   const eventNotChosen = store.getters['event/eventId'] === null;
 
-  if (isNotLogIn) {
+  if (isNotLogIn)
     return ROUTES.welcome.path;
-  }
-  if (eventNotChosen) {
+
+  if (eventNotChosen)
     return ROUTES.eventsList.path;
-  }
+
   return ROUTES.start.path;
 };
 

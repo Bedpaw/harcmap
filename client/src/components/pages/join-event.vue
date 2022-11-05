@@ -97,9 +97,9 @@ export default {
 
     const getEvent = async () => {
       event.value = null;
-      if (invitationKey.value.length !== eventKeyRequiredLength) {
+      if (invitationKey.value.length !== eventKeyRequiredLength)
         return;
-      }
+
       try {
         event.value = await api.checkEvent(invitationKey.value, store.getters['user/userId']);
       } catch (e) {

@@ -39,9 +39,9 @@ export const points: PointsFeature = {
     points,
   ),
   destroyAll () {
-    if (!!map.realMap && !!points.layer) {
+    if (!!map.realMap && !!points.layer)
       (map.realMap as unknown as Map).removeLayer(points.layer);
-    }
+
   },
   removeByOlUid (olUid: string) {
     const feature = getFeatureByOlUid(olUid);

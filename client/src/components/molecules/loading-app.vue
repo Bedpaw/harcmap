@@ -76,7 +76,9 @@ export default {
         svgElement.classList.add('f-hide');
 
         promise.timeout(500)
-          .then(() => { if (appIsLoading.value === false && testMode.value === false) throw new Error(); })
+          .then(() => {
+            if (appIsLoading.value === false && testMode.value === false) throw new Error();
+          })
           .then(() => promise.timeout(1300))
           .then(() => {
             animation.erase();

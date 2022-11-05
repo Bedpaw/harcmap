@@ -107,9 +107,8 @@ apiv1.use('/about', about);
 app.use('/api/v1', apiv1);
 
 // common endpoints
-if (SWAGGER_DOC === 'true') {
+if (SWAGGER_DOC === 'true')
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
-}
 
 // index rewrite
 app.get('*', (req, res) => {

@@ -26,18 +26,11 @@ function getCategoriesSelectOptions (categories: PointCategory[]) {
   });
 }
 
-function getPointAppearance (pointCategoryId: string, pointType = MACROS.pointType.permanent, pointDescription?: string | null): PointCategoryAppearance {
+function getPointAppearance (pointCategoryId: string, pointType = MACROS.pointType.permanent): PointCategoryAppearance {
   const pointCategory = store.getters['event/getCategoryById'](pointCategoryId);
-  // TODO Only for Nowy porządek świata event
-  let pointStrokeColor = pointCategory.pointStrokeColor;
-  if (pointDescription) {
-    const changedPointColor = colorsUtils.getAllColorsSelectValues
-      .find(obj => pointDescription.search(`#${obj.label}`) !== -1)?.value;
-    pointStrokeColor = changedPointColor ?? pointCategory.pointStrokeColor;
-  }
   return {
     pointFillColor: pointCategory.pointFillColor,
-    pointStrokeColor,
+    pointStrokeColor: pointCategory.pointStrokeColor,
     shape: pointType === MACROS.pointType.permanent ? availableShapes.dot : availableShapes.star,
   };
 }
@@ -49,7 +42,7 @@ async function getDefaultCategoriesIfEmpty (categories: PointCategory[], eventId
       pointFillColor: colorsUtils.appColors.red,
       categoryName: translator.t('general.defaultPointCategoryName'),
       pointStrokeColor: colorsUtils.appColors.black,
-      categoryDescription: '',
+      categoryDescription: null,
     }, eventId);
     categories.push(<PointCategory>defaultCategory);
   }

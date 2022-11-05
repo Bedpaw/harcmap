@@ -7,9 +7,8 @@ async function updatePoint (eventId, pointId, data) {
     ...data,
   };
 
-  if (pointCategoryId) {
+  if (pointCategoryId)
     pointNewData.pointCategoryId = ObjectId(pointCategoryId);
-  }
 
   const { success } = await Points.update({ _id: ObjectId(pointId), eventId: ObjectId(eventId) }, pointNewData);
 
