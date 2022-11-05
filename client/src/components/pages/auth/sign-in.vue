@@ -69,7 +69,10 @@ export default {
     function signIn () {
       isSending.value = true;
       blockForm.value = true;
-      store.dispatch('user/signIn', values).catch(onErrorOccurs);
+      store.dispatch('user/signIn', {
+        email: values.email.toLowerCase(),
+        password: values.password,
+      }).catch(onErrorOccurs);
     }
     function signInAutomatically () {
       isSending.value = true;
@@ -83,7 +86,6 @@ export default {
     onMounted(() => {
       if (DEVELOPMENT_MODE && TEST_MODE() === false && MOBILE_TARGET() === false)
         signInAutomatically();
-
     });
 
     return {

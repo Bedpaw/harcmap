@@ -6,7 +6,7 @@
     >
       <template #form>
         <m-field-email
-          v-model="values.email"
+          v-model.trim="values.email"
           :disabled="blockForm"
         />
         <m-field-set-password
@@ -78,7 +78,11 @@ export default {
     function signUp () {
       isSending.value = true;
       blockForm.value = true;
-      api.signUp({ ...values, invitationKey })
+      api.signUp({
+        email: values.email.toLowerCase(),
+        password: values.password,
+        invitationKey,
+      })
         .then(onSignUp)
         .catch(onErrorOccurs);
     }
