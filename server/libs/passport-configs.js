@@ -29,9 +29,9 @@ function setStrategy (passport) {
             throw new AppError(errorCodes.ACCOUNT_IS_NOT_ACTIVE, {
               httpStatus: 400,
             });
-          } else if (userData.password === getSHA(password)) {
+          } else if (userData.password === getSHA(password))
             done(null, userData);
-          } else {
+          else {
             // invalid password
             throw new AppError(errorCodes.INVALID_CREDENTIALS);
           }
@@ -81,11 +81,11 @@ function deserializeUser (_id, done) {
  */
 function serializeUser (_id, done) {
   // console.log('serialize', _id);
-  if (_id) {
+  if (_id)
     done(null, _id);
-  } else {
+  else
     done('no _id in serialization', null);
-  }
+
 }
 
 module.exports = {

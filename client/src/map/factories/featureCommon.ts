@@ -32,16 +32,16 @@ export const createFeatureCommon = {
     *   -> destroyAll() = remove layer
     *   -> layer = layer
     * */
-    if (this.isMapNotDefined() || !featureFactory) {
+    if (this.isMapNotDefined() || !featureFactory)
       return false;
-    }
+
     featureObject.destroyAll();
 
     const features = featureFactory(config);
 
-    if (!features) {
+    if (!features)
       return false;
-    }
+
     const layer = new VectorLayer({
       source: new VectorSource({ features }),
     });

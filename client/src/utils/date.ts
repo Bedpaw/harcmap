@@ -30,9 +30,9 @@ export const displayDate = {
   relativeToInCalendarFormat: (date: DateType) => dayjs(date).calendar(),
   asDuration: (date: number) => dayjs.duration(date, 'seconds').humanize(),
   timeRange: (from: string, to: string, separator = ' - '): string => {
-    if (from === to) {
+    if (from === to)
       return from;
-    }
+
     return from + separator + to;
   },
 };
@@ -50,9 +50,9 @@ export const timeUnitConversion = {
 };
 
 function isCurrentHour (timeToCompare: DateType) {
-  if (!compareDate.isToday(timeToCompare)) {
+  if (!compareDate.isToday(timeToCompare))
     return false;
-  } else {
+  else {
     const currentHour = dayjs().hour();
     const hourToCompare = dayjs(timeToCompare).hour();
     if (currentHour === hourToCompare) return true;
@@ -108,13 +108,13 @@ export const splitObjectsListByTime = <T extends Record<string, DateType>, Key e
   objectsList.forEach(obj => {
     const startDate = obj[startDateKey];
     const endDate = obj[endDateKey];
-    if (compareDate.isActual(startDate, endDate)) {
+    if (compareDate.isActual(startDate, endDate))
       isCurrent.push(obj);
-    } else if (compareDate.isFuture(startDate)) {
+    else if (compareDate.isFuture(startDate))
       isFuture.push(obj);
-    } else {
+    else
       isPast.push(obj);
-    }
+
   });
   return [isPast, isCurrent, isFuture];
 };

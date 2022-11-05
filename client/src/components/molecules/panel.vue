@@ -45,8 +45,8 @@ export default {
 
       for (const theme in THEMES) {
         if (currentTheme === THEMES[theme] && this.imagesRelatedToThemes[theme]) {
-          return `background-image: url("${this.imagesRelatedToThemes[theme]}"); ` +
-            `${this.stylesForImages[theme]}`;
+          return `background-image: url("${this.imagesRelatedToThemes[theme]}"); `
+            + `${this.stylesForImages[theme]}`;
         }
       }
       throw new Error('Prop `imgStyles` is wrong defined');

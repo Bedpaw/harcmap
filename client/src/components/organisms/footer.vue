@@ -34,11 +34,11 @@ export default {
   },
   methods: {
     isActualPath ({ path = '' }) {
-      if (this.$store.getters['menu/isOpen']) {
+      if (this.$store.getters['menu/isOpen'])
         return path === '';
-      } else {
+      else
         return this.$route.path === path;
-      }
+
     },
     onClick (shortcut) {
       if (logical.isString(shortcut.path) && shortcut.path !== '') {
@@ -46,9 +46,9 @@ export default {
           this.$store.commit('menu/close');
         });
       }
-      if (logical.isFunction(shortcut.method)) {
+      if (logical.isFunction(shortcut.method))
         shortcut.method();
-      }
+
     },
     getShortcuts () {
       const centralButton = {

@@ -29,9 +29,9 @@ export const map = {
     function panToView () {
       const view = map.realMap.getView();
       view.setCenter(fromLonLat([longitude, latitude]));
-      if (view.getZoom() < zoom) {
+      if (view.getZoom() < zoom)
         view.setZoom(zoom);
-      }
+
     }
 
     const mapPosition = {
@@ -125,9 +125,9 @@ export const map = {
     map.realMap.on('moveend', this.saveLastMapPositionToStorage);
   },
   destroyMapWithFeatures () {
-    if (map.realMap) {
+    if (map.realMap)
       map.realMap.un('moveend', this.saveLastMapPositionToStorage);
-    }
+
     geolocationUtils.stopTrackingPosition();
     myPosition.destroyAll();
     map.destroy('o-map');

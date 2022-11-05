@@ -40,9 +40,9 @@ function getUserTeamIdFromSession (eventId, sessionData) {
   const teamIdObject = getUserDataFromSession(eventId, sessionData).teamId;
   let teamIdString = null;
 
-  if (teamIdObject) {
+  if (teamIdObject)
     teamIdString = ObjectId(teamIdObject);
-  }
+
   return teamIdString;
 }
 
