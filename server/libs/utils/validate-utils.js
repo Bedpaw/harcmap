@@ -21,9 +21,8 @@ function validateOne (data, schema) {
     errors: [],
   };
 
-  if (error) {
+  if (error)
     error.details.forEach((eachObject) => result.errors.push(eachObject.message));
-  }
 
   return result;
 }

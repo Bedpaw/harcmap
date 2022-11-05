@@ -87,13 +87,11 @@ async function editUser (request, data) {
 
   const newUserData = {};
 
-  if (emailToChange) {
+  if (emailToChange)
     newUserData.email = newEmail;
-  }
 
-  if (passwordToChange) {
+  if (passwordToChange)
     newUserData.password = newPasswordHash;
-  }
 
   return await Users.update({ _id: ObjectId(userId) }, newUserData);
 }
