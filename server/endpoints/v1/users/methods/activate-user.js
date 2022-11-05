@@ -23,9 +23,9 @@ async function activateUser (response, key, invitationKey) {
       details: updatedUser.errorDetails,
     });
     response.redirect('/activation-wrong');
-  } else {
+  } else
     response.redirect(`/activation-done${invitationKeyParam}`);
-  }
+
 }
 
 module.exports = activateUser;

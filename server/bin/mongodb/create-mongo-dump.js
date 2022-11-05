@@ -24,11 +24,11 @@ function createCollection (collectionName, data, idsFields) {
     idsFields.forEach(idField => {
       const field = document[idField];
 
-      if (Array.isArray(field)) {
+      if (Array.isArray(field))
         newDocument[idField] = field.map(item => `ObjectId('${item}')`);
-      } else if (field) {
+      else if (field)
         newDocument[idField] = `ObjectId('${field}')`;
-      }
+
     });
 
     const documentString = JSON.stringify(newDocument, null, 2);

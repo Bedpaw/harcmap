@@ -16,8 +16,8 @@ export default {
       return (listOfPoints || []).length;
     },
     percentageProgressByCategoryId: (state, getters, rootState, rootGetters) => categoryId => {
-      return rootGetters['event/numberOfCollectedPointsByCategoryId'](categoryId) /
-        rootGetters['event/numberOfPermanentPointsByCategoryId'](categoryId) * 100;
+      return rootGetters['event/numberOfCollectedPointsByCategoryId'](categoryId)
+        / rootGetters['event/numberOfPermanentPointsByCategoryId'](categoryId) * 100;
     },
     numberOfPermanentPointsByCategoryId: (state, getters, rootState, rootGetters) => categoryId => {
       const listOfPoints = rootGetters['event/points'].filter(point => {

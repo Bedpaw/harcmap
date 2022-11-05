@@ -43,11 +43,11 @@ export default defineComponent({
   },
   computed: {
     loadingImg () {
-      if (this.$store.getters['theme/name'] === THEMES.dark) {
+      if (this.$store.getters['theme/name'] === THEMES.dark)
         return '/img/zhp-52.png';
-      } else {
+      else
         return '/img/zhp-green-52.png';
-      }
+
     },
   },
 });

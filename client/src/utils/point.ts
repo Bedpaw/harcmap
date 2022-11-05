@@ -49,12 +49,12 @@ export const pointUtils = {
   }: Partial<PointType>) {
     let timePeriod = timePeriods.isCurrent;
 
-    if (this.isFuture({ pointAppearanceTime })) {
+    if (this.isFuture({ pointAppearanceTime }))
       timePeriod = timePeriods.isFuture;
-    }
-    if (this.isPast({ pointExpirationTime })) {
+
+    if (this.isPast({ pointExpirationTime }))
       timePeriod = timePeriods.isPast;
-    }
+
     return generalConfigUtils.getIconByTimePeriod(timePeriod);
   },
   convertPointToForm (oldData: {pointExpirationTime: number, pointAppearanceTime: number}) {

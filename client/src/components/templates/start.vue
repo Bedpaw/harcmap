@@ -68,14 +68,13 @@ export default {
       const { eventStartDate, eventEndDate } = this.event;
       const { isBeforeStart, isOnGoing, isEndDateToday } = eventUtils;
 
-      if (isBeforeStart(this.event)) {
+      if (isBeforeStart(this.event))
         return this.$t('page.start.eventStartDate') + displayDate.inFormat(eventStartDate, DATE_FORMATS.DDMMYYYYHHmm);
-      }
 
       if (isOnGoing(this.event)) {
-        if (isEndDateToday(this.event)) {
+        if (isEndDateToday(this.event))
           return this.$t('page.start.eventEndTime') + displayDate.inFormat(eventEndDate, DATE_FORMATS.HHmm);
-        }
+
         return this.$t('page.start.eventEndDate') + displayDate.inFormat(eventEndDate, DATE_FORMATS.DDMMYYYYHHmm);
       }
       return this.$t('page.start.eventIsOutOfDate');

@@ -129,9 +129,9 @@ export default {
   },
   methods: {
     setItemRef (el) {
-      if (el) {
+      if (el)
         this.itemRefs.push(el);
-      }
+
     },
     definePopup () {
       this.popup = new Popup({

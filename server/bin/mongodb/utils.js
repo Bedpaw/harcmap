@@ -28,9 +28,8 @@ let connectionHandler;
  */
 async function connectToDatabase () {
   // Create connection handler
-  if (!connectionHandler) {
+  if (!connectionHandler)
     connectionHandler = await MongoClient.connect(connectionString, { useUnifiedTopology: true });
-  }
 
   return connectionHandler;
 }

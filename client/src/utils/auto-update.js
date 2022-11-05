@@ -29,9 +29,9 @@ export const autoUpdate = {
         if (error instanceof ErrorMessage) {
           console.log(error);
           error.showMessage();
-        } else {
+        } else
           (new ErrorMessage(error)).showMessage();
-        }
+
       });
   },
   stop () {
