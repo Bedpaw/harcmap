@@ -26,6 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - NPM husky
 - Geolocation distance detection
 - Map popup for not admin users
+- Textarea char counter
+- Markers counter
+- Change validation rules
+- Default date of timeout point
 
 ### Fixed
 - Refresh lines to represent team paths
@@ -33,7 +37,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Trimming and to lower case
 - Parsing email to lower cases in sign-in and sign-up
 - Fields lengths in joi validations
-- Fixes before release 2.1.0
+- Reset point description and success message on save new point
+- Point category description not save
+- Hidden permanent points (show before end of event)
+- Change border markers colors for teams to char "#"
+- Hide errors messages after auto update in inactive app
 - Semicolon problem for windows
 - Share event by apps on mobile app
 - Replace fetch with http plugin from capacitor for mobile apps
