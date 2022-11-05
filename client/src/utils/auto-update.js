@@ -27,10 +27,10 @@ export const autoUpdate = {
       .then(map.updateMapFeatures)
       .catch(error => {
         // TODO: stop updating for no active app and update on change app state
-        if (error instanceof ErrorMessage) {
+        if (error instanceof ErrorMessage)
           console.log(error);
           // error.showMessage();
-        } else {
+        else {
           // (new ErrorMessage(error)).showMessage();
         }
       });
