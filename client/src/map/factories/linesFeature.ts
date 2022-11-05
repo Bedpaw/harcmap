@@ -13,7 +13,7 @@ export function createLinesFeature (list: PointType[] = []) {
 
   const features = [] as Feature<LineString>[];
 
-  if (userUtils.can.seeAllTeamsTracks()) {
+  if (userUtils.can.seeAllTeamsTracks(store.getters['event/role'])) {
     const teams = store.getters['groups/teams'] as Team[];
     teams.map((team) => {
       const teamCollectedPoints = store.getters['groups/collectedPointsByTeam'](team);
