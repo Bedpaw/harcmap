@@ -77,9 +77,10 @@ export const map = {
     const nickname = store.getters['event/role'];
     const promise = store.dispatch('event/download', { eventId, teamId, role, nickname });
     promise.then(() => {
-      if (uCheck.isObject(map.realMap))
+      if (uCheck.isObject(map.realMap)) {
         map.points.create(store.getters['event/pointsVisibleOnMap']);
-
+        map.lines.create(store.getters['team/collectedPoints']);
+      }
     });
     return promise;
   },
