@@ -20,5 +20,5 @@ steps:
   - script: |
       cd client
       npm install
-      npx chromatic --project-token=8f68ac3f05f8
+      npx chromatic --project-token=8f68ac3f05f8 --storybook-config-dir='./src'
     displayName: 'build storybook'
