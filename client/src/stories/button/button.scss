@@ -1,0 +1,30 @@
+.storybook-button {
+  font-size: 14px;
+  position: relative;
+  text-align: center;
+  min-width: 184px;
+  height: 36px;
+  border-radius: 20px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.75px;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0 20px;
+  align-self: center;
+  outline: none;
+  border: 1px solid #07632CFF;
+
+  &:focus {
+    opacity: 0.5
+  }
+}
+.storybook-button--primary {
+  color: white;
+  background-color: #07632CFF;
+}
+.storybook-button--secondary {
+  color: #07632CFF;
+  background-color: transparent
+}
+
