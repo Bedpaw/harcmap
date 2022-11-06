@@ -3,13 +3,14 @@ import { compareDate, displayDate, getDate, isBeforeLastGapEndTime, sortObjectsL
 import { generalConfigUtils } from 'src/config/general-config';
 import { userUtils } from 'config/users-config';
 import { PointType } from 'models/point';
+import dayjs from 'dayjs';
 
 const { isActual, isPast, isFuture, isToday } = compareDate;
 const { timePeriods, order, pointType: pointTypes } = MACROS;
 
 const listUtils = {
   sortPointsAscending: (pointsList: Record<string, number>[]) => sortObjectsListByTime(pointsList, 'pointExpirationTime', order.ascending),
-  isPointIdOnList: (pointsList: string[], { pointId }: Partial<PointType>) => pointsList.includes(pointId!),
+  isPointIdOnList: (pointsList: string[], { pointId }: { pointId : string }) => pointsList.includes(pointId),
   getTodayPoints: (pointsList: Partial<Partial<PointType>>[]) => pointsList.filter(point => isToday(point.pointAppearanceTime)),
 };
 
@@ -37,7 +38,7 @@ export const pointUtils = {
   ...listUtils,
   ...timeUtils,
   ...stateUtils,
-  getLonLatAsString: ({ pointLatitude, pointLongitude }: Partial<PointType>) => pointLatitude!.toFixed(5) + ',' + pointLongitude!.toFixed(5),
+  getLonLatAsString: ({ pointLatitude, pointLongitude }: { pointLatitude: number, pointLongitude: number }) => pointLatitude.toFixed(5) + ',' + pointLongitude.toFixed(5),
   getTimeClass (point: Partial<PointType>) {
     if (this.isFuture(point)) return 'f-future-point';
     if (this.isTimeoutActive(point)) return 'f-active-point';
@@ -88,10 +89,10 @@ export const pointUtils = {
   },
 
   pointIsDisplayedAsCollected (
-    point: Partial<PointType>,
+    point: PointType,
     role: string,
     { pointsCollectedByTeam, mapRefreshTime }: { pointsCollectedByTeam: string[], mapRefreshTime: number },
-    currentTime?: any,
+    currentTime?: dayjs.Dayjs,
   ) {
     // Status: All points
     // Filter: Timeout points always not collected
@@ -108,7 +109,7 @@ export const pointUtils = {
     // Status: Permanent collected points seen by common user, but not collected by him
     // Filter: Point is permanent and collected, but team don't know it to next gap time
     // Gap time is last full time from mapRefreshTime counting from full hours
-    return isBeforeLastGapEndTime(mapRefreshTime as number, point.pointCollectionTime!, currentTime) === true;
+    return isBeforeLastGapEndTime(mapRefreshTime as number, point.pointCollectionTime as number, currentTime) === true;
   },
 
 };

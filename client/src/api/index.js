@@ -6,7 +6,6 @@ import { eventController } from 'src/api/real/event-controller';
 import { userController } from 'src/api/real/user-controller';
 import { teamController } from 'src/api/real/team-controller';
 import { pointCategoryController } from 'src/api/real/point-category-controller';
-import { DEVELOPMENT_MODE } from 'config/app-env';
 
 export const api = {
   ...authController,
@@ -22,6 +21,3 @@ export const api = {
     });
   },
 };
-
-if (DEVELOPMENT_MODE)
-  window.api = api;

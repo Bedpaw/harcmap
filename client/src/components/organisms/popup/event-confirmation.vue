@@ -36,6 +36,7 @@ import { userUtils } from 'config/users-config';
 import { DATE_FORMATS, displayDate } from 'utils/date';
 import { enterEvent } from 'utils/enter-event';
 import { testSelectors } from 'data/selectors';
+import { api } from 'api';
 
 export default {
   name: 'o-popup-event-confirmation',
