@@ -526,5 +526,8 @@ export const plPL = {
           zakażenia ze względu na sposób przenoszenia wirusa.`,
       },
     },
+    searcher: {
+      markersResultLength: 'Ilość znalezionych punktów:',
+    },
   },
 };

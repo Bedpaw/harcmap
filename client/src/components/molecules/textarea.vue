@@ -17,7 +17,7 @@
       :class="{ 'f-correct': correct, 'f-error': error }"
       :for="id"
     >
-      {{ placeholder }}
+      {{ placeholder }} <span v-if="vModel?.length">({{ vModel.length }})</span>
     </label>
     <a-icon
       v-if="error"
