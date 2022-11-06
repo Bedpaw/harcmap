@@ -14,7 +14,10 @@ export function createPoints (list: PointType[] = []) {
   for (const point of list) {
     const lat = point.pointLatitude;
     const lon = point.pointLongitude;
-    const appearance = pointCategoryUtils.getPointAppearance(point.pointCategoryId, point.pointType);
+    const appearance = pointCategoryUtils.getPointAppearance(
+      point.pointCategoryId,
+      point.pointType,
+    );
     const showCollected = shouldBeShownAsCollected(point);
     changeColorForTeam(point, appearance);
 

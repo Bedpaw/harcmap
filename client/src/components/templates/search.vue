@@ -7,6 +7,9 @@
         :assist="searchAssist"
       />
     </div>
+    <div class="a-assist">
+      {{ $t('features.searcher.markersResultLength') }} {{ filteredElements.length }}
+    </div>
     <slot
       name="result-list"
       :filteredElements="filteredElements"
