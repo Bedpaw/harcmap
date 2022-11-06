@@ -49,7 +49,7 @@ export const timeUnitConversion = {
   msToSeconds: (seconds: number): number => seconds * msInSeconds,
 };
 
-export function isCurrentHour (timeToCompare: DateType, currentTime = dayjs()) {
+export function isCurrentHour (timeToCompare: DateType, currentTime: dayjs.Dayjs = dayjs()) {
   if (!compareDate.isToday(timeToCompare))
     return false;
   else {
@@ -59,7 +59,7 @@ export function isCurrentHour (timeToCompare: DateType, currentTime = dayjs()) {
   }
 }
 
-export function isBeforeLastGapEndTime (refreshIntervalInSeconds: number, timeToCompare: number, currentTime = dayjs()): boolean {
+export function isBeforeLastGapEndTime (refreshIntervalInSeconds: number, timeToCompare: number, currentTime: dayjs.Dayjs = dayjs()): boolean {
   /**
    * Name = example value | [possible range]
    *
